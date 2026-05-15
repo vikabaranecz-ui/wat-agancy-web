@@ -140,7 +140,8 @@ nav.scrolled{height:56px;box-shadow:0 4px 24px rgba(17,17,17,.07)}
 .hi-card:nth-child(4){--fd:4.2s;animation-delay:.6s}
 .hi-card:nth-child(5){--fd:4.6s;animation-delay:.3s}
 @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
-.hi-ico{width:44px;height:44px;border-radius:12px;background:var(--red-10);display:flex;align-items:center;justify-content:center;font-size:22px}
+.hi-ico{width:44px;height:44px;border-radius:12px;background:var(--red-10);display:flex;align-items:center;justify-content:center;font-size:0}
+.hi-ico svg{stroke:var(--red)}
 .hi-lbl{font-family:'Exo 2',sans-serif;font-size:10px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;color:var(--ink-60);text-align:center}
 @media(max-width:768px){
   .hero{padding:100px 24px 72px}
@@ -191,7 +192,8 @@ nav.scrolled{height:56px;box-shadow:0 4px 24px rgba(17,17,17,.07)}
 .sol-items{display:flex;flex-direction:column;gap:24px}
 .sol-item{display:flex;gap:16px;align-items:flex-start;padding:20px;background:rgba(248,247,244,.06);border-radius:var(--r16);border:1px solid rgba(248,247,244,.08);transition:background .2s,border-color .2s}
 .sol-item:hover{background:rgba(248,247,244,.1);border-color:rgba(230,59,30,.3)}
-.sol-ico{font-size:26px;flex-shrink:0;margin-top:2px}
+.sol-ico{font-size:0;flex-shrink:0;margin-top:2px;width:28px;height:28px;display:flex;align-items:center;justify-content:center}
+.sol-ico svg{stroke:rgba(248,247,244,.7)}
 .sol-item h4{font-family:'Exo 2',sans-serif;font-size:15px;font-weight:700;color:#F8F7F4;margin-bottom:5px}
 .sol-item p{font-size:13px;line-height:1.75;color:rgba(248,247,244,.55)}
 .sol-card{background:rgba(230,59,30,.12);border:1px solid rgba(230,59,30,.25);border-radius:var(--r24);padding:40px 36px}
@@ -244,7 +246,8 @@ nav.scrolled{height:56px;box-shadow:0 4px 24px rgba(17,17,17,.07)}
 .whom-list{display:flex;flex-direction:column;gap:8px}
 .whom-row{display:flex;gap:14px;align-items:flex-start;padding:16px 18px;background:var(--bg-card);border-radius:var(--r12);border:1px solid var(--border);transition:border-color .2s,transform .2s,box-shadow .2s}
 .whom-row:hover{border-color:var(--red);transform:translateX(4px);box-shadow:0 4px 16px var(--red-06)}
-.w-ico{font-size:22px;flex-shrink:0;margin-top:1px}
+.w-ico{font-size:0;flex-shrink:0;width:36px;height:36px;border-radius:10px;background:var(--red-10);display:flex;align-items:center;justify-content:center;border:1px solid var(--border-red)}
+.w-ico svg{stroke:var(--red)}
 .whom-row strong{font-family:'Exo 2',sans-serif;font-size:13px;font-weight:700;display:block;margin-bottom:3px}
 .whom-row p{font-size:12px;line-height:1.65;color:var(--ink-60)}
 .whom-callout{background:var(--red);border-radius:var(--r24);padding:44px 36px;position:relative;overflow:hidden}
@@ -313,6 +316,16 @@ nav.scrolled{height:56px;box-shadow:0 4px 24px rgba(17,17,17,.07)}
 .f-btn:hover::after{transform:translateX(110%)}
 .f-note{font-size:11px;color:rgba(248,247,244,.26);text-align:center;letter-spacing:.5px;margin-top:4px}
 @media(max-width:768px){.form-cols{grid-template-columns:1fr;gap:36px}.fg-row{grid-template-columns:1fr}}
+
+/* ── IMAGES ── */
+.hero-photo{position:absolute;right:5%;bottom:0;top:66px;width:min(420px,32vw);border-radius:24px 24px 0 0;overflow:hidden;z-index:1;box-shadow:-20px 0 80px rgba(17,17,17,.12),0 0 0 1px var(--border)}
+.hero-photo img{width:100%;height:100%;object-fit:cover;object-position:center top;display:block}
+@media(max-width:1200px){.hero-photo{display:none}}
+.case-img{width:100%;aspect-ratio:16/9;border-radius:var(--r16);overflow:hidden;margin-bottom:18px;border:1px solid var(--border)}
+.case-img img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s cubic-bezier(.22,1,.36,1)}
+.case-card:hover .case-img img{transform:scale(1.04)}
+.whom-img{width:100%;aspect-ratio:16/9;border-radius:var(--r16);overflow:hidden;margin-bottom:22px;border:1px solid rgba(255,255,255,.12)}
+.whom-img img{width:100%;height:100%;object-fit:cover;display:block}
 
 /* ── SVG ICONS ── */
 .svc-ico-box svg{width:28px;height:28px;stroke:var(--red);stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;fill:none}
@@ -427,6 +440,9 @@ footer{background:var(--bg-card);padding:52px 64px 36px;border-top:1px solid var
   <span class="hero-plus p1">+</span>
   <span class="hero-plus p2">+</span>
   <span class="hero-plus p3">+</span>
+  <div class="hero-photo">
+    <img src="https://d8j0ntlcm91z4.cloudfront.net/user_39fS9dwEv1BGeL8PN3Ut7MGivEM/hf_20260515_173535_34e6e44f-ff16-44b0-a17d-c6541088dbb7.png" alt="Підприємець за ноутбуком в офісі Бельгії" loading="eager">
+  </div>
   <div class="hero-inner">
     <div class="hero-eyebrow rv">Для українського бізнесу в Бельгії</div>
     <h1 class="rv d1">
@@ -450,23 +466,23 @@ footer{background:var(--bg-card);padding:52px 64px 36px;border-top:1px solid var
   </div>
   <div class="hero-icons rv d5">
     <div class="hi-card">
-      <div class="hi-ico">🌐</div>
+      <div class="hi-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="24" height="24"><rect x="2" y="3" width="20" height="16" rx="2"/><line x1="2" y1="8" x2="22" y2="8"/><circle cx="6" cy="5.5" r="1.2" fill="currentColor" stroke="none"/><circle cx="10" cy="5.5" r="1.2" fill="currentColor" stroke="none"/></svg></div>
       <span class="hi-lbl">Сайт</span>
     </div>
     <div class="hi-card">
-      <div class="hi-ico">🗺️</div>
+      <div class="hi-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="24" height="24"><path d="M12 2C8.7 2 6 4.7 6 8c0 5.3 6 13 6 13s6-7.7 6-13c0-3.3-2.7-6-6-6z"/><circle cx="12" cy="8" r="2.5"/></svg></div>
       <span class="hi-lbl">Google</span>
     </div>
     <div class="hi-card">
-      <div class="hi-ico">📱</div>
+      <div class="hi-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="24" height="24"><rect x="5" y="2" width="14" height="20" rx="3"/><circle cx="12" cy="17.5" r="1.2" fill="currentColor" stroke="none"/></svg></div>
       <span class="hi-lbl">Соцмережі</span>
     </div>
     <div class="hi-card">
-      <div class="hi-ico">📝</div>
+      <div class="hi-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="24" height="24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.12 2.12 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></div>
       <span class="hi-lbl">Контент</span>
     </div>
     <div class="hi-card">
-      <div class="hi-ico">🎯</div>
+      <div class="hi-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="24" height="24"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2.5" fill="currentColor" stroke="none"/></svg></div>
       <span class="hi-lbl">Реклама</span>
     </div>
   </div>
@@ -543,28 +559,28 @@ footer{background:var(--bg-card);padding:52px 64px 36px;border-top:1px solid var
   <div class="sol-grid">
     <div class="sol-items">
       <div class="sol-item rv">
-        <span class="sol-ico">🌐</span>
+        <span class="sol-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="28" height="28"><rect x="2" y="3" width="20" height="16" rx="2"/><line x1="2" y1="8" x2="22" y2="8"/><circle cx="6" cy="5.5" r="1.2" fill="currentColor" stroke="none"/><circle cx="10" cy="5.5" r="1.2" fill="currentColor" stroke="none"/><line x1="8" y1="13" x2="16" y2="13"/><line x1="8" y1="16" x2="13" y2="16"/></svg></span>
         <div>
           <h4>Повна онлайн-присутність</h4>
           <p>Сайт, Google Business, соцмережі — все в одній системі що працює разом.</p>
         </div>
       </div>
       <div class="sol-item rv d1">
-        <span class="sol-ico">🇧🇪</span>
+        <span class="sol-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="28" height="28"><path d="M12 2C8.7 2 6 4.7 6 8c0 5.3 6 13 6 13s6-7.7 6-13c0-3.3-2.7-6-6-6z"/><circle cx="12" cy="8" r="2.5"/></svg></span>
         <div>
           <h4>На мові бельгійського клієнта</h4>
           <p>Нідерландська або французька — залежно від вашого регіону. Клієнт відчуває: цей бізнес тут, для нього.</p>
         </div>
       </div>
       <div class="sol-item rv d2">
-        <span class="sol-ico">📈</span>
+        <span class="sol-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="28" height="28"><polyline points="23,6 13.5,15.5 8.5,10.5 1,18"/><polyline points="17,6 23,6 23,12"/></svg></span>
         <div>
           <h4>Система що міцніє щомісяця</h4>
           <p>Не разова акція. Фундамент що кожен місяць стає сильнішим — нові відгуки, контент, позиції.</p>
         </div>
       </div>
       <div class="sol-item rv d3">
-        <span class="sol-ico">⏱️</span>
+        <span class="sol-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="28" height="28"><circle cx="12" cy="12" r="10"/><polyline points="12,6 12,12 16,14"/></svg></span>
         <div>
           <h4>Поки ви на об'єкті — система залучає</h4>
           <p>Ми беремо на себе всю онлайн-сторону. Ви фокусуєтесь на роботі.</p>
@@ -724,13 +740,16 @@ footer{background:var(--bg-card);padding:52px 64px 36px;border-top:1px solid var
   <p class="sec-sub rv">Ми розуміємо вашу специфіку і знаємо <strong>чого хоче бельгійський клієнт.</strong></p>
   <div class="whom-cols">
     <div class="whom-list">
-      <div class="whom-row rv"><span class="w-ico">🔨</span><div><strong>Будівництво та ремонт</strong><p>Renovatie, verbouwing — покажіть проекти так, щоб клієнт хотів вас найняти ще до дзвінка.</p></div></div>
-      <div class="whom-row rv d1"><span class="w-ico">🏠</span><div><strong>Утеплення та ізоляція</strong><p>Конкурентний сектор. Хто видніший онлайн — той отримує запит.</p></div></div>
-      <div class="whom-row rv d2"><span class="w-ico">⚡</span><div><strong>Електрика, сантехніка, оздоблення</strong><p>Локальні послуги де Google і відгуки вирішують все. Будьте там де шукають.</p></div></div>
-      <div class="whom-row rv d3"><span class="w-ico">🌿</span><div><strong>Прибирання, сад, побутові послуги</strong><p>Будь-який локальний сервіс в Бельгії виграє від системної онлайн-присутності.</p></div></div>
-      <div class="whom-row rv d4"><span class="w-ico">🏪</span><div><strong>Малий бізнес будь-якого профілю</strong><p>Ресторан, магазин, студія — якщо у вас є клієнти в Бельгії, ця система для вас.</p></div></div>
+      <div class="whom-row rv"><span class="w-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="22" height="22"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg></span><div><strong>Будівництво та ремонт</strong><p>Renovatie, verbouwing — покажіть проекти так, щоб клієнт хотів вас найняти ще до дзвінка.</p></div></div>
+      <div class="whom-row rv d1"><span class="w-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="22" height="22"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9,22 9,12 15,12 15,22"/></svg></span><div><strong>Утеплення та ізоляція</strong><p>Конкурентний сектор. Хто видніший онлайн — той отримує запит.</p></div></div>
+      <div class="whom-row rv d2"><span class="w-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="22" height="22"><polygon points="13,2 3,14 12,14 11,22 21,10 12,10 13,2"/></svg></span><div><strong>Електрика, сантехніка, оздоблення</strong><p>Локальні послуги де Google і відгуки вирішують все. Будьте там де шукають.</p></div></div>
+      <div class="whom-row rv d3"><span class="w-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="22" height="22"><path d="M17 8C8 10 5.9 16.17 3.82 19.34a1 1 0 0 0 1.39 1.38c2.08-1.29 4.33-2 6.79-2 4 0 7-2 7-6-4.59 1.15-6.5-2-6.5-2"/><path d="M5 22c4-8 11-10 17-8"/></svg></span><div><strong>Прибирання, сад, побутові послуги</strong><p>Будь-який локальний сервіс в Бельгії виграє від системної онлайн-присутності.</p></div></div>
+      <div class="whom-row rv d4"><span class="w-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="22" height="22"><path d="M3 9h18v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V9z"/><path d="M3 9l2.45-4.9A2 2 0 0 1 7.24 3h9.52a2 2 0 0 1 1.8 1.1L21 9"/><line x1="12" y1="3" x2="12" y2="9"/></svg></span><div><strong>Малий бізнес будь-якого профілю</strong><p>Ресторан, магазин, студія — якщо у вас є клієнти в Бельгії, ця система для вас.</p></div></div>
     </div>
     <div class="whom-callout rv-r">
+      <div class="whom-img">
+        <img src="https://d8j0ntlcm91z4.cloudfront.net/user_39fS9dwEv1BGeL8PN3Ut7MGivEM/hf_20260515_173542_505136f1-c8c3-414c-b545-a3ad4489cfb6.png" alt="Професійний підрядник в Бельгії" loading="lazy">
+      </div>
       <span class="wc-tag">Важливо знати</span>
       <h3>Бельгія — це<br>не Україна</h3>
       <p>Тут клієнти не довіряють рекомендаціям без онлайн-підтвердження. Вони шукають у Google, читають відгуки, заходять на сайт — і лише тоді дзвонять. Ваша онлайн-присутність — перше рукостискання з новим клієнтом. Ми робимо це рукостискання впевненим.</p>
@@ -765,6 +784,9 @@ footer{background:var(--bg-card);padding:52px 64px 36px;border-top:1px solid var
 
     <!-- RENO RANGERS -->
     <div class="case-card rv">
+      <div class="case-img">
+        <img src="https://d8j0ntlcm91z4.cloudfront.net/user_39fS9dwEv1BGeL8PN3Ut7MGivEM/hf_20260515_173518_bb36b8ef-0c92-49ef-89f2-a4d6a65a2ec0.png" alt="Ремонт ванної кімнати — Reno Rangers BV" loading="lazy">
+      </div>
       <div class="case-num">RR</div>
       <div class="case-ind">🏠 Ремонт та будівництво</div>
       <div class="case-co">Reno Rangers BV</div>
@@ -799,6 +821,9 @@ footer{background:var(--bg-card);padding:52px 64px 36px;border-top:1px solid var
 
     <!-- ISOPROTECH -->
     <div class="case-card rv d2">
+      <div class="case-img">
+        <img src="https://d8j0ntlcm91z4.cloudfront.net/user_39fS9dwEv1BGeL8PN3Ut7MGivEM/hf_20260515_173527_c1b461ec-32d5-4f93-85b6-a4c13ba7fd3b.png" alt="Ізоляція фасаду бельгійського будинку — ISOPROTECH" loading="lazy">
+      </div>
       <div class="case-num">IP</div>
       <div class="case-ind">🏗 Ізоляція та енергоефективність</div>
       <div class="case-co">ISOPROTECH</div>
