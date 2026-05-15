@@ -314,6 +314,28 @@ nav.scrolled{height:56px;box-shadow:0 4px 24px rgba(17,17,17,.07)}
 .f-note{font-size:11px;color:rgba(248,247,244,.26);text-align:center;letter-spacing:.5px;margin-top:4px}
 @media(max-width:768px){.form-cols{grid-template-columns:1fr;gap:36px}.fg-row{grid-template-columns:1fr}}
 
+/* ── CASES ── */
+.case-grid{display:grid;grid-template-columns:1fr 1fr;gap:32px;margin-top:52px}
+.case-card{background:var(--bg-card);border-radius:var(--r24);padding:36px 32px;border:1px solid var(--border);position:relative;overflow:hidden;transition:transform .35s cubic-bezier(.22,1,.36,1),box-shadow .35s}
+.case-card:hover{transform:translateY(-5px);box-shadow:0 28px 72px rgba(17,17,17,.09)}
+.case-ind{display:inline-flex;align-items:center;gap:6px;background:var(--red-10);color:var(--red);font-family:'Exo 2',sans-serif;font-size:9px;font-weight:700;letter-spacing:3px;text-transform:uppercase;padding:5px 12px;border-radius:40px;border:1px solid var(--border-red);margin-bottom:20px}
+.case-co{font-family:'Exo 2',sans-serif;font-size:clamp(28px,3vw,40px);font-weight:900;color:var(--ink);line-height:.95;letter-spacing:-1.5px;margin-bottom:6px}
+.case-loc{font-size:12px;color:var(--ink-40);font-weight:500;letter-spacing:.3px;margin-bottom:22px;display:flex;align-items:center;gap:5px}
+.case-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:22px;padding:18px 16px;background:var(--bg-alt);border-radius:var(--r16)}
+.case-stat-val{font-family:'Exo 2',sans-serif;font-size:24px;font-weight:900;color:var(--red);letter-spacing:-1px;line-height:1}
+.case-stat-lbl{font-size:10px;color:var(--ink-60);font-weight:500;margin-top:3px;line-height:1.3}
+.case-divider{height:1px;background:var(--border);margin:18px 0}
+.case-what-ttl{font-family:'Exo 2',sans-serif;font-size:9px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--ink-40);margin-bottom:12px}
+.case-what-list{display:flex;flex-direction:column;gap:8px;margin-bottom:20px}
+.case-what-item{display:flex;align-items:flex-start;gap:10px;font-size:13px;color:var(--ink-60);line-height:1.5}
+.case-what-item::before{content:'✓';color:var(--red);font-weight:900;font-size:11px;margin-top:2px;flex-shrink:0}
+.case-result{background:var(--ink);border-radius:var(--r12);padding:16px 18px}
+.case-result p{font-family:'Exo 2',sans-serif;font-size:13px;font-weight:600;color:#F8F7F4;line-height:1.5}
+.case-result p span{color:var(--red)}
+.case-num{position:absolute;bottom:-24px;right:-4px;font-family:'Bebas Neue',sans-serif;font-size:140px;line-height:1;color:rgba(17,17,17,.025);pointer-events:none;user-select:none}
+@media(max-width:900px){.case-grid{grid-template-columns:1fr}}
+@media(max-width:600px){.case-card{padding:24px 20px}.case-stats{padding:14px 10px;gap:8px}.case-stat-val{font-size:20px}}
+
 /* ── FOOTER ── */
 footer{background:var(--bg-card);padding:52px 64px 36px;border-top:1px solid var(--border)}
 .foot-inner{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:48px}
@@ -344,6 +366,7 @@ footer{background:var(--bg-card);padding:52px 64px 36px;border-top:1px solid var
   <div class="nav-links">
     <a href="#posluhy">Послуги</a>
     <a href="#protses">Процес</a>
+    <a href="#keys">Кейси</a>
     <a href="#paket">Пакет</a>
     <a href="#contact">Контакт</a>
   </div>
@@ -354,6 +377,7 @@ footer{background:var(--bg-card);padding:52px 64px 36px;border-top:1px solid var
 <div class="mob-drawer" id="mob-drawer">
   <a class="ml" href="#posluhy" onclick="closeMob()">Послуги <span class="arr">→</span></a>
   <a class="ml" href="#protses" onclick="closeMob()">Процес <span class="arr">→</span></a>
+  <a class="ml" href="#keys" onclick="closeMob()">Кейси <span class="arr">→</span></a>
   <a class="ml" href="#paket" onclick="closeMob()">Пакет <span class="arr">→</span></a>
   <a class="ml" href="#contact" onclick="closeMob()">Контакт <span class="arr">→</span></a>
   <a class="mc" href="#contact" onclick="closeMob()">Безкоштовний аналіз →</a>
@@ -693,9 +717,88 @@ footer{background:var(--bg-card);padding:52px 64px 36px;border-top:1px solid var
   </div>
 </section>
 
+<!-- CASES -->
+<section class="sec sec-white" id="keys">
+  <div class="s-bg-num">07</div>
+  <div class="sec-tag rv">Кейси клієнтів</div>
+  <div class="big-h rv" style="font-size:clamp(44px,7.5vw,100px)">Ось що ми<br><span class="red-acc">вже зробили</span></div>
+  <p class="sec-sub rv">Реальні клієнти, реальні результати. Бізнеси в Антверпені — від ремонту до ізоляції.</p>
+  <div class="case-grid">
+
+    <!-- RENO RANGERS -->
+    <div class="case-card rv">
+      <div class="case-num">RR</div>
+      <div class="case-ind">🏠 Ремонт та будівництво</div>
+      <div class="case-co">Reno Rangers BV</div>
+      <div class="case-loc">📍 Антверпен + 18 міст&nbsp;·&nbsp;renorangers.be</div>
+      <div class="case-stats">
+        <div>
+          <div class="case-stat-val">200+</div>
+          <div class="case-stat-lbl">завершених проектів</div>
+        </div>
+        <div>
+          <div class="case-stat-val">5.0</div>
+          <div class="case-stat-lbl">рейтинг Google</div>
+        </div>
+        <div>
+          <div class="case-stat-val">18</div>
+          <div class="case-stat-lbl">міст в охопленні</div>
+        </div>
+      </div>
+      <div class="case-divider"></div>
+      <div class="case-what-ttl">Що ми побудували</div>
+      <div class="case-what-list">
+        <div class="case-what-item">React-сайт з нідерландськомовним SEO під ринок Антверпена</div>
+        <div class="case-what-item">Окремі сторінки для кожної послуги — ванна, тотальний ремонт, обробка інтер'єру</div>
+        <div class="case-what-item">18 міських сторінок — ранжування в кожному районі та муніципалітеті</div>
+        <div class="case-what-item">Калькулятор вартості: ванна від €6 000, тотальний ремонт від €14 000+</div>
+        <div class="case-what-item">Позиціонування «фіксована ціна, один контакт» — саме те що шукає бельгійець</div>
+      </div>
+      <div class="case-result">
+        <p>Клієнти знаходять Reno Rangers по запитах <span>"renovatie aannemer Antwerpen"</span> та <span>"badkamerrenovatie"</span> — до нас сайту не існувало.</p>
+      </div>
+    </div>
+
+    <!-- ISOPROTECH -->
+    <div class="case-card rv d2">
+      <div class="case-num">IP</div>
+      <div class="case-ind">🏗 Ізоляція та енергоефективність</div>
+      <div class="case-co">ISOPROTECH</div>
+      <div class="case-loc">📍 Антверпен + 10 міст&nbsp;·&nbsp;isoprotech.be</div>
+      <div class="case-stats">
+        <div>
+          <div class="case-stat-val">5.0</div>
+          <div class="case-stat-lbl">рейтинг Google</div>
+        </div>
+        <div>
+          <div class="case-stat-val">47</div>
+          <div class="case-stat-lbl">Google відгуків</div>
+        </div>
+        <div>
+          <div class="case-stat-val">10</div>
+          <div class="case-stat-lbl">міст в пошуку</div>
+        </div>
+      </div>
+      <div class="case-divider"></div>
+      <div class="case-what-ttl">Що ми побудували</div>
+      <div class="case-what-list">
+        <div class="case-what-item">Next.js сайт з повним нідерландськомовним SEO — дах, фасад, ізоляція, асбест</div>
+        <div class="case-what-item">10 міських сторінок — Антверпен, Мехелен, Брасхат, Шотен, Едегем та ін.</div>
+        <div class="case-what-item">FAQ-схема і структуровані дані — Google Knowledge Panel і розширені результати</div>
+        <div class="case-what-item">WhatsApp трекінг і Google Tag Manager — аналітика кожного ліда з першого дня</div>
+        <div class="case-what-item">Калькулятор ціни і форма «безкоштовна інспекція» — конвертація прямо з сайту</div>
+      </div>
+      <div class="case-result">
+        <p>ISOPROTECH ранжується по всіх цільових містах за <span>"dakisolatie Antwerpen"</span> та <span>"gevelisolatie"</span>. <span>47 відгуків — усі 5 зірок.</span></p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
 <!-- OFFER / PACKAGE -->
 <section class="sec sec-white" id="paket">
-  <div class="s-bg-num">07</div>
+  <div class="s-bg-num">08</div>
   <div class="sec-tag rv">Ваш старт</div>
   <div class="big-h rv" style="font-size:clamp(44px,7.5vw,100px)">Обери свій<br><span class="red-acc">стартовий пакет</span></div>
   <p class="sec-sub rv">Починаємо з того що дає найбільший результат зараз. Масштабуємо далі.</p>
@@ -742,7 +845,7 @@ footer{background:var(--bg-card);padding:52px 64px 36px;border-top:1px solid var
 
 <!-- FORM -->
 <section class="sec sec-dark" id="contact">
-  <div class="s-bg-num">08</div>
+  <div class="s-bg-num">09</div>
   <div class="form-cols">
     <div class="rv">
       <div class="sec-tag" style="margin-bottom:16px">Готові почати?</div>
