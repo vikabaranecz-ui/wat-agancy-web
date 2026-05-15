@@ -72,3 +72,9 @@ Notes:
 - `/research-lead` — Deep-dive research on a specific company
 - `/find-leads` — Find new leads matching the ICP in a given area
 - `/qualify-lead` — Score and qualify a lead against ICP criteria
+- `/social-audit` — Audit a lead's social media and online presence across all channels
+- `/outreach` — Draft a personalized Dutch cold outreach message + follow-up sequence
+
+## Supporting Context
+
+See `.claude/wat-marketing-context.md` for WAT? Agency brand voice, personas, objection handling, and competitive positioning. Load this before any outreach or content task.
