@@ -1,0 +1,875 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Повна онлайн-присутність для українського бізнесу в Бельгії | WAT? Agency</title>
+<meta name="description" content="Ми будуємо повну онлайн-присутність для українських підприємців у Бельгії — сайт, Google Business, соцмережі, контент, реклама в одній системі що залучає клієнтів.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Oswald:wght@400;500;600;700&family=Montserrat:wght@400;600;700;800;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --red:#6E0D0D;--red-deep:#480808;--red-dark:#380606;--red-mid:#5c0b0b;
+  --lime:#84E021;--lime-bright:#AAFF44;--lime-pale:#EBF9CC;
+  --ink:#1A0303;--ink-mid:#3D1010;--ink-soft:#6B3030;
+  --bg:#F6F0E8;--bg-card:#FFFFFF;--bg-warm:#F0E8DC;--bg-alt:#EDE3D3;
+  --border:rgba(110,13,13,.12);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{background:var(--bg);color:var(--ink);font-family:'Inter',sans-serif;font-size:16px;line-height:1.6;overflow-x:hidden}
+a{text-decoration:none}
+img{display:block;max-width:100%}
+
+/* PROGRESS */
+#prog{position:fixed;top:0;left:0;right:0;height:3px;background:var(--lime);z-index:9000;transform:scaleX(0);transform-origin:left;box-shadow:0 0 10px rgba(132,224,33,.7);transition:transform .1s linear}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:500;background:var(--red-deep);display:flex;align-items:center;justify-content:space-between;padding:0 48px;height:62px;border-bottom:1px solid rgba(132,224,33,.15);transition:height .3s}
+nav.slim{height:52px}
+.nav-logo{font-family:'Bebas Neue',sans-serif;font-size:26px;letter-spacing:5px;color:#F7F2EA;display:flex;align-items:center}
+.nav-logo .q{color:var(--lime);font-size:32px;line-height:.85}
+.nav-logo:hover{opacity:.85}
+.nav-links{display:flex;gap:24px;align-items:center}
+.nav-links a{font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(247,242,234,.52);transition:color .2s;position:relative;padding:4px 0}
+.nav-links a::after{content:'';position:absolute;bottom:-2px;left:0;right:0;height:1.5px;background:var(--lime);transform:scaleX(0);transform-origin:left;transition:transform .25s}
+.nav-links a:hover,.nav-links a.active{color:var(--lime)}
+.nav-links a:hover::after,.nav-links a.active::after{transform:scaleX(1)}
+.nav-cta{font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--ink);background:var(--lime);padding:10px 22px;clip-path:polygon(8px 0%,100% 0%,calc(100% - 8px) 100%,0% 100%);transition:background .2s,transform .15s}
+.nav-cta:hover{background:var(--lime-bright);transform:scale(1.04)}
+.ham{display:none;flex-direction:column;gap:5px;padding:8px;cursor:pointer;background:none;border:none;-webkit-tap-highlight-color:transparent;flex-shrink:0}
+.ham span{display:block;width:22px;height:2px;background:#F7F2EA;border-radius:2px;transition:transform .3s,opacity .3s}
+.ham.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.ham.open span:nth-child(2){opacity:0}
+.ham.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+.mob-drawer{position:fixed;top:56px;left:0;right:0;bottom:0;background:var(--red-dark);z-index:490;display:flex;flex-direction:column;padding:32px 24px;gap:2px;transform:translateX(100%);transition:transform .35s cubic-bezier(.22,1,.36,1);overflow-y:auto}
+.mob-drawer.open{transform:none}
+.mob-drawer a.mob-lnk{font-family:'Montserrat',sans-serif;font-size:clamp(22px,6vw,30px);font-weight:700;letter-spacing:1px;text-transform:uppercase;color:rgba(247,242,234,.72);padding:13px 0;border-bottom:1px solid rgba(255,255,255,.07);display:flex;align-items:center;justify-content:space-between;transition:color .2s}
+.mob-drawer a.mob-lnk:hover{color:var(--lime)}
+.mob-drawer a.mob-lnk .arr{font-size:18px;color:var(--lime);opacity:.5}
+.mob-drawer a.mob-cta{margin-top:24px;display:block;text-align:center;font-family:'Montserrat',sans-serif;font-size:12px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--ink);background:var(--lime);padding:18px;clip-path:polygon(10px 0%,100% 0%,calc(100% - 10px) 100%,0% 100%);transition:background .2s}
+.mob-drawer a.mob-cta:hover{background:var(--lime-bright)}
+
+/* BACK TO TOP */
+#back-top{position:fixed;bottom:28px;left:28px;z-index:400;width:42px;height:42px;border-radius:50%;background:var(--red-deep);border:1.5px solid rgba(132,224,33,.3);display:flex;align-items:center;justify-content:center;font-size:17px;color:var(--lime);cursor:pointer;opacity:0;transform:translateY(8px);transition:opacity .3s,transform .3s,background .2s;pointer-events:none;text-decoration:none}
+#back-top.show{opacity:1;transform:none;pointer-events:auto}
+#back-top:hover{background:var(--red)}
+
+/* MOBILE STICKY BAR */
+.sticky-bar{position:fixed;bottom:0;left:0;right:0;z-index:450;background:var(--red-deep);border-top:2px solid var(--lime);padding:12px 20px;display:none;align-items:center;justify-content:space-between;gap:12px}
+@media(max-width:768px){.sticky-bar{display:flex}}
+.sticky-bar p{font-family:'Montserrat',sans-serif;font-size:11px;font-weight:600;letter-spacing:.4px;color:rgba(247,242,234,.72);line-height:1.3}
+.sticky-bar p strong{color:var(--lime);display:block;font-size:13px}
+.sticky-bar a{font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--ink);background:var(--lime);padding:12px 16px;white-space:nowrap;clip-path:polygon(6px 0%,100% 0%,calc(100% - 6px) 100%,0% 100%)}
+
+@media(max-width:768px){
+  nav{padding:0 20px;height:56px}
+  .nav-links,.nav-cta{display:none}
+  .ham{display:flex}
+  .nav-logo{font-size:22px}
+  .nav-logo .q{font-size:28px}
+  #back-top{bottom:88px;left:16px;width:38px;height:38px;font-size:15px}
+}
+
+/* REVEAL */
+.rv{transition:opacity .72s cubic-bezier(.22,1,.36,1),transform .72s cubic-bezier(.22,1,.36,1)}
+.rv-l{transition:opacity .72s cubic-bezier(.22,1,.36,1),transform .72s cubic-bezier(.22,1,.36,1)}
+.rv-r{transition:opacity .72s cubic-bezier(.22,1,.36,1),transform .72s cubic-bezier(.22,1,.36,1)}
+.js-on .rv{opacity:0;transform:translateY(24px)}
+.js-on .rv-l{opacity:0;transform:translateX(-24px)}
+.js-on .rv-r{opacity:0;transform:translateX(24px)}
+.vi{opacity:1!important;transform:none!important}
+.d1{transition-delay:.1s!important}.d2{transition-delay:.18s!important}.d3{transition-delay:.26s!important}
+.d4{transition-delay:.34s!important}.d5{transition-delay:.42s!important}.d6{transition-delay:.5s!important}
+
+/* SECTIONS */
+.sec{padding:100px 64px;position:relative;overflow:hidden}
+.sec-dark{background:var(--red-deep);color:#F7F2EA}
+.sec-deep{background:var(--red-dark);color:#F7F2EA}
+.sec-light{background:var(--bg);color:var(--ink)}
+.sec-warm{background:var(--bg-warm);color:var(--ink)}
+.sec-alt{background:var(--bg-alt);color:var(--ink)}
+@media(max-width:768px){.sec{padding:64px 24px}}
+.s-num-bg{position:absolute;top:20px;right:64px;font-family:'Bebas Neue',sans-serif;font-size:140px;line-height:1;user-select:none;pointer-events:none}
+.sec-light .s-num-bg,.sec-warm .s-num-bg,.sec-alt .s-num-bg{color:rgba(110,13,13,.04)}
+.sec-dark .s-num-bg,.sec-deep .s-num-bg{color:rgba(255,255,255,.03)}
+@media(max-width:768px){.s-num-bg{right:24px;font-size:80px}}
+.sec-tag{font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:5px;text-transform:uppercase;display:flex;align-items:center;gap:12px;margin-bottom:18px}
+.sec-tag::before{content:'';display:block;width:30px;height:1.5px;background:currentColor}
+.sec-dark .sec-tag,.sec-deep .sec-tag{color:var(--lime)}
+.sec-light .sec-tag,.sec-warm .sec-tag,.sec-alt .sec-tag{color:var(--red)}
+
+/* TYPOGRAPHY */
+.big-h{font-family:'Oswald',sans-serif;font-weight:700;line-height:.9;letter-spacing:-1px;margin-bottom:10px}
+.sec-dark .big-h,.sec-deep .big-h{color:#F7F2EA}
+.sec-light .big-h,.sec-warm .big-h,.sec-alt .big-h{color:var(--ink)}
+.lime{color:var(--lime)}
+.red-acc{color:var(--red)}
+.stroke-d{-webkit-text-stroke:3px var(--ink);color:transparent}
+.stroke-r{-webkit-text-stroke:3px var(--red);color:transparent}
+.stroke-w{-webkit-text-stroke:3px #F7F2EA;color:transparent}
+.stroke-l{-webkit-text-stroke:3px var(--lime);color:transparent}
+.sec-sub{font-family:'Montserrat',sans-serif;font-size:clamp(15px,2vw,21px);font-weight:600;line-height:1.35;margin-top:12px;margin-bottom:40px;max-width:760px}
+.sec-dark .sec-sub,.sec-deep .sec-sub{color:rgba(247,242,234,.68)}
+.sec-light .sec-sub,.sec-warm .sec-sub,.sec-alt .sec-sub{color:var(--ink-mid)}
+.sec-sub .acc{color:var(--red)}
+.sec-dark .sec-sub .acc{color:var(--lime)}
+.body-t{font-size:clamp(14px,1.5vw,16px);line-height:1.85;color:var(--ink-mid);max-width:600px}
+.sec-dark .body-t{color:rgba(247,242,234,.65)}
+
+/* STRIP DIVIDER */
+.div-strip{height:3px;background:linear-gradient(90deg,var(--red-dark),var(--red),var(--lime),var(--red),var(--red-dark))}
+
+/* BUTTONS */
+.btn-lime{font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;letter-spacing:3.5px;text-transform:uppercase;color:var(--ink);background:var(--lime);padding:16px 36px;display:inline-block;clip-path:polygon(10px 0%,100% 0%,calc(100% - 10px) 100%,0% 100%);transition:background .2s,transform .15s,box-shadow .2s;position:relative;overflow:hidden}
+.btn-lime::after{content:'';position:absolute;inset:0;background:linear-gradient(120deg,transparent 30%,rgba(255,255,255,.3) 50%,transparent 70%);transform:translateX(-120%);transition:transform .5s}
+.btn-lime:hover{background:var(--lime-bright);transform:scale(1.03);box-shadow:0 0 36px rgba(132,224,33,.45)}
+.btn-lime:hover::after{transform:translateX(120%)}
+.btn-ghost{font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;letter-spacing:3.5px;text-transform:uppercase;color:rgba(247,242,234,.85);border:1.5px solid rgba(247,242,234,.28);padding:14px 36px;display:inline-block;clip-path:polygon(10px 0%,100% 0%,calc(100% - 10px) 100%,0% 100%);transition:border-color .2s,color .2s}
+.btn-ghost:hover{border-color:var(--lime);color:var(--lime)}
+
+/* ── HERO ── */
+.hero{background:var(--red-deep);padding:120px 64px 90px;min-height:100vh;display:flex;flex-direction:column;justify-content:center;position:relative;overflow:hidden}
+.hero-bg-txt{position:absolute;bottom:-20px;right:-10px;font-family:'Bebas Neue',sans-serif;font-size:clamp(130px,22vw,340px);color:rgba(255,255,255,.024);white-space:nowrap;user-select:none;letter-spacing:-4px;pointer-events:none;line-height:1}
+.hero-tag{font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:6px;text-transform:uppercase;color:var(--lime);display:flex;align-items:center;gap:14px;margin-bottom:28px}
+.hero-tag::before{content:'';display:block;width:36px;height:1.5px;background:var(--lime)}
+.hero h1{font-family:'Oswald',sans-serif;font-size:clamp(52px,9.5vw,128px);font-weight:700;line-height:.88;letter-spacing:-1px;color:#F7F2EA;max-width:980px;position:relative;z-index:1}
+.hero h1 .lime{color:var(--lime)}
+.hero h1 .stroke{-webkit-text-stroke:2px #F7F2EA;color:transparent}
+.hero-sub{font-family:'Inter',sans-serif;font-size:clamp(15px,1.75vw,18px);font-weight:300;line-height:1.88;color:rgba(247,242,234,.7);max-width:560px;margin-top:28px;position:relative;z-index:1}
+.hero-btns{display:flex;gap:14px;margin-top:44px;flex-wrap:wrap;position:relative;z-index:1}
+.hero-badge{position:absolute;right:7%;top:50%;transform:translateY(-50%);width:min(290px,27vw);height:min(290px,27vw);border-radius:50%;border:1.5px solid rgba(132,224,33,.3);display:flex;align-items:center;justify-content:center}
+.hero-badge::before{content:'';position:absolute;inset:14px;border-radius:50%;border:1px solid rgba(132,224,33,.14);animation:spin 16s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.badge-core{width:64%;height:64%;border-radius:50%;background:var(--lime);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:16px;box-shadow:0 0 60px rgba(132,224,33,.4);animation:breathe 4s ease-in-out infinite}
+@keyframes breathe{0%,100%{transform:scale(1)}50%{transform:scale(1.04)}}
+.badge-core strong{font-family:'Oswald',sans-serif;font-size:clamp(16px,2vw,28px);font-weight:700;color:var(--ink);line-height:.95;letter-spacing:.5px}
+.badge-core span{font-family:'Montserrat',sans-serif;font-size:clamp(7px,.7vw,10px);font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--red-deep);margin-top:6px}
+@media(max-width:768px){
+  .hero{padding:90px 24px 80px}
+  .hero-badge{display:none}
+  .hero h1{font-size:clamp(46px,13vw,74px)}
+  .hero-sub{font-size:15px}
+  .hero-btns{flex-direction:column;gap:12px}
+  .btn-lime,.btn-ghost{width:100%;text-align:center;padding:16px 24px}
+}
+
+/* ── STATS BAR ── */
+.stats-bar{display:grid;grid-template-columns:repeat(4,1fr);background:var(--red-dark)}
+.stat-item{padding:32px 24px;border-right:1px solid rgba(132,224,33,.1);position:relative;overflow:hidden;transition:background .3s}
+.stat-item:last-child{border-right:none}
+.stat-item::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:var(--lime);transform:scaleX(0);transform-origin:left;transition:transform .4s}
+.stat-item:hover{background:rgba(132,224,33,.06)}
+.stat-item:hover::after{transform:scaleX(1)}
+.stat-num{font-family:'Oswald',sans-serif;font-size:clamp(20px,2.8vw,38px);font-weight:700;color:var(--lime);line-height:1;margin-bottom:6px}
+.stat-lbl{font-family:'Montserrat',sans-serif;font-size:10px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:rgba(247,242,234,.36);line-height:1.4}
+@media(max-width:768px){
+  .stats-bar{grid-template-columns:1fr 1fr}
+  .stat-item:nth-child(2){border-right:none}
+  .stat-item:nth-child(3){border-top:1px solid rgba(132,224,33,.1)}
+  .stat-item{padding:20px 16px}
+}
+
+/* ── PROBLEM ── */
+.prob-intro{display:grid;grid-template-columns:1fr 1fr;gap:56px;margin-bottom:44px;align-items:start}
+.prob-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.prob-card{display:flex;gap:16px;align-items:flex-start;padding:24px 20px;background:var(--bg-card);border:1px solid var(--border);border-left:3px solid rgba(180,40,40,.2);transition:border-left-color .25s,background .25s,transform .25s;cursor:default}
+.prob-card:hover{border-left-color:var(--red);background:var(--bg-warm);transform:translateX(4px)}
+.prob-x{width:32px;height:32px;flex-shrink:0;border-radius:50%;border:1.5px solid rgba(180,40,40,.35);display:flex;align-items:center;justify-content:center;font-size:13px;color:var(--red);font-weight:700;margin-top:1px}
+.prob-card h4{font-family:'Montserrat',sans-serif;font-size:13px;font-weight:700;color:var(--ink);margin-bottom:6px}
+.prob-card p{font-size:13px;line-height:1.67;color:var(--ink-mid)}
+.prob-verdict{display:block;margin-top:40px;background:var(--lime);padding:34px 40px;clip-path:polygon(14px 0%,100% 0%,calc(100% - 14px) 100%,0% 100%);position:relative;overflow:hidden;transition:filter .25s;text-decoration:none}
+.prob-verdict:hover{filter:brightness(1.05)}
+.prob-verdict::before{content:'';position:absolute;top:-30px;right:-30px;width:130px;height:130px;border-radius:50%;background:rgba(0,0,0,.05)}
+.prob-verdict-lbl{font-family:'Montserrat',sans-serif;font-size:9px;font-weight:700;letter-spacing:5px;text-transform:uppercase;color:var(--red-deep);margin-bottom:10px;display:block}
+.prob-verdict strong{font-family:'Oswald',sans-serif;font-size:clamp(22px,2.8vw,36px);font-weight:700;display:block;margin-bottom:8px;color:var(--ink);letter-spacing:.5px}
+.prob-verdict p{font-family:'Montserrat',sans-serif;font-size:clamp(14px,1.5vw,17px);font-weight:600;color:var(--ink);line-height:1.5;position:relative;z-index:1}
+.prob-verdict .v-arr{font-size:20px;margin-top:14px;display:inline-block;transition:transform .25s;color:var(--red-deep)}
+.prob-verdict:hover .v-arr{transform:translateX(6px)}
+@media(max-width:768px){
+  .prob-intro{grid-template-columns:1fr;gap:24px}
+  .prob-grid{grid-template-columns:1fr}
+  .prob-verdict{padding:22px 20px;clip-path:none}
+}
+
+/* ── SOLUTION ── */
+.sol-cols{display:grid;grid-template-columns:1fr 1fr;gap:64px;margin-top:48px;align-items:center}
+.sol-feats{display:flex;flex-direction:column;gap:26px}
+.sol-item{display:flex;gap:16px;align-items:flex-start}
+.sol-ico{font-size:28px;flex-shrink:0;margin-top:2px}
+.sol-item h4{font-family:'Montserrat',sans-serif;font-size:14px;font-weight:700;color:#F7F2EA;margin-bottom:6px}
+.sol-item p{font-size:14px;line-height:1.77;color:rgba(247,242,234,.6)}
+.sol-box{background:rgba(132,224,33,.08);border:1px solid rgba(132,224,33,.2);padding:36px 32px;position:relative}
+.sol-box::before{content:'';position:absolute;top:0;left:0;width:3px;height:100%;background:var(--lime)}
+.sol-box h3{font-family:'Oswald',sans-serif;font-size:clamp(24px,3.2vw,42px);font-weight:700;color:var(--lime);line-height:.95;margin-bottom:16px}
+.sol-box > p{font-size:14px;line-height:1.82;color:rgba(247,242,234,.62);margin-bottom:22px}
+.sol-promise{display:flex;flex-direction:column;gap:9px;margin-bottom:28px}
+.sp-row{display:flex;align-items:center;gap:10px;font-size:13px;color:rgba(247,242,234,.72)}
+.sp-check{width:20px;height:20px;border-radius:50%;background:var(--lime);display:flex;align-items:center;justify-content:center;font-size:10px;color:var(--ink);font-weight:900;flex-shrink:0}
+.sol-note{font-size:11px;color:rgba(247,242,234,.28);margin-top:10px;letter-spacing:.5px}
+@media(max-width:768px){.sol-cols{grid-template-columns:1fr;gap:36px}}
+
+/* ── SERVICES ── */
+.services-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:44px}
+.svc-card{padding:24px 18px;background:var(--bg-card);border:1px solid var(--border);border-top:3px solid transparent;position:relative;transition:border-top-color .3s,transform .3s,box-shadow .3s;cursor:default}
+.svc-card:hover{border-top-color:var(--lime);transform:translateY(-4px);box-shadow:0 10px 32px rgba(110,13,13,.1)}
+.svc-ico{font-size:28px;margin-bottom:12px;display:block}
+.svc-card h3{font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;color:var(--ink);margin-bottom:7px}
+.svc-card p{font-size:12px;line-height:1.65;color:var(--ink-soft)}
+.svc-hi{border-top-color:var(--lime)!important;background:var(--lime-pale)!important}
+.svc-hi h3{color:var(--red)}
+.svc-all{border-top:3px solid var(--red)!important;background:var(--bg-warm)!important}
+@media(max-width:1100px){.services-grid{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:768px){.services-grid{grid-template-columns:1fr 1fr;gap:8px}.svc-card{padding:16px 12px}}
+@media(max-width:420px){.services-grid{grid-template-columns:1fr}}
+
+/* ── PROCESS ── */
+.steps-track{display:grid;grid-template-columns:repeat(5,1fr);gap:0;margin-top:52px;position:relative}
+.steps-line{position:absolute;top:52px;left:calc(10% + 16px);right:calc(10% + 16px);height:1px;background:var(--red);opacity:.12}
+.step{padding:0 10px;text-align:center;position:relative;z-index:1}
+.step-ball{width:104px;height:104px;border-radius:50%;background:var(--lime);display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue',sans-serif;font-size:44px;color:var(--ink);margin:0 auto 22px;box-shadow:0 0 32px rgba(132,224,33,.28);transition:transform .3s,box-shadow .3s}
+.step:hover .step-ball{transform:scale(1.08) translateY(-4px);box-shadow:0 14px 44px rgba(132,224,33,.42)}
+.step h3{font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--red);margin-bottom:8px}
+.step p{font-size:12.5px;line-height:1.65;color:var(--ink-soft)}
+@media(max-width:900px){.steps-track{grid-template-columns:1fr 1fr}.steps-line{display:none}}
+@media(max-width:480px){
+  .steps-track{grid-template-columns:1fr;gap:20px}
+  .step{display:flex;align-items:flex-start;gap:16px;text-align:left;padding:0}
+  .step-ball{width:52px;height:52px;font-size:22px;flex-shrink:0;margin:0}
+}
+
+/* ── FOR WHOM ── */
+.target-cols{display:grid;grid-template-columns:1fr 1fr;gap:48px;margin-top:48px;align-items:start}
+.target-list{display:flex;flex-direction:column;gap:8px}
+.target-row{display:flex;gap:14px;align-items:flex-start;padding:16px 18px;background:var(--bg-card);border-left:3px solid var(--lime);transition:background .2s,transform .2s}
+.target-row:hover{background:var(--lime-pale);transform:translateX(4px)}
+.t-ico{font-size:22px;flex-shrink:0;margin-top:2px}
+.target-row strong{font-family:'Montserrat',sans-serif;font-size:12px;font-weight:700;letter-spacing:.3px;color:var(--ink);display:block;margin-bottom:4px}
+.target-row p{font-size:13px;line-height:1.65;color:var(--ink-mid)}
+.target-callout{background:var(--red-deep);padding:44px 36px;clip-path:polygon(0 14px,14px 0,100% 0,100% calc(100% - 14px),calc(100% - 14px) 100%,0 100%);position:relative;overflow:hidden}
+.target-callout::before{content:'';position:absolute;bottom:-40px;right:-40px;width:160px;height:160px;border-radius:50%;background:rgba(132,224,33,.07)}
+.tc-tag{font-family:'Montserrat',sans-serif;font-size:9px;font-weight:700;letter-spacing:5px;text-transform:uppercase;color:var(--lime);display:block;margin-bottom:14px}
+.target-callout h3{font-family:'Oswald',sans-serif;font-size:clamp(28px,3.5vw,46px);font-weight:700;color:#F7F2EA;line-height:.92;margin-bottom:18px}
+.target-callout h3 .lime{color:var(--lime)}
+.target-callout p{font-size:14px;line-height:1.82;color:rgba(247,242,234,.62);position:relative;z-index:1;margin-bottom:24px}
+@media(max-width:768px){
+  .target-cols{grid-template-columns:1fr;gap:32px}
+  .target-callout{clip-path:none;padding:28px 22px}
+}
+
+/* ── WHY US ── */
+.why-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:44px;max-width:960px}
+.why-item{display:flex;gap:16px;align-items:flex-start;padding:22px 20px;background:var(--bg-card);border:1px solid var(--border);border-left:3px solid var(--lime);transition:background .3s,transform .3s,box-shadow .3s}
+.why-item:hover{background:var(--lime-pale);transform:translateX(5px);box-shadow:4px 0 16px rgba(132,224,33,.12)}
+.why-dot{width:10px;height:10px;flex-shrink:0;border-radius:50%;background:var(--lime);margin-top:6px;box-shadow:0 0 8px rgba(132,224,33,.6)}
+.why-item p{font-size:clamp(13px,1.3vw,15px);line-height:1.72;color:var(--ink-mid)}
+.why-item strong{color:var(--red)}
+@media(max-width:768px){.why-grid{grid-template-columns:1fr}}
+
+/* ── FORM ── */
+.form-wrap{display:grid;grid-template-columns:1fr 1fr;gap:64px;margin-top:48px;align-items:start}
+.form-left h3{font-family:'Oswald',sans-serif;font-size:clamp(28px,4vw,54px);font-weight:700;color:#F7F2EA;line-height:.92;margin-bottom:20px}
+.form-left h3 .lime{color:var(--lime)}
+.form-left p{font-size:15px;line-height:1.84;color:rgba(247,242,234,.62);margin-bottom:28px}
+.form-promises{display:flex;flex-direction:column;gap:10px}
+.fp-row{display:flex;align-items:center;gap:10px;font-size:13px;color:rgba(247,242,234,.68)}
+.fp-check{width:22px;height:22px;border-radius:50%;background:var(--lime);display:flex;align-items:center;justify-content:center;font-size:10px;color:var(--ink);font-weight:900;flex-shrink:0}
+.form-right form{display:flex;flex-direction:column;gap:14px}
+.f-group{display:flex;flex-direction:column;gap:6px}
+.f-group label{font-family:'Montserrat',sans-serif;font-size:9px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:rgba(247,242,234,.42)}
+.f-group input,.f-group select,.f-group textarea{background:rgba(255,255,255,.06);border:1px solid rgba(132,224,33,.18);color:#F7F2EA;font-family:'Inter',sans-serif;font-size:14px;padding:13px 16px;outline:none;transition:border-color .2s,background .2s;border-radius:0;-webkit-appearance:none;appearance:none;width:100%}
+.f-group input::placeholder,.f-group textarea::placeholder{color:rgba(247,242,234,.26)}
+.f-group input:focus,.f-group select:focus,.f-group textarea:focus{border-color:var(--lime);background:rgba(255,255,255,.08)}
+.f-group select{cursor:pointer;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%2384E021' stroke-width='1.5' fill='none'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;padding-right:38px}
+.f-group select option{background:var(--red-dark);color:#F7F2EA}
+.f-group textarea{resize:vertical;min-height:110px}
+.form-row-2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.f-submit{font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;letter-spacing:3.5px;text-transform:uppercase;color:var(--ink);background:var(--lime);border:none;padding:18px 32px;cursor:pointer;clip-path:polygon(10px 0%,100% 0%,calc(100% - 10px) 100%,0% 100%);transition:background .2s,transform .15s,box-shadow .2s;width:100%;position:relative;overflow:hidden}
+.f-submit::after{content:'';position:absolute;inset:0;background:linear-gradient(120deg,transparent 30%,rgba(255,255,255,.28) 50%,transparent 70%);transform:translateX(-120%);transition:transform .5s}
+.f-submit:hover{background:var(--lime-bright);transform:scale(1.02);box-shadow:0 0 32px rgba(132,224,33,.4)}
+.f-submit:hover::after{transform:translateX(120%)}
+.f-note{font-size:11px;color:rgba(247,242,234,.28);text-align:center;letter-spacing:.5px;margin-top:4px}
+@media(max-width:768px){
+  .form-wrap{grid-template-columns:1fr;gap:36px}
+  .form-row-2{grid-template-columns:1fr}
+}
+
+/* ── FOOTER ── */
+footer{background:var(--red-dark);padding:48px 64px;border-top:1px solid rgba(132,224,33,.1)}
+.footer-inner{display:grid;grid-template-columns:1fr 1fr 1fr;gap:40px;align-items:start}
+.footer-logo{font-family:'Bebas Neue',sans-serif;font-size:28px;letter-spacing:5px;color:#F7F2EA;display:flex;align-items:center;margin-bottom:12px}
+.footer-logo .q{color:var(--lime);font-size:34px;line-height:.85}
+.footer-desc{font-size:13px;line-height:1.77;color:rgba(247,242,234,.36)}
+.footer-ttl{font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:4px;text-transform:uppercase;color:var(--lime);margin-bottom:16px}
+.footer-links{display:flex;flex-direction:column;gap:8px}
+.footer-links a{font-size:13px;color:rgba(247,242,234,.42);transition:color .2s}
+.footer-links a:hover{color:var(--lime)}
+.footer-bottom{margin-top:40px;padding-top:24px;border-top:1px solid rgba(255,255,255,.05);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+.footer-bottom p{font-size:12px;color:rgba(247,242,234,.24)}
+.footer-bottom a{font-size:12px;color:rgba(247,242,234,.32);transition:color .2s}
+.footer-bottom a:hover{color:var(--lime)}
+@media(max-width:768px){
+  footer{padding:40px 24px}
+  .footer-inner{grid-template-columns:1fr;gap:28px}
+  .footer-bottom{flex-direction:column;align-items:flex-start}
+}
+</style>
+</head>
+<body>
+
+<div id="prog"></div>
+
+<!-- ══ NAV ══ -->
+<nav id="nav">
+  <a class="nav-logo" href="/">WAT<span class="q">?</span>&nbsp;AGENCY</a>
+  <div class="nav-links">
+    <a href="#posluhy">Послуги</a>
+    <a href="#protses">Як ми працюємо</a>
+    <a href="#chomu-my">Чому ми</a>
+    <a href="#contact">Контакт</a>
+  </div>
+  <a class="nav-cta" href="#contact">Старт →</a>
+  <button class="ham" id="ham" aria-label="Меню">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<div class="mob-drawer" id="mob-drawer">
+  <a class="mob-lnk" href="#posluhy" onclick="closeMob()">Послуги <span class="arr">→</span></a>
+  <a class="mob-lnk" href="#protses" onclick="closeMob()">Як ми працюємо <span class="arr">→</span></a>
+  <a class="mob-lnk" href="#chomu-my" onclick="closeMob()">Чому ми <span class="arr">→</span></a>
+  <a class="mob-cta" href="#contact" onclick="closeMob()">Безкоштовна консультація →</a>
+</div>
+
+<!-- ══ HERO ══ -->
+<section class="hero" id="top">
+  <div class="hero-bg-txt">WAT?</div>
+  <div class="hero-tag rv">Для українських підприємців у Бельгії</div>
+  <h1 class="rv">
+    БЕЛЬГІЙЦІ<br>
+    ШУКАЮТЬ<br>
+    ОНЛАЙН.<br>
+    <span class="stroke">ВАС ТАМ</span>&nbsp;<span class="lime">НЕМАЄ.</span>
+  </h1>
+  <p class="hero-sub rv">
+    Ви добре робите свою роботу. Але якщо вас немає в Google, на сайті і в соцмережах — клієнт іде до того, хто є. Ми будуємо систему, яка це виправляє.
+  </p>
+  <div class="hero-btns">
+    <a class="btn-lime rv d1" href="#contact">Побудувати присутність →</a>
+    <a class="btn-ghost rv d2" href="#posluhy">Що входить у систему</a>
+  </div>
+  <div class="hero-badge">
+    <div class="badge-core">
+      <strong>ПОВНА<br>ПРИСУТ-<br>НІСТЬ</strong>
+      <span>Один системний підхід</span>
+    </div>
+  </div>
+</section>
+
+<!-- ══ STATS ══ -->
+<div class="stats-bar">
+  <div class="stat-item">
+    <div class="stat-num">11</div>
+    <div class="stat-lbl">Послуг в одній системі</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">100%</div>
+    <div class="stat-lbl">Фокус — бельгійський ринок</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">2–4 тижні</div>
+    <div class="stat-lbl">До запуску першого етапу</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">NL&nbsp;/&nbsp;FR</div>
+    <div class="stat-lbl">Комунікація мовою клієнта</div>
+  </div>
+</div>
+
+<div class="div-strip"></div>
+
+<!-- ══ PROBLEM ══ -->
+<section class="sec sec-warm" id="problema">
+  <div class="s-num-bg">01</div>
+  <div class="sec-tag rv">Реальна проблема</div>
+  <div class="big-h rv" style="font-size:clamp(60px,10.5vw,156px)">ЧОМУ КЛІЄНТИ<br>ОБИРАЮТЬ<br><span class="red-acc">ІНШОГО</span><span class="stroke-r">?</span></div>
+  <div class="prob-intro">
+    <p class="body-t rv">Не тому що ваша робота гірша. Тому що ваш конкурент <strong>видніший</strong>. Бельгійці завжди перевіряють онлайн перш ніж зателефонувати. Якщо ваша присутність слабка або відсутня — рішення вже прийнято без вас.</p>
+    <p class="body-t rv d1">Це не питання смаку чи дизайну. Це питання <strong>довіри</strong>. Новий клієнт не знає вас особисто. Він оцінює вас через Google, сайт, відгуки і соцмережі. Перше враження — ваша онлайн-присутність.</p>
+  </div>
+  <div class="prob-grid">
+    <div class="prob-card rv">
+      <div class="prob-x">✕</div>
+      <div>
+        <h4>Немає сайту або він застарілий</h4>
+        <p>Клієнт зайшов — і пішов. Поганий сайт сигналізує: ненадійно, неактивно, не варто ризикувати.</p>
+      </div>
+    </div>
+    <div class="prob-card rv d1">
+      <div class="prob-x">✕</div>
+      <div>
+        <h4>Google Business не заповнений або відсутній</h4>
+        <p>Більшість бельгійців знаходять підрядника через Google Maps. Якщо вас там немає — ви невидимі для цілого сегменту клієнтів.</p>
+      </div>
+    </div>
+    <div class="prob-card rv d2">
+      <div class="prob-x">✕</div>
+      <div>
+        <h4>Жодних відгуків онлайн</h4>
+        <p>Без відгуків немає довіри. Клієнт завжди обирає того, чиє ім'я підкріплене реальними людьми.</p>
+      </div>
+    </div>
+    <div class="prob-card rv d3">
+      <div class="prob-x">✕</div>
+      <div>
+        <h4>Соцмережі мовчать місяцями</h4>
+        <p>Остання публікація 8 місяців тому? Для клієнта це означає: "а чи взагалі цей бізнес ще існує?"</p>
+      </div>
+    </div>
+  </div>
+  <a class="prob-verdict rv" href="#contact">
+    <span class="prob-verdict-lbl">Наш висновок</span>
+    <strong>ГАРНА РОБОТА НЕ ПРОДАЄ СЕБЕ САМА</strong>
+    <p>Її потрібно зробити видимою — системно, послідовно, на мові бельгійського клієнта.</p>
+    <span class="v-arr">→</span>
+  </a>
+</section>
+
+<div class="div-strip"></div>
+
+<!-- ══ SOLUTION ══ -->
+<section class="sec sec-dark" id="rishennia">
+  <div class="s-num-bg">02</div>
+  <div class="sec-tag rv">Наш підхід</div>
+  <div class="big-h rv" style="font-size:clamp(50px,8.5vw,118px)">МИ БУДУЄМО<br><span class="lime">СИСТЕМУ.</span><br><span class="stroke-w">НЕ ПРОСТО</span><br>САЙТ.</div>
+  <div class="sec-sub rv">Кожен елемент підсилює інший. <span class="acc">Одна ціль — більше клієнтів.</span></div>
+  <div class="sol-cols">
+    <div class="sol-feats">
+      <div class="sol-item rv">
+        <span class="sol-ico">🌐</span>
+        <div>
+          <h4>Повна онлайн-присутність</h4>
+          <p>Сайт, Google Business, соцмережі, контент — все в одній системі що працює разом і підсилює одне одного.</p>
+        </div>
+      </div>
+      <div class="sol-item rv d1">
+        <span class="sol-ico">🇧🇪</span>
+        <div>
+          <h4>На мові бельгійського клієнта</h4>
+          <p>Ваша присутність спілкується нідерландською або французькою — залежно від регіону. Клієнт відразу відчуває: цей бізнес тут, для нього.</p>
+        </div>
+      </div>
+      <div class="sol-item rv d2">
+        <span class="sol-ico">📈</span>
+        <div>
+          <h4>Система що міцніє щомісяця</h4>
+          <p>Не разова акція. Фундамент, який з часом стає сильнішим — нові відгуки, новий контент, краща позиція в Google.</p>
+        </div>
+      </div>
+      <div class="sol-item rv d3">
+        <span class="sol-ico">⏱️</span>
+        <div>
+          <h4>Поки ви на об'єкті — система залучає</h4>
+          <p>Ми беремо на себе всю онлайн-сторону. Ви фокусуєтесь на роботі — ми піклуємось про те, щоб нові клієнти вас знаходили.</p>
+        </div>
+      </div>
+    </div>
+    <div class="sol-box rv-r">
+      <h3>Результат?<br><span class="lime">Клієнти що дзвонять.</span></h3>
+      <p>Не "більше підписників". Не "красивий сайт". А реальні запити від реальних клієнтів у вашому регіоні.</p>
+      <div class="sol-promise">
+        <div class="sp-row"><div class="sp-check">✓</div>Більше запитів від клієнтів у вашій зоні</div>
+        <div class="sp-row"><div class="sp-check">✓</div>Клієнти дзвонять вже переконаними</div>
+        <div class="sp-row"><div class="sp-check">✓</div>Присутність що відображає ваш рівень</div>
+        <div class="sp-row"><div class="sp-check">✓</div>Система без постійного вашого втручання</div>
+        <div class="sp-row"><div class="sp-check">✓</div>Фундамент для стабільного зростання</div>
+      </div>
+      <a class="btn-lime" href="#contact">Безкоштовна консультація →</a>
+      <p class="sol-note">Без зобов'язань. Перші результати за 4–6 тижнів.</p>
+    </div>
+  </div>
+</section>
+
+<div class="div-strip"></div>
+
+<!-- ══ SERVICES ══ -->
+<section class="sec sec-light" id="posluhy">
+  <div class="s-num-bg">03</div>
+  <div class="sec-tag rv">Що входить у систему</div>
+  <div class="big-h rv" style="font-size:clamp(50px,9vw,128px)">11 ПОСЛУГ.<br><span class="lime">ОДИН</span> <span class="stroke-d">РЕЗУЛЬТАТ.</span></div>
+  <div class="sec-sub rv">Від першого враження до залучення клієнтів — <span class="acc">ми закриваємо все.</span></div>
+  <div class="services-grid">
+    <div class="svc-card svc-hi rv">
+      <span class="svc-ico">🌐</span>
+      <h3>Сайт</h3>
+      <p>Не просто присутність. Машина для залучення клієнтів — швидка, зрозуміла, переконлива.</p>
+    </div>
+    <div class="svc-card svc-hi rv d1">
+      <span class="svc-ico">🗺️</span>
+      <h3>Google Business Profile</h3>
+      <p>Перший результат коли клієнт шукає підрядника у вашому районі. Повністю оптимізований.</p>
+    </div>
+    <div class="svc-card svc-hi rv d2">
+      <span class="svc-ico">📱</span>
+      <h3>Налаштування соцмереж</h3>
+      <p>Instagram, Facebook, LinkedIn — активні профілі що підтверджують: бізнес живий і надійний.</p>
+    </div>
+    <div class="svc-card rv d3">
+      <span class="svc-ico">📝</span>
+      <h3>Контент</h3>
+      <p>Тексти, фото, відео на мові клієнта. Ваше vakmanschap — представлено переконливо.</p>
+    </div>
+    <div class="svc-card rv">
+      <span class="svc-ico">🎯</span>
+      <h3>Реклама</h3>
+      <p>Google Ads і Facebook Ads — націлені на потрібну аудиторію у вашому регіоні.</p>
+    </div>
+    <div class="svc-card rv d1">
+      <span class="svc-ico">📄</span>
+      <h3>Лендінги</h3>
+      <p>Цільові сторінки під кожну послугу. Конкретно, без зайвого — прямий шлях до заявки.</p>
+    </div>
+    <div class="svc-card rv d2">
+      <span class="svc-ico">🖨️</span>
+      <h3>Поліграфія</h3>
+      <p>Візитки, листівки, буклети. Фізична присутність що залишається в руках клієнта.</p>
+    </div>
+    <div class="svc-card rv d3">
+      <span class="svc-ico">💼</span>
+      <h3>Комерційні пропозиції</h3>
+      <p>Документи що виглядають і читаються професійно — більше закритих угод.</p>
+    </div>
+    <div class="svc-card rv">
+      <span class="svc-ico">📋</span>
+      <h3>Клієнтські брошури</h3>
+      <p>Пояснюємо ваші послуги мовою клієнта — чітко, без зайвих слів.</p>
+    </div>
+    <div class="svc-card rv d1">
+      <span class="svc-ico">🎨</span>
+      <h3>Айдентика</h3>
+      <p>Логотип, кольори, стиль — впізнавана марка що викликає довіру з першого погляду.</p>
+    </div>
+    <div class="svc-card rv d2">
+      <span class="svc-ico">🔄</span>
+      <h3>Система залучення клієнтів</h3>
+      <p>Автоматичні відповіді, воронки, follow-up — жоден потенційний клієнт не загубиться.</p>
+    </div>
+    <div class="svc-card svc-all rv d3">
+      <span class="svc-ico">⭐</span>
+      <h3>Повний пакет</h3>
+      <p>Всі 11 елементів в одній системі — або починаємо з того що найважливіше для вас зараз.</p>
+    </div>
+  </div>
+</section>
+
+<div class="div-strip"></div>
+
+<!-- ══ PROCESS ══ -->
+<section class="sec sec-alt" id="protses">
+  <div class="s-num-bg">04</div>
+  <div class="sec-tag rv">Як ми працюємо</div>
+  <div class="big-h rv" style="font-size:clamp(48px,8vw,108px)">5 КРОКІВ ДО<br><span class="lime">ПОВНОЇ</span><br>ПРИСУТНОСТІ</div>
+  <div class="sec-sub rv">Чіткий процес без <span class="acc">зайвих зустрічей і порожніх обіцянок.</span></div>
+  <div class="steps-track">
+    <div class="steps-line"></div>
+    <div class="step rv">
+      <div class="step-ball">1</div>
+      <h3>Аналіз</h3>
+      <p>Вивчаємо ваш бізнес, нішу, конкурентів і регіон. Де ви зараз і що потрібно першим.</p>
+    </div>
+    <div class="step rv d1">
+      <div class="step-ball">2</div>
+      <h3>Стратегія</h3>
+      <p>Конкретний план — які канали, яка послідовність, яка мова комунікації. Без зайвого.</p>
+    </div>
+    <div class="step rv d2">
+      <div class="step-ball">3</div>
+      <h3>Реалізація</h3>
+      <p>Будуємо всі елементи системи. Ви бачите прогрес — без технічного жаргону.</p>
+    </div>
+    <div class="step rv d3">
+      <div class="step-ball">4</div>
+      <h3>Запуск</h3>
+      <p>Виводимо вас онлайн на всіх платформах. Перевіряємо, налаштовуємо, запускаємо.</p>
+    </div>
+    <div class="step rv d4">
+      <div class="step-ball">5</div>
+      <h3>Зростання</h3>
+      <p>Нові відгуки, контент, моніторинг — система стає сильнішою кожен місяць.</p>
+    </div>
+  </div>
+</section>
+
+<div class="div-strip"></div>
+
+<!-- ══ FOR WHOM ══ -->
+<section class="sec sec-warm" id="dlya-koho">
+  <div class="s-num-bg">05</div>
+  <div class="sec-tag rv">Для кого це</div>
+  <div class="big-h rv" style="font-size:clamp(48px,8vw,108px)">УКРАЇНЦІ<br>В <span class="red-acc">БЕЛЬГІЇ</span><br><span class="stroke-r">З БІЗНЕСОМ</span></div>
+  <div class="sec-sub rv">Ми розуміємо вашу специфіку і знаємо <span class="acc">чого хоче бельгійський клієнт.</span></div>
+  <div class="target-cols">
+    <div class="target-list">
+      <div class="target-row rv">
+        <span class="t-ico">🔨</span>
+        <div>
+          <strong>Будівництво та ремонт</strong>
+          <p>Renovatie, verbouwing, afwerking — покажіть свої проекти так, щоб клієнт хотів вас найняти ще до дзвінка.</p>
+        </div>
+      </div>
+      <div class="target-row rv d1">
+        <span class="t-ico">🏠</span>
+        <div>
+          <strong>Утеплення та ізоляція</strong>
+          <p>Spouwmuurisolatie, dakisolatie — конкурентний сектор. Хто видніший онлайн — той отримує запит.</p>
+        </div>
+      </div>
+      <div class="target-row rv d2">
+        <span class="t-ico">⚡</span>
+        <div>
+          <strong>Електрика, сантехніка, оздоблення</strong>
+          <p>Локальні послуги де Google і відгуки вирішують все. Будьте там де шукають.</p>
+        </div>
+      </div>
+      <div class="target-row rv d3">
+        <span class="t-ico">🌿</span>
+        <div>
+          <strong>Прибирання, догляд за садом, побутові послуги</strong>
+          <p>Будь-який локальний сервіс у Бельгії виграє від системної онлайн-присутності.</p>
+        </div>
+      </div>
+      <div class="target-row rv d4">
+        <span class="t-ico">🏪</span>
+        <div>
+          <strong>Малий бізнес будь-якого профілю</strong>
+          <p>Ресторан, магазин, студія — якщо у вас є клієнти в Бельгії, ця система для вас.</p>
+        </div>
+      </div>
+    </div>
+    <div class="target-callout rv-r">
+      <span class="tc-tag">Важливо знати</span>
+      <h3>БЕЛЬГІЯ — ЦЕ<br><span class="lime">НЕ УКРАЇНА</span></h3>
+      <p>Тут клієнти не довіряють рекомендаціям без онлайн-підтвердження. Вони шукають у Google, читають відгуки, заходять на сайт — і лише тоді дзвонять. Ваша онлайн-присутність — це перше рукостискання з новим клієнтом. Ми робимо це рукостискання впевненим.</p>
+      <a class="btn-lime" href="#contact">Почати зараз →</a>
+    </div>
+  </div>
+</section>
+
+<div class="div-strip"></div>
+
+<!-- ══ WHY US ══ -->
+<section class="sec sec-light" id="chomu-my">
+  <div class="s-num-bg">06</div>
+  <div class="sec-tag rv">Чому WAT? Agency</div>
+  <div class="big-h rv" style="font-size:clamp(50px,8.5vw,118px)">МИ НЕ<br>АГЕНТСТВО<br>ДЛЯ <span class="stroke-d">ВСІХ.</span></div>
+  <div class="sec-sub rv">Ми спеціалізуємось на <span class="acc">локальному бізнесі в Бельгії.</span> І ми прямолінійні.</div>
+  <div class="why-grid">
+    <div class="why-item rv">
+      <div class="why-dot"></div>
+      <p>Знаємо <strong>як думає бельгійський клієнт</strong> — що він шукає, де шукає і що змушує його зателефонувати</p>
+    </div>
+    <div class="why-item rv d1">
+      <div class="why-dot"></div>
+      <p>Розуміємо <strong>специфіку українського підприємця в Бельгії</strong> — мовний бар'єр, адаптацію, темп роботи</p>
+    </div>
+    <div class="why-item rv d2">
+      <div class="why-dot"></div>
+      <p>Будуємо <strong>системи, а не виконуємо замовлення</strong> — кожен елемент підсилює інший, нічого зайвого</p>
+    </div>
+    <div class="why-item rv d3">
+      <div class="why-dot"></div>
+      <p>Говоримо прямо — <strong>без корпоративної води</strong>, без порожніх обіцянок, без "давайте обговоримо ще раз"</p>
+    </div>
+    <div class="why-item rv d4">
+      <div class="why-dot"></div>
+      <p>Ваш <strong>конкурент вже онлайн</strong>. Ми виводимо вас туди раніше ніж він стане ще сильнішим</p>
+    </div>
+    <div class="why-item rv d5">
+      <div class="why-dot"></div>
+      <p>Один партнер для всього — <strong>не потрібно координувати 5 різних підрядників</strong> для різних задач</p>
+    </div>
+  </div>
+</section>
+
+<div class="div-strip"></div>
+
+<!-- ══ CONTACT FORM ══ -->
+<section class="sec sec-dark" id="contact">
+  <div class="s-num-bg">07</div>
+  <div class="form-wrap">
+    <div class="form-left">
+      <div class="sec-tag rv" style="margin-bottom:16px">Готові почати?</div>
+      <h3 class="rv">ПОБУДУЙ<br>ПРИСУТНІСТЬ<br>ДО ТОГО, ЯК<br>КЛІЄНТ ОБЕРЕ<br><span class="lime">ІНШОГО</span></h3>
+      <p class="rv">Розкажіть про свій бізнес — ми зв'яжемося протягом одного робочого дня і запропонуємо конкретні кроки. Без зобов'язань.</p>
+      <div class="form-promises rv d1">
+        <div class="fp-row"><div class="fp-check">✓</div>Безкоштовна первинна консультація</div>
+        <div class="fp-row"><div class="fp-check">✓</div>Відповідь протягом 24 годин</div>
+        <div class="fp-row"><div class="fp-check">✓</div>Конкретний план, не загальні слова</div>
+        <div class="fp-row"><div class="fp-check">✓</div>Спілкуємось українською</div>
+      </div>
+    </div>
+    <div class="form-right rv-r">
+      <form id="contact-form" action="#" method="POST">
+        <div class="form-row-2">
+          <div class="f-group">
+            <label for="fname">Ваше ім'я</label>
+            <input type="text" id="fname" name="name" placeholder="Іван Коваль" required>
+          </div>
+          <div class="f-group">
+            <label for="fphone">Телефон або Email</label>
+            <input type="text" id="fphone" name="contact" placeholder="+32 4XX XXX XXX" required>
+          </div>
+        </div>
+        <div class="f-group">
+          <label for="fbiz">Тип бізнесу</label>
+          <select id="fbiz" name="business">
+            <option value="">Оберіть...</option>
+            <option>Будівництво / Ремонт</option>
+            <option>Утеплення / Ізоляція</option>
+            <option>Електрика / Сантехніка</option>
+            <option>Прибирання / Садові роботи</option>
+            <option>Ресторан / Кафе</option>
+            <option>Магазин / Торгівля</option>
+            <option>Інша послуга</option>
+          </select>
+        </div>
+        <div class="f-group">
+          <label for="freg">Регіон у Бельгії</label>
+          <select id="freg" name="region">
+            <option value="">Оберіть...</option>
+            <option>Antwerpen</option>
+            <option>Gent / Oost-Vlaanderen</option>
+            <option>Brussel / Bruxelles</option>
+            <option>Leuven / Vlaams-Brabant</option>
+            <option>Luik / Liège</option>
+            <option>Інший регіон</option>
+          </select>
+        </div>
+        <div class="f-group">
+          <label for="fmsg">Коротко про ситуацію</label>
+          <textarea id="fmsg" name="message" placeholder="Є сайт чи ні? Що зараз не працює? Що хочете покращити?"></textarea>
+        </div>
+        <button type="submit" class="f-submit" id="f-btn">Надіслати запит →</button>
+        <p class="f-note">Відповімо протягом одного робочого дня. Без спаму.</p>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ══ FOOTER ══ -->
+<footer>
+  <div class="footer-inner">
+    <div>
+      <a class="footer-logo" href="/">WAT<span class="q">?</span>&nbsp;AGENCY</a>
+      <p class="footer-desc">Будуємо повну онлайн-присутність для українських підприємців у Бельгії. Сайт, Google, соцмережі, контент, реклама — одна система що залучає клієнтів.</p>
+    </div>
+    <div>
+      <div class="footer-ttl">Послуги</div>
+      <div class="footer-links">
+        <a href="#posluhy">Сайт та Google Business</a>
+        <a href="#posluhy">Соцмережі та контент</a>
+        <a href="#posluhy">Реклама та лендінги</a>
+        <a href="#posluhy">Поліграфія та брошури</a>
+        <a href="#posluhy">Айдентика та брендинг</a>
+        <a href="#posluhy">Система залучення клієнтів</a>
+      </div>
+    </div>
+    <div>
+      <div class="footer-ttl">Навігація</div>
+      <div class="footer-links">
+        <a href="#top">Головна</a>
+        <a href="#problema">Проблема</a>
+        <a href="#posluhy">Послуги</a>
+        <a href="#protses">Як ми працюємо</a>
+        <a href="#chomu-my">Чому ми</a>
+        <a href="#contact">Контакт</a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2025 WAT? Agency — Маркетинг для локального бізнесу в Бельгії</p>
+    <a href="/">EN | NL</a>
+  </div>
+</footer>
+
+<a id="back-top" href="#top" title="Вгору">↑</a>
+
+<div class="sticky-bar">
+  <p>Клієнти шукають онлайн.<br><strong>Побудуй присутність зараз.</strong></p>
+  <a href="#contact">Старт →</a>
+</div>
+
+<script>
+document.body.classList.add('js-on');
+
+// PROGRESS BAR
+const prog = document.getElementById('prog');
+window.addEventListener('scroll', () => {
+  const s = document.documentElement;
+  prog.style.transform = `scaleX(${s.scrollTop / (s.scrollHeight - s.clientHeight)})`;
+}, { passive: true });
+
+// NAV SLIM
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('slim', window.scrollY > 80);
+}, { passive: true });
+
+// BACK TO TOP
+const bt = document.getElementById('back-top');
+window.addEventListener('scroll', () => {
+  bt.classList.toggle('show', window.scrollY > 500);
+}, { passive: true });
+
+// HAMBURGER
+const ham = document.getElementById('ham');
+const mob = document.getElementById('mob-drawer');
+ham.addEventListener('click', () => {
+  ham.classList.toggle('open');
+  mob.classList.toggle('open');
+  document.body.style.overflow = mob.classList.contains('open') ? 'hidden' : '';
+});
+function closeMob() {
+  ham.classList.remove('open');
+  mob.classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+// SCROLL REVEAL
+const rvEls = document.querySelectorAll('.rv, .rv-l, .rv-r');
+const io = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add('vi'); io.unobserve(e.target); }
+  });
+}, { threshold: 0.12 });
+rvEls.forEach(el => io.observe(el));
+
+// ACTIVE NAV LINK
+const secs = document.querySelectorAll('section[id]');
+const navLinks = document.querySelectorAll('.nav-links a');
+const ioNav = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      navLinks.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + e.target.id));
+    }
+  });
+}, { threshold: 0.3 });
+secs.forEach(s => ioNav.observe(s));
+
+// FORM SUBMIT (placeholder — підключіть свій backend)
+document.getElementById('contact-form').addEventListener('submit', function (e) {
+  e.preventDefault();
+  const btn = document.getElementById('f-btn');
+  btn.textContent = 'Надіслано ✓';
+  btn.style.background = 'rgba(132,224,33,.55)';
+  btn.style.cursor = 'default';
+  setTimeout(() => {
+    btn.textContent = 'Надіслати запит →';
+    btn.style.background = '';
+    btn.style.cursor = '';
+    this.reset();
+  }, 3500);
+});
+</script>
+</body>
+</html>
