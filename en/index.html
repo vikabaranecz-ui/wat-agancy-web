@@ -1045,6 +1045,9 @@ footer{background:var(--bg-card);padding:52px 64px 36px;border-top:1px solid var
     </div>
 
   </div>
+  <div style="text-align:center;margin-top:40px">
+    <a class="btn-outline rv" href="packages-print.html" target="_blank" id="pkg-pdf-btn">View full comparison table →</a>
+  </div>
 </section>
 
 <!-- CASES -->
@@ -1499,6 +1502,8 @@ function setLang(l) {
   // Package CTAs & subs
   $$('.pkg-cta').forEach(b => b.textContent = nl ? 'Starten →' : 'Get started →');
   $$('.pkg-sub').forEach(p => p.textContent = nl ? 'Gratis auditgesprek inbegrepen' : 'Free audit call included');
+  const pkgPdfBtn = document.getElementById('pkg-pdf-btn');
+  if (pkgPdfBtn) pkgPdfBtn.textContent = nl ? 'Vergelijkingstabel bekijken →' : 'View full comparison table →';
 
   // Contact section
   const flTitle = $('.fl-title');
