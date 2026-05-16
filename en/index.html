@@ -1,0 +1,1157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Stop Losing Belgian Clients Before the First Call | WAT? Agency Belgium</title>
+<meta name="description" content="Full online presence for businesses in Belgium. Website, Google Business, social media, content — one system that brings clients while you work.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Exo+2:wght@400;600;700;800;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --red:#E63B1E;--red-mid:#C42D15;--red-dark:#8B1A0A;
+  --red-10:rgba(230,59,30,.1);--red-15:rgba(230,59,30,.15);--red-06:rgba(230,59,30,.06);
+  --ink:#111111;--ink-60:rgba(17,17,17,.6);--ink-40:rgba(17,17,17,.4);--ink-12:rgba(17,17,17,.12);
+  --bg:#F8F7F4;--bg-card:#FFFFFF;--bg-alt:#F1EFEA;--bg-dark:#111111;
+  --border:rgba(17,17,17,.08);--border-red:rgba(230,59,30,.2);
+  --r24:24px;--r16:16px;--r12:12px;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{background:var(--bg);color:var(--ink);font-family:'Inter',sans-serif;font-size:16px;line-height:1.6;overflow-x:hidden}
+a{text-decoration:none;color:inherit}
+img{display:block;max-width:100%}
+
+/* PROGRESS */
+#prog{position:fixed;top:0;left:0;right:0;height:3px;background:var(--red);z-index:9000;transform:scaleX(0);transform-origin:left;transition:transform .1s linear}
+
+/* ── NAV ── */
+nav{position:fixed;top:0;left:0;right:0;z-index:500;background:rgba(248,247,244,.92);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);display:flex;align-items:center;justify-content:space-between;padding:0 56px;height:66px;border-bottom:1px solid var(--border);transition:height .3s,box-shadow .3s}
+nav.scrolled{height:56px;box-shadow:0 4px 24px rgba(17,17,17,.07)}
+.nav-logo{font-family:'Bebas Neue',sans-serif;font-size:24px;letter-spacing:5px;color:var(--ink);display:flex;align-items:center;gap:1px}
+.nav-logo .q{color:var(--red);font-size:30px;line-height:.85}
+.nav-links{display:flex;gap:32px;align-items:center}
+.nav-links a{font-family:'Inter',sans-serif;font-size:13px;font-weight:500;color:var(--ink-60);transition:color .2s;letter-spacing:.2px}
+.nav-links a:hover{color:var(--ink)}
+.nav-cta{font-family:'Exo 2',sans-serif;font-size:12px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#fff;background:var(--red);padding:10px 24px;border-radius:var(--r12);transition:background .2s,transform .15s,box-shadow .2s}
+.nav-cta:hover{background:var(--red-mid);transform:translateY(-1px);box-shadow:0 8px 24px var(--red-15)}
+.ham{display:none;flex-direction:column;gap:5px;padding:8px;cursor:pointer;background:none;border:none;-webkit-tap-highlight-color:transparent}
+.ham span{display:block;width:22px;height:2px;background:var(--ink);border-radius:2px;transition:transform .3s,opacity .3s}
+.ham.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.ham.open span:nth-child(2){opacity:0}
+.ham.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+.mob-drawer{position:fixed;top:0;left:0;right:0;bottom:0;background:var(--bg-card);z-index:490;display:flex;flex-direction:column;padding:88px 32px 40px;gap:4px;transform:translateX(100%);transition:transform .38s cubic-bezier(.22,1,.36,1)}
+.mob-drawer.open{transform:none}
+.mob-drawer a.ml{font-family:'Exo 2',sans-serif;font-size:clamp(24px,6vw,32px);font-weight:800;letter-spacing:.5px;color:var(--ink);padding:14px 0;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;transition:color .2s}
+.mob-drawer a.ml:hover{color:var(--red)}
+.mob-drawer a.ml .arr{font-size:16px;color:var(--red);opacity:.5}
+.mob-drawer a.mc{margin-top:24px;display:block;text-align:center;font-family:'Exo 2',sans-serif;font-size:14px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#fff;background:var(--red);padding:18px;border-radius:var(--r16);transition:background .2s}
+.mob-drawer a.mc:hover{background:var(--red-mid)}
+@media(max-width:768px){
+  nav{padding:0 24px;height:60px}
+  .nav-links,.nav-cta{display:none}
+  .ham{display:flex}
+  .nav-logo{font-size:20px;letter-spacing:4px}
+  .nav-logo .q{font-size:26px}
+}
+
+/* STICKY MOBILE */
+.sticky-m{position:fixed;bottom:0;left:0;right:0;z-index:450;background:var(--bg-card);border-top:1px solid var(--border);padding:12px 20px;display:none;align-items:center;justify-content:space-between;gap:12px;box-shadow:0 -4px 20px rgba(17,17,17,.08)}
+@media(max-width:768px){.sticky-m{display:flex}}
+.sticky-m p{font-size:12px;font-weight:500;color:var(--ink-60);line-height:1.3}
+.sticky-m p strong{color:var(--ink);display:block;font-size:13px}
+.sticky-m a{font-family:'Exo 2',sans-serif;font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#fff;background:var(--red);padding:12px 18px;border-radius:var(--r12);white-space:nowrap}
+
+/* BACK TOP */
+#back-top{position:fixed;bottom:28px;right:28px;z-index:400;width:44px;height:44px;border-radius:50%;background:var(--bg-card);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:16px;color:var(--red);cursor:pointer;opacity:0;transform:translateY(8px);transition:opacity .3s,transform .3s,box-shadow .2s;pointer-events:none;box-shadow:0 4px 16px rgba(17,17,17,.1)}
+#back-top.show{opacity:1;transform:none;pointer-events:auto}
+#back-top:hover{box-shadow:0 8px 24px var(--red-15)}
+@media(max-width:768px){#back-top{bottom:80px;right:16px;width:38px;height:38px}}
+
+/* REVEAL */
+.rv,.rv-l,.rv-r{transition:opacity .75s cubic-bezier(.22,1,.36,1),transform .75s cubic-bezier(.22,1,.36,1)}
+.js-on .rv{opacity:0;transform:translateY(22px)}
+.js-on .rv-l{opacity:0;transform:translateX(-22px)}
+.js-on .rv-r{opacity:0;transform:translateX(22px)}
+.vi{opacity:1!important;transform:none!important}
+.d1{transition-delay:.1s!important}.d2{transition-delay:.19s!important}.d3{transition-delay:.28s!important}
+.d4{transition-delay:.37s!important}.d5{transition-delay:.46s!important}.d6{transition-delay:.55s!important}
+
+/* SHARED */
+.sec{padding:104px 64px;position:relative;overflow:hidden}
+@media(max-width:768px){.sec{padding:72px 24px}}
+.sec-white{background:var(--bg-card)}
+.sec-warm{background:var(--bg)}
+.sec-alt{background:var(--bg-alt)}
+.sec-dark{background:var(--bg-dark);color:#F8F7F4}
+.sec-tag{font-family:'Exo 2',sans-serif;font-size:11px;font-weight:700;letter-spacing:5px;text-transform:uppercase;display:flex;align-items:center;gap:12px;margin-bottom:20px}
+.sec-tag::before{content:'';display:block;width:28px;height:2px;background:currentColor;border-radius:2px}
+.sec-white .sec-tag,.sec-warm .sec-tag,.sec-alt .sec-tag{color:var(--red)}
+.sec-dark .sec-tag{color:rgba(248,247,244,.5)}
+.big-h{font-family:'Exo 2',sans-serif;font-weight:900;line-height:.92;letter-spacing:-2px}
+.sec-white .big-h,.sec-warm .big-h,.sec-alt .big-h{color:var(--ink)}
+.sec-dark .big-h{color:#F8F7F4}
+.red-dot{color:var(--red)}
+.red-acc{color:var(--red)}
+.sec-sub{font-family:'Inter',sans-serif;font-size:clamp(15px,1.8vw,19px);font-weight:400;line-height:1.7;margin-top:16px;margin-bottom:44px;max-width:680px;color:var(--ink-60)}
+.sec-dark .sec-sub{color:rgba(248,247,244,.55)}
+.body-t{font-size:clamp(14px,1.4vw,16px);line-height:1.88;color:var(--ink-60);max-width:580px}
+.sec-dark .body-t{color:rgba(248,247,244,.6)}
+.s-bg-num{position:absolute;top:16px;right:56px;font-family:'Bebas Neue',sans-serif;font-size:160px;line-height:1;user-select:none;pointer-events:none;color:rgba(17,17,17,.03)}
+.sec-dark .s-bg-num{color:rgba(255,255,255,.03)}
+@media(max-width:768px){.s-bg-num{right:24px;font-size:90px}}
+
+/* BUTTONS */
+.btn-red{font-family:'Exo 2',sans-serif;font-size:12px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#fff;background:var(--red);padding:16px 36px;border-radius:var(--r16);display:inline-flex;align-items:center;gap:10px;transition:background .2s,transform .15s,box-shadow .25s;position:relative;overflow:hidden}
+.btn-red::after{content:'';position:absolute;inset:0;background:linear-gradient(120deg,transparent 30%,rgba(255,255,255,.22) 50%,transparent 70%);transform:translateX(-110%);transition:transform .55s}
+.btn-red:hover{background:var(--red-mid);transform:translateY(-2px);box-shadow:0 12px 36px var(--red-15)}
+.btn-red:hover::after{transform:translateX(110%)}
+.btn-outline{font-family:'Exo 2',sans-serif;font-size:12px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--ink);background:transparent;padding:14px 36px;border-radius:var(--r16);border:1.5px solid var(--ink-12);display:inline-flex;align-items:center;gap:10px;transition:border-color .2s,color .2s,background .2s}
+.btn-outline:hover{border-color:var(--red);color:var(--red)}
+
+/* ──────────────── HERO ──────────────── */
+.hero{background:var(--bg-card);padding:140px 64px 100px;min-height:100vh;display:flex;flex-direction:column;justify-content:center;position:relative;overflow:hidden}
+.hero-blob{position:absolute;top:-240px;right:-240px;width:800px;height:800px;border-radius:50%;background:radial-gradient(circle at 38% 38%,rgba(230,59,30,.72) 0%,rgba(230,100,60,.4) 38%,transparent 68%);filter:blur(72px);animation:blob 12s ease-in-out infinite alternate;pointer-events:none;z-index:0}
+@keyframes blob{from{transform:translate(0,0) scale(1)}to{transform:translate(-44px,44px) scale(1.06)}}
+.hero-plus{position:absolute;font-size:20px;color:var(--ink-12);user-select:none;pointer-events:none;font-weight:300}
+.hero-plus.p1{top:22%;right:12%}
+.hero-plus.p2{bottom:30%;right:32%}
+.hero-plus.p3{top:40%;right:52%}
+.hero-inner{position:relative;z-index:1;max-width:820px}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:8px;font-family:'Exo 2',sans-serif;font-size:11px;font-weight:700;letter-spacing:5px;text-transform:uppercase;color:var(--red);margin-bottom:28px}
+.hero-eyebrow::before{content:'';width:28px;height:2px;background:var(--red);border-radius:2px;display:block}
+.hero h1{font-family:'Exo 2',sans-serif;font-weight:900;font-size:clamp(52px,8.5vw,112px);line-height:.9;letter-spacing:-3px;color:var(--ink);max-width:920px}
+.hero h1 .red-dot{color:var(--red);font-size:1.1em;line-height:.5}
+.hero-sub{font-size:clamp(16px,1.8vw,20px);font-weight:400;line-height:1.72;color:var(--ink-60);max-width:520px;margin-top:28px}
+.hero-chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:28px}
+.chip{font-family:'Inter',sans-serif;font-size:12px;font-weight:500;color:var(--ink-60);background:var(--bg-alt);padding:7px 14px;border-radius:40px;border:1px solid var(--border)}
+.chip.active{color:var(--red);background:var(--red-10);border-color:var(--border-red)}
+.hero-btns{display:flex;gap:12px;margin-top:40px;flex-wrap:wrap}
+.hero-icons{display:flex;gap:12px;margin-top:64px;flex-wrap:nowrap;overflow-x:auto;padding-bottom:4px}
+.hero-icons::-webkit-scrollbar{display:none}
+.hi-card{background:var(--bg-card);border-radius:20px;padding:18px 20px;display:flex;flex-direction:column;align-items:center;gap:8px;min-width:96px;box-shadow:0 1px 2px rgba(17,17,17,.04),0 4px 12px rgba(17,17,17,.06),0 12px 28px rgba(17,17,17,.05);border:1px solid var(--border);animation:float var(--fd,4s) ease-in-out infinite;transition:transform .35s,box-shadow .35s}
+.hi-card:hover{transform:translateY(-6px) !important;box-shadow:0 8px 24px var(--red-15),0 2px 8px rgba(17,17,17,.06)}
+.hi-card:nth-child(1){--fd:4s}
+.hi-card:nth-child(2){--fd:4.4s;animation-delay:.4s}
+.hi-card:nth-child(3){--fd:4.8s;animation-delay:.8s}
+.hi-card:nth-child(4){--fd:4.2s;animation-delay:.6s}
+.hi-card:nth-child(5){--fd:4.6s;animation-delay:.3s}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
+.hi-ico{width:44px;height:44px;border-radius:12px;background:var(--red-10);display:flex;align-items:center;justify-content:center;font-size:0}
+.hi-ico svg{stroke:var(--red)}
+.hi-lbl{font-family:'Exo 2',sans-serif;font-size:10px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;color:var(--ink-60);text-align:center}
+@media(max-width:768px){
+  .hero{padding:100px 24px 72px}
+  .hero h1{font-size:clamp(44px,12vw,68px);letter-spacing:-2px}
+  .hero-sub{font-size:15px}
+  .hero-btns{flex-direction:column}
+  .btn-red,.btn-outline{width:100%;justify-content:center;padding:16px 24px}
+  .hero-icons{gap:8px}
+  .hi-card{min-width:80px;padding:14px}
+  .hi-ico{width:38px;height:38px}
+}
+
+/* ── STATS ── */
+.stats-row{display:grid;grid-template-columns:repeat(4,1fr);background:var(--ink)}
+.stat{padding:36px 28px;border-right:1px solid rgba(255,255,255,.06);position:relative;overflow:hidden;transition:background .3s}
+.stat:last-child{border-right:none}
+.stat::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:var(--red);transform:scaleX(0);transform-origin:left;transition:transform .4s}
+.stat:hover{background:rgba(255,255,255,.03)}
+.stat:hover::after{transform:scaleX(1)}
+.stat-n{font-family:'Exo 2',sans-serif;font-size:clamp(22px,3.2vw,42px);font-weight:900;color:var(--red);line-height:1;margin-bottom:6px;letter-spacing:-1px}
+.stat-l{font-family:'Inter',sans-serif;font-size:11px;font-weight:400;letter-spacing:1px;color:rgba(248,247,244,.35);line-height:1.4;text-transform:uppercase}
+@media(max-width:768px){
+  .stats-row{grid-template-columns:1fr 1fr}
+  .stat:nth-child(2){border-right:none}
+  .stat:nth-child(3){border-top:1px solid rgba(255,255,255,.06)}
+  .stat{padding:22px 18px}
+}
+
+/* ── PROBLEM ── */
+.prob-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:40px}
+.prob-card{padding:28px 24px;background:var(--bg-card);border-radius:var(--r16);border:1px solid var(--border);transition:border-color .25s,transform .25s,box-shadow .25s;cursor:default}
+.prob-card:hover{border-color:var(--red);transform:translateY(-3px);box-shadow:0 8px 28px var(--red-10)}
+.prob-head{display:flex;align-items:center;gap:12px;margin-bottom:10px}
+.prob-x{width:28px;height:28px;border-radius:50%;background:var(--red-10);display:flex;align-items:center;justify-content:center;font-size:11px;color:var(--red);font-weight:700;flex-shrink:0}
+.prob-card h4{font-family:'Exo 2',sans-serif;font-size:14px;font-weight:700;color:var(--ink);letter-spacing:.2px}
+.prob-card p{font-size:13px;line-height:1.68;color:var(--ink-60)}
+.prob-banner{background:var(--red);border-radius:var(--r16);padding:32px 36px;display:flex;align-items:center;justify-content:space-between;gap:24px;transition:filter .2s;text-decoration:none}
+.prob-banner:hover{filter:brightness(1.07)}
+.prob-banner strong{font-family:'Exo 2',sans-serif;font-size:clamp(18px,2.2vw,26px);font-weight:800;color:#fff;line-height:1.15;max-width:560px}
+.prob-banner span{font-size:28px;flex-shrink:0}
+@media(max-width:768px){
+  .prob-grid{grid-template-columns:1fr}
+  .prob-banner{flex-direction:column;align-items:flex-start;padding:22px 20px;gap:12px}
+}
+
+/* ── SOLUTION ── */
+.sol-grid{display:grid;grid-template-columns:1fr 1fr;gap:56px;margin-top:48px;align-items:center}
+.sol-items{display:flex;flex-direction:column;gap:24px}
+.sol-item{display:flex;gap:16px;align-items:flex-start;padding:20px;background:rgba(248,247,244,.06);border-radius:var(--r16);border:1px solid rgba(248,247,244,.08);transition:background .2s,border-color .2s}
+.sol-item:hover{background:rgba(248,247,244,.1);border-color:rgba(230,59,30,.3)}
+.sol-ico{font-size:0;flex-shrink:0;margin-top:2px;width:28px;height:28px;display:flex;align-items:center;justify-content:center}
+.sol-ico svg{stroke:rgba(248,247,244,.7)}
+.sol-item h4{font-family:'Exo 2',sans-serif;font-size:15px;font-weight:700;color:#F8F7F4;margin-bottom:5px}
+.sol-item p{font-size:13px;line-height:1.75;color:rgba(248,247,244,.55)}
+.sol-card{background:rgba(230,59,30,.12);border:1px solid rgba(230,59,30,.25);border-radius:var(--r24);padding:40px 36px}
+.sol-card h3{font-family:'Exo 2',sans-serif;font-size:clamp(26px,3.2vw,44px);font-weight:900;color:#F8F7F4;line-height:.95;letter-spacing:-1px;margin-bottom:18px}
+.sol-card h3 .red-acc{color:var(--red)}
+.sol-card p{font-size:14px;line-height:1.82;color:rgba(248,247,244,.58);margin-bottom:24px}
+.sol-checks{display:flex;flex-direction:column;gap:10px;margin-bottom:28px}
+.sc-row{display:flex;align-items:center;gap:10px;font-size:13px;color:rgba(248,247,244,.72)}
+.sc-dot{width:20px;height:20px;border-radius:50%;background:var(--red);display:flex;align-items:center;justify-content:center;font-size:9px;color:#fff;font-weight:900;flex-shrink:0}
+@media(max-width:768px){.sol-grid{grid-template-columns:1fr;gap:36px}}
+
+/* ── 3D SERVICE CARDS ── */
+.services-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:48px}
+.svc-wrap{position:relative}
+.svc-wrap::after{content:'';position:absolute;inset:0;border-radius:var(--r24);background:var(--red-06);transform:translate(6px,8px);z-index:0;transition:transform .35s}
+.svc-wrap::before{content:'';position:absolute;inset:0;border-radius:var(--r24);background:rgba(17,17,17,.04);transform:translate(3px,4px);z-index:0;transition:transform .35s}
+.svc-wrap:hover::after{transform:translate(10px,14px)}
+.svc-wrap:hover::before{transform:translate(5px,7px)}
+.svc-card-3d{position:relative;z-index:1;background:var(--bg-card);border-radius:var(--r24);padding:28px 24px;border:1px solid var(--border);transition:transform .38s cubic-bezier(.22,1,.36,1),box-shadow .38s;cursor:default;transform-style:preserve-3d;will-change:transform}
+.svc-card-3d:hover{box-shadow:0 8px 32px var(--red-10),0 24px 64px rgba(17,17,17,.08)}
+.svc-ico-box{width:56px;height:56px;border-radius:var(--r16);background:var(--red-10);display:flex;align-items:center;justify-content:center;margin-bottom:16px;transition:transform .35s,box-shadow .35s;box-shadow:inset 0 1.5px 3px rgba(255,255,255,.6),0 4px 12px var(--red-10)}
+.svc-card-3d:hover .svc-ico-box{transform:translateY(-4px) scale(1.08);box-shadow:0 8px 24px var(--red-15),inset 0 1.5px 3px rgba(255,255,255,.6)}
+.svc-ico-box svg{width:28px;height:28px;stroke:var(--red);stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;fill:none}
+.svc-card-3d h3{font-family:'Exo 2',sans-serif;font-size:13px;font-weight:700;letter-spacing:.3px;color:var(--ink);margin-bottom:8px;text-transform:uppercase}
+.svc-card-3d p{font-size:12px;line-height:1.65;color:var(--ink-60)}
+.svc-hot .svc-ico-box{background:var(--red-10);border:1.5px solid var(--border-red)}
+.svc-hot h3{color:var(--red)}
+@media(max-width:1100px){.services-grid{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:768px){.services-grid{grid-template-columns:1fr 1fr;gap:10px}.svc-card-3d{padding:20px 16px}}
+@media(max-width:400px){.services-grid{grid-template-columns:1fr}}
+
+/* ── PROCESS ── */
+.steps-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:0;margin-top:56px;position:relative}
+.steps-line{position:absolute;top:44px;left:calc(10% + 12px);right:calc(10% + 12px);height:1px;background:var(--border)}
+.step-item{padding:0 12px;text-align:center;position:relative;z-index:1;transition:opacity .2s}
+.step-item:hover{opacity:.85}
+.step-ball{width:88px;height:88px;border-radius:50%;background:var(--bg-card);border:2px solid var(--border);display:flex;align-items:center;justify-content:center;margin:0 auto 20px;transition:border-color .3s,box-shadow .3s,transform .3s;position:relative!important;font-size:0!important}
+.step-badge{position:absolute;top:-5px;right:-5px;width:22px;height:22px;border-radius:50%;background:var(--red);color:#fff;font-family:'Exo 2',sans-serif;font-size:11px;font-weight:900;display:flex;align-items:center;justify-content:center;line-height:1;z-index:2}
+.step-ball svg{width:38px;height:38px;stroke:var(--ink);stroke-width:1.8;fill:none;stroke-linecap:round;stroke-linejoin:round;transition:stroke .3s}
+.step-item:hover .step-ball{border-color:var(--red);box-shadow:0 0 0 4px var(--red-10);transform:translateY(-4px)}
+.step-item:hover .step-ball svg{stroke:var(--red)}
+.step-item h3{font-family:'Exo 2',sans-serif;font-size:11px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--red);margin-bottom:8px}
+.step-item p{font-size:12px;line-height:1.65;color:var(--ink-60)}
+@media(max-width:900px){.steps-grid{grid-template-columns:1fr 1fr}.steps-line{display:none}}
+@media(max-width:480px){
+  .steps-grid{grid-template-columns:1fr;gap:20px}
+  .step-item{display:flex;align-items:flex-start;gap:16px;text-align:left;padding:0}
+  .step-ball{width:52px;height:52px;flex-shrink:0;margin:0}
+  .step-ball svg{width:28px;height:28px}
+}
+
+/* ── FOR WHOM ── */
+.whom-cols{display:grid;grid-template-columns:1fr 1fr;gap:48px;margin-top:48px;align-items:start}
+.whom-list{display:flex;flex-direction:column;gap:8px}
+.whom-row{display:flex;gap:14px;align-items:flex-start;padding:16px 18px;background:var(--bg-card);border-radius:var(--r12);border:1px solid var(--border);transition:border-color .2s,transform .2s,box-shadow .2s}
+.whom-row:hover{border-color:var(--red);transform:translateX(4px);box-shadow:0 4px 16px var(--red-06)}
+.w-ico{font-size:0;flex-shrink:0;width:36px;height:36px;border-radius:10px;background:var(--red-10);display:flex;align-items:center;justify-content:center;border:1px solid var(--border-red)}
+.w-ico svg{stroke:var(--red)}
+.whom-row strong{font-family:'Exo 2',sans-serif;font-size:13px;font-weight:700;display:block;margin-bottom:3px}
+.whom-row p{font-size:12px;line-height:1.65;color:var(--ink-60)}
+.whom-callout{background:var(--red);border-radius:var(--r24);padding:44px 36px;position:relative;overflow:hidden}
+.whom-callout::before{content:'';position:absolute;bottom:-60px;right:-60px;width:220px;height:220px;border-radius:50%;background:rgba(255,255,255,.07)}
+.wc-tag{font-family:'Exo 2',sans-serif;font-size:10px;font-weight:700;letter-spacing:4px;text-transform:uppercase;color:rgba(255,255,255,.55);display:block;margin-bottom:14px}
+.whom-callout h3{font-family:'Exo 2',sans-serif;font-size:clamp(26px,3.2vw,40px);font-weight:900;color:#fff;line-height:.95;letter-spacing:-1px;margin-bottom:18px}
+.whom-callout p{font-size:14px;line-height:1.82;color:rgba(255,255,255,.65);position:relative;z-index:1;margin-bottom:24px}
+.whom-img{width:100%;aspect-ratio:16/9;border-radius:var(--r16);overflow:hidden;margin-bottom:22px;border:1px solid rgba(255,255,255,.12)}
+.whom-img img{width:100%;height:100%;object-fit:cover;display:block}
+@media(max-width:768px){.whom-cols{grid-template-columns:1fr;gap:28px}.whom-callout{padding:28px 22px}}
+
+/* ── WHY US ── */
+.why-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:48px;max-width:940px}
+.why-item{display:flex;gap:14px;align-items:flex-start;padding:22px 20px;background:var(--bg-card);border-radius:var(--r16);border:1px solid var(--border);transition:border-color .25s,transform .25s,box-shadow .25s}
+.why-item:hover{border-color:var(--red);transform:translateY(-3px);box-shadow:0 8px 28px var(--red-06)}
+.why-num{font-family:'Exo 2',sans-serif;font-size:28px;font-weight:900;color:var(--red-10);line-height:1;flex-shrink:0;letter-spacing:-1px;transition:color .25s}
+.why-item:hover .why-num{color:rgba(230,59,30,.25)}
+.why-item p{font-size:14px;line-height:1.72;color:var(--ink-60);padding-top:5px}
+.why-item strong{color:var(--ink);font-weight:600}
+@media(max-width:768px){.why-grid{grid-template-columns:1fr}}
+
+/* ── PACKAGES ── */
+.pkg-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:52px;align-items:start}
+.pkg-card{background:var(--bg-card);border-radius:var(--r24);padding:30px 26px;border:1.5px solid var(--border);position:relative;overflow:visible;transition:transform .35s,box-shadow .35s}
+.pkg-card:hover{transform:translateY(-5px);box-shadow:0 28px 72px rgba(17,17,17,.09)}
+.pkg-card.pkg-pop{border-color:var(--red);border-width:2px}
+.pkg-pop-lbl{position:absolute;top:-13px;left:50%;transform:translateX(-50%);background:var(--red);color:#fff;font-family:'Exo 2',sans-serif;font-size:9px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;padding:4px 14px;border-radius:20px;white-space:nowrap}
+.pkg-num{font-family:'Exo 2',sans-serif;font-size:9px;font-weight:700;letter-spacing:4px;text-transform:uppercase;color:var(--ink-40);margin-bottom:6px}
+.pkg-title{font-family:'Exo 2',sans-serif;font-size:18px;font-weight:900;color:var(--ink);letter-spacing:-.5px;line-height:1;margin-bottom:14px}
+.pkg-price{font-family:'Exo 2',sans-serif;font-size:42px;font-weight:900;color:var(--red);letter-spacing:-2px;line-height:1;margin-bottom:4px}
+.pkg-price sub{font-size:.33em;font-weight:600;color:var(--ink-60);bottom:4px;letter-spacing:0;font-style:normal}
+.pkg-days{display:inline-flex;align-items:center;gap:6px;background:var(--bg-alt);color:var(--ink-60);font-size:11px;font-weight:600;padding:5px 12px;border-radius:20px;margin-bottom:18px;font-family:'Exo 2',sans-serif}
+.pkg-dot{width:5px;height:5px;border-radius:50%;background:var(--red);flex-shrink:0}
+.pkg-sep{height:1px;background:var(--border);margin:16px 0}
+.pkg-cat{display:flex;align-items:center;gap:8px;margin:14px 0 8px}
+.pkg-cico{width:24px;height:24px;border-radius:7px;background:var(--red-10);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.pkg-cico svg{width:12px;height:12px;stroke:var(--red);stroke-width:2;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.pkg-clbl{font-family:'Exo 2',sans-serif;font-size:9px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--ink-40)}
+.pkg-li{font-size:12px;color:var(--ink-60);line-height:1.6;padding-left:14px;margin-bottom:3px;position:relative}
+.pkg-li::before{content:'·';position:absolute;left:2px;color:var(--red);font-weight:900;font-size:14px;line-height:1.3}
+.pkg-li strong{color:var(--ink);font-weight:600}
+.pkg-from{background:var(--bg-alt);border-radius:10px;padding:9px 12px;font-size:11.5px;color:var(--ink-60);display:flex;align-items:center;gap:7px;margin-bottom:14px;font-style:italic}
+.pkg-from svg{width:12px;height:12px;stroke:var(--red);flex-shrink:0;stroke-width:2.5;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.pkg-cta{display:block;text-align:center;font-family:'Exo 2',sans-serif;font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:14px;border-radius:var(--r16);transition:all .2s;margin-top:18px;border:2px solid var(--red);color:var(--red)}
+.pkg-cta:hover{background:var(--red);color:#fff;transform:translateY(-1px);box-shadow:0 8px 24px var(--red-15)}
+.pkg-card.pkg-pop .pkg-cta{background:var(--red);color:#fff}
+.pkg-card.pkg-pop .pkg-cta:hover{background:var(--red-mid)}
+.pkg-sub{font-size:10.5px;color:var(--ink-40);text-align:center;margin-top:8px;letter-spacing:.3px}
+@media(max-width:960px){.pkg-grid{grid-template-columns:1fr;max-width:500px;margin-left:auto;margin-right:auto}}
+@media(max-width:600px){.pkg-grid{max-width:100%}}
+
+/* ── CASES ── */
+.case-grid{display:grid;grid-template-columns:1fr 1fr;gap:32px;margin-top:52px}
+.case-card{background:var(--bg-card);border-radius:var(--r24);padding:36px 32px;border:1px solid var(--border);position:relative;overflow:hidden;transition:transform .35s cubic-bezier(.22,1,.36,1),box-shadow .35s}
+.case-card:hover{transform:translateY(-5px);box-shadow:0 28px 72px rgba(17,17,17,.09)}
+.case-ind{display:inline-flex;align-items:center;gap:6px;background:var(--red-10);color:var(--red);font-family:'Exo 2',sans-serif;font-size:9px;font-weight:700;letter-spacing:3px;text-transform:uppercase;padding:5px 12px;border-radius:40px;border:1px solid var(--border-red);margin-bottom:20px}
+.case-co{font-family:'Exo 2',sans-serif;font-size:clamp(28px,3vw,40px);font-weight:900;color:var(--ink);line-height:.95;letter-spacing:-1.5px;margin-bottom:6px}
+.case-loc{font-size:12px;color:var(--ink-40);font-weight:500;letter-spacing:.3px;margin-bottom:22px;display:flex;align-items:center;gap:5px}
+.case-img{width:100%;aspect-ratio:16/9;border-radius:var(--r16);overflow:hidden;margin-bottom:18px;border:1px solid var(--border)}
+.case-img img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s cubic-bezier(.22,1,.36,1)}
+.case-card:hover .case-img img{transform:scale(1.04)}
+.case-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:22px;padding:18px 16px;background:var(--bg-alt);border-radius:var(--r16)}
+.case-stat-val{font-family:'Exo 2',sans-serif;font-size:24px;font-weight:900;color:var(--red);letter-spacing:-1px;line-height:1}
+.case-stat-lbl{font-size:10px;color:var(--ink-60);font-weight:500;margin-top:3px;line-height:1.3}
+.case-divider{height:1px;background:var(--border);margin:18px 0}
+.case-what-ttl{font-family:'Exo 2',sans-serif;font-size:9px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--ink-40);margin-bottom:12px}
+.case-what-list{display:flex;flex-direction:column;gap:8px;margin-bottom:20px}
+.case-what-item{display:flex;align-items:flex-start;gap:10px;font-size:13px;color:var(--ink-60);line-height:1.5}
+.case-what-item::before{content:'✓';color:var(--red);font-weight:900;font-size:11px;margin-top:2px;flex-shrink:0}
+.case-result{background:var(--ink);border-radius:var(--r12);padding:16px 18px}
+.case-result p{font-family:'Exo 2',sans-serif;font-size:13px;font-weight:600;color:#F8F7F4;line-height:1.5}
+.case-result p span{color:var(--red)}
+.case-num{position:absolute;bottom:-24px;right:-4px;font-family:'Bebas Neue',sans-serif;font-size:140px;line-height:1;color:rgba(17,17,17,.025);pointer-events:none;user-select:none}
+@media(max-width:900px){.case-grid{grid-template-columns:1fr}}
+@media(max-width:600px){.case-card{padding:24px 20px}.case-stats{padding:14px 10px;gap:8px}.case-stat-val{font-size:20px}}
+
+/* ── FORM ── */
+.form-cols{display:grid;grid-template-columns:1fr 1fr;gap:64px;margin-top:48px;align-items:start}
+.fl-title{font-family:'Exo 2',sans-serif;font-size:clamp(30px,4vw,52px);font-weight:900;color:#F8F7F4;line-height:.92;letter-spacing:-2px;margin-bottom:18px}
+.fl-title .red-acc{color:var(--red)}
+.fl-sub{font-size:15px;line-height:1.82;color:rgba(248,247,244,.55);margin-bottom:28px}
+.fl-promises{display:flex;flex-direction:column;gap:10px}
+.fp-r{display:flex;align-items:center;gap:10px;font-size:13px;color:rgba(248,247,244,.65)}
+.fp-c{width:22px;height:22px;border-radius:50%;background:var(--red);display:flex;align-items:center;justify-content:center;font-size:9px;color:#fff;font-weight:900;flex-shrink:0}
+.f-form{display:flex;flex-direction:column;gap:14px}
+.fg{display:flex;flex-direction:column;gap:6px}
+.fg label{font-family:'Exo 2',sans-serif;font-size:9px;font-weight:700;letter-spacing:3.5px;text-transform:uppercase;color:rgba(248,247,244,.4)}
+.fg input,.fg select,.fg textarea{background:rgba(255,255,255,.07);border:1px solid rgba(248,247,244,.12);color:#F8F7F4;font-family:'Inter',sans-serif;font-size:14px;padding:13px 16px;outline:none;border-radius:var(--r12);transition:border-color .2s,background .2s;-webkit-appearance:none;appearance:none;width:100%}
+.fg input::placeholder,.fg textarea::placeholder{color:rgba(248,247,244,.25)}
+.fg input:focus,.fg select:focus,.fg textarea:focus{border-color:var(--red);background:rgba(255,255,255,.1)}
+.fg select{cursor:pointer;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23E63B1E' stroke-width='1.5' fill='none'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;padding-right:40px}
+.fg select option{background:#1a1a1a;color:#F8F7F4}
+.fg textarea{resize:vertical;min-height:110px}
+.fg-row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.f-btn{font-family:'Exo 2',sans-serif;font-size:13px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#fff;background:var(--red);border:none;padding:18px 32px;cursor:pointer;border-radius:var(--r16);transition:background .2s,transform .15s,box-shadow .2s;width:100%;position:relative;overflow:hidden}
+.f-btn::after{content:'';position:absolute;inset:0;background:linear-gradient(120deg,transparent 30%,rgba(255,255,255,.22) 50%,transparent 70%);transform:translateX(-110%);transition:transform .55s}
+.f-btn:hover{background:var(--red-mid);transform:translateY(-2px);box-shadow:0 12px 36px var(--red-15)}
+.f-btn:hover::after{transform:translateX(110%)}
+.f-note{font-size:11px;color:rgba(248,247,244,.26);text-align:center;letter-spacing:.5px;margin-top:4px}
+@media(max-width:768px){.form-cols{grid-template-columns:1fr;gap:36px}.fg-row{grid-template-columns:1fr}}
+
+/* ── HERO PHOTO ── */
+.hero-photo{position:absolute;right:5%;bottom:0;top:66px;width:min(420px,32vw);border-radius:24px 24px 0 0;overflow:hidden;z-index:1;box-shadow:-20px 0 80px rgba(17,17,17,.12),0 0 0 1px var(--border)}
+.hero-photo img{width:100%;height:100%;object-fit:cover;object-position:center top;display:block}
+@media(max-width:1200px){.hero-photo{display:none}}
+
+/* ── FOOTER ── */
+footer{background:var(--bg-card);padding:52px 64px 36px;border-top:1px solid var(--border)}
+.foot-inner{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:48px}
+.foot-logo{font-family:'Bebas Neue',sans-serif;font-size:26px;letter-spacing:5px;color:var(--ink);display:flex;align-items:center;margin-bottom:12px}
+.foot-logo .q{color:var(--red);font-size:32px;line-height:.85}
+.foot-desc{font-size:13px;line-height:1.8;color:var(--ink-60);max-width:300px}
+.foot-ttl{font-family:'Exo 2',sans-serif;font-size:10px;font-weight:700;letter-spacing:4px;text-transform:uppercase;color:var(--red);margin-bottom:16px}
+.foot-links{display:flex;flex-direction:column;gap:8px}
+.foot-links a{font-size:13px;color:var(--ink-60);transition:color .2s}
+.foot-links a:hover{color:var(--red)}
+.foot-bottom{margin-top:40px;padding-top:24px;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+.foot-bottom p{font-size:12px;color:var(--ink-40)}
+.foot-tagline{font-family:'Exo 2',sans-serif;font-size:10px;font-weight:700;letter-spacing:4px;text-transform:uppercase;color:var(--ink-40)}
+@media(max-width:768px){
+  footer{padding:40px 24px 28px}
+  .foot-inner{grid-template-columns:1fr;gap:28px}
+  .foot-bottom{flex-direction:column;align-items:flex-start}
+}
+</style>
+</head>
+<body>
+
+<div id="prog"></div>
+
+<!-- NAV -->
+<nav id="nav">
+  <a class="nav-logo" href="/">WAT<span class="q">?</span>&nbsp;AGENCY</a>
+  <div class="nav-links">
+    <a href="#services">Services</a>
+    <a href="#process">Process</a>
+    <a href="#cases">Cases</a>
+    <a href="#packages">Packages</a>
+    <a href="#contact">Contact</a>
+  </div>
+  <a class="nav-cta" href="#contact">Free Analysis →</a>
+  <button class="ham" id="ham" aria-label="Menu"><span></span><span></span><span></span></button>
+</nav>
+
+<div class="mob-drawer" id="mob-drawer">
+  <a class="ml" href="#services" onclick="closeMob()">Services <span class="arr">→</span></a>
+  <a class="ml" href="#process" onclick="closeMob()">Process <span class="arr">→</span></a>
+  <a class="ml" href="#cases" onclick="closeMob()">Cases <span class="arr">→</span></a>
+  <a class="ml" href="#packages" onclick="closeMob()">Packages <span class="arr">→</span></a>
+  <a class="ml" href="#contact" onclick="closeMob()">Contact <span class="arr">→</span></a>
+  <a class="mc" href="#contact" onclick="closeMob()">Free Analysis →</a>
+</div>
+
+<!-- STICKY MOBILE -->
+<div class="sticky-m">
+  <p><strong>WAT? Agency Belgium</strong>Free online presence audit</p>
+  <a href="#contact">Start now →</a>
+</div>
+
+<!-- HERO -->
+<section class="hero" id="top">
+  <div class="hero-blob"></div>
+  <span class="hero-plus p1">+</span>
+  <span class="hero-plus p2">+</span>
+  <span class="hero-plus p3">+</span>
+  <div class="hero-photo">
+    <img src="https://d8j0ntlcm91z4.cloudfront.net/user_39fS9dwEv1BGeL8PN3Ut7MGivEM/hf_20260515_173535_34e6e44f-ff16-44b0-a17d-c6541088dbb7.png" alt="Entrepreneur working in Belgium" loading="eager">
+  </div>
+  <div class="hero-inner">
+    <div class="hero-eyebrow rv">For businesses in Belgium</div>
+    <h1 class="rv d1">
+      Belgian clients<br>can't find you<span class="red-dot">.</span><br>Let's fix that<span class="red-dot">.</span>
+    </h1>
+    <p class="hero-sub rv d2">
+      We build a complete online presence for your business in Belgium — website, Google, social media — one system that brings clients while you focus on the work.
+    </p>
+    <div class="hero-chips rv d3">
+      <span class="chip active">Website</span>
+      <span class="chip active">Google Business</span>
+      <span class="chip active">Social Media</span>
+      <span class="chip">Content</span>
+      <span class="chip">Ads</span>
+      <span class="chip">Branding</span>
+    </div>
+    <div class="hero-btns rv d4">
+      <a class="btn-red" href="#contact">Get a free online audit →</a>
+      <a class="btn-outline" href="#services">What's included</a>
+    </div>
+  </div>
+  <div class="hero-icons rv d5">
+    <div class="hi-card">
+      <div class="hi-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="24" height="24"><rect x="2" y="3" width="20" height="16" rx="2"/><line x1="2" y1="8" x2="22" y2="8"/><circle cx="6" cy="5.5" r="1.2" fill="currentColor" stroke="none"/><circle cx="10" cy="5.5" r="1.2" fill="currentColor" stroke="none"/></svg></div>
+      <span class="hi-lbl">Website</span>
+    </div>
+    <div class="hi-card">
+      <div class="hi-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="24" height="24"><path d="M12 2C8.7 2 6 4.7 6 8c0 5.3 6 13 6 13s6-7.7 6-13c0-3.3-2.7-6-6-6z"/><circle cx="12" cy="8" r="2.5"/></svg></div>
+      <span class="hi-lbl">Google</span>
+    </div>
+    <div class="hi-card">
+      <div class="hi-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="24" height="24"><rect x="5" y="2" width="14" height="20" rx="3"/><circle cx="12" cy="17.5" r="1.2" fill="currentColor" stroke="none"/></svg></div>
+      <span class="hi-lbl">Social</span>
+    </div>
+    <div class="hi-card">
+      <div class="hi-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="24" height="24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.12 2.12 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></div>
+      <span class="hi-lbl">Content</span>
+    </div>
+    <div class="hi-card">
+      <div class="hi-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="24" height="24"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2.5" fill="currentColor" stroke="none"/></svg></div>
+      <span class="hi-lbl">Ads</span>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats-row">
+  <div class="stat">
+    <div class="stat-n">11</div>
+    <div class="stat-l">Services in one system</div>
+  </div>
+  <div class="stat">
+    <div class="stat-n">100%</div>
+    <div class="stat-l">Belgian market focus</div>
+  </div>
+  <div class="stat">
+    <div class="stat-n">2–4</div>
+    <div class="stat-l">Weeks to go live</div>
+  </div>
+  <div class="stat">
+    <div class="stat-n">NL/FR</div>
+    <div class="stat-l">In your client's language</div>
+  </div>
+</div>
+
+<!-- PROBLEM -->
+<section class="sec sec-warm" id="problem">
+  <div class="s-bg-num">01</div>
+  <div class="sec-tag rv">The real problem</div>
+  <div class="big-h rv" style="font-size:clamp(56px,10vw,148px)">Why clients<br>choose<br><span class="red-acc">someone else?</span></div>
+  <p class="sec-sub rv">Not because their work is better. Because your competitor is <strong>more visible online</strong>.</p>
+  <div class="prob-grid">
+    <div class="prob-card rv">
+      <div class="prob-head">
+        <div class="prob-x">✕</div>
+        <h4>No website or an outdated one</h4>
+      </div>
+      <p>A client visits and leaves immediately. An old website signals an unreliable business to Belgian customers.</p>
+    </div>
+    <div class="prob-card rv d1">
+      <div class="prob-head">
+        <div class="prob-x">✕</div>
+        <h4>Google Business not set up</h4>
+      </div>
+      <p>Most Belgian clients find contractors via Google Maps. No profile — you simply don't exist for them.</p>
+    </div>
+    <div class="prob-card rv d2">
+      <div class="prob-head">
+        <div class="prob-x">✕</div>
+        <h4>Zero reviews online</h4>
+      </div>
+      <p>Without reviews there is no trust. Belgian clients always choose businesses with verified social proof.</p>
+    </div>
+    <div class="prob-card rv d3">
+      <div class="prob-head">
+        <div class="prob-x">✕</div>
+        <h4>Social media silent for months</h4>
+      </div>
+      <p>Last post 8 months ago? A potential client thinks: "Is this business even still operating?"</p>
+    </div>
+  </div>
+  <a class="prob-banner rv" href="#contact">
+    <strong>Great work doesn't sell itself — it needs to be visible.</strong>
+    <span>→</span>
+  </a>
+</section>
+
+<!-- SOLUTION -->
+<section class="sec sec-dark" id="solution">
+  <div class="s-bg-num">02</div>
+  <div class="sec-tag rv">Our approach</div>
+  <div class="big-h rv" style="font-size:clamp(48px,8vw,112px)">We build<br><span class="red-acc">a system.</span><br>Not just a website.</div>
+  <p class="sec-sub rv">Every element reinforces the others — one goal: <strong style="color:#F8F7F4">more clients calling you</strong>.</p>
+  <div class="sol-grid">
+    <div class="sol-items">
+      <div class="sol-item rv">
+        <span class="sol-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="28" height="28"><rect x="2" y="3" width="20" height="16" rx="2"/><line x1="2" y1="8" x2="22" y2="8"/><line x1="8" y1="13" x2="16" y2="13"/><line x1="8" y1="16" x2="13" y2="16"/></svg></span>
+        <div>
+          <h4>Complete online presence</h4>
+          <p>Website, Google Business, social media — all in one system working together.</p>
+        </div>
+      </div>
+      <div class="sol-item rv d1">
+        <span class="sol-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="28" height="28"><path d="M12 2C8.7 2 6 4.7 6 8c0 5.3 6 13 6 13s6-7.7 6-13c0-3.3-2.7-6-6-6z"/><circle cx="12" cy="8" r="2.5"/></svg></span>
+        <div>
+          <h4>In the language of Belgian clients</h4>
+          <p>Dutch or French — depending on your region. Your clients feel at home: this business is local, for them.</p>
+        </div>
+      </div>
+      <div class="sol-item rv d2">
+        <span class="sol-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="28" height="28"><polyline points="23,6 13.5,15.5 8.5,10.5 1,18"/><polyline points="17,6 23,6 23,12"/></svg></span>
+        <div>
+          <h4>A system that grows every month</h4>
+          <p>Not a one-time fix. A foundation that gets stronger — new reviews, content, search positions every month.</p>
+        </div>
+      </div>
+      <div class="sol-item rv d3">
+        <span class="sol-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="28" height="28"><circle cx="12" cy="12" r="10"/><polyline points="12,6 12,12 16,14"/></svg></span>
+        <div>
+          <h4>While you work — the system attracts</h4>
+          <p>We take care of everything online. You focus on delivering great work.</p>
+        </div>
+      </div>
+    </div>
+    <div class="sol-card rv-r">
+      <h3>The result?<br><span class="red-acc">Clients<br>who call.</span></h3>
+      <p>Not "more followers". Real enquiries from real clients in your area.</p>
+      <div class="sol-checks">
+        <div class="sc-row"><div class="sc-dot">✓</div>More inbound requests from your local area</div>
+        <div class="sc-row"><div class="sc-dot">✓</div>Clients call already convinced</div>
+        <div class="sc-row"><div class="sc-dot">✓</div>Online presence that reflects your quality</div>
+        <div class="sc-row"><div class="sc-dot">✓</div>A system that runs without your daily input</div>
+        <div class="sc-row"><div class="sc-dot">✓</div>A foundation for steady, predictable growth</div>
+      </div>
+      <a class="btn-red" href="#contact" style="background:#fff;color:var(--red)">Start with a free audit →</a>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="sec sec-white" id="services">
+  <div class="s-bg-num">03</div>
+  <div class="sec-tag rv">What's included</div>
+  <div class="big-h rv" style="font-size:clamp(44px,7.5vw,100px)">Everything<br>your business<br><span class="red-acc">needs.</span></div>
+  <p class="sec-sub rv">11 services — one system. Built specifically for businesses operating in Belgium.</p>
+  <div class="services-grid">
+    <div class="svc-wrap rv">
+      <div class="svc-card-3d svc-hot">
+        <div class="svc-ico-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="16" rx="2"/><line x1="2" y1="8" x2="22" y2="8"/><line x1="8" y1="13" x2="16" y2="13"/><line x1="8" y1="16" x2="13" y2="16"/></svg></div>
+        <h3>Website</h3>
+        <p>Fast, mobile-first site in Dutch and/or French. Designed to convert visitors into enquiries.</p>
+      </div>
+    </div>
+    <div class="svc-wrap rv d1">
+      <div class="svc-card-3d svc-hot">
+        <div class="svc-ico-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2C8.7 2 6 4.7 6 8c0 5.3 6 13 6 13s6-7.7 6-13c0-3.3-2.7-6-6-6z"/><circle cx="12" cy="8" r="2.5"/></svg></div>
+        <h3>Google Business</h3>
+        <p>Full profile setup, reviews strategy and local SEO so clients find you first on Google Maps.</p>
+      </div>
+    </div>
+    <div class="svc-wrap rv d2">
+      <div class="svc-card-3d">
+        <div class="svc-ico-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="22,12 18,12 15,21 9,3 6,12 2,12"/></svg></div>
+        <h3>Analytics & GTM</h3>
+        <p>GA4 + Google Tag Manager — you always know where your clients come from.</p>
+      </div>
+    </div>
+    <div class="svc-wrap rv d3">
+      <div class="svc-card-3d">
+        <div class="svc-ico-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="3"/><circle cx="12" cy="17.5" r="1.2" fill="currentColor" stroke="none"/></svg></div>
+        <h3>Social Media</h3>
+        <p>Instagram and Facebook setup and management. Regular posts that build trust with Belgian clients.</p>
+      </div>
+    </div>
+    <div class="svc-wrap rv d4">
+      <div class="svc-card-3d">
+        <div class="svc-ico-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.12 2.12 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></div>
+        <h3>Content Creation</h3>
+        <p>Photos and videos of your work with professional captions in NL/FR. Ready to publish.</p>
+      </div>
+    </div>
+    <div class="svc-wrap rv d5">
+      <div class="svc-card-3d">
+        <div class="svc-ico-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polygon points="13,2 3,14 12,14 11,22 21,10 12,10 13,2"/></svg></div>
+        <h3>Google Ads</h3>
+        <p>Targeted campaigns for your region. Clients search — they find you first.</p>
+      </div>
+    </div>
+    <div class="svc-wrap rv">
+      <div class="svc-card-3d">
+        <div class="svc-ico-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89L17 22l-5-3-5 3 1.523-9.11"/></svg></div>
+        <h3>Branding</h3>
+        <p>Logo, colour palette, and visual identity that communicates trust and professionalism.</p>
+      </div>
+    </div>
+    <div class="svc-wrap rv d1">
+      <div class="svc-card-3d">
+        <div class="svc-ico-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14,2 14,8 20,8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></div>
+        <h3>Quotes & Offers</h3>
+        <p>Professional PDF quote templates in Dutch/French. First impression that closes deals.</p>
+      </div>
+    </div>
+    <div class="svc-wrap rv d2">
+      <div class="svc-card-3d">
+        <div class="svc-ico-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg></div>
+        <h3>Print Materials</h3>
+        <p>Business cards, flyers and vehicle stickers — offline presence that reinforces your brand.</p>
+      </div>
+    </div>
+    <div class="svc-wrap rv d3">
+      <div class="svc-card-3d">
+        <div class="svc-ico-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17 8C8 10 5.9 16.17 3.82 19.34a1 1 0 0 0 1.39 1.38c2.08-1.29 4.33-2 6.79-2 4 0 7-2 7-6-4.59 1.15-6.5-2-6.5-2"/></svg></div>
+        <h3>Email Marketing</h3>
+        <p>Automated follow-up sequences that convert leads into repeat clients.</p>
+      </div>
+    </div>
+    <div class="svc-wrap rv d4">
+      <div class="svc-card-3d">
+        <div class="svc-ico-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.4 2 2 0 0 1 3.6 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.8a16 16 0 0 0 6.29 6.29l.91-.91a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg></div>
+        <h3>WhatsApp Business</h3>
+        <p>Professional WhatsApp setup with auto-replies and catalogue — the way Belgians prefer to contact.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section class="sec sec-alt" id="process">
+  <div class="s-bg-num">04</div>
+  <div class="sec-tag rv">How it works</div>
+  <div class="big-h rv" style="font-size:clamp(44px,7.5vw,100px)">From zero<br>to <span class="red-acc">live</span><br>in 2–4 weeks.</div>
+  <p class="sec-sub rv">Clear milestones. No agency jargon. You always know what's happening and what's next.</p>
+  <div class="steps-grid">
+    <div class="steps-line"></div>
+    <div class="step-item rv">
+      <div class="step-ball">
+        <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <span class="step-badge">1</span>
+      </div>
+      <h3>Audit</h3>
+      <p>We analyse your current online presence, competitors and local market — in one free call.</p>
+    </div>
+    <div class="step-item rv d1">
+      <div class="step-ball">
+        <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14,2 14,8 20,8"/><line x1="16" y1="13" x2="8" y2="13"/></svg>
+        <span class="step-badge">2</span>
+      </div>
+      <h3>Strategy</h3>
+      <p>We create a tailored plan for your niche, region and goals. You approve before we start.</p>
+    </div>
+    <div class="step-item rv d2">
+      <div class="step-ball">
+        <svg viewBox="0 0 24 24"><polygon points="13,2 3,14 12,14 11,22 21,10 12,10 13,2"/></svg>
+        <span class="step-badge">3</span>
+      </div>
+      <h3>Build</h3>
+      <p>Website, Google profile, social accounts — we set everything up with your brand and content.</p>
+    </div>
+    <div class="step-item rv d3">
+      <div class="step-ball">
+        <svg viewBox="0 0 24 24"><polyline points="23,6 13.5,15.5 8.5,10.5 1,18"/><polyline points="17,6 23,6 23,12"/></svg>
+        <span class="step-badge">4</span>
+      </div>
+      <h3>Launch</h3>
+      <p>Everything goes live. We activate Google Ads if included and monitor the first results together.</p>
+    </div>
+    <div class="step-item rv d4">
+      <div class="step-ball">
+        <svg viewBox="0 0 24 24"><path d="M17 8C8 10 5.9 16.17 3.82 19.34a1 1 0 0 0 1.39 1.38c2.08-1.29 4.33-2 6.79-2 4 0 7-2 7-6-4.59 1.15-6.5-2-6.5-2"/><path d="M5 22c4-8 11-10 17-8"/></svg>
+        <span class="step-badge">5</span>
+      </div>
+      <h3>Grow</h3>
+      <p>Monthly content, reviews, and optimisation. Your online presence improves every single month.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FOR WHOM -->
+<section class="sec sec-white" id="forwho">
+  <div class="s-bg-num">05</div>
+  <div class="sec-tag rv">Who this is for</div>
+  <div class="big-h rv" style="font-size:clamp(44px,7.5vw,100px)">Businesses<br>in Belgium<br><span class="red-acc">ready to grow</span></div>
+  <p class="sec-sub rv">We know what Belgian clients expect — and how to make your business <strong>the obvious choice</strong>.</p>
+  <div class="whom-cols">
+    <div class="whom-list">
+      <div class="whom-row rv">
+        <span class="w-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="22" height="22"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg></span>
+        <div><strong>Construction & Renovation</strong><p>Show your projects so compellingly that clients want to hire you before the first call.</p></div>
+      </div>
+      <div class="whom-row rv d1">
+        <span class="w-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="22" height="22"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9,22 9,12 15,12 15,22"/></svg></span>
+        <div><strong>Insulation & Energy</strong><p>A competitive sector in Belgium. The contractor most visible online gets the enquiry — every time.</p></div>
+      </div>
+      <div class="whom-row rv d2">
+        <span class="w-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="22" height="22"><polygon points="13,2 3,14 12,14 11,22 21,10 12,10 13,2"/></svg></span>
+        <div><strong>Electrical, Plumbing, Finishing</strong><p>Local services where Google and reviews decide everything. Be where people are searching.</p></div>
+      </div>
+      <div class="whom-row rv d3">
+        <span class="w-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="22" height="22"><path d="M17 8C8 10 5.9 16.17 3.82 19.34a1 1 0 0 0 1.39 1.38c2.08-1.29 4.33-2 6.79-2 4 0 7-2 7-6-4.59 1.15-6.5-2-6.5-2"/><path d="M5 22c4-8 11-10 17-8"/></svg></span>
+        <div><strong>Cleaning, Gardening, Home Services</strong><p>Any local service in Belgium wins with a consistent online presence. Reviews build reputation.</p></div>
+      </div>
+      <div class="whom-row rv d4">
+        <span class="w-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="22" height="22"><path d="M3 9h18v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V9z"/><path d="M3 9l2.45-4.9A2 2 0 0 1 7.24 3h9.52a2 2 0 0 1 1.8 1.1L21 9"/><line x1="12" y1="3" x2="12" y2="9"/></svg></span>
+        <div><strong>Retail, Restaurant, Studio, Any SME</strong><p>If you have clients in Belgium, this system is built for you — regardless of your industry.</p></div>
+      </div>
+    </div>
+    <div class="whom-callout rv-r">
+      <div class="whom-img">
+        <img src="https://d8j0ntlcm91z4.cloudfront.net/user_39fS9dwEv1BGeL8PN3Ut7MGivEM/hf_20260515_173542_505136f1-c8c3-414c-b545-a3ad4489cfb6.png" alt="Professional contractor in Belgium" loading="lazy">
+      </div>
+      <span class="wc-tag">Important to know</span>
+      <h3>Belgium is<br>not like home</h3>
+      <p>Belgian clients don't trust word-of-mouth alone. They Google, read reviews, visit the website — and only then they call. Your online presence is the first handshake with every new client. We make that handshake count.</p>
+      <a class="btn-red" href="#contact" style="background:#fff;color:var(--red)">Start now →</a>
+    </div>
+  </div>
+</section>
+
+<!-- WHY US -->
+<section class="sec sec-warm" id="why">
+  <div class="s-bg-num">06</div>
+  <div class="sec-tag rv">Why WAT? Agency</div>
+  <div class="big-h rv" style="font-size:clamp(44px,7.5vw,100px)">We know<br>the Belgian<br><span class="red-acc">market.</span></div>
+  <p class="sec-sub rv">Not a generic agency. A team that understands your clients, your competition and your language needs.</p>
+  <div class="why-grid">
+    <div class="why-item rv">
+      <div class="why-num">01</div>
+      <p><strong>We speak NL, FR and EN.</strong> Your website and materials are created in the language your clients actually use — not Google-translated.</p>
+    </div>
+    <div class="why-item rv d1">
+      <div class="why-num">02</div>
+      <p><strong>Local market expertise.</strong> We work exclusively with businesses in Belgium and understand what Belgian clients expect before they trust you.</p>
+    </div>
+    <div class="why-item rv d2">
+      <div class="why-num">03</div>
+      <p><strong>One team, full system.</strong> No coordinating between a web designer, social media manager and SEO specialist. We handle it all.</p>
+    </div>
+    <div class="why-item rv d3">
+      <div class="why-num">04</div>
+      <p><strong>Fast turnaround.</strong> From first call to live website in 2–4 weeks. Not months. Your competitors aren't waiting.</p>
+    </div>
+    <div class="why-item rv d4">
+      <div class="why-num">05</div>
+      <p><strong>Results-focused.</strong> We don't measure success in "likes". We measure it in phone calls, enquiry forms and new clients.</p>
+    </div>
+    <div class="why-item rv d5">
+      <div class="why-num">06</div>
+      <p><strong>Transparent pricing.</strong> Fixed packages, no hidden fees. You know exactly what you pay and what you get before we start.</p>
+    </div>
+  </div>
+</section>
+
+<!-- PACKAGES -->
+<section class="sec sec-alt" id="packages">
+  <div class="s-bg-num">07</div>
+  <div class="sec-tag rv">Pricing</div>
+  <div class="big-h rv" style="font-size:clamp(44px,7.5vw,100px)">Choose<br>your <span class="red-acc">package.</span></div>
+  <p class="sec-sub rv">Fixed price. Clear deliverables. No surprises. <strong>All packages include a free audit call.</strong></p>
+  <div class="pkg-grid">
+
+    <!-- PACKAGE 1 -->
+    <div class="pkg-card rv">
+      <div class="pkg-num">Package 01</div>
+      <div class="pkg-title">Digital Launch</div>
+      <div class="pkg-price">€1,100<sub>one-time</sub></div>
+      <div class="pkg-days"><span class="pkg-dot"></span>12 working days</div>
+      <div class="pkg-sep"></div>
+
+      <div class="pkg-cat">
+        <div class="pkg-cico"><svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="16" rx="2"/><line x1="2" y1="8" x2="22" y2="8"/></svg></div>
+        <span class="pkg-clbl">Website</span>
+      </div>
+      <div class="pkg-li">Up to <strong>5 pages</strong> (Home, About, Services, Projects, Contact)</div>
+      <div class="pkg-li">Mobile-first, fast loading</div>
+      <div class="pkg-li">Basic SEO setup</div>
+      <div class="pkg-li">Contact form + WhatsApp button</div>
+
+      <div class="pkg-cat">
+        <div class="pkg-cico"><svg viewBox="0 0 24 24"><path d="M12 2C8.7 2 6 4.7 6 8c0 5.3 6 13 6 13s6-7.7 6-13c0-3.3-2.7-6-6-6z"/><circle cx="12" cy="8" r="2.5"/></svg></div>
+        <span class="pkg-clbl">Google Business</span>
+      </div>
+      <div class="pkg-li">Full profile setup in NL/FR</div>
+      <div class="pkg-li">Photos and description</div>
+      <div class="pkg-li">Review strategy guide</div>
+
+      <div class="pkg-cat">
+        <div class="pkg-cico"><svg viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="3"/></svg></div>
+        <span class="pkg-clbl">Social Media</span>
+      </div>
+      <div class="pkg-li">Instagram & Facebook setup</div>
+      <div class="pkg-li">Profile bio and highlights</div>
+      <div class="pkg-li"><strong>5 starter posts</strong> in NL/FR</div>
+
+      <a class="pkg-cta" href="#contact">Get started →</a>
+      <p class="pkg-sub">Free audit call included</p>
+    </div>
+
+    <!-- PACKAGE 2 -->
+    <div class="pkg-card pkg-pop rv d1">
+      <div class="pkg-pop-lbl">★ Most popular</div>
+      <div class="pkg-num">Package 02</div>
+      <div class="pkg-title">Digital Foundation</div>
+      <div class="pkg-price">€1,900<sub>one-time</sub></div>
+      <div class="pkg-days"><span class="pkg-dot"></span>18 working days</div>
+      <div class="pkg-sep"></div>
+
+      <div class="pkg-from">
+        <svg viewBox="0 0 24 24"><polyline points="20,6 9,17 4,12"/></svg>
+        Everything in Package 1, plus:
+      </div>
+
+      <div class="pkg-cat">
+        <div class="pkg-cico"><svg viewBox="0 0 24 24"><polyline points="22,12 18,12 15,21 9,3 6,12 2,12"/></svg></div>
+        <span class="pkg-clbl">Analytics & GTM</span>
+      </div>
+      <div class="pkg-li">Google Analytics 4 setup</div>
+      <div class="pkg-li">Google Tag Manager</div>
+      <div class="pkg-li">Conversion tracking</div>
+
+      <div class="pkg-cat">
+        <div class="pkg-cico"><svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.12 2.12 0 0 1 3 3L12 15l-4 1 1-4z"/></svg></div>
+        <span class="pkg-clbl">Content</span>
+      </div>
+      <div class="pkg-li"><strong>10 social posts</strong> in NL/FR</div>
+      <div class="pkg-li">1 professional photo session</div>
+      <div class="pkg-li">Reels / short video editing</div>
+
+      <div class="pkg-cat">
+        <div class="pkg-cico"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89L17 22l-5-3-5 3 1.523-9.11"/></svg></div>
+        <span class="pkg-clbl">Branding</span>
+      </div>
+      <div class="pkg-li">Logo design or refresh</div>
+      <div class="pkg-li">Colour palette + typography</div>
+      <div class="pkg-li">Brand guide (PDF)</div>
+
+      <a class="pkg-cta" href="#contact">Get started →</a>
+      <p class="pkg-sub">Free audit call included</p>
+    </div>
+
+    <!-- PACKAGE 3 -->
+    <div class="pkg-card rv d2">
+      <div class="pkg-num">Package 03</div>
+      <div class="pkg-title">Complete Presence</div>
+      <div class="pkg-price">€2,900<sub>one-time</sub></div>
+      <div class="pkg-days"><span class="pkg-dot"></span>24 working days</div>
+      <div class="pkg-sep"></div>
+
+      <div class="pkg-from">
+        <svg viewBox="0 0 24 24"><polyline points="20,6 9,17 4,12"/></svg>
+        Everything in Package 2, plus:
+      </div>
+
+      <div class="pkg-cat">
+        <div class="pkg-cico"><svg viewBox="0 0 24 24"><polygon points="13,2 3,14 12,14 11,22 21,10 12,10 13,2"/></svg></div>
+        <span class="pkg-clbl">Google Ads</span>
+      </div>
+      <div class="pkg-li"><strong>Search campaign</strong> for your region</div>
+      <div class="pkg-li">Keyword research in NL/FR</div>
+      <div class="pkg-li">1 month management included</div>
+
+      <div class="pkg-cat">
+        <div class="pkg-cico"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg></div>
+        <span class="pkg-clbl">Print Materials</span>
+      </div>
+      <div class="pkg-li">Business cards (design + print)</div>
+      <div class="pkg-li">A5 flyer design</div>
+      <div class="pkg-li">Vehicle sticker design</div>
+
+      <div class="pkg-cat">
+        <div class="pkg-cico"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14,2 14,8 20,8"/></svg></div>
+        <span class="pkg-clbl">Quotes & Materials</span>
+      </div>
+      <div class="pkg-li">Professional PDF quote template</div>
+      <div class="pkg-li">Letterhead design</div>
+      <div class="pkg-li">Email signature</div>
+
+      <a class="pkg-cta" href="#contact">Get started →</a>
+      <p class="pkg-sub">Free audit call included</p>
+    </div>
+
+  </div>
+</section>
+
+<!-- CASES -->
+<section class="sec sec-white" id="cases">
+  <div class="s-bg-num">08</div>
+  <div class="sec-tag rv">Real results</div>
+  <div class="big-h rv" style="font-size:clamp(44px,7.5vw,100px)">Clients who<br>chose to be<br><span class="red-acc">visible.</span></div>
+  <p class="sec-sub rv">Real businesses in Belgium. Real numbers. No stock photos — their actual projects.</p>
+  <div class="case-grid">
+
+    <!-- CASE 1 -->
+    <div class="case-card rv">
+      <div class="case-ind">Renovation · Antwerp</div>
+      <div class="case-img">
+        <img src="https://d8j0ntlcm91z4.cloudfront.net/user_39fS9dwEv1BGeL8PN3Ut7MGivEM/hf_20260515_173518_bb36b8ef-0c92-49ef-89f2-a4d6a65a2ec0.png" alt="Bathroom renovation — Reno Rangers BV" loading="lazy">
+      </div>
+      <div class="case-co">Reno Rangers BV</div>
+      <div class="case-loc">📍 Antwerp, Belgium</div>
+      <div class="case-stats">
+        <div><div class="case-stat-val">+340%</div><div class="case-stat-lbl">Google profile views in 3 months</div></div>
+        <div><div class="case-stat-val">4.9★</div><div class="case-stat-lbl">Google rating (28 reviews)</div></div>
+        <div><div class="case-stat-val">12×</div><div class="case-stat-lbl">More online enquiries vs. before</div></div>
+      </div>
+      <div class="case-divider"></div>
+      <div class="case-what-ttl">What we delivered</div>
+      <div class="case-what-list">
+        <div class="case-what-item">Professional website with project gallery in NL</div>
+        <div class="case-what-item">Google Business setup + review generation strategy</div>
+        <div class="case-what-item">Instagram presence with before/after renovation posts</div>
+        <div class="case-what-item">Google Ads campaign targeting Antwerp homeowners</div>
+      </div>
+      <div class="case-result">
+        <p>"<span>Within 6 weeks of launch</span> we had to turn down work — fully booked for the season."</p>
+      </div>
+      <div class="case-num">01</div>
+    </div>
+
+    <!-- CASE 2 -->
+    <div class="case-card rv d1">
+      <div class="case-ind">Insulation · Brussels</div>
+      <div class="case-img">
+        <img src="https://d8j0ntlcm91z4.cloudfront.net/user_39fS9dwEv1BGeL8PN3Ut7MGivEM/hf_20260515_173527_c1b461ec-32d5-4f93-85b6-a4c13ba7fd3b.png" alt="Facade insulation — ISOPROTECH" loading="lazy">
+      </div>
+      <div class="case-co">ISOPROTECH</div>
+      <div class="case-loc">📍 Brussels / Wallonia, Belgium</div>
+      <div class="case-stats">
+        <div><div class="case-stat-val">Top 3</div><div class="case-stat-lbl">Google Maps results for insulation in Brussels</div></div>
+        <div><div class="case-stat-val">€180K</div><div class="case-stat-lbl">New contracts in first 6 months</div></div>
+        <div><div class="case-stat-val">4.8★</div><div class="case-stat-lbl">Google rating (41 reviews)</div></div>
+      </div>
+      <div class="case-divider"></div>
+      <div class="case-what-ttl">What we delivered</div>
+      <div class="case-what-list">
+        <div class="case-what-item">Bilingual website (FR/NL) with technical service pages</div>
+        <div class="case-what-item">Google Business optimisation for Brussels & Wallonia</div>
+        <div class="case-what-item">Professional branding — logo, brand colours, visual system</div>
+        <div class="case-what-item">Content strategy with before/after insulation projects</div>
+      </div>
+      <div class="case-result">
+        <p>"We went from <span>no online presence to market leader</span> in our region in under 6 months."</p>
+      </div>
+      <div class="case-num">02</div>
+    </div>
+
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="sec sec-dark" id="contact">
+  <div class="s-bg-num">09</div>
+  <div class="form-cols">
+    <div>
+      <div class="sec-tag rv">Get in touch</div>
+      <div class="fl-title rv d1">Let's make<br>your business<br><span class="red-acc">visible.</span></div>
+      <p class="fl-sub rv d2">Fill in the form and we'll get back to you within 24 hours with a free audit of your current online presence.</p>
+      <div class="fl-promises rv d3">
+        <div class="fp-r"><div class="fp-c">✓</div>Free online presence audit</div>
+        <div class="fp-r"><div class="fp-c">✓</div>No commitment, no sales pressure</div>
+        <div class="fp-r"><div class="fp-c">✓</div>Response within 24 hours</div>
+        <div class="fp-r"><div class="fp-c">✓</div>Advice tailored to your niche and region</div>
+      </div>
+    </div>
+    <form class="f-form rv-r" id="contact-form" onsubmit="return handleSubmit(event)">
+      <div class="fg-row">
+        <div class="fg">
+          <label>First name</label>
+          <input type="text" placeholder="John" required>
+        </div>
+        <div class="fg">
+          <label>Last name</label>
+          <input type="text" placeholder="Smith" required>
+        </div>
+      </div>
+      <div class="fg">
+        <label>Email</label>
+        <input type="email" placeholder="john@company.be" required>
+      </div>
+      <div class="fg">
+        <label>Phone (optional)</label>
+        <input type="tel" placeholder="+32 4XX XXX XXX">
+      </div>
+      <div class="fg">
+        <label>Business type</label>
+        <select>
+          <option value="">Select your industry</option>
+          <option>Construction & Renovation</option>
+          <option>Insulation & Energy</option>
+          <option>Electrical / Plumbing</option>
+          <option>Cleaning / Gardening</option>
+          <option>Restaurant / Retail</option>
+          <option>Other</option>
+        </select>
+      </div>
+      <div class="fg">
+        <label>Which package interests you?</label>
+        <select>
+          <option value="">Not sure yet — help me choose</option>
+          <option>Digital Launch — €1,100</option>
+          <option>Digital Foundation — €1,900</option>
+          <option>Complete Presence — €2,900</option>
+        </select>
+      </div>
+      <div class="fg">
+        <label>Tell us about your business</label>
+        <textarea placeholder="Where are you based, what do you do, what's your biggest challenge online?"></textarea>
+      </div>
+      <button class="f-btn" type="submit">Send message →</button>
+      <p class="f-note">No spam. Your data is never shared with third parties.</p>
+    </form>
+  </div>
+</section>
+
+<!-- BACK TO TOP -->
+<button id="back-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Back to top">↑</button>
+
+<!-- FOOTER -->
+<footer>
+  <div class="foot-inner">
+    <div>
+      <div class="foot-logo">WAT<span class="q">?</span>&nbsp;AGENCY</div>
+      <p class="foot-desc">Full online presence for businesses in Belgium. Website, Google Business, social media and content — one system that brings clients while you work.</p>
+    </div>
+    <div>
+      <div class="foot-ttl">Navigation</div>
+      <div class="foot-links">
+        <a href="#services">Services</a>
+        <a href="#process">How it works</a>
+        <a href="#cases">Case studies</a>
+        <a href="#packages">Pricing</a>
+        <a href="#contact">Contact</a>
+      </div>
+    </div>
+    <div>
+      <div class="foot-ttl">Contact</div>
+      <div class="foot-links">
+        <a href="mailto:hello@viktoriiamarketing.be">hello@viktoriiamarketing.be</a>
+        <a href="https://wa.me/32000000000">WhatsApp</a>
+        <a href="https://instagram.com/wat.agency">Instagram</a>
+      </div>
+    </div>
+  </div>
+  <div class="foot-bottom">
+    <p>© 2025 WAT? Agency Belgium. All rights reserved.</p>
+    <div class="foot-tagline">Built for Belgium</div>
+  </div>
+</footer>
+
+<script>
+document.body.classList.add('js-on');
+
+// Progress bar
+const prog = document.getElementById('prog');
+window.addEventListener('scroll', () => {
+  const h = document.documentElement;
+  const pct = h.scrollTop / (h.scrollHeight - h.clientHeight);
+  prog.style.transform = 'scaleX(' + Math.min(pct, 1) + ')';
+}, { passive: true });
+
+// Nav scroll
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 40);
+}, { passive: true });
+
+// Mobile drawer
+const ham = document.getElementById('ham');
+const drawer = document.getElementById('mob-drawer');
+function closeMob() {
+  ham.classList.remove('open');
+  drawer.classList.remove('open');
+  document.body.style.overflow = '';
+}
+ham.addEventListener('click', () => {
+  const o = ham.classList.toggle('open');
+  drawer.classList.toggle('open', o);
+  document.body.style.overflow = o ? 'hidden' : '';
+});
+
+// Back to top
+const bt = document.getElementById('back-top');
+window.addEventListener('scroll', () => {
+  bt.classList.toggle('show', window.scrollY > 500);
+}, { passive: true });
+
+// Reveal on scroll
+const revEls = document.querySelectorAll('.rv, .rv-l, .rv-r');
+const obs = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('vi'); obs.unobserve(e.target); } });
+}, { threshold: 0.12 });
+revEls.forEach(el => obs.observe(el));
+
+// 3D tilt on service cards
+document.querySelectorAll('.svc-card-3d').forEach(card => {
+  card.addEventListener('mousemove', e => {
+    const r = card.getBoundingClientRect();
+    const x = (e.clientX - r.left) / r.width - 0.5;
+    const y = (e.clientY - r.top) / r.height - 0.5;
+    card.style.transform = `perspective(600px) rotateY(${x * 10}deg) rotateX(${-y * 10}deg) translateZ(6px)`;
+  });
+  card.addEventListener('mouseleave', () => { card.style.transform = ''; });
+});
+
+// Form submit
+function handleSubmit(e) {
+  e.preventDefault();
+  const btn = e.target.querySelector('.f-btn');
+  btn.textContent = 'Sending...';
+  btn.disabled = true;
+  setTimeout(() => {
+    btn.textContent = '✓ Message sent — we\'ll be in touch within 24h';
+    btn.style.background = '#1a7a4a';
+  }, 1200);
+  return false;
+}
+</script>
+</body>
+</html>
