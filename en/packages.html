@@ -3,443 +3,466 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>Packages — WAT? Agency</title>
+<title>Packages — WAT? Agency Belgium</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,600;0,800;0,900;1,400&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-:root{--red:#FF3D1F;--ink:#111;--bg:#F5F2EE;--border:#E3DFD8}
-body{
-  font-family:'Inter',sans-serif;
-  background:var(--bg);color:var(--ink);
+:root{--red:#FF3D1F;--ink:#111;--bg:#F5F2EE;--border:#E3DFD8;--muted:#888}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--ink);
   background-image:radial-gradient(circle,rgba(0,0,0,0.06) 1px,transparent 1px);
-  background-size:24px 24px;
-  min-height:100vh;padding:80px 24px 60px;
-}
-.page{max-width:1220px;margin:0 auto}
+  background-size:24px 24px;min-height:100vh;padding:60px 24px 60px}
+.page{max-width:1100px;margin:0 auto}
 
-/* Lang toggle */
-.lang-toggle{
-  position:fixed;top:24px;right:24px;
-  display:flex;background:#fff;
-  border:1px solid var(--border);
-  border-radius:8px;overflow:hidden;
-  z-index:100;box-shadow:0 2px 16px rgba(0,0,0,.08)
-}
-.lang-btn{
-  padding:9px 18px;
-  font-family:'Montserrat',sans-serif;
-  font-weight:800;font-size:11px;letter-spacing:1.5px;
-  border:none;cursor:pointer;background:transparent;
-  color:#999;transition:background .2s,color .2s
-}
-.lang-btn.active{background:var(--red);color:#fff}
+/* Language toggle */
+.lang-bar{display:flex;justify-content:flex-end;margin-bottom:28px}
+.lang-sw{display:flex;background:#fff;border:1px solid var(--border);border-radius:8px;overflow:hidden}
+.lang-sw button{padding:7px 16px;font-family:'Montserrat',sans-serif;font-weight:700;font-size:11px;letter-spacing:.5px;border:none;background:transparent;cursor:pointer;color:var(--muted);transition:background .2s,color .2s}
+.lang-sw button.active{background:var(--ink);color:#fff}
 
 /* Header */
-.page-header{text-align:center;margin-bottom:60px}
-.page-header h1{
-  font-family:'Montserrat',sans-serif;
-  font-weight:900;font-size:clamp(36px,5vw,64px);
-  letter-spacing:-2px;line-height:1.1;margin-bottom:14px
-}
-.page-header p{font-size:15px;color:#888;letter-spacing:.3px}
+.page-header{text-align:center;margin-bottom:48px}
+.page-header h1{font-family:'Montserrat',sans-serif;font-weight:900;font-size:clamp(32px,4.5vw,56px);letter-spacing:-1.5px;line-height:1.1;margin-bottom:12px}
+.page-header p{font-size:15px;color:var(--muted)}
+.pdf-bar{display:flex;justify-content:flex-end;margin-bottom:16px}
+.pdf-btn{display:inline-flex;align-items:center;gap:8px;padding:10px 20px;font-family:'Montserrat',sans-serif;font-weight:700;font-size:12px;letter-spacing:.5px;border:1.5px solid var(--border);border-radius:8px;background:#fff;color:var(--ink);cursor:pointer;transition:border-color .2s,box-shadow .2s}
+.pdf-btn:hover{border-color:var(--red);box-shadow:0 2px 12px rgba(255,61,31,.1)}
+.pdf-btn svg{stroke:var(--red)}
 
-/* Grid */
-.cards-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;align-items:start}
+/* Table wrapper */
+.table-wrap{background:#fff;border:1px solid var(--border);border-radius:20px;overflow:hidden;overflow-x:auto;box-shadow:0 4px 40px rgba(0,0,0,.06)}
 
-/* Card */
-.card{
-  background:#fff;border:1px solid var(--border);
-  border-radius:24px;padding:36px;
-  position:relative;transition:transform .3s,box-shadow .3s;will-change:transform
-}
-.card:hover{transform:translateY(-6px);box-shadow:0 24px 64px rgba(0,0,0,.10)}
-.card-dark{background:#111;border-color:#222;color:#fff}
+/* Comparison table */
+.ct{width:100%;border-collapse:collapse;table-layout:fixed}
+.ct .fc{width:38%}
+.ct .pc{width:20.67%}
 
-/* Popular badge */
-.popular-badge{
-  position:absolute;top:-13px;left:24px;
-  background:var(--red);color:#fff;
-  font-family:'Montserrat',sans-serif;
-  font-weight:800;font-size:9px;letter-spacing:2px;text-transform:uppercase;
-  padding:5px 14px;border-radius:4px
-}
+/* Package header row */
+.pkg-hd{vertical-align:top;padding:28px 20px 20px;border-bottom:2px solid var(--border);text-align:center;position:relative}
+.pkg-hd.pop{background:#111;color:#fff;border-bottom-color:#333}
+.pkg-hd .ph-num{font-family:'Montserrat',sans-serif;font-weight:800;font-size:9px;letter-spacing:3px;color:var(--red);margin-bottom:6px}
+.pkg-hd .ph-name{font-family:'Montserrat',sans-serif;font-weight:900;font-size:18px;margin-bottom:4px}
+.pkg-hd .ph-tag{font-style:italic;font-size:11px;color:var(--muted);margin-bottom:12px}
+.pkg-hd.pop .ph-tag{color:rgba(255,255,255,.5)}
+.pkg-hd .ph-price{font-family:'Montserrat',sans-serif;font-weight:900;font-size:36px;color:var(--red);letter-spacing:-1.5px;line-height:1;margin-bottom:4px}
+.pkg-hd .ph-sub{font-size:10px;color:var(--muted);margin-bottom:10px}
+.pkg-hd.pop .ph-sub{color:rgba(255,255,255,.4)}
+.pkg-hd .ph-days{display:inline-block;background:rgba(255,61,31,.08);color:var(--red);font-family:'Montserrat',sans-serif;font-weight:700;font-size:10px;padding:4px 10px;border-radius:4px;margin-bottom:14px}
+.pkg-hd.pop .ph-days{background:rgba(255,61,31,.2)}
+.ph-cta{display:block;width:100%;padding:10px 8px;font-family:'Montserrat',sans-serif;font-weight:800;font-size:11px;letter-spacing:.4px;text-transform:uppercase;border:none;cursor:pointer;border-radius:8px;position:relative;overflow:hidden}
+.ph-cta::after{content:'';position:absolute;inset:0;background:rgba(255,255,255,.15);transform:translateX(-100%) skewX(-15deg);transition:transform .4s}
+.ph-cta:hover::after{transform:translateX(110%) skewX(-15deg)}
+.ph-cta-red{background:var(--red);color:#fff}
+.ph-cta-wht{background:#fff;color:#111}
+.pop-badge{position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:var(--red);color:#fff;font-family:'Montserrat',sans-serif;font-weight:800;font-size:8px;letter-spacing:2px;text-transform:uppercase;padding:4px 12px;border-radius:3px;white-space:nowrap}
+.feat-col-hd{padding:28px 20px 20px;vertical-align:bottom}
+.feat-col-hd .fch-title{font-family:'Montserrat',sans-serif;font-weight:900;font-size:13px;letter-spacing:1px;text-transform:uppercase;color:var(--muted)}
 
-/* Card typography */
-.card-num{
-  font-family:'Montserrat',sans-serif;
-  font-weight:800;font-size:10px;letter-spacing:3px;
-  color:var(--red);margin-bottom:10px
-}
-.card-name{
-  font-family:'Montserrat',sans-serif;
-  font-weight:900;font-size:28px;line-height:1.1;margin-bottom:6px
-}
-.card-dark .card-name{color:#fff}
-.card-tagline{font-style:italic;font-size:13px;color:#888;margin-bottom:20px}
-.card-dark .card-tagline{color:rgba(255,255,255,.5)}
-.card-price{
-  font-family:'Montserrat',sans-serif;
-  font-weight:900;font-size:54px;
-  color:var(--red);letter-spacing:-2px;line-height:1;margin-bottom:4px
-}
-.card-price-sub{font-size:12px;color:#999;margin-bottom:14px}
-.card-dark .card-price-sub{color:rgba(255,255,255,.4)}
-.deadline-badge{
-  display:inline-block;
-  background:rgba(255,61,31,.08);color:var(--red);
-  font-family:'Montserrat',sans-serif;
-  font-weight:700;font-size:11px;
-  padding:5px 12px;border-radius:4px;margin-bottom:20px
-}
-.card-dark .deadline-badge{background:rgba(255,61,31,.18)}
-.divider{border:none;border-top:1px solid var(--border);margin:20px 0}
-.card-dark .divider{border-color:rgba(255,255,255,.1)}
+/* Category rows */
+.cat-row td{background:#F1EFEA;padding:9px 20px;font-family:'Montserrat',sans-serif;font-weight:800;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);border-top:1px solid var(--border)}
 
-/* Chips */
-.chips{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:16px}
-.chip{
-  display:flex;align-items:center;gap:8px;
-  background:rgba(255,61,31,.05);
-  border:1px solid rgba(255,61,31,.12);
-  border-radius:8px;padding:9px 12px;
-  font-size:12px;font-weight:600;color:#111
-}
-.chip.full{grid-column:span 2}
-.card-dark .chip{background:rgba(255,255,255,.07);border-color:rgba(255,255,255,.1);color:#fff}
-.chip-icon{flex-shrink:0;display:flex;align-items:center;line-height:1}
-.chip-icon svg{display:block}
-.chip .chip-icon svg{stroke:var(--red)}
-.card-dark .chip .chip-icon svg{stroke:rgba(255,255,255,.7)}
+/* Feature rows */
+.feat-row td{padding:11px 20px;border-top:1px solid rgba(0,0,0,.04);font-size:13px;vertical-align:middle}
+.feat-row:nth-child(even) td{background:rgba(0,0,0,.013)}
+.feat-row td.fc{color:#333;font-weight:500}
+.feat-row td.pc{text-align:center}
+.feat-row td.pc.pop{background:rgba(17,17,17,.025)}
+.chk{color:var(--red);font-size:16px;font-weight:700}
+.crs{color:#CCC;font-size:14px}
+.val{font-size:12px;font-weight:600;color:var(--ink)}
 
-/* Not included */
-.not-included{border-top:1px dashed var(--border);margin-top:12px;padding-top:12px}
-.card-dark .not-included{border-color:rgba(255,255,255,.15)}
-.not-item{display:flex;align-items:center;gap:8px;font-size:12px;color:#BBBBBB;margin-bottom:6px}
-.not-item:last-child{margin-bottom:0}
-.not-item svg{stroke:#BBBBBB;flex-shrink:0}
-
-/* All included */
-.all-included{
-  display:flex;align-items:center;gap:8px;
-  font-size:13px;font-weight:600;color:#22C55E;
-  margin-top:12px;padding-top:12px;
-  border-top:1px dashed rgba(34,197,94,.3)
-}
-.all-included svg{flex-shrink:0}
-
-/* CTA */
-.cta{
-  width:100%;padding:15px;
-  font-family:'Montserrat',sans-serif;
-  font-size:13px;font-weight:800;letter-spacing:.5px;text-transform:uppercase;
-  border:none;cursor:pointer;border-radius:10px;
-  margin-top:20px;position:relative;overflow:hidden
-}
-.cta::after{
-  content:'';position:absolute;inset:0;
-  background:rgba(255,255,255,.15);
-  transform:translateX(-100%) skewX(-15deg);
-  transition:transform .4s ease
-}
-.cta:hover::after{transform:translateX(110%) skewX(-15deg)}
-.cta-red{background:var(--red);color:#fff}
-.cta-white{background:#fff;color:#111}
+/* Last row — totals */
+.total-row td{padding:18px 20px;border-top:2px solid var(--border);background:#F8F7F4}
+.total-row td.pop-total{background:#111;color:#fff}
 
 /* Guarantees */
-.guarantees{
-  display:flex;gap:32px;align-items:center;
-  justify-content:center;flex-wrap:wrap;
-  border-top:1px solid var(--border);
-  padding-top:32px;margin-top:48px
-}
-.g-item{display:flex;align-items:center;gap:10px;font-size:13px;font-weight:600;color:#555}
+.guarantees{display:flex;gap:28px;align-items:center;justify-content:center;flex-wrap:wrap;border-top:1px solid var(--border);padding-top:28px;margin-top:40px}
+.g-item{display:flex;align-items:center;gap:9px;font-size:13px;font-weight:600;color:#555}
 .g-item svg{stroke:var(--red);flex-shrink:0}
-
-/* Note */
-.note{font-size:13px;color:#999;text-align:center;margin-top:24px;line-height:1.6}
+.note{font-size:12px;color:#999;text-align:center;margin-top:20px;line-height:1.6}
 
 /* Responsive */
-@media(max-width:1024px){.cards-grid{grid-template-columns:1fr 1fr}}
-@media(max-width:768px){
-  body{padding:40px 16px 40px}
-  .cards-grid{grid-template-columns:1fr}
-  .chips{grid-template-columns:1fr}
-  .chip.full{grid-column:span 1}
-  .guarantees{flex-direction:column;gap:16px;align-items:flex-start;padding-left:8px}
-  .lang-toggle{top:16px;right:16px}
+@media(max-width:720px){
+  body{padding:32px 0 40px}
+  .page{padding:0 16px}
+  .ct .fc{width:140px}
+  .ct .pc{width:120px}
+  .feat-row td,.cat-row td,.feat-col-hd,.pkg-hd{padding-left:12px;padding-right:12px}
+}
+
+/* PRINT / PDF */
+@media print{
+  body{background:white;background-image:none;padding:0}
+  .pdf-bar,.guarantees,.note,.lang-bar{display:none}
+  .table-wrap{border:none;border-radius:0;box-shadow:none;overflow:visible}
+  .ph-cta{display:none}
+  .pkg-hd{padding-bottom:12px}
+  @page{margin:1cm;size:A4 landscape}
 }
 </style>
 </head>
 <body>
-
-<div class="lang-toggle">
-  <button class="lang-btn active" id="btn-en" onclick="setLang('en')">EN</button>
-  <button class="lang-btn" id="btn-nl" onclick="setLang('nl')">NL</button>
-</div>
-
 <div class="page">
+
+  <div class="lang-bar">
+    <div class="lang-sw">
+      <button id="lb-en" class="active" onclick="setLang('en')">EN</button>
+      <button id="lb-nl" onclick="setLang('nl')">NL</button>
+    </div>
+  </div>
+
   <header class="page-header">
-    <h1 id="hdr-h1"></h1>
-    <p id="hdr-p"></p>
+    <h1 id="h-title">Choose your start</h1>
+    <p id="h-sub">Clear price. Clear deadline. Concrete result.</p>
   </header>
 
-  <div class="cards-grid" id="cards"></div>
+  <div class="pdf-bar">
+    <button class="pdf-btn" onclick="window.print()">
+      <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6V2h8v4"/><rect x="2" y="6" width="12" height="7" rx="1"/><path d="M4 10h8M4 13h5"/></svg>
+      <span id="pdf-label">Download PDF</span>
+    </button>
+  </div>
 
-  <div class="guarantees" id="guarantees"></div>
+  <div class="table-wrap">
+    <table class="ct">
+      <thead>
+        <tr>
+          <th class="fc feat-col-hd"><div class="fch-title" id="col-service">Service</div></th>
 
-  <p class="note" id="note"></p>
+          <th class="pc pkg-hd">
+            <div class="ph-num">01 / 03</div>
+            <div class="ph-name">Start Online</div>
+            <div class="ph-tag" id="tag-1">I exist online</div>
+            <div class="ph-price">&#8364;1.200</div>
+            <div class="ph-sub" id="sub-once-1">one-time</div>
+            <div class="ph-days" id="days-1">12 working days</div>
+            <button class="ph-cta ph-cta-red" onclick="location.href='https://wa.me/32471623105'" id="cta-1">Choose &#8594;</button>
+          </th>
+
+          <th class="pc pkg-hd pop">
+            <div class="pop-badge" id="badge-pop">Most popular</div>
+            <div class="ph-num">02 / 03</div>
+            <div class="ph-name">Digital Foundation</div>
+            <div class="ph-tag" id="tag-2">Full online presence</div>
+            <div class="ph-price">&#8364;2.100</div>
+            <div class="ph-sub" id="sub-once-2">one-time</div>
+            <div class="ph-days" id="days-2">18 working days</div>
+            <button class="ph-cta ph-cta-wht" onclick="location.href='https://wa.me/32471623105'" id="cta-2">Choose &#8594;</button>
+          </th>
+
+          <th class="pc pkg-hd">
+            <div class="ph-num">03 / 03</div>
+            <div class="ph-name">Complete Presence</div>
+            <div class="ph-tag" id="tag-3">All-in-one</div>
+            <div class="ph-price">&#8364;3.100</div>
+            <div class="ph-sub" id="sub-once-3">one-time</div>
+            <div class="ph-days" id="days-3">24 working days</div>
+            <button class="ph-cta ph-cta-red" onclick="location.href='https://wa.me/32471623105'" id="cta-3">Choose &#8594;</button>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+
+        <tr class="cat-row"><td colspan="4" id="cat-website">Website</td></tr>
+        <tr class="feat-row">
+          <td class="fc" id="f-pages">Number of pages</td>
+          <td class="pc"><span class="val" id="v-pages-1">3 pages</span></td>
+          <td class="pc pop"><span class="val" id="v-pages-2">5 + gallery</span></td>
+          <td class="pc"><span class="val" id="v-pages-3">9 + blog</span></td>
+        </tr>
+        <tr class="feat-row">
+          <td class="fc" id="f-hosting">GitHub + Vercel hosting</td>
+          <td class="pc"><span class="chk">&#10003;</span></td>
+          <td class="pc pop"><span class="chk">&#10003;</span></td>
+          <td class="pc"><span class="chk">&#10003;</span></td>
+        </tr>
+        <tr class="feat-row">
+          <td class="fc" id="f-domain">Custom domain + SSL</td>
+          <td class="pc"><span class="chk">&#10003;</span></td>
+          <td class="pc pop"><span class="chk">&#10003;</span></td>
+          <td class="pc"><span class="chk">&#10003;</span></td>
+        </tr>
+        <tr class="feat-row">
+          <td class="fc" id="f-mobile">Mobile version</td>
+          <td class="pc"><span class="chk">&#10003;</span></td>
+          <td class="pc pop"><span class="chk">&#10003;</span></td>
+          <td class="pc"><span class="chk">&#10003;</span></td>
+        </tr>
+        <tr class="feat-row">
+          <td class="fc" id="f-contact">Contact form</td>
+          <td class="pc"><span class="chk">&#10003;</span></td>
+          <td class="pc pop"><span class="chk">&#10003;</span></td>
+          <td class="pc"><span class="chk">&#10003;</span></td>
+        </tr>
+        <tr class="feat-row">
+          <td class="fc" id="f-seo">Basic on-page SEO</td>
+          <td class="pc"><span class="crs">&#8212;</span></td>
+          <td class="pc pop"><span class="chk">&#10003;</span></td>
+          <td class="pc"><span class="chk">&#10003;</span></td>
+        </tr>
+
+        <tr class="cat-row"><td colspan="4" id="cat-analytics">Analytics &amp; Tracking</td></tr>
+        <tr class="feat-row">
+          <td class="fc">Google Analytics 4</td>
+          <td class="pc"><span class="chk">&#10003;</span></td>
+          <td class="pc pop"><span class="chk">&#10003;</span></td>
+          <td class="pc"><span class="chk">&#10003;</span></td>
+        </tr>
+        <tr class="feat-row">
+          <td class="fc">Meta Pixel</td>
+          <td class="pc"><span class="chk">&#10003;</span></td>
+          <td class="pc pop"><span class="chk">&#10003;</span></td>
+          <td class="pc"><span class="chk">&#10003;</span></td>
+        </tr>
+        <tr class="feat-row">
+          <td class="fc">Google Tag Manager</td>
+          <td class="pc"><span class="chk">&#10003;</span></td>
+          <td class="pc pop"><span class="chk">&#10003;</span></td>
+          <td class="pc"><span class="chk">&#10003;</span></td>
+        </tr>
+
+        <tr class="cat-row"><td colspan="4" id="cat-local">Local Presence</td></tr>
+        <tr class="feat-row">
+          <td class="fc">Google Business Profile</td>
+          <td class="pc"><span class="chk">&#10003;</span></td>
+          <td class="pc pop"><span class="chk">&#10003;</span></td>
+          <td class="pc"><span class="chk">&#10003;</span></td>
+        </tr>
+
+        <tr class="cat-row"><td colspan="4" id="cat-social">Social Media</td></tr>
+        <tr class="feat-row">
+          <td class="fc" id="f-ig">Instagram &#8212; full setup</td>
+          <td class="pc"><span class="chk">&#10003;</span></td>
+          <td class="pc pop"><span class="chk">&#10003;</span></td>
+          <td class="pc"><span class="chk">&#10003;</span></td>
+        </tr>
+        <tr class="feat-row">
+          <td class="fc" id="f-fb">Facebook &#8212; full setup</td>
+          <td class="pc"><span class="chk">&#10003;</span></td>
+          <td class="pc pop"><span class="chk">&#10003;</span></td>
+          <td class="pc"><span class="chk">&#10003;</span></td>
+        </tr>
+        <tr class="feat-row">
+          <td class="fc">6 Highlights covers</td>
+          <td class="pc"><span class="chk">&#10003;</span></td>
+          <td class="pc pop"><span class="chk">&#10003;</span></td>
+          <td class="pc"><span class="chk">&#10003;</span></td>
+        </tr>
+        <tr class="feat-row">
+          <td class="fc" id="f-posts">Ready posts (IG + FB)</td>
+          <td class="pc"><span class="crs">&#8212;</span></td>
+          <td class="pc pop"><span class="val" id="v-posts-2">6 posts</span></td>
+          <td class="pc"><span class="val" id="v-posts-3">10 posts</span></td>
+        </tr>
+        <tr class="feat-row">
+          <td class="fc" id="f-stories">Story templates</td>
+          <td class="pc"><span class="crs">&#8212;</span></td>
+          <td class="pc pop"><span class="val" id="v-stories-2">3 pcs.</span></td>
+          <td class="pc"><span class="val" id="v-stories-3">3 pcs.</span></td>
+        </tr>
+
+        <tr class="cat-row"><td colspan="4" id="cat-content">Content &amp; Photography</td></tr>
+        <tr class="feat-row">
+          <td class="fc" id="f-photos">5 photos &#8212; edited by agency</td>
+          <td class="pc"><span class="chk">&#10003;</span></td>
+          <td class="pc pop"><span class="chk">&#10003;</span></td>
+          <td class="pc"><span class="chk">&#10003;</span></td>
+        </tr>
+        <tr class="feat-row">
+          <td class="fc" id="f-guide">PDF guide &#8212; first month</td>
+          <td class="pc"><span class="chk">&#10003;</span></td>
+          <td class="pc pop"><span class="chk">&#10003;</span></td>
+          <td class="pc"><span class="chk">&#10003;</span></td>
+        </tr>
+
+        <tr class="cat-row"><td colspan="4" id="cat-brand">Brand &amp; Design</td></tr>
+        <tr class="feat-row">
+          <td class="fc" id="f-logo">Logo &#8212; 2 options (Canva)</td>
+          <td class="pc"><span class="crs">&#8212;</span></td>
+          <td class="pc pop"><span class="chk">&#10003;</span></td>
+          <td class="pc"><span class="chk">&#10003;</span></td>
+        </tr>
+        <tr class="feat-row">
+          <td class="fc" id="f-brandbook">Brandbook PDF</td>
+          <td class="pc"><span class="crs">&#8212;</span></td>
+          <td class="pc pop"><span class="chk">&#10003;</span></td>
+          <td class="pc"><span class="chk">&#10003;</span></td>
+        </tr>
+        <tr class="feat-row">
+          <td class="fc" id="f-flyer">A5 flyer print-ready</td>
+          <td class="pc"><span class="crs">&#8212;</span></td>
+          <td class="pc pop"><span class="chk">&#10003;</span></td>
+          <td class="pc"><span class="chk">&#10003;</span></td>
+        </tr>
+
+        <tr class="cat-row"><td colspan="4" id="cat-print">Print &amp; Documents</td></tr>
+        <tr class="feat-row">
+          <td class="fc" id="f-booklet">Client booklet 6-page PDF</td>
+          <td class="pc"><span class="crs">&#8212;</span></td>
+          <td class="pc pop"><span class="crs">&#8212;</span></td>
+          <td class="pc"><span class="chk">&#10003;</span></td>
+        </tr>
+        <tr class="feat-row">
+          <td class="fc" id="f-proposal">Commercial proposal template</td>
+          <td class="pc"><span class="crs">&#8212;</span></td>
+          <td class="pc pop"><span class="crs">&#8212;</span></td>
+          <td class="pc"><span class="chk">&#10003;</span></td>
+        </tr>
+        <tr class="feat-row">
+          <td class="fc" id="f-rollup">Roll-up banner or banner set</td>
+          <td class="pc"><span class="crs">&#8212;</span></td>
+          <td class="pc pop"><span class="crs">&#8212;</span></td>
+          <td class="pc"><span class="chk">&#10003;</span></td>
+        </tr>
+
+        <tr class="total-row">
+          <td class="fc" id="total-label" style="font-family:'Montserrat',sans-serif;font-weight:800;font-size:13px">Deadline</td>
+          <td class="pc" id="total-1" style="text-align:center;font-weight:700;font-size:13px">12 days</td>
+          <td class="pc pop-total" id="total-2" style="text-align:center;font-family:'Montserrat',sans-serif;font-weight:800;font-size:13px;color:#fff">18 days</td>
+          <td class="pc" id="total-3" style="text-align:center;font-weight:700;font-size:13px">24 days</td>
+        </tr>
+
+      </tbody>
+    </table>
+  </div>
+
+  <div class="guarantees">
+    <div class="g-item">
+      <svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="10" height="8" rx="2"/><path d="M5 7V5a3 3 0 016 0v2"/></svg>
+      <span id="g1">Accounts &#8212; your property</span>
+    </div>
+    <div class="g-item">
+      <svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10 1H3a1 1 0 00-1 1v12a1 1 0 001 1h10a1 1 0 001-1V5l-4-4z"/><polyline points="10,1 10,5 14,5"/><line x1="4" y1="8" x2="12" y2="8"/></svg>
+      <span id="g2">2 revision rounds</span>
+    </div>
+    <div class="g-item">
+      <svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="8" r="7"/><polyline points="8,4.5 8,8 10.5,10"/></svg>
+      <span id="g3">Clear deadline</span>
+    </div>
+    <div class="g-item">
+      <svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="14" height="10" rx="2"/><line x1="1" y1="7" x2="15" y2="7"/></svg>
+      <span id="g4">50% upfront</span>
+    </div>
+  </div>
+
+  <p class="note" id="footnote">Domain and hosting are paid by the client separately (&#8776;&#8364;15&#8211;20/mo). Accounts are registered in the client&#8217;s name &#8212; you always own them.</p>
+
 </div>
 
 <script>
-/* ── ICONS ── */
-const ic = {
-  browser:`<svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="2" width="14" height="12" rx="2"/><line x1="1" y1="5.5" x2="15" y2="5.5"/><circle cx="3.5" cy="3.75" r=".7" fill="currentColor" stroke="none"/><circle cx="6" cy="3.75" r=".7" fill="currentColor" stroke="none"/><circle cx="8.5" cy="3.75" r=".7" fill="currentColor" stroke="none"/></svg>`,
-  deploy:`<svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="13" x2="5" y2="4"/><polyline points="2,7 5,4 8,7"/><line x1="11" y1="13" x2="11" y2="4"/><polyline points="8,7 11,4 14,7"/></svg>`,
-  lock:`<svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="10" height="8" rx="2"/><path d="M5 7V5a3 3 0 016 0v2"/></svg>`,
-  phone:`<svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="4.5" y="1" width="7" height="14" rx="2"/><line x1="7" y1="12.5" x2="9" y2="12.5"/></svg>`,
-  envelope:`<svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="14" height="10" rx="2"/><polyline points="1,3 8,9 15,3"/></svg>`,
-  bars:`<svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3.5" y1="13" x2="3.5" y2="9"/><line x1="8" y1="13" x2="8" y2="6"/><line x1="12.5" y1="13" x2="12.5" y2="3"/></svg>`,
-  pixel:`<svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="12" height="12" rx="2"/><line x1="2" y1="2" x2="14" y2="14"/><line x1="14" y1="2" x2="2" y2="14"/></svg>`,
-  tag:`<svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M8.5 2H13a1 1 0 011 1v4.5a1 1 0 01-.3.7l-5.5 5.5a1.5 1.5 0 01-2.1 0L2.3 9.9a1.5 1.5 0 010-2.1L7.8 2.3A1 1 0 018.5 2z"/><circle cx="11" cy="5" r=".8" fill="currentColor" stroke="none"/></svg>`,
-  pin:`<svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M8 1a5 5 0 015 5c0 3.5-5 9-5 9S3 9.5 3 6a5 5 0 015-5z"/><circle cx="8" cy="6" r="2"/></svg>`,
-  image:`<svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="2" width="14" height="12" rx="2"/><polyline points="1,11 5,7 8,10 11,7 15,11"/><circle cx="11.5" cy="5" r="1.5"/></svg>`,
-  instagram:`<svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="12" height="12" rx="3"/><circle cx="8" cy="8" r="3"/><circle cx="11.5" cy="4.5" r=".5" fill="currentColor" stroke="none"/></svg>`,
-  facebook:`<svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="1" width="12" height="14" rx="2"/><path d="M10 5H8.5a1.5 1.5 0 00-1.5 1.5V8h3"/><line x1="7" y1="8" x2="7" y2="14"/></svg>`,
-  highlights:`<svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="3" cy="5" r="2"/><circle cx="8" cy="5" r="2"/><circle cx="13" cy="5" r="2"/><circle cx="3" cy="11" r="2"/><circle cx="8" cy="11" r="2"/><circle cx="13" cy="11" r="2"/></svg>`,
-  pdf:`<svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10 1H3a1 1 0 00-1 1v12a1 1 0 001 1h10a1 1 0 001-1V5l-4-4z"/><polyline points="10,1 10,5 14,5"/><line x1="4" y1="8" x2="12" y2="8"/><line x1="4" y1="10.5" x2="12" y2="10.5"/><line x1="4" y1="13" x2="9" y2="13"/></svg>`,
-  gallery:`<svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="1" width="6" height="6" rx="1"/><rect x="9" y="1" width="6" height="6" rx="1"/><rect x="1" y="9" width="6" height="6" rx="1"/><rect x="9" y="9" width="6" height="6" rx="1"/></svg>`,
-  seo:`<svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="6.5" cy="6.5" r="5"/><line x1="10.5" y1="10.5" x2="15" y2="15"/><polyline points="3.5,8.5 5.5,6.5 7.5,7.5 9.5,4.5"/></svg>`,
-  logo:`<svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="8,1 15,8 8,15 1,8"/></svg>`,
-  brandbook:`<svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="12" height="12" rx="2"/><line x1="8" y1="2" x2="8" y2="14"/><line x1="2" y1="8" x2="14" y2="8"/></svg>`,
-  posts:`<svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="1" width="6" height="6" rx="1"/><rect x="9" y="1" width="6" height="6" rx="1"/><rect x="5" y="9" width="6" height="6" rx="1"/></svg>`,
-  story:`<svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="1" width="8" height="14" rx="3"/><polygon points="8,5.5 8.6,7.2 10.5,7.2 9,8.4 9.5,10.2 8,9.1 6.5,10.2 7,8.4 5.5,7.2 7.4,7.2"/></svg>`,
-  flyer:`<svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="1" width="12" height="14" rx="1"/><line x1="2" y1="6" x2="14" y2="6"/><line x1="4" y1="9" x2="12" y2="9"/><line x1="4" y1="11.5" x2="12" y2="11.5"/><line x1="4" y1="13.5" x2="9" y2="13.5"/></svg>`,
-  booklet:`<svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="10" height="12" rx="1"/><rect x="2" y="2" width="10" height="12" rx="1"/><line x1="4" y1="6" x2="10" y2="6"/><line x1="4" y1="8.5" x2="10" y2="8.5"/></svg>`,
-  quote:`<svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10 1H3a1 1 0 00-1 1v12a1 1 0 001 1h10a1 1 0 001-1V5l-4-4z"/><polyline points="10,1 10,5 14,5"/><polyline points="5,9 7,11 11,7"/></svg>`,
-  rollup:`<svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="1" width="8" height="11" rx="1"/><line x1="8" y1="12" x2="8" y2="14"/><line x1="5" y1="14" x2="11" y2="14"/></svg>`,
-  tenposts:`<svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="1" width="4" height="4" rx=".5"/><rect x="6" y="1" width="4" height="4" rx=".5"/><rect x="11" y="1" width="4" height="4" rx=".5"/><rect x="1" y="6" width="4" height="4" rx=".5"/><rect x="6" y="6" width="4" height="4" rx=".5"/><rect x="11" y="6" width="4" height="4" rx=".5"/><rect x="1" y="11" width="4" height="4" rx=".5"/><rect x="6" y="11" width="4" height="4" rx=".5"/><rect x="11" y="11" width="4" height="4" rx=".5"/></svg>`,
-  x:`<svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><line x1="2" y1="2" x2="8" y2="8"/><line x1="8" y1="2" x2="2" y2="8"/></svg>`,
-  check:`<svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="#22C55E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3,8 6,11 13,4"/></svg>`,
-  glock:`<svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="10" height="8" rx="2"/><path d="M5 7V5a3 3 0 016 0v2"/></svg>`,
-  gdoc:`<svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10 1H3a1 1 0 00-1 1v12a1 1 0 001 1h10a1 1 0 001-1V5l-4-4z"/><polyline points="10,1 10,5 14,5"/><line x1="4" y1="8" x2="12" y2="8"/><line x1="4" y1="10.5" x2="10" y2="10.5"/></svg>`,
-  gclock:`<svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="8" r="7"/><polyline points="8,4.5 8,8 10.5,10"/></svg>`,
-  gcard:`<svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="14" height="10" rx="2"/><line x1="1" y1="7" x2="15" y2="7"/><line x1="4" y1="10.5" x2="7" y2="10.5"/></svg>`,
-};
-
-/* ── TRANSLATIONS ── */
-const t = {
+var T = {
   en: {
-    h1: 'Choose your start',
-    sub: 'Clear price. Fixed deadline. Concrete result.',
-    priceSub: 'one-time · no hidden costs',
-    deadline: 'Deadline:',
-    days: 'business days',
-    popular: 'Most Popular',
-    allIncluded: 'The most complete package — everything included',
-    g: ['Accounts are yours','2 revision rounds','Fixed deadline','50% upfront'],
-    note: 'Domain and hosting are paid by the client separately (≈€15–20/mo).<br>Accounts are registered in the client\'s name — you always own them.',
-    pkgs: [
-      {
-        tagline: 'I exist online and look trustworthy',
-        cta: 'Choose Start Online',
-        not: ['Logo','Content / posts','Print materials'],
-      },
-      {
-        tagline: 'A complete online presence I\'m proud of',
-        cta: 'Choose Digital Foundation',
-        not: ['Client booklet','Quote template','Roll-up banner'],
-      },
-      {
-        tagline: 'Everything done for you — zero to a system',
-        cta: 'Choose Complete Presence',
-        not: [],
-      },
-    ],
-    base: [
-      ['browser','3-page website (HTML/CSS)',false],
-      ['deploy','GitHub + Vercel hosting',false],
-      ['lock','Custom domain + SSL',false],
-      ['phone','Mobile version',false],
-      ['envelope','Contact form',false],
-      ['bars','Google Analytics 4',false],
-      ['pixel','Meta Pixel',false],
-      ['tag','Google Tag Manager',false],
-      ['pin','Google Business Profile',false],
-      ['image','5 photos — styled by agency',true],
-      ['instagram','Instagram — full setup',false],
-      ['facebook','Facebook — full setup',false],
-      ['highlights','6 Highlights covers',false],
-      ['pdf','PDF guide — first month',false],
-    ],
-    mid: [
-      ['gallery','5-page website + gallery',true],
-      ['seo','Basic on-page SEO',false],
-      ['logo','Logo — 2 variants (Canva)',true],
-      ['brandbook','Brand book PDF',false],
-      ['posts','6 ready posts (IG + FB)',false],
-      ['story','3 Story templates',false],
-      ['flyer','A5 flyer print-ready',false],
-    ],
-    top: [
-      ['gallery','Up to 9 pages + blog',true],
-      ['booklet','Client booklet 6-page PDF',true],
-      ['quote','Commercial proposal template',true],
-      ['rollup','Roll-up banner or banner set',true],
-      ['tenposts','10 ready posts (IG + FB)',false],
-    ],
+    pageTitle: 'Packages — WAT? Agency Belgium',
+    'h-title': 'Choose your start',
+    'h-sub': 'Clear price. Clear deadline. Concrete result.',
+    'pdf-label': 'Download PDF',
+    'col-service': 'Service',
+    'tag-1': 'I exist online',
+    'tag-2': 'Full online presence',
+    'tag-3': 'All-in-one',
+    'sub-once-1': 'one-time', 'sub-once-2': 'one-time', 'sub-once-3': 'one-time',
+    'days-1': '12 working days', 'days-2': '18 working days', 'days-3': '24 working days',
+    'cta-1': 'Choose →', 'cta-2': 'Choose →', 'cta-3': 'Choose →',
+    'badge-pop': 'Most popular',
+    'cat-website': 'Website',
+    'f-pages': 'Number of pages',
+    'v-pages-1': '3 pages', 'v-pages-2': '5 + gallery', 'v-pages-3': '9 + blog',
+    'f-hosting': 'GitHub + Vercel hosting',
+    'f-domain': 'Custom domain + SSL',
+    'f-mobile': 'Mobile version',
+    'f-contact': 'Contact form',
+    'f-seo': 'Basic on-page SEO',
+    'cat-analytics': 'Analytics & Tracking',
+    'cat-local': 'Local Presence',
+    'cat-social': 'Social Media',
+    'f-ig': 'Instagram — full setup',
+    'f-fb': 'Facebook — full setup',
+    'f-posts': 'Ready posts (IG + FB)',
+    'v-posts-2': '6 posts', 'v-posts-3': '10 posts',
+    'f-stories': 'Story templates',
+    'v-stories-2': '3 pcs.', 'v-stories-3': '3 pcs.',
+    'cat-content': 'Content & Photography',
+    'f-photos': '5 photos — edited by agency',
+    'f-guide': 'PDF guide — first month',
+    'cat-brand': 'Brand & Design',
+    'f-logo': 'Logo — 2 options (Canva)',
+    'f-brandbook': 'Brandbook PDF',
+    'f-flyer': 'A5 flyer print-ready',
+    'cat-print': 'Print & Documents',
+    'f-booklet': 'Client booklet 6-page PDF',
+    'f-proposal': 'Commercial proposal template',
+    'f-rollup': 'Roll-up banner or banner set',
+    'total-label': 'Deadline',
+    'total-1': '12 days', 'total-2': '18 days', 'total-3': '24 days',
+    'g1': 'Accounts — your property',
+    'g2': '2 revision rounds',
+    'g3': 'Clear deadline',
+    'g4': '50% upfront',
+    'footnote': 'Domain and hosting are paid by the client separately (≈€15–20/mo). Accounts are registered in the client’s name — you always own them.'
   },
   nl: {
-    h1: 'Kies je start',
-    sub: 'Duidelijke prijs. Vaste deadline. Concreet resultaat.',
-    priceSub: 'eenmalig · geen verborgen kosten',
-    deadline: 'Deadline:',
-    days: 'werkdagen',
-    popular: 'Meest Populair',
-    allIncluded: 'Het meest complete pakket — alles inbegrepen',
-    g: ['Accounts zijn van jou','2 revisierondes','Vaste deadline','50% vooraf'],
-    note: 'Domein en hosting worden apart betaald door de klant (≈€15–20/maand).<br>Accounts worden geregistreerd op naam van de klant — jij bent altijd de eigenaar.',
-    pkgs: [
-      {
-        tagline: 'Ik ben online zichtbaar en kom betrouwbaar over',
-        cta: 'Kies Start Online',
-        not: ['Logo','Content / posts','Drukwerk'],
-      },
-      {
-        tagline: 'Een volledige online aanwezigheid waar ik trots op ben',
-        cta: 'Kies Digital Foundation',
-        not: ['Klantenbooklet','Offertesjabloon','Roll-up banner'],
-      },
-      {
-        tagline: 'Alles uit handen — van nul naar een systeem',
-        cta: 'Kies Complete Presence',
-        not: [],
-      },
-    ],
-    base: [
-      ['browser','3-pagina website (HTML/CSS)',false],
-      ['deploy','GitHub + Vercel hosting',false],
-      ['lock','Eigen domein + SSL',false],
-      ['phone','Mobiele versie',false],
-      ['envelope','Contactformulier',false],
-      ['bars','Google Analytics 4',false],
-      ['pixel','Meta Pixel',false],
-      ['tag','Google Tag Manager',false],
-      ['pin','Google Business Profile',false],
-      ['image','5 foto\'s — opgemaakt door het agency',true],
-      ['instagram','Instagram — volledige setup',false],
-      ['facebook','Facebook — volledige setup',false],
-      ['highlights','6 Highlights covers',false],
-      ['pdf','PDF-gids — eerste maand',false],
-    ],
-    mid: [
-      ['gallery','5-pagina website + galerij',true],
-      ['seo','Basis on-page SEO',false],
-      ['logo','Logo — 2 varianten (Canva)',true],
-      ['brandbook','Huisstijlgids PDF',false],
-      ['posts','6 kant-en-klare posts (IG + FB)',false],
-      ['story','3 Story-sjablonen',false],
-      ['flyer','A5 flyer drukklaar',false],
-    ],
-    top: [
-      ['gallery','Tot 9 pagina\'s + blog',true],
-      ['booklet','Klantenbooklet 6 pag. PDF',true],
-      ['quote','Sjabloon commercieel voorstel',true],
-      ['rollup','Roll-up banner of bannerset',true],
-      ['tenposts','10 kant-en-klare posts (IG + FB)',false],
-    ],
-  },
+    pageTitle: 'Pakketten — WAT? Agency België',
+    'h-title': 'Kies jouw start',
+    'h-sub': 'Duidelijke prijs. Duidelijke deadline. Concreet resultaat.',
+    'pdf-label': 'PDF downloaden',
+    'col-service': 'Dienst',
+    'tag-1': 'Ik ben online zichtbaar',
+    'tag-2': 'Volledige online aanwezigheid',
+    'tag-3': 'Alles-in-één',
+    'sub-once-1': 'eenmalig', 'sub-once-2': 'eenmalig', 'sub-once-3': 'eenmalig',
+    'days-1': '12 werkdagen', 'days-2': '18 werkdagen', 'days-3': '24 werkdagen',
+    'cta-1': 'Kies →', 'cta-2': 'Kies →', 'cta-3': 'Kies →',
+    'badge-pop': 'Meest populair',
+    'cat-website': 'Website',
+    'f-pages': 'Aantal pagina’s',
+    'v-pages-1': '3 pagina’s', 'v-pages-2': '5 + galerij', 'v-pages-3': '9 + blog',
+    'f-hosting': 'GitHub + Vercel hosting',
+    'f-domain': 'Eigen domein + SSL',
+    'f-mobile': 'Mobiele versie',
+    'f-contact': 'Contactformulier',
+    'f-seo': 'Basis on-page SEO',
+    'cat-analytics': 'Analyse & Tracking',
+    'cat-local': 'Lokale Aanwezigheid',
+    'cat-social': 'Sociale Media',
+    'f-ig': 'Instagram — volledige setup',
+    'f-fb': 'Facebook — volledige setup',
+    'f-posts': 'Kant-en-klare posts (IG + FB)',
+    'v-posts-2': '6 posts', 'v-posts-3': '10 posts',
+    'f-stories': 'Story-sjablonen',
+    'v-stories-2': '3 st.', 'v-stories-3': '3 st.',
+    'cat-content': 'Content & Fotografie',
+    'f-photos': '5 foto’s — bewerkt door bureau',
+    'f-guide': 'PDF-gids — eerste maand',
+    'cat-brand': 'Merk & Design',
+    'f-logo': 'Logo — 2 varianten (Canva)',
+    'f-brandbook': 'Merkboek PDF',
+    'f-flyer': 'A5 flyer drukklaar',
+    'cat-print': 'Drukwerk & Documenten',
+    'f-booklet': 'Klantboekje 6 pagina’s PDF',
+    'f-proposal': 'Sjabloon commercieel voorstel',
+    'f-rollup': 'Roll-up banner of bannerset',
+    'total-label': 'Deadline',
+    'total-1': '12 dagen', 'total-2': '18 dagen', 'total-3': '24 dagen',
+    'g1': 'Accounts — jouw eigendom',
+    'g2': '2 revisierondes',
+    'g3': 'Duidelijke deadline',
+    'g4': '50% vooruitbetaling',
+    'footnote': 'Domein en hosting worden apart betaald door de klant (≈€15–20/mnd). Accounts worden geregistreerd op naam van de klant — jij bent altijd eigenaar.'
+  }
 };
 
-/* ── STATIC PACKAGE CONFIG ── */
-const pkgStatic = [
-  {num:'01 / 03', name:'Start Online',  price:'€1,200', ddays:'12', dark:false, popular:false, ctaCls:'cta-red'},
-  {num:'02 / 03', name:'Digital Foundation', price:'€2,100', ddays:'18', dark:true,  popular:true,  ctaCls:'cta-white'},
-  {num:'03 / 03', name:'Complete Presence',  price:'€3,100', ddays:'24', dark:false, popular:false, ctaCls:'cta-red'},
-];
-
-/* ── HELPERS ── */
-function chip([key, label, full]) {
-  return `<div class="chip${full?' full':''}"><span class="chip-icon">${ic[key]}</span><span>${label}</span></div>`;
-}
-function notItem(label) {
-  return `<div class="not-item">${ic.x}<span>${label}</span></div>`;
-}
-
-/* ── RENDER ── */
-let lang = 'en';
-
-function render() {
-  const tr = t[lang];
-
-  // Header
-  document.getElementById('hdr-h1').textContent = tr.h1;
-  document.getElementById('hdr-p').textContent  = tr.sub;
-
-  // Note
-  document.getElementById('note').innerHTML = tr.note;
-
-  // Guarantees
-  const gSvgs = [ic.glock, ic.gdoc, ic.gclock, ic.gcard];
-  document.getElementById('guarantees').innerHTML = tr.g.map((label, i) =>
-    `<div class="g-item">${gSvgs[i]}${label}</div>`
-  ).join('');
-
-  // Cards
-  const chipSets = [
-    tr.base,
-    [...tr.base, ...tr.mid],
-    [...tr.base, ...tr.mid, ...tr.top],
-  ];
-
-  const grid = document.getElementById('cards');
-  grid.innerHTML = '';
-
-  pkgStatic.forEach((s, i) => {
-    const p   = tr.pkgs[i];
-    const chips = chipSets[i].map(chip).join('');
-    const notHtml = p.not.map(notItem).join('');
-
-    const el = document.createElement('div');
-    el.className = 'card' + (s.dark ? ' card-dark' : '');
-    el.innerHTML = `
-      ${s.popular ? `<div class="popular-badge">${tr.popular}</div>` : ''}
-      <div class="card-num">${s.num}</div>
-      <div class="card-name">${s.name}</div>
-      <div class="card-tagline">${p.tagline}</div>
-      <div class="card-price">${s.price}</div>
-      <div class="card-price-sub">${tr.priceSub}</div>
-      <div class="deadline-badge">${tr.deadline} ${s.ddays} ${tr.days}</div>
-      <hr class="divider">
-      <div class="chips">${chips}</div>
-      ${notHtml ? `<div class="not-included">${notHtml}</div>` : ''}
-      ${p.not.length === 0 ? `<div class="all-included">${ic.check}<span>${tr.allIncluded}</span></div>` : ''}
-      <button class="cta ${s.ctaCls}">${p.cta}</button>
-    `;
-    grid.appendChild(el);
-  });
-
-  // Re-attach 3D tilt
-  document.querySelectorAll('.card').forEach(card => {
-    card.addEventListener('mousemove', e => {
-      const r = card.getBoundingClientRect();
-      const x = (e.clientX - r.left) / r.width - .5;
-      const y = (e.clientY - r.top)  / r.height - .5;
-      card.style.transform = `perspective(1000px) rotateY(${x*10}deg) rotateX(${-y*10}deg) translateY(-6px)`;
-    });
-    card.addEventListener('mouseleave', () => { card.style.transform = ''; });
-  });
-}
-
 function setLang(l) {
-  lang = l;
-  document.getElementById('btn-en').classList.toggle('active', l === 'en');
-  document.getElementById('btn-nl').classList.toggle('active', l === 'nl');
-  render();
+  var t = T[l];
+  document.title = t.pageTitle;
+  document.getElementById('lb-en').classList.toggle('active', l === 'en');
+  document.getElementById('lb-nl').classList.toggle('active', l === 'nl');
+  Object.keys(t).forEach(function(id) {
+    if (id === 'pageTitle') return;
+    var el = document.getElementById(id);
+    if (el) el.textContent = t[id];
+  });
 }
-
-render();
 </script>
 </body>
 </html>

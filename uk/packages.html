@@ -6,185 +6,95 @@
 <title>Пакети послуг — WAT? Agency</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,600;0,800;0,900;1,400&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-:root{--red:#FF3D1F;--ink:#111;--bg:#F5F2EE;--border:#E3DFD8}
-body{
-  font-family:'Inter',sans-serif;
-  background:var(--bg);
-  color:var(--ink);
+:root{--red:#FF3D1F;--ink:#111;--bg:#F5F2EE;--border:#E3DFD8;--muted:#888}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--ink);
   background-image:radial-gradient(circle,rgba(0,0,0,0.06) 1px,transparent 1px);
-  background-size:24px 24px;
-  min-height:100vh;
-  padding:80px 24px 60px;
-}
-.page{max-width:1220px;margin:0 auto}
+  background-size:24px 24px;min-height:100vh;padding:60px 24px 60px}
+.page{max-width:1100px;margin:0 auto}
 
 /* Header */
-.page-header{text-align:center;margin-bottom:60px}
-.page-header h1{
-  font-family:'Montserrat',sans-serif;
-  font-weight:900;
-  font-size:clamp(36px,5vw,64px);
-  letter-spacing:-2px;
-  line-height:1.1;
-  margin-bottom:14px
-}
-.page-header p{font-size:15px;color:#888;letter-spacing:.3px}
+.page-header{text-align:center;margin-bottom:48px}
+.page-header h1{font-family:'Montserrat',sans-serif;font-weight:900;font-size:clamp(32px,4.5vw,56px);letter-spacing:-1.5px;line-height:1.1;margin-bottom:12px}
+.page-header p{font-size:15px;color:var(--muted)}
+.pdf-bar{display:flex;justify-content:flex-end;margin-bottom:16px}
+.pdf-btn{display:inline-flex;align-items:center;gap:8px;padding:10px 20px;font-family:'Montserrat',sans-serif;font-weight:700;font-size:12px;letter-spacing:.5px;border:1.5px solid var(--border);border-radius:8px;background:#fff;color:var(--ink);cursor:pointer;transition:border-color .2s,box-shadow .2s}
+.pdf-btn:hover{border-color:var(--red);box-shadow:0 2px 12px rgba(255,61,31,.1)}
+.pdf-btn svg{stroke:var(--red)}
 
-/* Grid */
-.cards-grid{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:24px;
-  align-items:start
-}
+/* Table wrapper — horizontal scroll on mobile */
+.table-wrap{background:#fff;border:1px solid var(--border);border-radius:20px;overflow:hidden;overflow-x:auto;box-shadow:0 4px 40px rgba(0,0,0,.06)}
 
-/* Card */
-.card{
-  background:#fff;
-  border:1px solid var(--border);
-  border-radius:24px;
-  padding:36px;
-  position:relative;
-  transition:transform .3s,box-shadow .3s;
-  will-change:transform
-}
-.card:hover{transform:translateY(-6px);box-shadow:0 24px 64px rgba(0,0,0,.10)}
-.card-dark{background:#111;border-color:#222;color:#fff}
+/* Comparison table */
+.ct{width:100%;border-collapse:collapse;table-layout:fixed}
+.ct .fc{width:38%}
+.ct .pc{width:20.67%}
 
-/* Popular badge */
-.popular-badge{
-  position:absolute;
-  top:-13px;left:24px;
-  background:var(--red);color:#fff;
-  font-family:'Montserrat',sans-serif;
-  font-weight:800;font-size:9px;
-  letter-spacing:2px;text-transform:uppercase;
-  padding:5px 14px;border-radius:4px
-}
+/* Package header row */
+.pkg-hd{vertical-align:top;padding:28px 20px 20px;border-bottom:2px solid var(--border);text-align:center;position:relative}
+.pkg-hd.pop{background:#111;color:#fff;border-bottom-color:#333}
+.pkg-hd .ph-num{font-family:'Montserrat',sans-serif;font-weight:800;font-size:9px;letter-spacing:3px;color:var(--red);margin-bottom:6px}
+.pkg-hd.pop .ph-num{color:var(--red)}
+.pkg-hd .ph-name{font-family:'Montserrat',sans-serif;font-weight:900;font-size:18px;margin-bottom:4px}
+.pkg-hd .ph-tag{font-style:italic;font-size:11px;color:var(--muted);margin-bottom:12px}
+.pkg-hd.pop .ph-tag{color:rgba(255,255,255,.5)}
+.pkg-hd .ph-price{font-family:'Montserrat',sans-serif;font-weight:900;font-size:36px;color:var(--red);letter-spacing:-1.5px;line-height:1;margin-bottom:4px}
+.pkg-hd .ph-sub{font-size:10px;color:var(--muted);margin-bottom:10px}
+.pkg-hd.pop .ph-sub{color:rgba(255,255,255,.4)}
+.pkg-hd .ph-days{display:inline-block;background:rgba(255,61,31,.08);color:var(--red);font-family:'Montserrat',sans-serif;font-weight:700;font-size:10px;padding:4px 10px;border-radius:4px;margin-bottom:14px}
+.pkg-hd.pop .ph-days{background:rgba(255,61,31,.2)}
+.ph-cta{display:block;width:100%;padding:10px 8px;font-family:'Montserrat',sans-serif;font-weight:800;font-size:11px;letter-spacing:.4px;text-transform:uppercase;border:none;cursor:pointer;border-radius:8px;position:relative;overflow:hidden}
+.ph-cta::after{content:'';position:absolute;inset:0;background:rgba(255,255,255,.15);transform:translateX(-100%) skewX(-15deg);transition:transform .4s}
+.ph-cta:hover::after{transform:translateX(110%) skewX(-15deg)}
+.ph-cta-red{background:var(--red);color:#fff}
+.ph-cta-wht{background:#fff;color:#111}
+.pop-badge{position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:var(--red);color:#fff;font-family:'Montserrat',sans-serif;font-weight:800;font-size:8px;letter-spacing:2px;text-transform:uppercase;padding:4px 12px;border-radius:3px;white-space:nowrap}
+.feat-col-hd{padding:28px 20px 20px;vertical-align:bottom}
+.feat-col-hd .fch-title{font-family:'Montserrat',sans-serif;font-weight:900;font-size:13px;letter-spacing:1px;text-transform:uppercase;color:var(--muted)}
 
-/* Card typography */
-.card-num{
-  font-family:'Montserrat',sans-serif;
-  font-weight:800;font-size:10px;
-  letter-spacing:3px;color:var(--red);
-  margin-bottom:10px
-}
-.card-name{
-  font-family:'Montserrat',sans-serif;
-  font-weight:900;font-size:28px;
-  line-height:1.1;margin-bottom:6px
-}
-.card-dark .card-name{color:#fff}
-.card-tagline{font-style:italic;font-size:13px;color:#888;margin-bottom:20px}
-.card-dark .card-tagline{color:rgba(255,255,255,.5)}
-.card-price{
-  font-family:'Montserrat',sans-serif;
-  font-weight:900;font-size:54px;
-  color:var(--red);letter-spacing:-2px;
-  line-height:1;margin-bottom:4px
-}
-.card-price-sub{font-size:12px;color:#999;margin-bottom:14px}
-.card-dark .card-price-sub{color:rgba(255,255,255,.4)}
-.deadline-badge{
-  display:inline-block;
-  background:rgba(255,61,31,.08);
-  color:var(--red);
-  font-family:'Montserrat',sans-serif;
-  font-weight:700;font-size:11px;
-  padding:5px 12px;border-radius:4px;
-  margin-bottom:20px
-}
-.card-dark .deadline-badge{background:rgba(255,61,31,.18)}
-.divider{border:none;border-top:1px solid var(--border);margin:20px 0}
-.card-dark .divider{border-color:rgba(255,255,255,.1)}
+/* Category rows */
+.cat-row td{background:#F1EFEA;padding:9px 20px;font-family:'Montserrat',sans-serif;font-weight:800;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);border-top:1px solid var(--border)}
 
-/* Chips */
-.chips{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:16px}
-.chip{
-  display:flex;align-items:center;gap:8px;
-  background:rgba(255,61,31,.05);
-  border:1px solid rgba(255,61,31,.12);
-  border-radius:8px;padding:9px 12px;
-  font-size:12px;font-weight:600;color:#111
-}
-.chip.full{grid-column:span 2}
-.card-dark .chip{
-  background:rgba(255,255,255,.07);
-  border-color:rgba(255,255,255,.1);
-  color:#fff
-}
-.chip-icon{flex-shrink:0;display:flex;align-items:center;line-height:1}
-.chip-icon svg{display:block}
-.chip .chip-icon svg{stroke:var(--red)}
-.card-dark .chip .chip-icon svg{stroke:rgba(255,255,255,.7)}
+/* Feature rows */
+.feat-row td{padding:11px 20px;border-top:1px solid rgba(0,0,0,.04);font-size:13px;vertical-align:middle}
+.feat-row:nth-child(even) td{background:rgba(0,0,0,.013)}
+.feat-row td.fc{color:#333;font-weight:500}
+.feat-row td.pc{text-align:center}
+.feat-row td.pc.pop{background:rgba(17,17,17,.025)}
+.chk{color:var(--red);font-size:16px;font-weight:700}
+.crs{color:#CCC;font-size:14px}
+.val{font-size:12px;font-weight:600;color:var(--ink)}
+.val-pop{font-size:12px;font-weight:600;color:var(--ink)}
 
-/* Not included */
-.not-included{border-top:1px dashed var(--border);margin-top:12px;padding-top:12px}
-.card-dark .not-included{border-color:rgba(255,255,255,.15)}
-.not-item{
-  display:flex;align-items:center;gap:8px;
-  font-size:12px;color:#BBBBBB;margin-bottom:6px
-}
-.not-item:last-child{margin-bottom:0}
-.not-item svg{stroke:#BBBBBB;flex-shrink:0}
-
-/* All included */
-.all-included{
-  display:flex;align-items:center;gap:8px;
-  font-size:13px;font-weight:600;color:#22C55E;
-  margin-top:12px;padding-top:12px;
-  border-top:1px dashed rgba(34,197,94,.3)
-}
-.all-included svg{flex-shrink:0}
-
-/* CTA */
-.cta{
-  width:100%;padding:15px;
-  font-family:'Montserrat',sans-serif;
-  font-size:13px;font-weight:800;letter-spacing:.5px;
-  text-transform:uppercase;
-  border:none;cursor:pointer;border-radius:10px;
-  margin-top:20px;
-  position:relative;overflow:hidden;
-  transition:opacity .2s
-}
-.cta::after{
-  content:'';position:absolute;inset:0;
-  background:rgba(255,255,255,.15);
-  transform:translateX(-100%) skewX(-15deg);
-  transition:transform .4s ease
-}
-.cta:hover::after{transform:translateX(110%) skewX(-15deg)}
-.cta-red{background:var(--red);color:#fff}
-.cta-white{background:#fff;color:#111}
+/* Last row — totals */
+.total-row td{padding:18px 20px;border-top:2px solid var(--border);background:#F8F7F4}
+.total-row td.pop-total{background:#111;color:#fff}
 
 /* Guarantees */
-.guarantees{
-  display:flex;gap:32px;align-items:center;
-  justify-content:center;flex-wrap:wrap;
-  border-top:1px solid var(--border);
-  padding-top:32px;margin-top:48px
-}
-.g-item{
-  display:flex;align-items:center;gap:10px;
-  font-size:13px;font-weight:600;color:#555
-}
+.guarantees{display:flex;gap:28px;align-items:center;justify-content:center;flex-wrap:wrap;border-top:1px solid var(--border);padding-top:28px;margin-top:40px}
+.g-item{display:flex;align-items:center;gap:9px;font-size:13px;font-weight:600;color:#555}
 .g-item svg{stroke:var(--red);flex-shrink:0}
-
-/* Note */
-.note{font-size:13px;color:#999;text-align:center;margin-top:24px;line-height:1.6}
+.note{font-size:12px;color:#999;text-align:center;margin-top:20px;line-height:1.6}
 
 /* Responsive */
-@media(max-width:1024px){.cards-grid{grid-template-columns:1fr 1fr}}
-@media(max-width:768px){
-  body{padding:40px 16px 40px}
-  .cards-grid{grid-template-columns:1fr}
-  .chips{grid-template-columns:1fr}
-  .chip.full{grid-column:span 1}
-  .guarantees{flex-direction:column;gap:16px;align-items:flex-start;padding-left:8px}
+@media(max-width:720px){
+  body{padding:32px 0 40px}
+  .page{padding:0 16px}
+  .ct .fc{width:140px}
+  .ct .pc{width:120px}
+  .feat-row td,.cat-row td,.feat-col-hd,.pkg-hd{padding-left:12px;padding-right:12px}
+}
+
+/* ── PRINT / PDF ── */
+@media print{
+  body{background:white;background-image:none;padding:0}
+  .pdf-bar,.guarantees,.note{display:none}
+  .table-wrap{border:none;border-radius:0;box-shadow:none;overflow:visible}
+  .ph-cta{display:none}
+  .pkg-hd{padding-bottom:12px}
+  @page{margin:1cm;size:A4 landscape}
 }
 </style>
 </head>
@@ -196,166 +106,245 @@ body{
     <p>Чітка ціна. Чіткий дедлайн. Конкретний результат.</p>
   </header>
 
-  <div class="cards-grid" id="cards"></div>
+  <div class="pdf-bar">
+    <button class="pdf-btn" onclick="window.print()">
+      <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6V2h8v4"/><rect x="2" y="6" width="12" height="7" rx="1"/><path d="M4 10h8M4 13h5"/></svg>
+      Завантажити PDF
+    </button>
+  </div>
+
+  <div class="table-wrap">
+    <table class="ct">
+      <thead>
+        <tr>
+          <th class="fc feat-col-hd"><div class="fch-title">Послуга</div></th>
+
+          <th class="pc pkg-hd">
+            <div class="ph-num">01 / 03</div>
+            <div class="ph-name">Start Online</div>
+            <div class="ph-tag">Я існую онлайн</div>
+            <div class="ph-price">€1.200</div>
+            <div class="ph-sub">одноразово</div>
+            <div class="ph-days">12 робочих днів</div>
+            <button class="ph-cta ph-cta-red">Обрати →</button>
+          </th>
+
+          <th class="pc pkg-hd pop">
+            <div class="pop-badge">Найпопулярніший</div>
+            <div class="ph-num">02 / 03</div>
+            <div class="ph-name">Digital Foundation</div>
+            <div class="ph-tag">Повна онлайн-візитка</div>
+            <div class="ph-price">€2.100</div>
+            <div class="ph-sub">одноразово</div>
+            <div class="ph-days">18 робочих днів</div>
+            <button class="ph-cta ph-cta-wht">Обрати →</button>
+          </th>
+
+          <th class="pc pkg-hd">
+            <div class="ph-num">03 / 03</div>
+            <div class="ph-name">Complete Presence</div>
+            <div class="ph-tag">Все під ключ</div>
+            <div class="ph-price">€3.100</div>
+            <div class="ph-sub">одноразово</div>
+            <div class="ph-days">24 робочих дні</div>
+            <button class="ph-cta ph-cta-red">Обрати →</button>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+
+        <!-- САЙТ -->
+        <tr class="cat-row"><td colspan="4">Сайт</td></tr>
+        <tr class="feat-row">
+          <td class="fc">Кількість сторінок</td>
+          <td class="pc"><span class="val">3 сторінки</span></td>
+          <td class="pc pop"><span class="val">5 + галерея</span></td>
+          <td class="pc"><span class="val">9 + блог</span></td>
+        </tr>
+        <tr class="feat-row">
+          <td class="fc">GitHub + Vercel хостинг</td>
+          <td class="pc"><span class="chk">✓</span></td>
+          <td class="pc pop"><span class="chk">✓</span></td>
+          <td class="pc"><span class="chk">✓</span></td>
+        </tr>
+        <tr class="feat-row">
+          <td class="fc">Кастомний домен + SSL</td>
+          <td class="pc"><span class="chk">✓</span></td>
+          <td class="pc pop"><span class="chk">✓</span></td>
+          <td class="pc"><span class="chk">✓</span></td>
+        </tr>
+        <tr class="feat-row">
+          <td class="fc">Мобільна версія</td>
+          <td class="pc"><span class="chk">✓</span></td>
+          <td class="pc pop"><span class="chk">✓</span></td>
+          <td class="pc"><span class="chk">✓</span></td>
+        </tr>
+        <tr class="feat-row">
+          <td class="fc">Контактна форма</td>
+          <td class="pc"><span class="chk">✓</span></td>
+          <td class="pc pop"><span class="chk">✓</span></td>
+          <td class="pc"><span class="chk">✓</span></td>
+        </tr>
+        <tr class="feat-row">
+          <td class="fc">Базовий on-page SEO</td>
+          <td class="pc"><span class="crs">—</span></td>
+          <td class="pc pop"><span class="chk">✓</span></td>
+          <td class="pc"><span class="chk">✓</span></td>
+        </tr>
+
+        <!-- АНАЛІТИКА -->
+        <tr class="cat-row"><td colspan="4">Аналітика та трекінг</td></tr>
+        <tr class="feat-row">
+          <td class="fc">Google Analytics 4</td>
+          <td class="pc"><span class="chk">✓</span></td>
+          <td class="pc pop"><span class="chk">✓</span></td>
+          <td class="pc"><span class="chk">✓</span></td>
+        </tr>
+        <tr class="feat-row">
+          <td class="fc">Meta Pixel</td>
+          <td class="pc"><span class="chk">✓</span></td>
+          <td class="pc pop"><span class="chk">✓</span></td>
+          <td class="pc"><span class="chk">✓</span></td>
+        </tr>
+        <tr class="feat-row">
+          <td class="fc">Google Tag Manager</td>
+          <td class="pc"><span class="chk">✓</span></td>
+          <td class="pc pop"><span class="chk">✓</span></td>
+          <td class="pc"><span class="chk">✓</span></td>
+        </tr>
+
+        <!-- МІСЦЕВА ПРИСУТНІСТЬ -->
+        <tr class="cat-row"><td colspan="4">Місцева присутність</td></tr>
+        <tr class="feat-row">
+          <td class="fc">Google Business Profile</td>
+          <td class="pc"><span class="chk">✓</span></td>
+          <td class="pc pop"><span class="chk">✓</span></td>
+          <td class="pc"><span class="chk">✓</span></td>
+        </tr>
+
+        <!-- СОЦІАЛЬНІ МЕРЕЖІ -->
+        <tr class="cat-row"><td colspan="4">Соціальні мережі</td></tr>
+        <tr class="feat-row">
+          <td class="fc">Instagram — повний setup</td>
+          <td class="pc"><span class="chk">✓</span></td>
+          <td class="pc pop"><span class="chk">✓</span></td>
+          <td class="pc"><span class="chk">✓</span></td>
+        </tr>
+        <tr class="feat-row">
+          <td class="fc">Facebook — повний setup</td>
+          <td class="pc"><span class="chk">✓</span></td>
+          <td class="pc pop"><span class="chk">✓</span></td>
+          <td class="pc"><span class="chk">✓</span></td>
+        </tr>
+        <tr class="feat-row">
+          <td class="fc">6 Highlights covers</td>
+          <td class="pc"><span class="chk">✓</span></td>
+          <td class="pc pop"><span class="chk">✓</span></td>
+          <td class="pc"><span class="chk">✓</span></td>
+        </tr>
+        <tr class="feat-row">
+          <td class="fc">Готових постів (IG + FB)</td>
+          <td class="pc"><span class="crs">—</span></td>
+          <td class="pc pop"><span class="val">6 постів</span></td>
+          <td class="pc"><span class="val">10 постів</span></td>
+        </tr>
+        <tr class="feat-row">
+          <td class="fc">Story-шаблони</td>
+          <td class="pc"><span class="crs">—</span></td>
+          <td class="pc pop"><span class="val">3 шт.</span></td>
+          <td class="pc"><span class="val">3 шт.</span></td>
+        </tr>
+
+        <!-- КОНТЕНТ І ФОТО -->
+        <tr class="cat-row"><td colspan="4">Контент і фото</td></tr>
+        <tr class="feat-row">
+          <td class="fc">5 фото — оформлення агенцією</td>
+          <td class="pc"><span class="chk">✓</span></td>
+          <td class="pc pop"><span class="chk">✓</span></td>
+          <td class="pc"><span class="chk">✓</span></td>
+        </tr>
+        <tr class="feat-row">
+          <td class="fc">PDF-гайд — перший місяць</td>
+          <td class="pc"><span class="chk">✓</span></td>
+          <td class="pc pop"><span class="chk">✓</span></td>
+          <td class="pc"><span class="chk">✓</span></td>
+        </tr>
+
+        <!-- БРЕНД -->
+        <tr class="cat-row"><td colspan="4">Бренд та дизайн</td></tr>
+        <tr class="feat-row">
+          <td class="fc">Логотип — 2 варіанти (Canva)</td>
+          <td class="pc"><span class="crs">—</span></td>
+          <td class="pc pop"><span class="chk">✓</span></td>
+          <td class="pc"><span class="chk">✓</span></td>
+        </tr>
+        <tr class="feat-row">
+          <td class="fc">Брендбук PDF</td>
+          <td class="pc"><span class="crs">—</span></td>
+          <td class="pc pop"><span class="chk">✓</span></td>
+          <td class="pc"><span class="chk">✓</span></td>
+        </tr>
+        <tr class="feat-row">
+          <td class="fc">Флаєр A5 print-ready</td>
+          <td class="pc"><span class="crs">—</span></td>
+          <td class="pc pop"><span class="chk">✓</span></td>
+          <td class="pc"><span class="chk">✓</span></td>
+        </tr>
+
+        <!-- ПОЛІГРАФІЯ ТА ДОКУМЕНТИ -->
+        <tr class="cat-row"><td colspan="4">Поліграфія та документи</td></tr>
+        <tr class="feat-row">
+          <td class="fc">Буклет для клієнтів 6 стор. PDF</td>
+          <td class="pc"><span class="crs">—</span></td>
+          <td class="pc pop"><span class="crs">—</span></td>
+          <td class="pc"><span class="chk">✓</span></td>
+        </tr>
+        <tr class="feat-row">
+          <td class="fc">Шаблон комерційної пропозиції</td>
+          <td class="pc"><span class="crs">—</span></td>
+          <td class="pc pop"><span class="crs">—</span></td>
+          <td class="pc"><span class="chk">✓</span></td>
+        </tr>
+        <tr class="feat-row">
+          <td class="fc">Roll-up банер або набір банерів</td>
+          <td class="pc"><span class="crs">—</span></td>
+          <td class="pc pop"><span class="crs">—</span></td>
+          <td class="pc"><span class="chk">✓</span></td>
+        </tr>
+
+        <!-- ПІДСУМОК -->
+        <tr class="total-row">
+          <td class="fc" style="font-family:'Montserrat',sans-serif;font-weight:800;font-size:13px">Дедлайн</td>
+          <td class="pc" style="text-align:center;font-weight:700;font-size:13px">12 днів</td>
+          <td class="pc pop-total" style="text-align:center;font-family:'Montserrat',sans-serif;font-weight:800;font-size:13px;color:#fff">18 днів</td>
+          <td class="pc" style="text-align:center;font-weight:700;font-size:13px">24 дні</td>
+        </tr>
+
+      </tbody>
+    </table>
+  </div>
 
   <div class="guarantees">
     <div class="g-item">
-      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="10" height="8" rx="2"/><path d="M5 7V5a3 3 0 016 0v2"/></svg>
+      <svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="10" height="8" rx="2"/><path d="M5 7V5a3 3 0 016 0v2"/></svg>
       Акаунти — ваша власність
     </div>
     <div class="g-item">
-      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10 1H3a1 1 0 00-1 1v12a1 1 0 001 1h10a1 1 0 001-1V5l-4-4z"/><polyline points="10,1 10,5 14,5"/><line x1="4" y1="8" x2="12" y2="8"/><line x1="4" y1="10.5" x2="10" y2="10.5"/></svg>
+      <svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10 1H3a1 1 0 00-1 1v12a1 1 0 001 1h10a1 1 0 001-1V5l-4-4z"/><polyline points="10,1 10,5 14,5"/><line x1="4" y1="8" x2="12" y2="8"/></svg>
       2 раунди правок
     </div>
     <div class="g-item">
-      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="8" r="7"/><polyline points="8,4.5 8,8 10.5,10"/></svg>
+      <svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="8" r="7"/><polyline points="8,4.5 8,8 10.5,10"/></svg>
       Чіткий дедлайн
     </div>
     <div class="g-item">
-      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="14" height="10" rx="2"/><line x1="1" y1="7" x2="15" y2="7"/><line x1="4" y1="10.5" x2="7" y2="10.5"/></svg>
+      <svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="14" height="10" rx="2"/><line x1="1" y1="7" x2="15" y2="7"/></svg>
       50% передоплата
     </div>
   </div>
 
-  <p class="note">Домен та хостинг оплачуються клієнтом окремо (≈€15–20/міс).<br>Акаунти реєструються на ім'я клієнта — ви завжди власник.</p>
+  <p class="note">Домен та хостинг оплачуються клієнтом окремо (≈€15–20/міс). Акаунти реєструються на ім'я клієнта — ви завжди власник.</p>
 
 </div>
-<script>
-const ic = {
-  browser:`<svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="2" width="14" height="12" rx="2"/><line x1="1" y1="5.5" x2="15" y2="5.5"/><circle cx="3.5" cy="3.75" r=".7" fill="currentColor" stroke="none"/><circle cx="6" cy="3.75" r=".7" fill="currentColor" stroke="none"/><circle cx="8.5" cy="3.75" r=".7" fill="currentColor" stroke="none"/></svg>`,
-  deploy:`<svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="13" x2="5" y2="4"/><polyline points="2,7 5,4 8,7"/><line x1="11" y1="13" x2="11" y2="4"/><polyline points="8,7 11,4 14,7"/></svg>`,
-  lock:`<svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="10" height="8" rx="2"/><path d="M5 7V5a3 3 0 016 0v2"/></svg>`,
-  phone:`<svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="4.5" y="1" width="7" height="14" rx="2"/><line x1="7" y1="12.5" x2="9" y2="12.5"/></svg>`,
-  envelope:`<svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="14" height="10" rx="2"/><polyline points="1,3 8,9 15,3"/></svg>`,
-  bars:`<svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3.5" y1="13" x2="3.5" y2="9"/><line x1="8" y1="13" x2="8" y2="6"/><line x1="12.5" y1="13" x2="12.5" y2="3"/></svg>`,
-  pixel:`<svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="12" height="12" rx="2"/><line x1="2" y1="2" x2="14" y2="14"/><line x1="14" y1="2" x2="2" y2="14"/></svg>`,
-  tag:`<svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M8.5 2H13a1 1 0 011 1v4.5a1 1 0 01-.3.7l-5.5 5.5a1.5 1.5 0 01-2.1 0L2.3 9.9a1.5 1.5 0 010-2.1L7.8 2.3A1 1 0 018.5 2z"/><circle cx="11" cy="5" r=".8" fill="currentColor" stroke="none"/></svg>`,
-  pin:`<svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M8 1a5 5 0 015 5c0 3.5-5 9-5 9S3 9.5 3 6a5 5 0 015-5z"/><circle cx="8" cy="6" r="2"/></svg>`,
-  image:`<svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="2" width="14" height="12" rx="2"/><polyline points="1,11 5,7 8,10 11,7 15,11"/><circle cx="11.5" cy="5" r="1.5"/></svg>`,
-  instagram:`<svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="12" height="12" rx="3"/><circle cx="8" cy="8" r="3"/><circle cx="11.5" cy="4.5" r=".5" fill="currentColor" stroke="none"/></svg>`,
-  facebook:`<svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="1" width="12" height="14" rx="2"/><path d="M10 5H8.5a1.5 1.5 0 00-1.5 1.5V8h3"/><line x1="7" y1="8" x2="7" y2="14"/></svg>`,
-  highlights:`<svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="3" cy="5" r="2"/><circle cx="8" cy="5" r="2"/><circle cx="13" cy="5" r="2"/><circle cx="3" cy="11" r="2"/><circle cx="8" cy="11" r="2"/><circle cx="13" cy="11" r="2"/></svg>`,
-  pdf:`<svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10 1H3a1 1 0 00-1 1v12a1 1 0 001 1h10a1 1 0 001-1V5l-4-4z"/><polyline points="10,1 10,5 14,5"/><line x1="4" y1="8" x2="12" y2="8"/><line x1="4" y1="10.5" x2="12" y2="10.5"/><line x1="4" y1="13" x2="9" y2="13"/></svg>`,
-  gallery:`<svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="1" width="6" height="6" rx="1"/><rect x="9" y="1" width="6" height="6" rx="1"/><rect x="1" y="9" width="6" height="6" rx="1"/><rect x="9" y="9" width="6" height="6" rx="1"/></svg>`,
-  seo:`<svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="6.5" cy="6.5" r="5"/><line x1="10.5" y1="10.5" x2="15" y2="15"/><polyline points="3.5,8.5 5.5,6.5 7.5,7.5 9.5,4.5"/></svg>`,
-  logo:`<svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="8,1 15,8 8,15 1,8"/></svg>`,
-  brandbook:`<svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="12" height="12" rx="2"/><line x1="8" y1="2" x2="8" y2="14"/><line x1="2" y1="8" x2="14" y2="8"/></svg>`,
-  posts:`<svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="1" width="6" height="6" rx="1"/><rect x="9" y="1" width="6" height="6" rx="1"/><rect x="5" y="9" width="6" height="6" rx="1"/></svg>`,
-  story:`<svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="1" width="8" height="14" rx="3"/><polygon points="8,5.5 8.6,7.2 10.5,7.2 9,8.4 9.5,10.2 8,9.1 6.5,10.2 7,8.4 5.5,7.2 7.4,7.2"/></svg>`,
-  flyer:`<svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="1" width="12" height="14" rx="1"/><line x1="2" y1="6" x2="14" y2="6"/><line x1="4" y1="9" x2="12" y2="9"/><line x1="4" y1="11.5" x2="12" y2="11.5"/><line x1="4" y1="13.5" x2="9" y2="13.5"/></svg>`,
-  booklet:`<svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="10" height="12" rx="1"/><rect x="2" y="2" width="10" height="12" rx="1"/><line x1="4" y1="6" x2="10" y2="6"/><line x1="4" y1="8.5" x2="10" y2="8.5"/></svg>`,
-  quote:`<svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10 1H3a1 1 0 00-1 1v12a1 1 0 001 1h10a1 1 0 001-1V5l-4-4z"/><polyline points="10,1 10,5 14,5"/><polyline points="5,9 7,11 11,7"/></svg>`,
-  rollup:`<svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="1" width="8" height="11" rx="1"/><line x1="8" y1="12" x2="8" y2="14"/><line x1="5" y1="14" x2="11" y2="14"/></svg>`,
-  tenposts:`<svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="1" width="4" height="4" rx=".5"/><rect x="6" y="1" width="4" height="4" rx=".5"/><rect x="11" y="1" width="4" height="4" rx=".5"/><rect x="1" y="6" width="4" height="4" rx=".5"/><rect x="6" y="6" width="4" height="4" rx=".5"/><rect x="11" y="6" width="4" height="4" rx=".5"/><rect x="1" y="11" width="4" height="4" rx=".5"/><rect x="6" y="11" width="4" height="4" rx=".5"/><rect x="11" y="11" width="4" height="4" rx=".5"/></svg>`,
-  x:`<svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><line x1="2" y1="2" x2="8" y2="8"/><line x1="8" y1="2" x2="2" y2="8"/></svg>`,
-  check:`<svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="#22C55E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3,8 6,11 13,4"/></svg>`,
-};
-
-function chip(key, label, full) {
-  return `<div class="chip${full?' full':''}"><span class="chip-icon">${ic[key]}</span><span>${label}</span></div>`;
-}
-function notItem(label) {
-  return `<div class="not-item">${ic.x}<span>${label}</span></div>`;
-}
-
-const base = [
-  chip('browser','Сайт 3 сторінки (HTML/CSS)'),
-  chip('deploy','GitHub + Vercel хостинг'),
-  chip('lock','Кастомний домен + SSL'),
-  chip('phone','Мобільна версія'),
-  chip('envelope','Контактна форма'),
-  chip('bars','Google Analytics 4'),
-  chip('pixel','Meta Pixel'),
-  chip('tag','Google Tag Manager'),
-  chip('pin','Google Business Profile'),
-  chip('image','5 фото — оформлення агенцією',true),
-  chip('instagram','Instagram — повний setup'),
-  chip('facebook','Facebook — повний setup'),
-  chip('highlights','6 Highlights covers'),
-  chip('pdf','PDF-гайд — перший місяць'),
-].join('');
-
-const mid = [
-  chip('gallery','Сайт 5 сторінок + галерея',true),
-  chip('seo','Базовий on-page SEO'),
-  chip('logo','Логотип — 2 варіанти (Canva)',true),
-  chip('brandbook','Брендбук PDF'),
-  chip('posts','6 готових постів (IG + FB)'),
-  chip('story','3 Story-шаблони'),
-  chip('flyer','Флаєр A5 print-ready'),
-].join('');
-
-const top = [
-  chip('gallery','До 9 сторінок + блог',true),
-  chip('booklet','Буклет для клієнтів 6 стор. PDF',true),
-  chip('quote','Шаблон комерційної пропозиції',true),
-  chip('rollup','Roll-up банер або набір банерів',true),
-  chip('tenposts','10 готових постів (IG + FB)'),
-].join('');
-
-const pkgs = [
-  {
-    num:'01 / 03',name:'Start Online',
-    tagline:'Я існую онлайн і виглядаю надійно',
-    price:'€1.200',deadline:'12 робочих днів',
-    dark:false,popular:false,
-    chips:base,
-    not:[notItem('Логотип'),notItem('Контент / пости'),notItem('Поліграфія')].join(''),
-    all:false,
-    cta:'Обрати Start Online',ctaCls:'cta-red',
-  },
-  {
-    num:'02 / 03',name:'Digital Foundation',
-    tagline:'Повна онлайн-візитка, якою я пишаюсь',
-    price:'€2.100',deadline:'18 робочих днів',
-    dark:true,popular:true,
-    chips:base+mid,
-    not:[notItem('Буклет для клієнтів'),notItem('Шаблон оферти'),notItem('Roll-up банер')].join(''),
-    all:false,
-    cta:'Обрати Digital Foundation',ctaCls:'cta-white',
-  },
-  {
-    num:'03 / 03',name:'Complete Presence',
-    tagline:'Все під ключ — від нуля до системи',
-    price:'€3.100',deadline:'24 робочих дні',
-    dark:false,popular:false,
-    chips:base+mid+top,
-    not:'',all:true,
-    cta:'Обрати Complete Presence',ctaCls:'cta-red',
-  },
-];
-
-const grid = document.getElementById('cards');
-pkgs.forEach(p => {
-  const el = document.createElement('div');
-  el.className = 'card'+(p.dark?' card-dark':'');
-  el.innerHTML = `
-    ${p.popular?'<div class="popular-badge">Найпопулярніший</div>':''}
-    <div class="card-num">${p.num}</div>
-    <div class="card-name">${p.name}</div>
-    <div class="card-tagline">${p.tagline}</div>
-    <div class="card-price">${p.price}</div>
-    <div class="card-price-sub">одноразово · без прихованих витрат</div>
-    <div class="deadline-badge">Дедлайн: ${p.deadline}</div>
-    <hr class="divider">
-    <div class="chips">${p.chips}</div>
-    ${p.not?`<div class="not-included">${p.not}</div>`:''}
-    ${p.all?`<div class="all-included">${ic.check}<span>Найповніший пакет — все включено</span></div>`:''}
-    <button class="cta ${p.ctaCls}">${p.cta}</button>
-  `;
-  grid.appendChild(el);
-});
-
-// 3D tilt
-document.querySelectorAll('.card').forEach(card => {
-  card.addEventListener('mousemove', e => {
-    const r = card.getBoundingClientRect();
-    const x = (e.clientX - r.left) / r.width - .5;
-    const y = (e.clientY - r.top) / r.height - .5;
-    card.style.transform = `perspective(1000px) rotateY(${x*10}deg) rotateX(${-y*10}deg) translateY(-6px)`;
-  });
-  card.addEventListener('mouseleave', () => { card.style.transform = ''; });
-});
-</script>
 </body>
 </html>
