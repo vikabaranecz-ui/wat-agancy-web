@@ -35,6 +35,14 @@ nav.scrolled{height:56px;box-shadow:0 4px 24px rgba(17,17,17,.07)}
 .nav-links a:hover{color:var(--ink)}
 .nav-cta{font-family:'Exo 2',sans-serif;font-size:12px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#fff;background:var(--red);padding:10px 24px;border-radius:var(--r12);transition:background .2s,transform .15s,box-shadow .2s}
 .nav-cta:hover{background:var(--red-mid);transform:translateY(-1px);box-shadow:0 8px 24px var(--red-15)}
+/* Lang toggle – desktop */
+.lang-toggle{display:flex;background:rgba(17,17,17,.06);border-radius:8px;padding:3px;gap:2px;margin-right:8px}
+.lang-btn{padding:5px 13px;font-family:'Exo 2',sans-serif;font-weight:700;font-size:11px;letter-spacing:1.5px;border:none;cursor:pointer;background:transparent;color:var(--ink-60);border-radius:6px;transition:background .2s,color .2s}
+.lang-btn.lang-active{background:var(--red);color:#fff}
+/* Lang toggle – mobile drawer */
+.mob-lang{display:flex;gap:8px;padding:20px 0 8px}
+.mob-lb{flex:1;padding:12px;font-family:'Exo 2',sans-serif;font-weight:700;font-size:13px;letter-spacing:2px;border:2px solid var(--border);border-radius:var(--r12);background:transparent;color:var(--ink-60);cursor:pointer;transition:all .2s}
+.mob-lb.mob-lb-act{background:var(--red);color:#fff;border-color:var(--red)}
 .ham{display:none;flex-direction:column;gap:5px;padding:8px;cursor:pointer;background:none;border:none;-webkit-tap-highlight-color:transparent}
 .ham span{display:block;width:22px;height:2px;background:var(--ink);border-radius:2px;transition:transform .3s,opacity .3s}
 .ham.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
@@ -469,7 +477,11 @@ footer{background:var(--bg-card);padding:52px 64px 36px;border-top:1px solid var
     <a href="#packages">Packages</a>
     <a href="#contact">Contact</a>
   </div>
-  <a class="nav-cta" href="#contact">Free Analysis →</a>
+  <div class="lang-toggle">
+    <button class="lang-btn lang-active" id="lb-en" onclick="setLang('en')">EN</button>
+    <button class="lang-btn" id="lb-nl" onclick="setLang('nl')">NL</button>
+  </div>
+  <a class="nav-cta" id="nav-cta-btn" href="#contact">Free Analysis →</a>
   <button class="ham" id="ham" aria-label="Menu"><span></span><span></span><span></span></button>
 </nav>
 
@@ -479,7 +491,11 @@ footer{background:var(--bg-card);padding:52px 64px 36px;border-top:1px solid var
   <a class="ml" href="#cases" onclick="closeMob()">Cases <span class="arr">→</span></a>
   <a class="ml" href="#packages" onclick="closeMob()">Packages <span class="arr">→</span></a>
   <a class="ml" href="#contact" onclick="closeMob()">Contact <span class="arr">→</span></a>
-  <a class="mc" href="#contact" onclick="closeMob()">Free Analysis →</a>
+  <div class="mob-lang">
+    <button class="mob-lb mob-lb-act" id="mlb-en" onclick="setLang('en');closeMob()">EN</button>
+    <button class="mob-lb" id="mlb-nl" onclick="setLang('nl');closeMob()">NL</button>
+  </div>
+  <a class="mc" id="mob-cta-btn" href="#contact" onclick="closeMob()">Free Analysis →</a>
 </div>
 
 <!-- STICKY MOBILE -->
@@ -1277,13 +1293,270 @@ counters.forEach(c => cObs.observe(c));
 function handleSubmit(e) {
   e.preventDefault();
   const btn = e.target.querySelector('.f-btn');
-  btn.textContent = 'Sending...';
+  btn.textContent = _lang === 'nl' ? 'Verzenden...' : 'Sending...';
   btn.disabled = true;
   setTimeout(() => {
-    btn.textContent = '✓ Message sent — we\'ll be in touch within 24h';
+    btn.textContent = _lang === 'nl'
+      ? '✓ Bericht verzonden — we nemen binnen 24 uur contact op'
+      : '✓ Message sent — we\'ll be in touch within 24h';
     btn.style.background = '#1a7a4a';
   }, 1200);
   return false;
+}
+
+// ── LANGUAGE SYSTEM ──
+let _lang = 'en';
+const $ = s => document.querySelector(s);
+const $$ = s => document.querySelectorAll(s);
+
+function setLang(l) {
+  _lang = l;
+  const nl = l === 'nl';
+
+  // Toggle active state on all toggle buttons
+  ['lb-en','lb-nl','mlb-en','mlb-nl'].forEach(id => {
+    const el = document.getElementById(id);
+    if (!el) return;
+    const isActive = el.id.endsWith(l);
+    el.classList.toggle('lang-active', isActive);
+    el.classList.toggle('mob-lb-act', isActive);
+  });
+
+  // Nav links
+  const navLinks = $$('.nav-links a');
+  const navEN = ['Services','Process','Cases','Packages','Contact'];
+  const navNL = ['Diensten','Proces','Resultaten','Pakketten','Contact'];
+  navLinks.forEach((a, i) => { if (navEN[i]) a.textContent = nl ? navNL[i] : navEN[i]; });
+
+  // Nav CTA
+  const navCta = $('a#nav-cta-btn');
+  if (navCta) navCta.textContent = nl ? 'Gratis analyse →' : 'Free Analysis →';
+
+  // Mob drawer links
+  const mobLinks = $$('.mob-drawer a.ml');
+  mobLinks.forEach((a, i) => {
+    a.innerHTML = `${nl ? navNL[i] : navEN[i]} <span class="arr">→</span>`;
+  });
+  const mobCta = $('a#mob-cta-btn');
+  if (mobCta) mobCta.textContent = nl ? 'Gratis analyse →' : 'Free Analysis →';
+
+  // Sticky mobile bar
+  const stickP = $('.sticky-m p');
+  if (stickP) stickP.innerHTML = `<strong>WAT? Agency Belgium</strong>${nl ? 'Gratis online aanwezigheidsanalyse' : 'Free online presence audit'}`;
+  const stickA = $('.sticky-m a');
+  if (stickA) stickA.textContent = nl ? 'Begin nu →' : 'Start now →';
+
+  // Hero
+  const badge = $('.hero-badge');
+  if (badge) badge.innerHTML = `<span class="hero-badge-dot"></span>${nl ? 'Nu nieuwe klanten welkom' : 'Now taking new clients'}`;
+  const eyebrow = $('.hero-eyebrow');
+  if (eyebrow) eyebrow.textContent = nl ? 'Voor bedrijven in België' : 'For businesses in Belgium';
+  const h1 = $('.hero h1');
+  if (h1) h1.innerHTML = nl
+    ? 'Jouw werk<br>verdient het<br>gezien te worden<span class="red-dot">.</span>'
+    : 'Your work<br>deserves to<br>be seen<span class="red-dot">.</span>';
+  const heroSub = $('.hero-sub');
+  if (heroSub) heroSub.innerHTML = nl
+    ? 'We bouwen een volledige online aanwezigheid voor uw bedrijf in België — website, Google, social media — één systeem dat klanten aantrekt terwijl u focust op uw werk.'
+    : 'We build a complete online presence for your business in Belgium — website, Google, social media — one system that brings clients while you focus on the work.';
+  const btn1 = $('.hero-btns .btn-red');
+  if (btn1) btn1.textContent = nl ? 'Gratis online audit →' : 'Get a free online audit →';
+  const btn2 = $('.hero-btns .btn-outline');
+  if (btn2) btn2.textContent = nl ? 'Wat is inbegrepen' : "What's included";
+  const scrollHint = $('.scroll-hint span');
+  if (scrollHint) scrollHint.textContent = nl ? 'Scroll naar beneden' : 'Scroll down';
+
+  // Stats
+  const statLabels = $$('.stat-l');
+  const statEN = ['Services in one system','Belgian market focus','Weeks to go live',"In your client's language"];
+  const statNL = ['Diensten in één systeem','Focus op de Belgische markt','Weken tot live gaan','In de taal van uw klant'];
+  statLabels.forEach((s, i) => { if (statEN[i]) s.textContent = nl ? statNL[i] : statEN[i]; });
+
+  // Section tags
+  const secTags = $$('.sec-tag');
+  const tagEN = ['The real problem','Our approach',"What's included",'How it works','Who this is for','Why WAT? Agency','Pricing','Real results','Get in touch'];
+  const tagNL = ['Het echte probleem','Onze aanpak','Wat is inbegrepen','Hoe het werkt','Voor wie','Waarom WAT? Agency','Prijzen','Echte resultaten','Neem contact op'];
+  secTags.forEach((t, i) => { if (tagEN[i]) t.textContent = nl ? tagNL[i] : tagEN[i]; });
+
+  // Big headings
+  const bigHs = $$('.big-h');
+  const bhEN = [
+    'Why clients<br>choose<br><span class="red-acc">someone else?</span>',
+    'We build<br><span class="red-acc">a system.</span><br>Not just a website.',
+    'Everything<br>your business<br><span class="red-acc">needs.</span>',
+    'From zero<br>to <span class="red-acc">live</span><br>in 2–4 weeks.',
+    'Businesses<br>in Belgium<br><span class="red-acc">ready to grow</span>',
+    'We know<br>the Belgian<br><span class="red-acc">market.</span>',
+    'Choose<br>your <span class="red-acc">package.</span>',
+    'Real people.<br>Real time.<br><span class="red-acc">Real work.</span>',
+  ];
+  const bhNL = [
+    'Waarom kiezen<br>klanten voor<br><span class="red-acc">iemand anders?</span>',
+    'We bouwen<br><span class="red-acc">een systeem.</span><br>Niet alleen een website.',
+    'Alles wat<br>uw bedrijf<br><span class="red-acc">nodig heeft.</span>',
+    'Van nul<br>tot <span class="red-acc">live</span><br>in 2–4 weken.',
+    'Bedrijven<br>in België<br><span class="red-acc">klaar om te groeien</span>',
+    'We kennen<br>de Belgische<br><span class="red-acc">markt.</span>',
+    'Kies<br>uw <span class="red-acc">pakket.</span>',
+    'Echte mensen.<br>Echte tijd.<br><span class="red-acc">Echte resultaten.</span>',
+  ];
+  bigHs.forEach((h, i) => { if (bhEN[i]) h.innerHTML = nl ? bhNL[i] : bhEN[i]; });
+
+  // Section subs
+  const secSubs = $$('.sec-sub');
+  const subEN = [
+    'Not because their work is better. Because your competitor is <strong>more visible online</strong>.',
+    'Every element reinforces the others — one goal: <strong style="color:#F8F7F4">more clients calling you</strong>.',
+    '11 services — one system. Built specifically for businesses operating in Belgium.',
+    "Clear milestones. No agency jargon. You always know what's happening and what's next.",
+    'We know what Belgian clients expect — and how to make your business <strong>the obvious choice</strong>.',
+    'Not a generic agency. A team that understands your clients, your competition and your language needs.',
+    'Fixed price. Clear deliverables. No surprises. <strong>All packages include a free audit call.</strong>',
+    "Real businesses in Belgium. Real numbers. No stock photos — their actual projects.",
+  ];
+  const subNL = [
+    'Niet omdat hun werk beter is. Maar omdat uw concurrent <strong>beter zichtbaar is online</strong>.',
+    'Elk element versterkt het andere — één doel: <strong style="color:#F8F7F4">meer klanten die bellen</strong>.',
+    '11 diensten — één systeem. Specifiek gebouwd voor bedrijven in België.',
+    'Duidelijke mijlpalen. Geen agentschapsjargon. U weet altijd wat er gebeurt en wat er volgt.',
+    'We weten wat Belgische klanten verwachten — en hoe u <strong>de voor de hand liggende keuze</strong> wordt.',
+    'Geen generiek agentschap. Een team dat uw klanten, uw concurrenten en uw taalbehoeften begrijpt.',
+    'Vaste prijs. Duidelijke resultaten. Geen verrassingen. <strong>Alle pakketten bevatten een gratis auditgesprek.</strong>',
+    "Echte bedrijven in België. Echte cijfers. Geen stockfoto's — hun eigen projecten.",
+  ];
+  secSubs.forEach((s, i) => { if (subEN[i]) s.innerHTML = nl ? subNL[i] : subEN[i]; });
+
+  // Problem banner
+  const probBanner = $('.prob-banner');
+  if (probBanner) probBanner.innerHTML = `<strong>${nl ? "Goed werk verkoopt zichzelf niet — het moet zichtbaar zijn." : "Great work doesn't sell itself — it needs to be visible."}</strong><span>→</span>`;
+
+  // Solution card
+  const solCard = $('.sol-card');
+  if (solCard) {
+    const h3 = solCard.querySelector('h3');
+    if (h3) h3.innerHTML = nl ? 'Het resultaat?<br><span class="red-acc">Klanten<br>die bellen.</span>' : 'The result?<br><span class="red-acc">Clients<br>who call.</span>';
+    const p = solCard.querySelector('p');
+    if (p) p.textContent = nl ? 'Niet "meer volgers". Echte aanvragen van echte klanten in uw regio.' : 'Not "more followers". Real enquiries from real clients in your area.';
+    const scRows = $$('.sc-row');
+    const scEN = ['More inbound requests from your local area','Clients call already convinced','Online presence that reflects your quality','A system that runs without your daily input','A foundation for steady, predictable growth'];
+    const scNL = ['Meer inkomende aanvragen uit uw regio','Klanten bellen al overtuigd','Online aanwezigheid die uw kwaliteit weerspiegelt','Een systeem dat werkt zonder uw dagelijkse inbreng','Een basis voor stabiele, voorspelbare groei'];
+    scRows.forEach((r, i) => { if (scEN[i]) r.innerHTML = `<div class="sc-dot">✓</div>${nl ? scNL[i] : scEN[i]}`; });
+    const solBtn = solCard.querySelector('.btn-red');
+    if (solBtn) solBtn.textContent = nl ? 'Begin met een gratis audit →' : 'Start with a free audit →';
+  }
+
+  // Bento labels
+  const bentoLabels = $$('.bento-cell-label');
+  const blEN = ['Local expertise','Language','One team','Speed','Results-focused','Transparent'];
+  const blNL = ['Lokale expertise','Taal','Één team','Snelheid','Resultaatgericht','Transparant'];
+  bentoLabels.forEach((b, i) => { if (blEN[i]) b.textContent = nl ? blNL[i] : blEN[i]; });
+
+  // Process steps
+  const stepH3 = $$('.step-item h3');
+  const stEN = ['Audit','Strategy','Build','Launch','Grow'];
+  const stNL = ['Analyse','Strategie','Opbouwen','Lancering','Groeien'];
+  stepH3.forEach((h, i) => { if (stEN[i]) h.textContent = nl ? stNL[i] : stEN[i]; });
+
+  // Whom callout
+  const wc = $('.whom-callout');
+  if (wc) {
+    const wcTag = wc.querySelector('.wc-tag');
+    if (wcTag) wcTag.textContent = nl ? 'Belangrijk om te weten' : 'Important to know';
+    const wcH3 = wc.querySelector('h3');
+    if (wcH3) wcH3.innerHTML = nl ? 'Uw concurrenten<br>zijn al<br>online' : 'Your competitors<br>are already<br>online';
+    const wcP = wc.querySelector('p');
+    if (wcP) wcP.textContent = nl
+      ? "Terwijl u focust op het leveren van goed werk, staat iemand anders al bovenaan bij Google, verzamelt reviews en plaatst projectfoto's. Zichtbaarheid wint in de Belgische markt. Wij zorgen dat dat bedrijf van u is."
+      : "While you focus on delivering great work, someone else is showing up first on Google, collecting reviews and posting project photos. Visibility wins in the Belgian market. We make sure that business is yours.";
+    const wcBtn = wc.querySelector('.btn-red');
+    if (wcBtn) wcBtn.textContent = nl ? 'Begin nu →' : 'Start now →';
+  }
+
+  // Packages most-popular label
+  const pkgPop = $('.pkg-pop-lbl');
+  if (pkgPop) pkgPop.textContent = nl ? '★ Meest populair' : '★ Most popular';
+
+  // Package "one-time" sub
+  $$('.pkg-price sub').forEach(s => s.textContent = nl ? 'eenmalig' : 'one-time');
+
+  // Package working days
+  const pkgDays = $$('.pkg-days');
+  const pdEN = ['12 working days','18 working days','24 working days'];
+  const pdNL = ['12 werkdagen','18 werkdagen','24 werkdagen'];
+  pkgDays.forEach((d, i) => { if (pdEN[i]) d.innerHTML = `<span class="pkg-dot"></span>${nl ? pdNL[i] : pdEN[i]}`; });
+
+  // Package "from" lines
+  const pkgFroms = $$('.pkg-from');
+  pkgFroms.forEach((f, i) => {
+    const svgEl = f.querySelector('svg');
+    const svgStr = svgEl ? svgEl.outerHTML : '';
+    f.innerHTML = svgStr + (nl ? ` Alles uit Pakket ${i+1}, plus:` : ` Everything in Package ${i+1}, plus:`);
+  });
+
+  // Package CTAs & subs
+  $$('.pkg-cta').forEach(b => b.textContent = nl ? 'Starten →' : 'Get started →');
+  $$('.pkg-sub').forEach(p => p.textContent = nl ? 'Gratis auditgesprek inbegrepen' : 'Free audit call included');
+
+  // Contact section
+  const flTitle = $('.fl-title');
+  if (flTitle) flTitle.innerHTML = nl
+    ? 'Laten we<br>uw bedrijf<br><span class="red-acc">zichtbaar maken.</span>'
+    : "Let's make<br>your business<br><span class="red-acc">visible.</span>";
+  const flSub = $('.fl-sub');
+  if (flSub) flSub.textContent = nl
+    ? 'Vul het formulier in en we nemen binnen 24 uur contact met u op met een gratis audit van uw huidige online aanwezigheid.'
+    : "Fill in the form and we'll get back to you within 24 hours with a free audit of your current online presence.";
+
+  // Contact promises
+  const fps = $$('.fp-r');
+  const fpEN = ['Free online presence audit','No commitment, no sales pressure','Response within 24 hours','Advice tailored to your niche and region'];
+  const fpNL = ['Gratis online aanwezigheidsaudit','Geen verplichtingen, geen verkoopdruk','Antwoord binnen 24 uur','Advies op maat voor uw niche en regio'];
+  fps.forEach((p, i) => { if (fpEN[i]) p.innerHTML = `<div class="fp-c">✓</div>${nl ? fpNL[i] : fpEN[i]}`; });
+
+  // Form labels
+  const fLabels = $$('.f-form label');
+  const flEN = ['First name','Last name','Email','Phone (optional)','Business type','Which package interests you?','Tell us about your business'];
+  const flNL = ['Voornaam','Achternaam','E-mail','Telefoon (optioneel)','Type bedrijf','Welk pakket interesseert u?','Vertel ons over uw bedrijf'];
+  fLabels.forEach((l, i) => { if (flEN[i]) l.textContent = nl ? flNL[i] : flEN[i]; });
+
+  // Form placeholders (inputs only, not select)
+  const fInputs = $$('.f-form input, .f-form textarea');
+  const phEN2 = ['John','Smith','john@company.be','+32 4XX XXX XXX',''];
+  const phNL2 = ['Jan','Janssens','jan@bedrijf.be','+32 4XX XXX XXX',''];
+  fInputs.forEach((inp, i) => { if (phEN2[i] !== undefined) inp.placeholder = nl ? phNL2[i] : phEN2[i]; });
+  const fTextarea = $('.f-form textarea');
+  if (fTextarea) fTextarea.placeholder = nl
+    ? 'Waar bent u gevestigd, wat doet u, wat is uw grootste uitdaging online?'
+    : "Where are you based, what do you do, what's your biggest challenge online?";
+
+  // Form selects
+  const fSelects = $$('.f-form select');
+  if (fSelects[0]) fSelects[0].innerHTML = nl
+    ? `<option value="">Selecteer uw sector</option><option>Bouw &amp; Renovatie</option><option>Isolatie &amp; Energie</option><option>Elektriciteit / Loodgieterij</option><option>Schoonmaak / Tuinieren</option><option>Restaurant / Retail</option><option>Andere</option>`
+    : `<option value="">Select your industry</option><option>Construction &amp; Renovation</option><option>Insulation &amp; Energy</option><option>Electrical / Plumbing</option><option>Cleaning / Gardening</option><option>Restaurant / Retail</option><option>Other</option>`;
+  if (fSelects[1]) fSelects[1].innerHTML = nl
+    ? `<option value="">Nog niet zeker — help me kiezen</option><option>Digital Launch — €1.100</option><option>Digital Foundation — €1.900</option><option>Complete Presence — €2.900</option>`
+    : `<option value="">Not sure yet — help me choose</option><option>Digital Launch — €1,100</option><option>Digital Foundation — €1,900</option><option>Complete Presence — €2,900</option>`;
+
+  // Form submit button
+  $('.f-btn').textContent = nl ? 'Bericht verzenden →' : 'Send message →';
+  $('.f-note').textContent = nl ? 'Geen spam. Uw gegevens worden nooit gedeeld met derden.' : 'No spam. Your data is never shared with third parties.';
+
+  // Footer
+  const footDesc = $('.foot-desc');
+  if (footDesc) footDesc.textContent = nl
+    ? "Volledige online aanwezigheid voor bedrijven in België. Website, Google Business, social media en content — één systeem dat klanten aantrekt terwijl u werkt."
+    : "Full online presence for businesses in Belgium. Website, Google Business, social media and content — one system that brings clients while you work.";
+  const footTtl = $('.foot-ttl');
+  if (footTtl) footTtl.textContent = nl ? 'Navigatie' : 'Navigation';
+  const footAs = $$('.foot-links a');
+  const foEN = ['Services','How it works','Case studies','Pricing','Contact'];
+  const foNL = ['Diensten','Hoe het werkt','Casestudies','Prijzen','Contact'];
+  footAs.forEach((a, i) => { if (foEN[i]) a.textContent = nl ? foNL[i] : foEN[i]; });
+  const footBottom = $('.foot-bottom p');
+  if (footBottom) footBottom.textContent = nl ? '© 2025 WAT? Agency Belgium. Alle rechten voorbehouden.' : '© 2025 WAT? Agency Belgium. All rights reserved.';
+  const footTag = $('.foot-tagline');
+  if (footTag) footTag.textContent = nl ? 'Gebouwd voor België' : 'Built for Belgium';
 }
 </script>
 </body>
