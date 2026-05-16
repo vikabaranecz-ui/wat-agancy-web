@@ -9,100 +9,87 @@
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-:root{--red:#FF3D1F;--bg:#0f0f0f;--s1:#161616;--s2:#1e1e1e;--border:#282828;--muted:#666;--text:#e8e8e8}
-body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;min-height:100vh}
+:root{--red:#FF3D1F;--bg:#0f0f0f;--s1:#161616;--s2:#1a1a1a;--border:#282828;--muted:#555;--text:#ddd;--pop:#1c0c07;--pop-b:#3a1508}
+html,body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif}
 
-/* Top bar */
-.top-bar{display:flex;justify-content:space-between;align-items:center;padding:12px 28px;background:#141414;border-bottom:1px solid var(--border)}
-.left-bar{display:flex;align-items:center;gap:16px}
-.back-link{font-size:12px;color:var(--muted);text-decoration:none;display:flex;align-items:center;gap:5px;transition:color .2s}
+/* ── Screen toolbar ── */
+.toolbar{display:flex;justify-content:space-between;align-items:center;padding:9px 20px;background:#111;border-bottom:1px solid var(--border)}
+.left-bar{display:flex;align-items:center;gap:14px}
+.back-link{font-size:11px;color:var(--muted);text-decoration:none;display:flex;align-items:center;gap:4px;transition:color .2s}
 .back-link:hover{color:var(--text)}
-.lang-sw{display:flex;background:#1e1e1e;border:1px solid var(--border);border-radius:6px;overflow:hidden}
-.lang-sw button{padding:6px 14px;font-family:'Montserrat',sans-serif;font-weight:700;font-size:10px;letter-spacing:.5px;border:none;background:transparent;cursor:pointer;color:var(--muted);transition:background .2s,color .2s}
+.lang-sw{display:flex;background:#1a1a1a;border:1px solid var(--border);border-radius:5px;overflow:hidden}
+.lang-sw button{padding:5px 12px;font-family:'Montserrat',sans-serif;font-weight:700;font-size:9.5px;letter-spacing:.5px;border:none;background:transparent;cursor:pointer;color:var(--muted);transition:background .2s,color .2s}
 .lang-sw button.active{background:var(--red);color:#fff}
-.save-btn{display:inline-flex;align-items:center;gap:7px;padding:9px 18px;background:var(--red);color:#fff;border:none;border-radius:7px;font-family:'Montserrat',sans-serif;font-weight:800;font-size:11px;letter-spacing:.4px;cursor:pointer;transition:opacity .2s}
-.save-btn:hover{opacity:.85}
+.save-btn{display:inline-flex;align-items:center;gap:6px;padding:7px 15px;background:var(--red);color:#fff;border:none;border-radius:6px;font-family:'Montserrat',sans-serif;font-weight:800;font-size:10px;letter-spacing:.3px;cursor:pointer;transition:opacity .2s}
+.save-btn:hover{opacity:.82}
 
-/* Header */
-.hd{padding:52px 40px 44px;text-align:center;background:linear-gradient(160deg,#1e0804 0%,#120603 40%,#0f0f0f 100%);border-bottom:1px solid #2d1008;position:relative;overflow:hidden}
-.hd::before{content:'';position:absolute;top:-40px;left:50%;transform:translateX(-50%);width:700px;height:500px;background:radial-gradient(ellipse,rgba(255,61,31,.18) 0%,transparent 70%);pointer-events:none}
-.brand{font-family:'Montserrat',sans-serif;font-weight:900;font-size:clamp(56px,10vw,96px);letter-spacing:-3px;line-height:.95;color:#fff;position:relative}
-.brand em{color:var(--red);font-style:normal}
-.brand-sub{font-family:'Montserrat',sans-serif;font-weight:700;font-size:11px;letter-spacing:6px;color:rgba(255,255,255,.3);margin-top:8px;text-transform:uppercase}
-.hd-title{font-family:'Montserrat',sans-serif;font-weight:900;font-size:clamp(20px,3vw,32px);color:#fff;margin-top:32px;letter-spacing:-1px;line-height:1.15}
-.hd-sub{font-size:12px;color:rgba(255,255,255,.35);margin-top:8px;letter-spacing:.3px}
+/* ── Single-page container ── */
+.page{width:100%;max-width:1080px;margin:0 auto;padding:14px 18px 12px}
 
-/* Wrap */
-.wrap{padding:28px 24px 52px;max-width:1160px;margin:0 auto}
-.tbl-wrap{overflow-x:auto;border-radius:14px;border:1px solid var(--border)}
+/* ── Brand row ── */
+.brand-row{display:flex;align-items:center;justify-content:space-between;padding-bottom:8px;border-bottom:1px solid #1f1208;margin-bottom:10px}
+.brand-left{display:flex;align-items:baseline;gap:10px}
+.brand-name{font-family:'Montserrat',sans-serif;font-weight:900;font-size:32px;letter-spacing:-2px;color:#fff;line-height:1}
+.brand-name em{color:var(--red);font-style:normal}
+.brand-agency{font-family:'Montserrat',sans-serif;font-weight:700;font-size:8px;letter-spacing:4px;color:rgba(255,255,255,.22);text-transform:uppercase;padding-bottom:2px}
+.brand-right{text-align:right}
+.brand-title{font-family:'Montserrat',sans-serif;font-weight:900;font-size:10px;letter-spacing:2.5px;text-transform:uppercase;color:rgba(255,255,255,.25)}
+.brand-sub{font-size:9.5px;color:#3d3d3d;margin-top:2px}
 
-/* Table */
-.ct{width:100%;border-collapse:collapse;table-layout:fixed;min-width:680px}
-.ct .fc{width:36%}
-.ct .pc{width:21.33%}
+/* ── Table ── */
+.ct{width:100%;border-collapse:collapse;table-layout:fixed;border:1px solid var(--border)}
+.ct .fc{width:34%}
+.ct .pc{width:22%}
 
-/* Package headers */
-.pkg-hd{vertical-align:top;padding:22px 14px 18px;background:var(--s1);border-bottom:1px solid var(--border);text-align:center;position:relative}
-.pkg-hd.pop{background:#1c0c07;border-bottom-color:#3a1508}
-.ph-num{font-family:'Montserrat',sans-serif;font-weight:800;font-size:8px;letter-spacing:3px;color:var(--red);margin-bottom:4px;text-transform:uppercase}
-.ph-name{font-family:'Montserrat',sans-serif;font-weight:900;font-size:15px;color:#fff;margin-bottom:2px;line-height:1.2}
-.ph-tag{font-style:italic;font-size:10px;color:var(--muted);margin-bottom:10px}
-.ph-price{font-family:'Montserrat',sans-serif;font-weight:900;font-size:30px;color:var(--red);letter-spacing:-1px;line-height:1;margin-bottom:2px}
-.ph-sub{font-size:9px;color:var(--muted);margin-bottom:8px}
-.ph-days{display:inline-block;background:rgba(255,61,31,.15);color:var(--red);font-family:'Montserrat',sans-serif;font-weight:700;font-size:9px;padding:3px 8px;border-radius:3px}
-.pop-badge{position:absolute;top:-10px;left:50%;transform:translateX(-50%);background:var(--red);color:#fff;font-family:'Montserrat',sans-serif;font-weight:800;font-size:7px;letter-spacing:2px;text-transform:uppercase;padding:3px 10px;border-radius:2px;white-space:nowrap}
-.feat-col-hd{background:var(--s1);padding:22px 14px 18px;vertical-align:bottom;border-bottom:1px solid var(--border)}
-.fch{font-family:'Montserrat',sans-serif;font-weight:800;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--muted)}
+.feat-col-hd{background:var(--s1);padding:8px 8px 7px;vertical-align:bottom;border-bottom:1px solid var(--border)}
+.fch{font-family:'Montserrat',sans-serif;font-weight:800;font-size:7.5px;letter-spacing:2px;text-transform:uppercase;color:var(--muted)}
+.pkg-hd{padding:8px 8px 7px;background:var(--s1);border-bottom:1px solid var(--border);text-align:center;position:relative;vertical-align:top}
+.pkg-hd.pop{background:var(--pop);border-bottom-color:var(--pop-b)}
+.pop-badge{position:absolute;top:-7px;left:50%;transform:translateX(-50%);background:var(--red);color:#fff;font-family:'Montserrat',sans-serif;font-weight:800;font-size:6px;letter-spacing:1.5px;text-transform:uppercase;padding:2px 8px;border-radius:2px;white-space:nowrap}
+.ph-num{font-family:'Montserrat',sans-serif;font-weight:800;font-size:6.5px;letter-spacing:2.5px;color:var(--red);margin-bottom:1px;text-transform:uppercase}
+.ph-name{font-family:'Montserrat',sans-serif;font-weight:900;font-size:12px;color:#fff;margin-bottom:1px;line-height:1.15}
+.ph-price{font-family:'Montserrat',sans-serif;font-weight:900;font-size:20px;color:var(--red);letter-spacing:-.5px;line-height:1;margin-bottom:4px}
+.ph-price sub{font-size:7.5px;font-weight:600;vertical-align:baseline;margin-left:2px;color:#555}
+.ph-days{display:inline-block;background:rgba(255,61,31,.12);color:var(--red);font-family:'Montserrat',sans-serif;font-weight:700;font-size:7.5px;padding:2px 6px;border-radius:2px}
 
-/* Category rows */
-.cat-row td{background:var(--s2);padding:7px 14px;font-family:'Montserrat',sans-serif;font-weight:800;font-size:8.5px;letter-spacing:2.5px;text-transform:uppercase;color:var(--muted);border-top:1px solid var(--border)}
+.cat-row td{background:var(--s2);padding:3px 8px;font-family:'Montserrat',sans-serif;font-weight:800;font-size:7px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);border-top:1px solid var(--border)}
+.cat-row td.pop{background:rgba(28,12,7,.6)}
 
-/* Feature rows */
-.feat-row td{padding:10px 14px;border-top:1px solid rgba(255,255,255,.04);font-size:11.5px;vertical-align:middle}
-.feat-row:nth-child(even) td{background:rgba(255,255,255,.018)}
-.feat-row td.fc{color:#aaa;font-weight:500}
+.feat-row td{padding:4px 8px;border-top:1px solid rgba(255,255,255,.04);font-size:10px;vertical-align:middle;line-height:1.2}
+.feat-row:nth-child(even) td{background:rgba(255,255,255,.012)}
+.feat-row td.fc{color:#888;font-weight:400}
 .feat-row td.pc{text-align:center}
-.feat-row td.pc.pop{background:rgba(255,61,31,.03)}
+.feat-row td.pc.pop{background:rgba(255,61,31,.022)}
 
-/* Icons */
-.bolt{display:inline-flex}
-.bolt svg{fill:var(--red)}
-.dash{color:#2e2e2e;font-size:14px;font-weight:700}
-.val{font-size:11px;font-weight:600;color:#ccc}
+.bolt svg{fill:var(--red);display:inline-block;vertical-align:middle}
+.dash{color:#2c2c2c;font-size:12px;line-height:1}
+.val{font-size:9.5px;font-weight:600;color:#aaa}
 
-/* Total row */
-.total-row td{padding:14px;border-top:1px solid var(--border);background:var(--s2)}
-.total-row td.fc-t{font-family:'Montserrat',sans-serif;font-weight:800;font-size:12px;color:#fff}
-.total-row td.pc-t{text-align:center;font-weight:700;font-size:12px;color:#fff}
-.total-row td.pop-t{background:#1c0c07;color:#fff;font-family:'Montserrat',sans-serif;font-weight:800}
+.total-row td{padding:7px 8px;border-top:1px solid var(--border);background:var(--s2)}
+.total-row td.fc-t{font-family:'Montserrat',sans-serif;font-weight:800;font-size:9px;color:#ccc;text-transform:uppercase;letter-spacing:1px}
+.total-row td.pc-t{text-align:center;font-family:'Montserrat',sans-serif;font-weight:900;font-size:11px;color:#fff}
+.total-row td.pop-t{background:var(--pop);color:var(--red)}
 
-/* Footer */
-.pdf-footer{text-align:center;padding:24px;background:var(--s1);border-top:1px solid var(--border)}
-.pdf-footer .site{font-family:'Montserrat',sans-serif;font-weight:900;font-size:14px;color:#fff;letter-spacing:1px}
-.pdf-footer .site em{color:var(--red);font-style:normal}
-.pdf-footer .contacts{font-size:11px;color:var(--muted);margin-top:4px}
-.pdf-footer .note{font-size:10px;color:#3a3a3a;margin-top:8px}
-
-@media(max-width:640px){
-  .wrap{padding:16px 0 32px}
-  .tbl-wrap{border-radius:0;border-left:none;border-right:none}
-  .hd{padding:36px 20px 32px}
-}
+.foot-row{display:flex;justify-content:space-between;align-items:center;padding-top:7px;margin-top:7px;border-top:1px solid var(--border)}
+.foot-brand{font-family:'Montserrat',sans-serif;font-weight:900;font-size:11px;color:#ccc;letter-spacing:.5px}
+.foot-brand em{color:var(--red);font-style:normal}
+.foot-contacts{font-size:9px;color:#444;margin-top:1px}
+.foot-note{font-size:8px;color:#333;text-align:right;max-width:380px;line-height:1.35}
 
 @media print{
-  .top-bar{display:none}
-  body{-webkit-print-color-adjust:exact;print-color-adjust:exact}
-  .hd,.wrap,.pdf-footer,.tbl-wrap,.ct *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
-  @page{size:A4 landscape;margin:.8cm}
+  @page{size:A4 landscape;margin:.6cm}
+  .toolbar{display:none}
+  .page{padding:0;max-width:100%}
+  body{-webkit-print-color-adjust:exact;print-color-adjust:exact;background:var(--bg)}
 }
 </style>
 </head>
 <body>
 
-<div class="top-bar">
+<div class="toolbar">
   <div class="left-bar">
     <a class="back-link" href="packages.html">
-      <svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="#666" stroke-width="2" stroke-linecap="round"><path d="M10 13L5 8l5-5"/></svg>
+      <svg width="11" height="11" viewBox="0 0 16 16" fill="none" stroke="#555" stroke-width="2" stroke-linecap="round"><path d="M10 13L5 8l5-5"/></svg>
       <span id="back-lbl">Back to packages</span>
     </a>
     <div class="lang-sw">
@@ -111,195 +98,158 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;min-h
     </div>
   </div>
   <button class="save-btn" onclick="window.print()">
-    <svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6V2h8v4"/><rect x="2" y="6" width="12" height="7" rx="1"/><path d="M4 10h8"/></svg>
+    <svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6V2h8v4"/><rect x="2" y="6" width="12" height="7" rx="1"/><path d="M4 10h8"/></svg>
     <span id="save-lbl">Save as PDF</span>
   </button>
 </div>
 
-<div class="hd">
-  <div class="brand">WAT<em>?</em></div>
-  <div class="brand-sub">Agency Belgium</div>
-  <h1 class="hd-title" id="hd-title">Choose your start</h1>
-  <p class="hd-sub" id="hd-sub">Clear price &nbsp;&middot;&nbsp; Clear deadline &nbsp;&middot;&nbsp; Concrete result</p>
-</div>
+<div class="page">
 
-<div class="wrap">
-  <div class="tbl-wrap">
-    <table class="ct">
-      <thead>
-        <tr>
-          <th class="fc feat-col-hd"><div class="fch" id="col-svc">Service</div></th>
-          <th class="pc pkg-hd">
-            <div class="ph-num">01 / 03</div>
-            <div class="ph-name">Start Online</div>
-            <div class="ph-tag" id="tag1">I exist online</div>
-            <div class="ph-price">&#8364;1.200</div>
-            <div class="ph-sub" id="sub1">one-time</div>
-            <div class="ph-days" id="days1">12 working days</div>
-          </th>
-          <th class="pc pkg-hd pop">
-            <div class="pop-badge" id="badge">Most popular</div>
-            <div class="ph-num">02 / 03</div>
-            <div class="ph-name">Digital Foundation</div>
-            <div class="ph-tag" id="tag2">Full online presence</div>
-            <div class="ph-price">&#8364;2.100</div>
-            <div class="ph-sub" id="sub2">one-time</div>
-            <div class="ph-days" id="days2">18 working days</div>
-          </th>
-          <th class="pc pkg-hd">
-            <div class="ph-num">03 / 03</div>
-            <div class="ph-name">Complete Presence</div>
-            <div class="ph-tag" id="tag3">All-in-one</div>
-            <div class="ph-price">&#8364;3.100</div>
-            <div class="ph-sub" id="sub3">one-time</div>
-            <div class="ph-days" id="days3">24 working days</div>
-          </th>
-        </tr>
-      </thead>
-      <tbody>
-
-        <tr class="cat-row"><td colspan="4" id="cat1">Website</td></tr>
-        <tr class="feat-row"><td class="fc" id="f-pg">Number of pages</td><td class="pc"><span class="val" id="v-pg1">3 pages</span></td><td class="pc pop"><span class="val" id="v-pg2">5 + gallery</span></td><td class="pc"><span class="val" id="v-pg3">9 + blog</span></td></tr>
-        <tr class="feat-row"><td class="fc">GitHub + Vercel hosting</td><td class="pc"><span class="bolt"><svg width="13" height="13" viewBox="0 0 12 16"><path d="M7 0L0 9h4.5L3 16l9-10H7L8.5 0z"/></svg></span></td><td class="pc pop"><span class="bolt"><svg width="13" height="13" viewBox="0 0 12 16"><path d="M7 0L0 9h4.5L3 16l9-10H7L8.5 0z"/></svg></span></td><td class="pc"><span class="bolt"><svg width="13" height="13" viewBox="0 0 12 16"><path d="M7 0L0 9h4.5L3 16l9-10H7L8.5 0z"/></svg></span></td></tr>
-        <tr class="feat-row"><td class="fc" id="f-dom">Custom domain + SSL</td><td class="pc"><span class="bolt"><svg width="13" height="13" viewBox="0 0 12 16"><path d="M7 0L0 9h4.5L3 16l9-10H7L8.5 0z"/></svg></span></td><td class="pc pop"><span class="bolt"><svg width="13" height="13" viewBox="0 0 12 16"><path d="M7 0L0 9h4.5L3 16l9-10H7L8.5 0z"/></svg></span></td><td class="pc"><span class="bolt"><svg width="13" height="13" viewBox="0 0 12 16"><path d="M7 0L0 9h4.5L3 16l9-10H7L8.5 0z"/></svg></span></td></tr>
-        <tr class="feat-row"><td class="fc" id="f-mob">Mobile version</td><td class="pc"><span class="bolt"><svg width="13" height="13" viewBox="0 0 12 16"><path d="M7 0L0 9h4.5L3 16l9-10H7L8.5 0z"/></svg></span></td><td class="pc pop"><span class="bolt"><svg width="13" height="13" viewBox="0 0 12 16"><path d="M7 0L0 9h4.5L3 16l9-10H7L8.5 0z"/></svg></span></td><td class="pc"><span class="bolt"><svg width="13" height="13" viewBox="0 0 12 16"><path d="M7 0L0 9h4.5L3 16l9-10H7L8.5 0z"/></svg></span></td></tr>
-        <tr class="feat-row"><td class="fc" id="f-cf">Contact form</td><td class="pc"><span class="bolt"><svg width="13" height="13" viewBox="0 0 12 16"><path d="M7 0L0 9h4.5L3 16l9-10H7L8.5 0z"/></svg></span></td><td class="pc pop"><span class="bolt"><svg width="13" height="13" viewBox="0 0 12 16"><path d="M7 0L0 9h4.5L3 16l9-10H7L8.5 0z"/></svg></span></td><td class="pc"><span class="bolt"><svg width="13" height="13" viewBox="0 0 12 16"><path d="M7 0L0 9h4.5L3 16l9-10H7L8.5 0z"/></svg></span></td></tr>
-        <tr class="feat-row"><td class="fc" id="f-seo">Basic on-page SEO</td><td class="pc"><span class="dash">&#8212;</span></td><td class="pc pop"><span class="bolt"><svg width="13" height="13" viewBox="0 0 12 16"><path d="M7 0L0 9h4.5L3 16l9-10H7L8.5 0z"/></svg></span></td><td class="pc"><span class="bolt"><svg width="13" height="13" viewBox="0 0 12 16"><path d="M7 0L0 9h4.5L3 16l9-10H7L8.5 0z"/></svg></span></td></tr>
-
-        <tr class="cat-row"><td colspan="4" id="cat2">Analytics &amp; Tracking</td></tr>
-        <tr class="feat-row"><td class="fc">Google Analytics 4</td><td class="pc"><span class="bolt"><svg width="13" height="13" viewBox="0 0 12 16"><path d="M7 0L0 9h4.5L3 16l9-10H7L8.5 0z"/></svg></span></td><td class="pc pop"><span class="bolt"><svg width="13" height="13" viewBox="0 0 12 16"><path d="M7 0L0 9h4.5L3 16l9-10H7L8.5 0z"/></svg></span></td><td class="pc"><span class="bolt"><svg width="13" height="13" viewBox="0 0 12 16"><path d="M7 0L0 9h4.5L3 16l9-10H7L8.5 0z"/></svg></span></td></tr>
-        <tr class="feat-row"><td class="fc">Meta Pixel</td><td class="pc"><span class="bolt"><svg width="13" height="13" viewBox="0 0 12 16"><path d="M7 0L0 9h4.5L3 16l9-10H7L8.5 0z"/></svg></span></td><td class="pc pop"><span class="bolt"><svg width="13" height="13" viewBox="0 0 12 16"><path d="M7 0L0 9h4.5L3 16l9-10H7L8.5 0z"/></svg></span></td><td class="pc"><span class="bolt"><svg width="13" height="13" viewBox="0 0 12 16"><path d="M7 0L0 9h4.5L3 16l9-10H7L8.5 0z"/></svg></span></td></tr>
-        <tr class="feat-row"><td class="fc">Google Tag Manager</td><td class="pc"><span class="bolt"><svg width="13" height="13" viewBox="0 0 12 16"><path d="M7 0L0 9h4.5L3 16l9-10H7L8.5 0z"/></svg></span></td><td class="pc pop"><span class="bolt"><svg width="13" height="13" viewBox="0 0 12 16"><path d="M7 0L0 9h4.5L3 16l9-10H7L8.5 0z"/></svg></span></td><td class="pc"><span class="bolt"><svg width="13" height="13" viewBox="0 0 12 16"><path d="M7 0L0 9h4.5L3 16l9-10H7L8.5 0z"/></svg></span></td></tr>
-
-        <tr class="cat-row"><td colspan="4" id="cat3">Local Presence</td></tr>
-        <tr class="feat-row"><td class="fc">Google Business Profile</td><td class="pc"><span class="bolt"><svg width="13" height="13" viewBox="0 0 12 16"><path d="M7 0L0 9h4.5L3 16l9-10H7L8.5 0z"/></svg></span></td><td class="pc pop"><span class="bolt"><svg width="13" height="13" viewBox="0 0 12 16"><path d="M7 0L0 9h4.5L3 16l9-10H7L8.5 0z"/></svg></span></td><td class="pc"><span class="bolt"><svg width="13" height="13" viewBox="0 0 12 16"><path d="M7 0L0 9h4.5L3 16l9-10H7L8.5 0z"/></svg></span></td></tr>
-
-        <tr class="cat-row"><td colspan="4" id="cat4">Social Media</td></tr>
-        <tr class="feat-row"><td class="fc" id="f-ig">Instagram &#8212; full setup</td><td class="pc"><span class="bolt"><svg width="13" height="13" viewBox="0 0 12 16"><path d="M7 0L0 9h4.5L3 16l9-10H7L8.5 0z"/></svg></span></td><td class="pc pop"><span class="bolt"><svg width="13" height="13" viewBox="0 0 12 16"><path d="M7 0L0 9h4.5L3 16l9-10H7L8.5 0z"/></svg></span></td><td class="pc"><span class="bolt"><svg width="13" height="13" viewBox="0 0 12 16"><path d="M7 0L0 9h4.5L3 16l9-10H7L8.5 0z"/></svg></span></td></tr>
-        <tr class="feat-row"><td class="fc" id="f-fb">Facebook &#8212; full setup</td><td class="pc"><span class="bolt"><svg width="13" height="13" viewBox="0 0 12 16"><path d="M7 0L0 9h4.5L3 16l9-10H7L8.5 0z"/></svg></span></td><td class="pc pop"><span class="bolt"><svg width="13" height="13" viewBox="0 0 12 16"><path d="M7 0L0 9h4.5L3 16l9-10H7L8.5 0z"/></svg></span></td><td class="pc"><span class="bolt"><svg width="13" height="13" viewBox="0 0 12 16"><path d="M7 0L0 9h4.5L3 16l9-10H7L8.5 0z"/></svg></span></td></tr>
-        <tr class="feat-row"><td class="fc">6 Highlights covers</td><td class="pc"><span class="bolt"><svg width="13" height="13" viewBox="0 0 12 16"><path d="M7 0L0 9h4.5L3 16l9-10H7L8.5 0z"/></svg></span></td><td class="pc pop"><span class="bolt"><svg width="13" height="13" viewBox="0 0 12 16"><path d="M7 0L0 9h4.5L3 16l9-10H7L8.5 0z"/></svg></span></td><td class="pc"><span class="bolt"><svg width="13" height="13" viewBox="0 0 12 16"><path d="M7 0L0 9h4.5L3 16l9-10H7L8.5 0z"/></svg></span></td></tr>
-        <tr class="feat-row"><td class="fc" id="f-posts">Ready posts (IG + FB)</td><td class="pc"><span class="dash">&#8212;</span></td><td class="pc pop"><span class="val" id="v-p2">6 posts</span></td><td class="pc"><span class="val" id="v-p3">10 posts</span></td></tr>
-        <tr class="feat-row"><td class="fc" id="f-st">Story templates</td><td class="pc"><span class="dash">&#8212;</span></td><td class="pc pop"><span class="val" id="v-s2">3 pcs.</span></td><td class="pc"><span class="val" id="v-s3">3 pcs.</span></td></tr>
-
-        <tr class="cat-row"><td colspan="4" id="cat5">Content &amp; Photography</td></tr>
-        <tr class="feat-row"><td class="fc" id="f-ph">5 photos &#8212; edited by agency</td><td class="pc"><span class="bolt"><svg width="13" height="13" viewBox="0 0 12 16"><path d="M7 0L0 9h4.5L3 16l9-10H7L8.5 0z"/></svg></span></td><td class="pc pop"><span class="bolt"><svg width="13" height="13" viewBox="0 0 12 16"><path d="M7 0L0 9h4.5L3 16l9-10H7L8.5 0z"/></svg></span></td><td class="pc"><span class="bolt"><svg width="13" height="13" viewBox="0 0 12 16"><path d="M7 0L0 9h4.5L3 16l9-10H7L8.5 0z"/></svg></span></td></tr>
-        <tr class="feat-row"><td class="fc" id="f-gd">PDF guide &#8212; first month</td><td class="pc"><span class="bolt"><svg width="13" height="13" viewBox="0 0 12 16"><path d="M7 0L0 9h4.5L3 16l9-10H7L8.5 0z"/></svg></span></td><td class="pc pop"><span class="bolt"><svg width="13" height="13" viewBox="0 0 12 16"><path d="M7 0L0 9h4.5L3 16l9-10H7L8.5 0z"/></svg></span></td><td class="pc"><span class="bolt"><svg width="13" height="13" viewBox="0 0 12 16"><path d="M7 0L0 9h4.5L3 16l9-10H7L8.5 0z"/></svg></span></td></tr>
-
-        <tr class="cat-row"><td colspan="4" id="cat6">Brand &amp; Design</td></tr>
-        <tr class="feat-row"><td class="fc" id="f-lg">Logo &#8212; 2 options (Canva)</td><td class="pc"><span class="dash">&#8212;</span></td><td class="pc pop"><span class="bolt"><svg width="13" height="13" viewBox="0 0 12 16"><path d="M7 0L0 9h4.5L3 16l9-10H7L8.5 0z"/></svg></span></td><td class="pc"><span class="bolt"><svg width="13" height="13" viewBox="0 0 12 16"><path d="M7 0L0 9h4.5L3 16l9-10H7L8.5 0z"/></svg></span></td></tr>
-        <tr class="feat-row"><td class="fc" id="f-bb">Brandbook PDF</td><td class="pc"><span class="dash">&#8212;</span></td><td class="pc pop"><span class="bolt"><svg width="13" height="13" viewBox="0 0 12 16"><path d="M7 0L0 9h4.5L3 16l9-10H7L8.5 0z"/></svg></span></td><td class="pc"><span class="bolt"><svg width="13" height="13" viewBox="0 0 12 16"><path d="M7 0L0 9h4.5L3 16l9-10H7L8.5 0z"/></svg></span></td></tr>
-        <tr class="feat-row"><td class="fc" id="f-fl">A5 flyer print-ready</td><td class="pc"><span class="dash">&#8212;</span></td><td class="pc pop"><span class="bolt"><svg width="13" height="13" viewBox="0 0 12 16"><path d="M7 0L0 9h4.5L3 16l9-10H7L8.5 0z"/></svg></span></td><td class="pc"><span class="bolt"><svg width="13" height="13" viewBox="0 0 12 16"><path d="M7 0L0 9h4.5L3 16l9-10H7L8.5 0z"/></svg></span></td></tr>
-
-        <tr class="cat-row"><td colspan="4" id="cat7">Print &amp; Documents</td></tr>
-        <tr class="feat-row"><td class="fc" id="f-bk">Client booklet 6-page PDF</td><td class="pc"><span class="dash">&#8212;</span></td><td class="pc pop"><span class="dash">&#8212;</span></td><td class="pc"><span class="bolt"><svg width="13" height="13" viewBox="0 0 12 16"><path d="M7 0L0 9h4.5L3 16l9-10H7L8.5 0z"/></svg></span></td></tr>
-        <tr class="feat-row"><td class="fc" id="f-pr">Commercial proposal template</td><td class="pc"><span class="dash">&#8212;</span></td><td class="pc pop"><span class="dash">&#8212;</span></td><td class="pc"><span class="bolt"><svg width="13" height="13" viewBox="0 0 12 16"><path d="M7 0L0 9h4.5L3 16l9-10H7L8.5 0z"/></svg></span></td></tr>
-        <tr class="feat-row"><td class="fc" id="f-ru">Roll-up banner or banner set</td><td class="pc"><span class="dash">&#8212;</span></td><td class="pc pop"><span class="dash">&#8212;</span></td><td class="pc"><span class="bolt"><svg width="13" height="13" viewBox="0 0 12 16"><path d="M7 0L0 9h4.5L3 16l9-10H7L8.5 0z"/></svg></span></td></tr>
-
-        <tr class="total-row">
-          <td class="fc-t" id="tot-lbl">Deadline</td>
-          <td class="pc-t" id="tot-1">12 days</td>
-          <td class="pop-t pc-t" id="tot-2">18 days</td>
-          <td class="pc-t" id="tot-3">24 days</td>
-        </tr>
-
-      </tbody>
-    </table>
+  <div class="brand-row">
+    <div class="brand-left">
+      <div class="brand-name">WAT<em>?</em></div>
+      <div class="brand-agency">Agency Belgium</div>
+    </div>
+    <div class="brand-right">
+      <div class="brand-title" id="br-title">Package comparison</div>
+      <div class="brand-sub" id="br-sub">Fixed price &nbsp;·&nbsp; Clear deadline &nbsp;·&nbsp; Concrete result</div>
+    </div>
   </div>
-</div>
 
-<div class="pdf-footer">
-  <div class="site">WAT<em>?</em> AGENCY BELGIUM</div>
-  <div class="contacts">viktoriiamarketing.be &nbsp;&middot;&nbsp; +32 471 62 31 05 &nbsp;&middot;&nbsp; WhatsApp</div>
-  <div class="note" id="footer-note">Domain and hosting paid separately by the client (&#8776;&#8364;15&#8211;20/mo). Accounts are always yours.</div>
+  <table class="ct">
+    <thead>
+      <tr>
+        <th class="fc feat-col-hd"><div class="fch" id="col-svc">Service</div></th>
+        <th class="pc pkg-hd">
+          <div class="ph-num">01 / 03</div>
+          <div class="ph-name">Start Online</div>
+          <div class="ph-price">€1.200<sub id="sub1">one-time</sub></div>
+          <div class="ph-days" id="days1">12 working days</div>
+        </th>
+        <th class="pc pkg-hd pop">
+          <div class="pop-badge" id="badge">★ Most popular</div>
+          <div class="ph-num">02 / 03</div>
+          <div class="ph-name">Digital Foundation</div>
+          <div class="ph-price">€2.100<sub id="sub2">one-time</sub></div>
+          <div class="ph-days" id="days2">18 working days</div>
+        </th>
+        <th class="pc pkg-hd">
+          <div class="ph-num">03 / 03</div>
+          <div class="ph-name">Complete Presence</div>
+          <div class="ph-price">€3.100<sub id="sub3">one-time</sub></div>
+          <div class="ph-days" id="days3">24 working days</div>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+
+      <tr class="cat-row"><td id="cat1">Website</td><td class="pc"></td><td class="pc pop"></td><td class="pc"></td></tr>
+      <tr class="feat-row"><td class="fc" id="f-pg">Number of pages</td><td class="pc"><span class="val" id="v-pg1">3 pages</span></td><td class="pc pop"><span class="val" id="v-pg2">5 + gallery</span></td><td class="pc"><span class="val" id="v-pg3">9 + blog</span></td></tr>
+      <tr class="feat-row"><td class="fc">GitHub + Vercel hosting</td><td class="pc"><span class="bolt"><svg width="11" height="11" viewBox="0 0 12 16"><path d="M7 0L0 9h4.5L3 16l9-10H7L8.5 0z"/></svg></span></td><td class="pc pop"><span class="bolt"><svg width="11" height="11" viewBox="0 0 12 16"><path d="M7 0L0 9h4.5L3 16l9-10H7L8.5 0z"/></svg></span></td><td class="pc"><span class="bolt"><svg width="11" height="11" viewBox="0 0 12 16"><path d="M7 0L0 9h4.5L3 16l9-10H7L8.5 0z"/></svg></span></td></tr>
+      <tr class="feat-row"><td class="fc" id="f-dom">Custom domain + SSL</td><td class="pc"><span class="bolt"><svg width="11" height="11" viewBox="0 0 12 16"><path d="M7 0L0 9h4.5L3 16l9-10H7L8.5 0z"/></svg></span></td><td class="pc pop"><span class="bolt"><svg width="11" height="11" viewBox="0 0 12 16"><path d="M7 0L0 9h4.5L3 16l9-10H7L8.5 0z"/></svg></span></td><td class="pc"><span class="bolt"><svg width="11" height="11" viewBox="0 0 12 16"><path d="M7 0L0 9h4.5L3 16l9-10H7L8.5 0z"/></svg></span></td></tr>
+      <tr class="feat-row"><td class="fc" id="f-mob">Mobile version</td><td class="pc"><span class="bolt"><svg width="11" height="11" viewBox="0 0 12 16"><path d="M7 0L0 9h4.5L3 16l9-10H7L8.5 0z"/></svg></span></td><td class="pc pop"><span class="bolt"><svg width="11" height="11" viewBox="0 0 12 16"><path d="M7 0L0 9h4.5L3 16l9-10H7L8.5 0z"/></svg></span></td><td class="pc"><span class="bolt"><svg width="11" height="11" viewBox="0 0 12 16"><path d="M7 0L0 9h4.5L3 16l9-10H7L8.5 0z"/></svg></span></td></tr>
+      <tr class="feat-row"><td class="fc" id="f-cf">Contact form</td><td class="pc"><span class="bolt"><svg width="11" height="11" viewBox="0 0 12 16"><path d="M7 0L0 9h4.5L3 16l9-10H7L8.5 0z"/></svg></span></td><td class="pc pop"><span class="bolt"><svg width="11" height="11" viewBox="0 0 12 16"><path d="M7 0L0 9h4.5L3 16l9-10H7L8.5 0z"/></svg></span></td><td class="pc"><span class="bolt"><svg width="11" height="11" viewBox="0 0 12 16"><path d="M7 0L0 9h4.5L3 16l9-10H7L8.5 0z"/></svg></span></td></tr>
+      <tr class="feat-row"><td class="fc" id="f-seo">Basic on-page SEO</td><td class="pc"><span class="dash">—</span></td><td class="pc pop"><span class="bolt"><svg width="11" height="11" viewBox="0 0 12 16"><path d="M7 0L0 9h4.5L3 16l9-10H7L8.5 0z"/></svg></span></td><td class="pc"><span class="bolt"><svg width="11" height="11" viewBox="0 0 12 16"><path d="M7 0L0 9h4.5L3 16l9-10H7L8.5 0z"/></svg></span></td></tr>
+
+      <tr class="cat-row"><td id="cat2">Analytics &amp; Tracking</td><td class="pc"></td><td class="pc pop"></td><td class="pc"></td></tr>
+      <tr class="feat-row"><td class="fc">Google Analytics 4</td><td class="pc"><span class="bolt"><svg width="11" height="11" viewBox="0 0 12 16"><path d="M7 0L0 9h4.5L3 16l9-10H7L8.5 0z"/></svg></span></td><td class="pc pop"><span class="bolt"><svg width="11" height="11" viewBox="0 0 12 16"><path d="M7 0L0 9h4.5L3 16l9-10H7L8.5 0z"/></svg></span></td><td class="pc"><span class="bolt"><svg width="11" height="11" viewBox="0 0 12 16"><path d="M7 0L0 9h4.5L3 16l9-10H7L8.5 0z"/></svg></span></td></tr>
+      <tr class="feat-row"><td class="fc">Meta Pixel</td><td class="pc"><span class="bolt"><svg width="11" height="11" viewBox="0 0 12 16"><path d="M7 0L0 9h4.5L3 16l9-10H7L8.5 0z"/></svg></span></td><td class="pc pop"><span class="bolt"><svg width="11" height="11" viewBox="0 0 12 16"><path d="M7 0L0 9h4.5L3 16l9-10H7L8.5 0z"/></svg></span></td><td class="pc"><span class="bolt"><svg width="11" height="11" viewBox="0 0 12 16"><path d="M7 0L0 9h4.5L3 16l9-10H7L8.5 0z"/></svg></span></td></tr>
+      <tr class="feat-row"><td class="fc">Google Tag Manager</td><td class="pc"><span class="bolt"><svg width="11" height="11" viewBox="0 0 12 16"><path d="M7 0L0 9h4.5L3 16l9-10H7L8.5 0z"/></svg></span></td><td class="pc pop"><span class="bolt"><svg width="11" height="11" viewBox="0 0 12 16"><path d="M7 0L0 9h4.5L3 16l9-10H7L8.5 0z"/></svg></span></td><td class="pc"><span class="bolt"><svg width="11" height="11" viewBox="0 0 12 16"><path d="M7 0L0 9h4.5L3 16l9-10H7L8.5 0z"/></svg></span></td></tr>
+
+      <tr class="cat-row"><td id="cat3">Local Presence</td><td class="pc"></td><td class="pc pop"></td><td class="pc"></td></tr>
+      <tr class="feat-row"><td class="fc">Google Business Profile</td><td class="pc"><span class="bolt"><svg width="11" height="11" viewBox="0 0 12 16"><path d="M7 0L0 9h4.5L3 16l9-10H7L8.5 0z"/></svg></span></td><td class="pc pop"><span class="bolt"><svg width="11" height="11" viewBox="0 0 12 16"><path d="M7 0L0 9h4.5L3 16l9-10H7L8.5 0z"/></svg></span></td><td class="pc"><span class="bolt"><svg width="11" height="11" viewBox="0 0 12 16"><path d="M7 0L0 9h4.5L3 16l9-10H7L8.5 0z"/></svg></span></td></tr>
+
+      <tr class="cat-row"><td id="cat4">Social Media</td><td class="pc"></td><td class="pc pop"></td><td class="pc"></td></tr>
+      <tr class="feat-row"><td class="fc" id="f-ig">Instagram — full setup</td><td class="pc"><span class="bolt"><svg width="11" height="11" viewBox="0 0 12 16"><path d="M7 0L0 9h4.5L3 16l9-10H7L8.5 0z"/></svg></span></td><td class="pc pop"><span class="bolt"><svg width="11" height="11" viewBox="0 0 12 16"><path d="M7 0L0 9h4.5L3 16l9-10H7L8.5 0z"/></svg></span></td><td class="pc"><span class="bolt"><svg width="11" height="11" viewBox="0 0 12 16"><path d="M7 0L0 9h4.5L3 16l9-10H7L8.5 0z"/></svg></span></td></tr>
+      <tr class="feat-row"><td class="fc" id="f-fb">Facebook — full setup</td><td class="pc"><span class="bolt"><svg width="11" height="11" viewBox="0 0 12 16"><path d="M7 0L0 9h4.5L3 16l9-10H7L8.5 0z"/></svg></span></td><td class="pc pop"><span class="bolt"><svg width="11" height="11" viewBox="0 0 12 16"><path d="M7 0L0 9h4.5L3 16l9-10H7L8.5 0z"/></svg></span></td><td class="pc"><span class="bolt"><svg width="11" height="11" viewBox="0 0 12 16"><path d="M7 0L0 9h4.5L3 16l9-10H7L8.5 0z"/></svg></span></td></tr>
+      <tr class="feat-row"><td class="fc">6 Highlights covers</td><td class="pc"><span class="bolt"><svg width="11" height="11" viewBox="0 0 12 16"><path d="M7 0L0 9h4.5L3 16l9-10H7L8.5 0z"/></svg></span></td><td class="pc pop"><span class="bolt"><svg width="11" height="11" viewBox="0 0 12 16"><path d="M7 0L0 9h4.5L3 16l9-10H7L8.5 0z"/></svg></span></td><td class="pc"><span class="bolt"><svg width="11" height="11" viewBox="0 0 12 16"><path d="M7 0L0 9h4.5L3 16l9-10H7L8.5 0z"/></svg></span></td></tr>
+      <tr class="feat-row"><td class="fc" id="f-posts">Ready posts (IG + FB)</td><td class="pc"><span class="dash">—</span></td><td class="pc pop"><span class="val" id="v-p2">6 posts</span></td><td class="pc"><span class="val" id="v-p3">10 posts</span></td></tr>
+      <tr class="feat-row"><td class="fc" id="f-st">Story templates</td><td class="pc"><span class="dash">—</span></td><td class="pc pop"><span class="val" id="v-s2">3 pcs.</span></td><td class="pc"><span class="val" id="v-s3">3 pcs.</span></td></tr>
+
+      <tr class="cat-row"><td id="cat5">Content &amp; Photography</td><td class="pc"></td><td class="pc pop"></td><td class="pc"></td></tr>
+      <tr class="feat-row"><td class="fc" id="f-ph">5 photos — edited by agency</td><td class="pc"><span class="bolt"><svg width="11" height="11" viewBox="0 0 12 16"><path d="M7 0L0 9h4.5L3 16l9-10H7L8.5 0z"/></svg></span></td><td class="pc pop"><span class="bolt"><svg width="11" height="11" viewBox="0 0 12 16"><path d="M7 0L0 9h4.5L3 16l9-10H7L8.5 0z"/></svg></span></td><td class="pc"><span class="bolt"><svg width="11" height="11" viewBox="0 0 12 16"><path d="M7 0L0 9h4.5L3 16l9-10H7L8.5 0z"/></svg></span></td></tr>
+      <tr class="feat-row"><td class="fc" id="f-gd">PDF guide — first month</td><td class="pc"><span class="bolt"><svg width="11" height="11" viewBox="0 0 12 16"><path d="M7 0L0 9h4.5L3 16l9-10H7L8.5 0z"/></svg></span></td><td class="pc pop"><span class="bolt"><svg width="11" height="11" viewBox="0 0 12 16"><path d="M7 0L0 9h4.5L3 16l9-10H7L8.5 0z"/></svg></span></td><td class="pc"><span class="bolt"><svg width="11" height="11" viewBox="0 0 12 16"><path d="M7 0L0 9h4.5L3 16l9-10H7L8.5 0z"/></svg></span></td></tr>
+
+      <tr class="cat-row"><td id="cat6">Brand &amp; Design</td><td class="pc"></td><td class="pc pop"></td><td class="pc"></td></tr>
+      <tr class="feat-row"><td class="fc" id="f-lg">Logo — 2 options (Canva)</td><td class="pc"><span class="dash">—</span></td><td class="pc pop"><span class="bolt"><svg width="11" height="11" viewBox="0 0 12 16"><path d="M7 0L0 9h4.5L3 16l9-10H7L8.5 0z"/></svg></span></td><td class="pc"><span class="bolt"><svg width="11" height="11" viewBox="0 0 12 16"><path d="M7 0L0 9h4.5L3 16l9-10H7L8.5 0z"/></svg></span></td></tr>
+      <tr class="feat-row"><td class="fc" id="f-bb">Brandbook PDF</td><td class="pc"><span class="dash">—</span></td><td class="pc pop"><span class="bolt"><svg width="11" height="11" viewBox="0 0 12 16"><path d="M7 0L0 9h4.5L3 16l9-10H7L8.5 0z"/></svg></span></td><td class="pc"><span class="bolt"><svg width="11" height="11" viewBox="0 0 12 16"><path d="M7 0L0 9h4.5L3 16l9-10H7L8.5 0z"/></svg></span></td></tr>
+      <tr class="feat-row"><td class="fc" id="f-fl">A5 flyer print-ready</td><td class="pc"><span class="dash">—</span></td><td class="pc pop"><span class="bolt"><svg width="11" height="11" viewBox="0 0 12 16"><path d="M7 0L0 9h4.5L3 16l9-10H7L8.5 0z"/></svg></span></td><td class="pc"><span class="bolt"><svg width="11" height="11" viewBox="0 0 12 16"><path d="M7 0L0 9h4.5L3 16l9-10H7L8.5 0z"/></svg></span></td></tr>
+
+      <tr class="cat-row"><td id="cat7">Print &amp; Documents</td><td class="pc"></td><td class="pc pop"></td><td class="pc"></td></tr>
+      <tr class="feat-row"><td class="fc" id="f-bk">Client booklet 6-page PDF</td><td class="pc"><span class="dash">—</span></td><td class="pc pop"><span class="dash">—</span></td><td class="pc"><span class="bolt"><svg width="11" height="11" viewBox="0 0 12 16"><path d="M7 0L0 9h4.5L3 16l9-10H7L8.5 0z"/></svg></span></td></tr>
+      <tr class="feat-row"><td class="fc" id="f-pr">Commercial proposal template</td><td class="pc"><span class="dash">—</span></td><td class="pc pop"><span class="dash">—</span></td><td class="pc"><span class="bolt"><svg width="11" height="11" viewBox="0 0 12 16"><path d="M7 0L0 9h4.5L3 16l9-10H7L8.5 0z"/></svg></span></td></tr>
+      <tr class="feat-row"><td class="fc" id="f-ru">Roll-up banner or banner set</td><td class="pc"><span class="dash">—</span></td><td class="pc pop"><span class="dash">—</span></td><td class="pc"><span class="bolt"><svg width="11" height="11" viewBox="0 0 12 16"><path d="M7 0L0 9h4.5L3 16l9-10H7L8.5 0z"/></svg></span></td></tr>
+
+      <tr class="total-row">
+        <td class="fc-t" id="tot-lbl">Deadline &amp; price</td>
+        <td class="pc-t" id="tot-1">12 days &nbsp;·&nbsp; €1.200</td>
+        <td class="pc-t pop-t" id="tot-2">18 days &nbsp;·&nbsp; €2.100</td>
+        <td class="pc-t" id="tot-3">24 days &nbsp;·&nbsp; €3.100</td>
+      </tr>
+
+    </tbody>
+  </table>
+
+  <div class="foot-row">
+    <div>
+      <div class="foot-brand">WAT<em>?</em> AGENCY BELGIUM</div>
+      <div class="foot-contacts">viktoriiamarketing.be &nbsp;·&nbsp; +32 471 62 31 05 &nbsp;·&nbsp; WhatsApp</div>
+    </div>
+    <div class="foot-note" id="foot-note">Domain and hosting paid separately by the client (≈€15–20/mo).<br>Accounts are always registered in the client's name.</div>
+  </div>
+
 </div>
 
 <script>
-var TL = {
+var T = {
   en: {
-    pageTitle: 'WAT? Agency — Packages',
-    'back-lbl': 'Back to packages',
-    'save-lbl': 'Save as PDF',
-    'hd-title': 'Choose your start',
-    'hd-sub': 'Clear price · Clear deadline · Concrete result',
-    'col-svc': 'Service',
-    'badge': 'Most popular',
-    'tag1': 'I exist online', 'tag2': 'Full online presence', 'tag3': 'All-in-one',
-    'sub1': 'one-time', 'sub2': 'one-time', 'sub3': 'one-time',
-    'days1': '12 working days', 'days2': '18 working days', 'days3': '24 working days',
-    'cat1': 'Website', 'cat2': 'Analytics & Tracking', 'cat3': 'Local Presence',
-    'cat4': 'Social Media', 'cat5': 'Content & Photography',
-    'cat6': 'Brand & Design', 'cat7': 'Print & Documents',
-    'f-pg': 'Number of pages',
-    'v-pg1': '3 pages', 'v-pg2': '5 + gallery', 'v-pg3': '9 + blog',
-    'f-dom': 'Custom domain + SSL',
-    'f-mob': 'Mobile version',
-    'f-cf': 'Contact form',
-    'f-seo': 'Basic on-page SEO',
-    'f-ig': 'Instagram — full setup',
-    'f-fb': 'Facebook — full setup',
-    'f-posts': 'Ready posts (IG + FB)',
-    'v-p2': '6 posts', 'v-p3': '10 posts',
-    'f-st': 'Story templates',
-    'v-s2': '3 pcs.', 'v-s3': '3 pcs.',
-    'f-ph': '5 photos — edited by agency',
-    'f-gd': 'PDF guide — first month',
-    'f-lg': 'Logo — 2 options (Canva)',
-    'f-bb': 'Brandbook PDF',
-    'f-fl': 'A5 flyer print-ready',
-    'f-bk': 'Client booklet 6-page PDF',
-    'f-pr': 'Commercial proposal template',
-    'f-ru': 'Roll-up banner or banner set',
-    'tot-lbl': 'Deadline',
-    'tot-1': '12 days', 'tot-2': '18 days', 'tot-3': '24 days',
-    'footer-note': 'Domain and hosting paid separately by the client (≈€15–20/mo). Accounts are always yours.'
+    pageTitle:'WAT? Agency — Packages',
+    'back-lbl':'Back to packages','save-lbl':'Save as PDF',
+    'br-title':'Package comparison','br-sub':'Fixed price · Clear deadline · Concrete result',
+    'col-svc':'Service','badge':'★ Most popular',
+    'sub1':'one-time','sub2':'one-time','sub3':'one-time',
+    'days1':'12 working days','days2':'18 working days','days3':'24 working days',
+    'cat1':'Website','cat2':'Analytics & Tracking','cat3':'Local Presence',
+    'cat4':'Social Media','cat5':'Content & Photography','cat6':'Brand & Design','cat7':'Print & Documents',
+    'f-pg':'Number of pages','v-pg1':'3 pages','v-pg2':'5 + gallery','v-pg3':'9 + blog',
+    'f-dom':'Custom domain + SSL','f-mob':'Mobile version','f-cf':'Contact form','f-seo':'Basic on-page SEO',
+    'f-ig':'Instagram — full setup','f-fb':'Facebook — full setup',
+    'f-posts':'Ready posts (IG + FB)','v-p2':'6 posts','v-p3':'10 posts',
+    'f-st':'Story templates','v-s2':'3 pcs.','v-s3':'3 pcs.',
+    'f-ph':'5 photos — edited by agency','f-gd':'PDF guide — first month',
+    'f-lg':'Logo — 2 options (Canva)','f-bb':'Brandbook PDF','f-fl':'A5 flyer print-ready',
+    'f-bk':'Client booklet 6-page PDF','f-pr':'Commercial proposal template','f-ru':'Roll-up banner or banner set',
+    'tot-lbl':'Deadline & price','tot-1':'12 days · €1.200','tot-2':'18 days · €2.100','tot-3':'24 days · €3.100',
+    'foot-note':'Domain and hosting paid separately by the client (≈€15–20/mo).\nAccounts are always registered in the client’s name.'
   },
   nl: {
-    pageTitle: 'WAT? Agency — Pakketten',
-    'back-lbl': 'Terug naar pakketten',
-    'save-lbl': 'Opslaan als PDF',
-    'hd-title': 'Kies jouw start',
-    'hd-sub': 'Duidelijke prijs · Duidelijke deadline · Concreet resultaat',
-    'col-svc': 'Dienst',
-    'badge': 'Meest populair',
-    'tag1': 'Ik ben online zichtbaar', 'tag2': 'Volledige online aanwezigheid', 'tag3': 'Alles-in-één',
-    'sub1': 'eenmalig', 'sub2': 'eenmalig', 'sub3': 'eenmalig',
-    'days1': '12 werkdagen', 'days2': '18 werkdagen', 'days3': '24 werkdagen',
-    'cat1': 'Website', 'cat2': 'Analyse & Tracking', 'cat3': 'Lokale Aanwezigheid',
-    'cat4': 'Sociale Media', 'cat5': 'Content & Fotografie',
-    'cat6': 'Merk & Design', 'cat7': 'Drukwerk & Documenten',
-    'f-pg': "Aantal pagina’s",
-    'v-pg1': "3 pagina’s", 'v-pg2': '5 + galerij', 'v-pg3': '9 + blog',
-    'f-dom': 'Eigen domein + SSL',
-    'f-mob': 'Mobiele versie',
-    'f-cf': 'Contactformulier',
-    'f-seo': 'Basis on-page SEO',
-    'f-ig': 'Instagram — volledige setup',
-    'f-fb': 'Facebook — volledige setup',
-    'f-posts': 'Kant-en-klare posts (IG + FB)',
-    'v-p2': '6 posts', 'v-p3': '10 posts',
-    'f-st': 'Story-sjablonen',
-    'v-s2': '3 st.', 'v-s3': '3 st.',
-    'f-ph': "5 foto’s — bewerkt door bureau",
-    'f-gd': 'PDF-gids — eerste maand',
-    'f-lg': 'Logo — 2 varianten (Canva)',
-    'f-bb': 'Merkboek PDF',
-    'f-fl': 'A5 flyer drukklaar',
-    'f-bk': "Klantboekje 6 pagina’s PDF",
-    'f-pr': 'Sjabloon commercieel voorstel',
-    'f-ru': 'Roll-up banner of bannerset',
-    'tot-lbl': 'Deadline',
-    'tot-1': '12 dagen', 'tot-2': '18 dagen', 'tot-3': '24 dagen',
-    'footer-note': 'Domein en hosting worden apart betaald door de klant (≈€15–20/mnd). Accounts zijn altijd van jou.'
+    pageTitle:'WAT? Agency — Pakketten',
+    'back-lbl':'Terug naar pakketten','save-lbl':'Opslaan als PDF',
+    'br-title':'Pakketvergelijking','br-sub':'Vaste prijs · Duidelijke deadline · Concreet resultaat',
+    'col-svc':'Dienst','badge':'★ Meest populair',
+    'sub1':'eenmalig','sub2':'eenmalig','sub3':'eenmalig',
+    'days1':'12 werkdagen','days2':'18 werkdagen','days3':'24 werkdagen',
+    'cat1':'Website','cat2':'Analyse & Tracking','cat3':'Lokale Aanwezigheid',
+    'cat4':'Sociale Media','cat5':'Content & Fotografie','cat6':'Merk & Design','cat7':'Drukwerk & Documenten',
+    'f-pg':"Aantal pagina's",'v-pg1':"3 pagina's",'v-pg2':'5 + galerij','v-pg3':'9 + blog',
+    'f-dom':'Eigen domein + SSL','f-mob':'Mobiele versie','f-cf':'Contactformulier','f-seo':'Basis on-page SEO',
+    'f-ig':'Instagram — volledige setup','f-fb':'Facebook — volledige setup',
+    'f-posts':'Kant-en-klare posts (IG + FB)','v-p2':'6 posts','v-p3':'10 posts',
+    'f-st':'Story-sjablonen','v-s2':'3 st.','v-s3':'3 st.',
+    "f-ph":"5 foto's — bewerkt door bureau",'f-gd':'PDF-gids — eerste maand',
+    'f-lg':'Logo — 2 varianten (Canva)','f-bb':'Merkboek PDF','f-fl':'A5 flyer drukklaar',
+    "f-bk":"Klantboekje 6 pagina's PDF",'f-pr':'Sjabloon commercieel voorstel','f-ru':'Roll-up banner of bannerset',
+    'tot-lbl':'Deadline & prijs','tot-1':'12 dagen · €1.200','tot-2':'18 dagen · €2.100','tot-3':'24 dagen · €3.100',
+    'foot-note':'Domein en hosting worden apart betaald door de klant (≈€15–20/mnd).\nAccounts zijn altijd geregistreerd op naam van de klant.'
   }
 };
-
 function setLang(l) {
-  var t = TL[l];
+  var t = T[l];
   document.title = t.pageTitle;
-  document.getElementById('lb-en').classList.toggle('active', l === 'en');
-  document.getElementById('lb-nl').classList.toggle('active', l === 'nl');
+  document.getElementById('lb-en').classList.toggle('active', l==='en');
+  document.getElementById('lb-nl').classList.toggle('active', l==='nl');
   Object.keys(t).forEach(function(id) {
-    if (id === 'pageTitle') return;
+    if (id==='pageTitle') return;
     var el = document.getElementById(id);
     if (el) el.textContent = t[id];
   });
