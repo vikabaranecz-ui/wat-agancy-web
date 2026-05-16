@@ -490,9 +490,12 @@ footer{background:var(--bg-card);padding:52px 64px 36px;border-top:1px solid var
 .wa-overlay.open{opacity:1;pointer-events:auto}
 .wa-modal{background:var(--bg-card);border-radius:var(--r24);padding:44px 36px 36px;max-width:420px;width:100%;border:1px solid var(--border);box-shadow:0 24px 72px rgba(17,17,17,.18);transform:translateY(20px);transition:transform .35s cubic-bezier(.22,1,.36,1)}
 .wa-overlay.open .wa-modal{transform:none}
-.wa-modal-ico{width:68px;height:68px;border-radius:50%;background:rgba(37,211,102,.12);display:flex;align-items:center;justify-content:center;margin:0 auto 22px;font-size:32px}
+.wa-modal-ico{width:68px;height:68px;border-radius:50%;background:rgba(37,211,102,.12);display:flex;align-items:center;justify-content:center;margin:0 auto 22px;font-size:28px;font-weight:900;color:#25D366}
 .wa-modal h3{font-family:'Exo 2',sans-serif;font-size:20px;font-weight:900;color:var(--ink);text-align:center;margin-bottom:12px}
-.wa-modal p{font-family:'Inter',sans-serif;font-size:13px;line-height:1.7;color:var(--ink-60);text-align:center;margin-bottom:28px}
+.wa-modal p{font-family:'Inter',sans-serif;font-size:13px;line-height:1.7;color:var(--ink-60);text-align:center;margin-bottom:20px}
+.wa-btns{display:flex;gap:10px;margin-bottom:12px}
+.wa-btn{flex:1;display:flex;align-items:center;justify-content:center;gap:7px;font-family:'Exo 2',sans-serif;font-size:10px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;color:#fff;background:#25D366;border:none;padding:15px 10px;border-radius:var(--r12);cursor:pointer;transition:background .2s,transform .15s,box-shadow .2s;line-height:1.2;text-align:center}
+.wa-btn:hover{background:#1da851;transform:translateY(-1px);box-shadow:0 8px 20px rgba(37,211,102,.28)}
 .wa-modal-close{display:block;width:100%;font-family:'Exo 2',sans-serif;font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--ink-60);background:transparent;border:1.5px solid var(--border);padding:14px;border-radius:var(--r12);cursor:pointer;transition:border-color .2s,color .2s}
 .wa-modal-close:hover{border-color:var(--ink-40);color:var(--ink)}
 </style>
@@ -1349,7 +1352,9 @@ document.getElementById('cform').addEventListener('submit', function (e) {
   if (fd.get('region')) lines.push('Регіон: ' + fd.get('region'));
   if (fd.get('message')) lines.push('', 'Повідомлення:', fd.get('message'));
 
-  window.open('https://wa.me/32471623105?text=' + encodeURIComponent(lines.join('\n')), '_blank');
+  const url = 'https://wa.me/32471623105?text=' + encodeURIComponent(lines.join('\n'));
+  document.getElementById('wa-btn-wa').onclick = () => window.open(url, '_blank');
+  document.getElementById('wa-btn-biz').onclick = () => window.open(url, '_blank');
   document.getElementById('wa-overlay').classList.add('open');
   this.reset();
 });
@@ -1364,9 +1369,19 @@ document.getElementById('wa-overlay').addEventListener('click', function(e) {
 
 <div class="wa-overlay" id="wa-overlay">
   <div class="wa-modal">
-    <div class="wa-modal-ico">💬</div>
-    <h3>WhatsApp відкрито</h3>
-    <p>Повідомлення готове у WhatsApp.<br>Натисніть <strong>«Надіслати»</strong> там щоб завершити відправку.</p>
+    <div class="wa-modal-ico">✓</div>
+    <h3>Повідомлення готове</h3>
+    <p>Оберіть спосіб відправки:</p>
+    <div class="wa-btns">
+      <button class="wa-btn" id="wa-btn-wa">
+        <svg viewBox="0 0 24 24" width="15" height="15" fill="currentColor"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        WhatsApp
+      </button>
+      <button class="wa-btn" id="wa-btn-biz">
+        <svg viewBox="0 0 24 24" width="15" height="15" fill="currentColor"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/><line x1="12" y1="12" x2="12" y2="16"/><line x1="10" y1="14" x2="14" y2="14"/></svg>
+        WhatsApp Business
+      </button>
+    </div>
     <button class="wa-modal-close" id="wa-modal-close">Закрити</button>
   </div>
 </div>
