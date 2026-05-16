@@ -1327,15 +1327,30 @@ counters.forEach(c => cObs.observe(c));
 document.getElementById('cform').addEventListener('submit', function (e) {
   e.preventDefault();
   const btn = document.getElementById('fbtn');
-  btn.textContent = 'Надіслано ✓';
-  btn.style.background = 'rgba(230,59,30,.5)';
+  btn.textContent = 'Надсилаємо...';
   btn.disabled = true;
-  setTimeout(() => {
-    btn.textContent = 'Надіслати запит →';
+  fetch('https://formspree.io/f/mqejzqaa', {
+    method: 'POST',
+    body: new FormData(this),
+    headers: { 'Accept': 'application/json' }
+  })
+  .then(r => r.json())
+  .then(data => {
+    if (data.ok) {
+      btn.textContent = '✓ Надіслано — відповімо протягом доби';
+      btn.style.background = '#1a7a4a';
+      this.reset();
+    } else {
+      btn.textContent = 'Помилка — спробуйте ще раз';
+      btn.style.background = '';
+      btn.disabled = false;
+    }
+  })
+  .catch(() => {
+    btn.textContent = 'Помилка — спробуйте ще раз';
     btn.style.background = '';
     btn.disabled = false;
-    this.reset();
-  }, 4000);
+  });
 });
 </script>
 </body>

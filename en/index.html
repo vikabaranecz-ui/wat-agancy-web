@@ -1112,24 +1112,24 @@ footer{background:var(--bg-card);padding:52px 64px 36px;border-top:1px solid var
       <div class="fg-row">
         <div class="fg">
           <label>First name</label>
-          <input type="text" placeholder="John" required>
+          <input type="text" name="first-name" placeholder="John" required>
         </div>
         <div class="fg">
           <label>Last name</label>
-          <input type="text" placeholder="Smith" required>
+          <input type="text" name="last-name" placeholder="Smith" required>
         </div>
       </div>
       <div class="fg">
         <label>Email</label>
-        <input type="email" placeholder="john@company.be" required>
+        <input type="email" name="email" placeholder="john@company.be" required>
       </div>
       <div class="fg">
         <label>Phone (optional)</label>
-        <input type="tel" placeholder="+32 4XX XXX XXX">
+        <input type="tel" name="phone" placeholder="+32 4XX XXX XXX">
       </div>
       <div class="fg">
         <label>Business type</label>
-        <select>
+        <select name="business-type">
           <option value="">Select your industry</option>
           <option>Construction & Renovation</option>
           <option>Insulation & Energy</option>
@@ -1141,7 +1141,7 @@ footer{background:var(--bg-card);padding:52px 64px 36px;border-top:1px solid var
       </div>
       <div class="fg">
         <label>Which package interests you?</label>
-        <select>
+        <select name="package">
           <option value="">Not sure yet — help me choose</option>
           <option>Digital Launch — €1,100</option>
           <option>Digital Foundation — €1,900</option>
@@ -1150,7 +1150,7 @@ footer{background:var(--bg-card);padding:52px 64px 36px;border-top:1px solid var
       </div>
       <div class="fg">
         <label>Tell us about your business</label>
-        <textarea placeholder="Where are you based, what do you do, what's your biggest challenge online?"></textarea>
+        <textarea name="message" placeholder="Where are you based, what do you do, what's your biggest challenge online?"></textarea>
       </div>
       <button class="f-btn" type="submit">Send message →</button>
       <p class="f-note">No spam. Your data is never shared with third parties.</p>
@@ -1273,15 +1273,34 @@ counters.forEach(c => cObs.observe(c));
 // Form submit
 function handleSubmit(e) {
   e.preventDefault();
-  const btn = e.target.querySelector('.f-btn');
+  const form = e.target;
+  const btn = form.querySelector('.f-btn');
   btn.textContent = _lang === 'nl' ? 'Verzenden...' : 'Sending...';
   btn.disabled = true;
-  setTimeout(() => {
-    btn.textContent = _lang === 'nl'
-      ? '✓ Bericht verzonden — we nemen binnen 24 uur contact op'
-      : '✓ Message sent — we\'ll be in touch within 24h';
-    btn.style.background = '#1a7a4a';
-  }, 1200);
+  fetch('https://formspree.io/f/mqejzqaa', {
+    method: 'POST',
+    body: new FormData(form),
+    headers: { 'Accept': 'application/json' }
+  })
+  .then(r => r.json())
+  .then(data => {
+    if (data.ok) {
+      btn.textContent = _lang === 'nl'
+        ? '✓ Bericht verzonden — we nemen binnen 24 uur contact op'
+        : '✓ Message sent — we\'ll be in touch within 24h';
+      btn.style.background = '#1a7a4a';
+      form.reset();
+    } else {
+      btn.textContent = _lang === 'nl' ? 'Fout — probeer opnieuw' : 'Error — please try again';
+      btn.style.background = '';
+      btn.disabled = false;
+    }
+  })
+  .catch(() => {
+    btn.textContent = _lang === 'nl' ? 'Fout — probeer opnieuw' : 'Error — please try again';
+    btn.style.background = '';
+    btn.disabled = false;
+  });
   return false;
 }
 
