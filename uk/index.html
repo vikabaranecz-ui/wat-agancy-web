@@ -485,6 +485,16 @@ footer{background:var(--bg-card);padding:52px 64px 36px;border-top:1px solid var
 /* Case card improved border */
 .case-card{border-top:3px solid transparent;transition:transform .35s cubic-bezier(.22,1,.36,1),box-shadow .35s,border-color .25s}
 .case-card:hover{border-top-color:var(--red)}
+/* WhatsApp confirmation modal */
+.wa-overlay{position:fixed;inset:0;background:rgba(17,17,17,.55);z-index:9999;display:flex;align-items:center;justify-content:center;padding:24px;backdrop-filter:blur(4px);opacity:0;pointer-events:none;transition:opacity .3s}
+.wa-overlay.open{opacity:1;pointer-events:auto}
+.wa-modal{background:var(--bg-card);border-radius:var(--r24);padding:44px 36px 36px;max-width:420px;width:100%;border:1px solid var(--border);box-shadow:0 24px 72px rgba(17,17,17,.18);transform:translateY(20px);transition:transform .35s cubic-bezier(.22,1,.36,1)}
+.wa-overlay.open .wa-modal{transform:none}
+.wa-modal-ico{width:68px;height:68px;border-radius:50%;background:rgba(37,211,102,.12);display:flex;align-items:center;justify-content:center;margin:0 auto 22px;font-size:32px}
+.wa-modal h3{font-family:'Exo 2',sans-serif;font-size:20px;font-weight:900;color:var(--ink);text-align:center;margin-bottom:12px}
+.wa-modal p{font-family:'Inter',sans-serif;font-size:13px;line-height:1.7;color:var(--ink-60);text-align:center;margin-bottom:28px}
+.wa-modal-close{display:block;width:100%;font-family:'Exo 2',sans-serif;font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--ink-60);background:transparent;border:1.5px solid var(--border);padding:14px;border-radius:var(--r12);cursor:pointer;transition:border-color .2s,color .2s}
+.wa-modal-close:hover{border-color:var(--ink-40);color:var(--ink)}
 </style>
 </head>
 <body>
@@ -1324,34 +1334,41 @@ const cObs = new IntersectionObserver((entries) => {
 counters.forEach(c => cObs.observe(c));
 
 // FORM SUBMIT
+// Form submit → WhatsApp
 document.getElementById('cform').addEventListener('submit', function (e) {
   e.preventDefault();
-  const btn = document.getElementById('fbtn');
-  btn.textContent = 'Надсилаємо...';
-  btn.disabled = true;
-  fetch('https://formspree.io/f/mqejzqaa', {
-    method: 'POST',
-    body: new FormData(this),
-    headers: { 'Accept': 'application/json' }
-  })
-  .then(r => r.json())
-  .then(data => {
-    if (data.ok) {
-      btn.textContent = '✓ Надіслано — відповімо протягом доби';
-      btn.style.background = '#1a7a4a';
-      this.reset();
-    } else {
-      btn.textContent = 'Помилка — спробуйте ще раз';
-      btn.style.background = '';
-      btn.disabled = false;
-    }
-  })
-  .catch(() => {
-    btn.textContent = 'Помилка — спробуйте ще раз';
-    btn.style.background = '';
-    btn.disabled = false;
-  });
+  const fd = new FormData(this);
+
+  const lines = [
+    'Нова заявка з сайту WAT? Agency',
+    '',
+    "Ім'я: " + (fd.get('name') || ''),
+    'Контакт: ' + (fd.get('contact') || ''),
+  ];
+  if (fd.get('business')) lines.push('Бізнес: ' + fd.get('business'));
+  if (fd.get('region')) lines.push('Регіон: ' + fd.get('region'));
+  if (fd.get('message')) lines.push('', 'Повідомлення:', fd.get('message'));
+
+  window.open('https://wa.me/32471623105?text=' + encodeURIComponent(lines.join('\n')), '_blank');
+  document.getElementById('wa-overlay').classList.add('open');
+  this.reset();
+});
+
+document.getElementById('wa-modal-close').addEventListener('click', () => {
+  document.getElementById('wa-overlay').classList.remove('open');
+});
+document.getElementById('wa-overlay').addEventListener('click', function(e) {
+  if (e.target === this) this.classList.remove('open');
 });
 </script>
+
+<div class="wa-overlay" id="wa-overlay">
+  <div class="wa-modal">
+    <div class="wa-modal-ico">💬</div>
+    <h3>WhatsApp відкрито</h3>
+    <p>Повідомлення готове у WhatsApp.<br>Натисніть <strong>«Надіслати»</strong> там щоб завершити відправку.</p>
+    <button class="wa-modal-close" id="wa-modal-close">Закрити</button>
+  </div>
+</div>
 </body>
 </html>

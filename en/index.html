@@ -461,6 +461,16 @@ footer{background:var(--bg-card);padding:52px 64px 36px;border-top:1px solid var
   .foot-inner{grid-template-columns:1fr;gap:28px}
   .foot-bottom{flex-direction:column;align-items:flex-start}
 }
+/* WhatsApp confirmation modal */
+.wa-overlay{position:fixed;inset:0;background:rgba(17,17,17,.55);z-index:9999;display:flex;align-items:center;justify-content:center;padding:24px;backdrop-filter:blur(4px);opacity:0;pointer-events:none;transition:opacity .3s}
+.wa-overlay.open{opacity:1;pointer-events:auto}
+.wa-modal{background:var(--bg-card);border-radius:var(--r24);padding:44px 36px 36px;max-width:420px;width:100%;border:1px solid var(--border);box-shadow:0 24px 72px rgba(17,17,17,.18);transform:translateY(20px);transition:transform .35s cubic-bezier(.22,1,.36,1)}
+.wa-overlay.open .wa-modal{transform:none}
+.wa-modal-ico{width:68px;height:68px;border-radius:50%;background:rgba(37,211,102,.12);display:flex;align-items:center;justify-content:center;margin:0 auto 22px;font-size:32px}
+.wa-modal h3{font-family:'Exo 2',sans-serif;font-size:20px;font-weight:900;color:var(--ink);text-align:center;margin-bottom:12px}
+.wa-modal p{font-family:'Inter',sans-serif;font-size:13px;line-height:1.7;color:var(--ink-60);text-align:center;margin-bottom:28px}
+.wa-modal-close{display:block;width:100%;font-family:'Exo 2',sans-serif;font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--ink-60);background:transparent;border:1.5px solid var(--border);padding:14px;border-radius:var(--r12);cursor:pointer;transition:border-color .2s,color .2s}
+.wa-modal-close:hover{border-color:var(--ink-40);color:var(--ink)}
 </style>
 </head>
 <body>
@@ -1270,39 +1280,46 @@ const cObs = new IntersectionObserver((entries) => {
 }, { threshold: 0.5 });
 counters.forEach(c => cObs.observe(c));
 
-// Form submit
+// Form submit → WhatsApp
 function handleSubmit(e) {
   e.preventDefault();
   const form = e.target;
-  const btn = form.querySelector('.f-btn');
-  btn.textContent = _lang === 'nl' ? 'Verzenden...' : 'Sending...';
-  btn.disabled = true;
-  fetch('https://formspree.io/f/mqejzqaa', {
-    method: 'POST',
-    body: new FormData(form),
-    headers: { 'Accept': 'application/json' }
-  })
-  .then(r => r.json())
-  .then(data => {
-    if (data.ok) {
-      btn.textContent = _lang === 'nl'
-        ? '✓ Bericht verzonden — we nemen binnen 24 uur contact op'
-        : '✓ Message sent — we\'ll be in touch within 24h';
-      btn.style.background = '#1a7a4a';
-      form.reset();
-    } else {
-      btn.textContent = _lang === 'nl' ? 'Fout — probeer opnieuw' : 'Error — please try again';
-      btn.style.background = '';
-      btn.disabled = false;
-    }
-  })
-  .catch(() => {
-    btn.textContent = _lang === 'nl' ? 'Fout — probeer opnieuw' : 'Error — please try again';
-    btn.style.background = '';
-    btn.disabled = false;
-  });
+  const nl = _lang === 'nl';
+  const fd = new FormData(form);
+
+  const lines = [
+    nl ? 'Nieuwe aanvraag via WAT? Agency website' : 'New enquiry from WAT? Agency website',
+    '',
+    (nl ? 'Naam' : 'Name') + ': ' + (fd.get('first-name') || '') + ' ' + (fd.get('last-name') || ''),
+    'Email: ' + (fd.get('email') || ''),
+  ];
+  if (fd.get('phone')) lines.push((nl ? 'Telefoon' : 'Phone') + ': ' + fd.get('phone'));
+  if (fd.get('business-type')) lines.push((nl ? 'Bedrijfstype' : 'Business') + ': ' + fd.get('business-type'));
+  if (fd.get('package')) lines.push((nl ? 'Pakket' : 'Package') + ': ' + fd.get('package'));
+  if (fd.get('message')) lines.push('', (nl ? 'Bericht' : 'Message') + ':', fd.get('message'));
+
+  window.open('https://wa.me/32471623105?text=' + encodeURIComponent(lines.join('\n')), '_blank');
+
+  const overlay = document.getElementById('wa-overlay');
+  const title = document.getElementById('wa-modal-title');
+  const desc = document.getElementById('wa-modal-desc');
+  if (title) title.textContent = nl ? 'WhatsApp geopend' : 'WhatsApp opened';
+  if (desc) desc.innerHTML = nl
+    ? 'Uw bericht staat klaar in WhatsApp.<br>Druk daar op <strong>Versturen</strong> om het te verzenden.'
+    : 'Your message is ready in WhatsApp.<br>Tap <strong>Send</strong> there to complete your enquiry.';
+  if (overlay) overlay.classList.add('open');
+  form.reset();
   return false;
 }
+
+document.addEventListener('DOMContentLoaded', () => {
+  const closeBtn = document.getElementById('wa-modal-close');
+  const overlay = document.getElementById('wa-overlay');
+  if (closeBtn && overlay) {
+    closeBtn.addEventListener('click', () => overlay.classList.remove('open'));
+    overlay.addEventListener('click', e => { if (e.target === overlay) overlay.classList.remove('open'); });
+  }
+});
 
 // ── LANGUAGE SYSTEM ──
 let _lang = 'en';
@@ -1564,5 +1581,14 @@ function setLang(l) {
   if (footTag) footTag.textContent = nl ? 'Gebouwd voor België' : 'Built for Belgium';
 }
 </script>
+
+<div class="wa-overlay" id="wa-overlay">
+  <div class="wa-modal">
+    <div class="wa-modal-ico">💬</div>
+    <h3 id="wa-modal-title">WhatsApp opened</h3>
+    <p id="wa-modal-desc">Your message is ready in WhatsApp. Tap <strong>Send</strong> there to complete your enquiry.</p>
+    <button class="wa-modal-close" id="wa-modal-close">Close</button>
+  </div>
+</div>
 </body>
 </html>
