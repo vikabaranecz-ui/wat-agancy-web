@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Stop Losing Clients Before the First Call | WAT? Agency Belgium</title>
+<title>Don't Lose Clients Before the First Call | WAT? Agency Belgium</title>
 <meta name="description" content="Full online presence for businesses in Belgium. Website, Google Business, social media, content — one system that brings clients while you work.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Exo+2:wght@400;600;700;800;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -1312,6 +1312,9 @@ const $$ = s => document.querySelectorAll(s);
 function setLang(l) {
   _lang = l;
   const nl = l === 'nl';
+  document.title = nl
+    ? 'Verlies geen klanten voor het eerste gesprek | WAT? Agency België'
+    : "Don't Lose Clients Before the First Call | WAT? Agency Belgium";
 
   // Toggle active state on all toggle buttons
   ['lb-en','lb-nl','mlb-en','mlb-nl'].forEach(id => {
