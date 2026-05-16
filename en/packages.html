@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Packages — WAT? Agency</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,600;0,800;0,900;1,400&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--red:#FF3D1F;--ink:#111;--bg:#F5F2EE;--border:#E3DFD8}
+body{
+  font-family:'Inter',sans-serif;
+  background:var(--bg);
+  color:var(--ink);
+  background-image:radial-gradient(circle,rgba(0,0,0,0.06) 1px,transparent 1px);
+  background-size:24px 24px;
+  min-height:100vh;
+  padding:80px 24px 60px;
+}
+.page{max-width:1220px;margin:0 auto}
+
+/* Header */
+.page-header{text-align:center;margin-bottom:60px}
+.page-header h1{
+  font-family:'Montserrat',sans-serif;
+  font-weight:900;
+  font-size:clamp(36px,5vw,64px);
+  letter-spacing:-2px;
+  line-height:1.1;
+  margin-bottom:14px
+}
+.page-header p{font-size:15px;color:#888;letter-spacing:.3px}
+
+/* Grid */
+.cards-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:24px;
+  align-items:start
+}
+
+/* Card */
+.card{
+  background:#fff;
+  border:1px solid var(--border);
+  border-radius:24px;
+  padding:36px;
+  position:relative;
+  transition:transform .3s,box-shadow .3s;
+  will-change:transform
+}
+.card:hover{transform:translateY(-6px);box-shadow:0 24px 64px rgba(0,0,0,.10)}
+.card-dark{background:#111;border-color:#222;color:#fff}
+
+/* Popular badge */
+.popular-badge{
+  position:absolute;
+  top:-13px;left:24px;
+  background:var(--red);color:#fff;
+  font-family:'Montserrat',sans-serif;
+  font-weight:800;font-size:9px;
+  letter-spacing:2px;text-transform:uppercase;
+  padding:5px 14px;border-radius:4px
+}
+
+/* Card typography */
+.card-num{
+  font-family:'Montserrat',sans-serif;
+  font-weight:800;font-size:10px;
+  letter-spacing:3px;color:var(--red);
+  margin-bottom:10px
+}
+.card-name{
+  font-family:'Montserrat',sans-serif;
+  font-weight:900;font-size:28px;
+  line-height:1.1;margin-bottom:6px
+}
+.card-dark .card-name{color:#fff}
+.card-tagline{font-style:italic;font-size:13px;color:#888;margin-bottom:20px}
+.card-dark .card-tagline{color:rgba(255,255,255,.5)}
+.card-price{
+  font-family:'Montserrat',sans-serif;
+  font-weight:900;font-size:54px;
+  color:var(--red);letter-spacing:-2px;
+  line-height:1;margin-bottom:4px
+}
+.card-price-sub{font-size:12px;color:#999;margin-bottom:14px}
+.card-dark .card-price-sub{color:rgba(255,255,255,.4)}
+.deadline-badge{
+  display:inline-block;
+  background:rgba(255,61,31,.08);
+  color:var(--red);
+  font-family:'Montserrat',sans-serif;
+  font-weight:700;font-size:11px;
+  padding:5px 12px;border-radius:4px;
+  margin-bottom:20px
+}
+.card-dark .deadline-badge{background:rgba(255,61,31,.18)}
+.divider{border:none;border-top:1px solid var(--border);margin:20px 0}
+.card-dark .divider{border-color:rgba(255,255,255,.1)}
+
+/* Chips */
+.chips{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:16px}
+.chip{
+  display:flex;align-items:center;gap:8px;
+  background:rgba(255,61,31,.05);
+  border:1px solid rgba(255,61,31,.12);
+  border-radius:8px;padding:9px 12px;
+  font-size:12px;font-weight:600;color:#111
+}
+.chip.full{grid-column:span 2}
+.card-dark .chip{
+  background:rgba(255,255,255,.07);
+  border-color:rgba(255,255,255,.1);
+  color:#fff
+}
+.chip-icon{flex-shrink:0;display:flex;align-items:center;line-height:1}
+.chip-icon svg{display:block}
+.chip .chip-icon svg{stroke:var(--red)}
+.card-dark .chip .chip-icon svg{stroke:rgba(255,255,255,.7)}
+
+/* Not included */
+.not-included{border-top:1px dashed var(--border);margin-top:12px;padding-top:12px}
+.card-dark .not-included{border-color:rgba(255,255,255,.15)}
+.not-item{
+  display:flex;align-items:center;gap:8px;
+  font-size:12px;color:#BBBBBB;margin-bottom:6px
+}
+.not-item:last-child{margin-bottom:0}
+.not-item svg{stroke:#BBBBBB;flex-shrink:0}
+
+/* All included */
+.all-included{
+  display:flex;align-items:center;gap:8px;
+  font-size:13px;font-weight:600;color:#22C55E;
+  margin-top:12px;padding-top:12px;
+  border-top:1px dashed rgba(34,197,94,.3)
+}
+.all-included svg{flex-shrink:0}
+
+/* CTA */
+.cta{
+  width:100%;padding:15px;
+  font-family:'Montserrat',sans-serif;
+  font-size:13px;font-weight:800;letter-spacing:.5px;
+  text-transform:uppercase;
+  border:none;cursor:pointer;border-radius:10px;
+  margin-top:20px;
+  position:relative;overflow:hidden;
+  transition:opacity .2s
+}
+.cta::after{
+  content:'';position:absolute;inset:0;
+  background:rgba(255,255,255,.15);
+  transform:translateX(-100%) skewX(-15deg);
+  transition:transform .4s ease
+}
+.cta:hover::after{transform:translateX(110%) skewX(-15deg)}
+.cta-red{background:var(--red);color:#fff}
+.cta-white{background:#fff;color:#111}
+
+/* Guarantees */
+.guarantees{
+  display:flex;gap:32px;align-items:center;
+  justify-content:center;flex-wrap:wrap;
+  border-top:1px solid var(--border);
+  padding-top:32px;margin-top:48px
+}
+.g-item{
+  display:flex;align-items:center;gap:10px;
+  font-size:13px;font-weight:600;color:#555
+}
+.g-item svg{stroke:var(--red);flex-shrink:0}
+
+/* Note */
+.note{font-size:13px;color:#999;text-align:center;margin-top:24px;line-height:1.6}
+
+/* Responsive */
+@media(max-width:1024px){.cards-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:768px){
+  body{padding:40px 16px 40px}
+  .cards-grid{grid-template-columns:1fr}
+  .chips{grid-template-columns:1fr}
+  .chip.full{grid-column:span 1}
+  .guarantees{flex-direction:column;gap:16px;align-items:flex-start;padding-left:8px}
+}
+</style>
+</head>
+<body>
+<div class="page">
+
+  <header class="page-header">
+    <h1>Choose your start</h1>
+    <p>Clear price. Fixed deadline. Concrete result.</p>
+  </header>
+
+  <div class="cards-grid" id="cards"></div>
+
+  <div class="guarantees">
+    <div class="g-item">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="10" height="8" rx="2"/><path d="M5 7V5a3 3 0 016 0v2"/></svg>
+      Accounts are yours
+    </div>
+    <div class="g-item">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10 1H3a1 1 0 00-1 1v12a1 1 0 001 1h10a1 1 0 001-1V5l-4-4z"/><polyline points="10,1 10,5 14,5"/><line x1="4" y1="8" x2="12" y2="8"/><line x1="4" y1="10.5" x2="10" y2="10.5"/></svg>
+      2 revision rounds
+    </div>
+    <div class="g-item">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="8" r="7"/><polyline points="8,4.5 8,8 10.5,10"/></svg>
+      Fixed deadline
+    </div>
+    <div class="g-item">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="14" height="10" rx="2"/><line x1="1" y1="7" x2="15" y2="7"/><line x1="4" y1="10.5" x2="7" y2="10.5"/></svg>
+      50% upfront
+    </div>
+  </div>
+
+  <p class="note">Domain and hosting are paid by the client separately (≈€15–20/mo).<br>Accounts are registered in the client's name — you always own them.</p>
+
+</div>
+<script>
+const ic = {
+  browser:`<svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="2" width="14" height="12" rx="2"/><line x1="1" y1="5.5" x2="15" y2="5.5"/><circle cx="3.5" cy="3.75" r=".7" fill="currentColor" stroke="none"/><circle cx="6" cy="3.75" r=".7" fill="currentColor" stroke="none"/><circle cx="8.5" cy="3.75" r=".7" fill="currentColor" stroke="none"/></svg>`,
+  deploy:`<svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="13" x2="5" y2="4"/><polyline points="2,7 5,4 8,7"/><line x1="11" y1="13" x2="11" y2="4"/><polyline points="8,7 11,4 14,7"/></svg>`,
+  lock:`<svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="10" height="8" rx="2"/><path d="M5 7V5a3 3 0 016 0v2"/></svg>`,
+  phone:`<svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="4.5" y="1" width="7" height="14" rx="2"/><line x1="7" y1="12.5" x2="9" y2="12.5"/></svg>`,
+  envelope:`<svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="14" height="10" rx="2"/><polyline points="1,3 8,9 15,3"/></svg>`,
+  bars:`<svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3.5" y1="13" x2="3.5" y2="9"/><line x1="8" y1="13" x2="8" y2="6"/><line x1="12.5" y1="13" x2="12.5" y2="3"/></svg>`,
+  pixel:`<svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="12" height="12" rx="2"/><line x1="2" y1="2" x2="14" y2="14"/><line x1="14" y1="2" x2="2" y2="14"/></svg>`,
+  tag:`<svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M8.5 2H13a1 1 0 011 1v4.5a1 1 0 01-.3.7l-5.5 5.5a1.5 1.5 0 01-2.1 0L2.3 9.9a1.5 1.5 0 010-2.1L7.8 2.3A1 1 0 018.5 2z"/><circle cx="11" cy="5" r=".8" fill="currentColor" stroke="none"/></svg>`,
+  pin:`<svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M8 1a5 5 0 015 5c0 3.5-5 9-5 9S3 9.5 3 6a5 5 0 015-5z"/><circle cx="8" cy="6" r="2"/></svg>`,
+  image:`<svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="2" width="14" height="12" rx="2"/><polyline points="1,11 5,7 8,10 11,7 15,11"/><circle cx="11.5" cy="5" r="1.5"/></svg>`,
+  instagram:`<svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="12" height="12" rx="3"/><circle cx="8" cy="8" r="3"/><circle cx="11.5" cy="4.5" r=".5" fill="currentColor" stroke="none"/></svg>`,
+  facebook:`<svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="1" width="12" height="14" rx="2"/><path d="M10 5H8.5a1.5 1.5 0 00-1.5 1.5V8h3"/><line x1="7" y1="8" x2="7" y2="14"/></svg>`,
+  highlights:`<svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="3" cy="5" r="2"/><circle cx="8" cy="5" r="2"/><circle cx="13" cy="5" r="2"/><circle cx="3" cy="11" r="2"/><circle cx="8" cy="11" r="2"/><circle cx="13" cy="11" r="2"/></svg>`,
+  pdf:`<svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10 1H3a1 1 0 00-1 1v12a1 1 0 001 1h10a1 1 0 001-1V5l-4-4z"/><polyline points="10,1 10,5 14,5"/><line x1="4" y1="8" x2="12" y2="8"/><line x1="4" y1="10.5" x2="12" y2="10.5"/><line x1="4" y1="13" x2="9" y2="13"/></svg>`,
+  gallery:`<svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="1" width="6" height="6" rx="1"/><rect x="9" y="1" width="6" height="6" rx="1"/><rect x="1" y="9" width="6" height="6" rx="1"/><rect x="9" y="9" width="6" height="6" rx="1"/></svg>`,
+  seo:`<svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="6.5" cy="6.5" r="5"/><line x1="10.5" y1="10.5" x2="15" y2="15"/><polyline points="3.5,8.5 5.5,6.5 7.5,7.5 9.5,4.5"/></svg>`,
+  logo:`<svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="8,1 15,8 8,15 1,8"/></svg>`,
+  brandbook:`<svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="12" height="12" rx="2"/><line x1="8" y1="2" x2="8" y2="14"/><line x1="2" y1="8" x2="14" y2="8"/></svg>`,
+  posts:`<svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="1" width="6" height="6" rx="1"/><rect x="9" y="1" width="6" height="6" rx="1"/><rect x="5" y="9" width="6" height="6" rx="1"/></svg>`,
+  story:`<svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="1" width="8" height="14" rx="3"/><polygon points="8,5.5 8.6,7.2 10.5,7.2 9,8.4 9.5,10.2 8,9.1 6.5,10.2 7,8.4 5.5,7.2 7.4,7.2"/></svg>`,
+  flyer:`<svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="1" width="12" height="14" rx="1"/><line x1="2" y1="6" x2="14" y2="6"/><line x1="4" y1="9" x2="12" y2="9"/><line x1="4" y1="11.5" x2="12" y2="11.5"/><line x1="4" y1="13.5" x2="9" y2="13.5"/></svg>`,
+  booklet:`<svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="10" height="12" rx="1"/><rect x="2" y="2" width="10" height="12" rx="1"/><line x1="4" y1="6" x2="10" y2="6"/><line x1="4" y1="8.5" x2="10" y2="8.5"/></svg>`,
+  quote:`<svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10 1H3a1 1 0 00-1 1v12a1 1 0 001 1h10a1 1 0 001-1V5l-4-4z"/><polyline points="10,1 10,5 14,5"/><polyline points="5,9 7,11 11,7"/></svg>`,
+  rollup:`<svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="1" width="8" height="11" rx="1"/><line x1="8" y1="12" x2="8" y2="14"/><line x1="5" y1="14" x2="11" y2="14"/></svg>`,
+  tenposts:`<svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="1" width="4" height="4" rx=".5"/><rect x="6" y="1" width="4" height="4" rx=".5"/><rect x="11" y="1" width="4" height="4" rx=".5"/><rect x="1" y="6" width="4" height="4" rx=".5"/><rect x="6" y="6" width="4" height="4" rx=".5"/><rect x="11" y="6" width="4" height="4" rx=".5"/><rect x="1" y="11" width="4" height="4" rx=".5"/><rect x="6" y="11" width="4" height="4" rx=".5"/><rect x="11" y="11" width="4" height="4" rx=".5"/></svg>`,
+  x:`<svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><line x1="2" y1="2" x2="8" y2="8"/><line x1="8" y1="2" x2="2" y2="8"/></svg>`,
+  check:`<svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="#22C55E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3,8 6,11 13,4"/></svg>`,
+};
+
+function chip(key, label, full) {
+  return `<div class="chip${full?' full':''}"><span class="chip-icon">${ic[key]}</span><span>${label}</span></div>`;
+}
+function notItem(label) {
+  return `<div class="not-item">${ic.x}<span>${label}</span></div>`;
+}
+
+const base = [
+  chip('browser','3-page website (HTML/CSS)'),
+  chip('deploy','GitHub + Vercel hosting'),
+  chip('lock','Custom domain + SSL'),
+  chip('phone','Mobile version'),
+  chip('envelope','Contact form'),
+  chip('bars','Google Analytics 4'),
+  chip('pixel','Meta Pixel'),
+  chip('tag','Google Tag Manager'),
+  chip('pin','Google Business Profile'),
+  chip('image','5 photos — styled by agency',true),
+  chip('instagram','Instagram — full setup'),
+  chip('facebook','Facebook — full setup'),
+  chip('highlights','6 Highlights covers'),
+  chip('pdf','PDF guide — first month'),
+].join('');
+
+const mid = [
+  chip('gallery','5-page website + gallery',true),
+  chip('seo','Basic on-page SEO'),
+  chip('logo','Logo — 2 variants (Canva)',true),
+  chip('brandbook','Brand book PDF'),
+  chip('posts','6 ready posts (IG + FB)'),
+  chip('story','3 Story templates'),
+  chip('flyer','A5 flyer print-ready'),
+].join('');
+
+const top = [
+  chip('gallery','Up to 9 pages + blog',true),
+  chip('booklet','Client booklet 6-page PDF',true),
+  chip('quote','Commercial proposal template',true),
+  chip('rollup','Roll-up banner or banner set',true),
+  chip('tenposts','10 ready posts (IG + FB)'),
+].join('');
+
+const pkgs = [
+  {
+    num:'01 / 03',name:'Start Online',
+    tagline:'I exist online and look trustworthy',
+    price:'€1,200',deadline:'12 business days',
+    dark:false,popular:false,
+    chips:base,
+    not:[notItem('Logo'),notItem('Content / posts'),notItem('Print materials')].join(''),
+    all:false,
+    cta:'Choose Start Online',ctaCls:'cta-red',
+  },
+  {
+    num:'02 / 03',name:'Digital Foundation',
+    tagline:'A complete online presence I\'m proud of',
+    price:'€2,100',deadline:'18 business days',
+    dark:true,popular:true,
+    chips:base+mid,
+    not:[notItem('Client booklet'),notItem('Quote template'),notItem('Roll-up banner')].join(''),
+    all:false,
+    cta:'Choose Digital Foundation',ctaCls:'cta-white',
+  },
+  {
+    num:'03 / 03',name:'Complete Presence',
+    tagline:'Everything done for you — zero to a system',
+    price:'€3,100',deadline:'24 business days',
+    dark:false,popular:false,
+    chips:base+mid+top,
+    not:'',all:true,
+    cta:'Choose Complete Presence',ctaCls:'cta-red',
+  },
+];
+
+const grid = document.getElementById('cards');
+pkgs.forEach(p => {
+  const el = document.createElement('div');
+  el.className = 'card'+(p.dark?' card-dark':'');
+  el.innerHTML = `
+    ${p.popular?'<div class="popular-badge">Most Popular</div>':''}
+    <div class="card-num">${p.num}</div>
+    <div class="card-name">${p.name}</div>
+    <div class="card-tagline">${p.tagline}</div>
+    <div class="card-price">${p.price}</div>
+    <div class="card-price-sub">one-time · no hidden costs</div>
+    <div class="deadline-badge">Deadline: ${p.deadline}</div>
+    <hr class="divider">
+    <div class="chips">${p.chips}</div>
+    ${p.not?`<div class="not-included">${p.not}</div>`:''}
+    ${p.all?`<div class="all-included">${ic.check}<span>The most complete package — everything included</span></div>`:''}
+    <button class="cta ${p.ctaCls}">${p.cta}</button>
+  `;
+  grid.appendChild(el);
+});
+
+// 3D tilt
+document.querySelectorAll('.card').forEach(card => {
+  card.addEventListener('mousemove', e => {
+    const r = card.getBoundingClientRect();
+    const x = (e.clientX - r.left) / r.width - .5;
+    const y = (e.clientY - r.top) / r.height - .5;
+    card.style.transform = `perspective(1000px) rotateY(${x*10}deg) rotateX(${-y*10}deg) translateY(-6px)`;
+  });
+  card.addEventListener('mouseleave', () => { card.style.transform = ''; });
+});
+</script>
+</body>
+</html>
