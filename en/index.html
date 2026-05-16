@@ -355,6 +355,86 @@ nav.scrolled{height:56px;box-shadow:0 4px 24px rgba(17,17,17,.07)}
 .hero-photo img{width:100%;height:100%;object-fit:cover;object-position:center top;display:block}
 @media(max-width:1200px){.hero-photo{display:none}}
 
+/* ── MODERN DESIGN ── */
+/* Dot grid backgrounds */
+.dot-grid{background-image:radial-gradient(circle,rgba(17,17,17,.055) 1.2px,transparent 1.2px);background-size:26px 26px}
+.sec-dark.dot-grid{background-image:radial-gradient(circle,rgba(255,255,255,.04) 1.2px,transparent 1.2px)}
+
+/* Marquee */
+.marquee-wrap{overflow:hidden;background:var(--ink);padding:15px 0;border-top:1px solid rgba(255,255,255,.04);border-bottom:1px solid rgba(255,255,255,.04);position:relative;z-index:2}
+.marquee-track{display:flex;gap:0;animation:marquee 30s linear infinite;width:max-content}
+.marquee-track:hover{animation-play-state:paused}
+.marquee-item{display:flex;align-items:center;gap:10px;padding:0 40px;font-family:'Exo 2',sans-serif;font-size:11px;font-weight:700;letter-spacing:3.5px;text-transform:uppercase;color:rgba(248,247,244,.28);white-space:nowrap;flex-shrink:0}
+.marquee-item svg{width:14px;height:14px;stroke:var(--red);stroke-width:2;fill:none;stroke-linecap:round;flex-shrink:0;opacity:.7}
+@keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* Floating hero badge */
+.hero-badge{display:inline-flex;align-items:center;gap:10px;padding:8px 18px 8px 12px;border-radius:40px;background:rgba(230,59,30,.07);border:1px solid rgba(230,59,30,.18);font-family:'Exo 2',sans-serif;font-size:10px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--red);margin-bottom:22px;backdrop-filter:blur(4px)}
+.hero-badge-dot{width:7px;height:7px;border-radius:50%;background:var(--red);flex-shrink:0;animation:pulse-dot 2.2s ease-in-out infinite}
+@keyframes pulse-dot{0%,100%{box-shadow:0 0 0 0 rgba(230,59,30,.5)}60%{box-shadow:0 0 0 7px rgba(230,59,30,0)}}
+
+/* Bento grid for Why Us */
+.bento-grid{display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:auto;gap:14px;margin-top:48px;max-width:960px}
+.bento-cell{background:var(--bg-card);border-radius:var(--r24);padding:28px 26px;border:1px solid var(--border);transition:border-color .25s,transform .25s,box-shadow .25s;cursor:default;position:relative;overflow:hidden}
+.bento-cell:hover{border-color:var(--red);transform:translateY(-4px);box-shadow:0 16px 48px var(--red-06),0 4px 12px rgba(17,17,17,.06)}
+.bento-cell.bento-wide{grid-column:span 2}
+.bento-cell.bento-accent{background:var(--ink);border-color:transparent}
+.bento-cell.bento-accent:hover{border-color:var(--red);transform:translateY(-4px)}
+.bento-num{font-family:'Exo 2',sans-serif;font-size:52px;font-weight:900;line-height:1;letter-spacing:-3px;color:var(--red-10);margin-bottom:10px;transition:color .25s}
+.bento-cell:hover .bento-num{color:rgba(230,59,30,.18)}
+.bento-accent .bento-num{color:rgba(255,255,255,.06)}
+.bento-accent:hover .bento-num{color:rgba(230,59,30,.25)}
+.bento-cell p{font-size:14px;line-height:1.72;color:var(--ink-60)}
+.bento-cell strong{color:var(--ink);font-weight:600}
+.bento-accent p{color:rgba(248,247,244,.55)}
+.bento-accent strong{color:#F8F7F4}
+.bento-cell-label{font-family:'Exo 2',sans-serif;font-size:9px;font-weight:700;letter-spacing:3.5px;text-transform:uppercase;color:var(--red);margin-bottom:8px}
+@media(max-width:900px){.bento-grid{grid-template-columns:1fr 1fr}.bento-cell.bento-wide{grid-column:span 2}}
+@media(max-width:600px){.bento-grid{grid-template-columns:1fr}.bento-cell.bento-wide{grid-column:span 1}}
+
+/* Outline text accent */
+.h-outline{-webkit-text-stroke:2.5px var(--ink);color:transparent}
+.sec-dark .h-outline{-webkit-text-stroke:2px rgba(248,247,244,.22);color:transparent}
+
+/* Section divider with gradient line */
+.grad-divider{height:1px;background:linear-gradient(90deg,var(--red) 0%,rgba(230,59,30,.3) 40%,transparent 100%);margin-bottom:0;border:none}
+
+/* Problem cards improved */
+.prob-card{position:relative;overflow:hidden}
+.prob-card::after{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--red);transform:scaleY(0);transform-origin:bottom;transition:transform .3s cubic-bezier(.22,1,.36,1);border-radius:0 2px 2px 0}
+.prob-card:hover::after{transform:scaleY(1)}
+
+/* Stats glow on hover */
+.stat:hover .stat-n{text-shadow:0 0 32px rgba(230,59,30,.5)}
+.stat-n{transition:text-shadow .3s}
+
+/* Animated counter */
+.stat-n{font-variant-numeric:tabular-nums}
+
+/* Package popular glow */
+.pkg-card.pkg-pop{box-shadow:0 0 0 1px var(--red),0 8px 32px rgba(230,59,30,.12)}
+.pkg-card.pkg-pop:hover{box-shadow:0 0 0 1px var(--red),0 24px 64px rgba(230,59,30,.18)}
+
+/* Form field focus line */
+.fg input:focus,.fg select:focus,.fg textarea:focus{box-shadow:0 0 0 3px rgba(230,59,30,.08)}
+
+/* Section tag updated */
+.sec-tag{position:relative}
+
+/* Better hero scroll hint */
+.scroll-hint{display:flex;align-items:center;gap:12px;margin-top:52px;font-family:'Exo 2',sans-serif;font-size:9px;font-weight:700;letter-spacing:4px;text-transform:uppercase;color:var(--ink-40)}
+.scroll-line{width:1px;height:36px;background:linear-gradient(180deg,transparent,var(--ink-12) 40%,transparent);flex-shrink:0}
+.scroll-wheel{width:20px;height:32px;border-radius:10px;border:1.5px solid var(--ink-12);display:flex;align-items:flex-start;justify-content:center;padding-top:5px;flex-shrink:0}
+.scroll-wheel::after{content:'';width:3px;height:7px;border-radius:2px;background:var(--ink-40);animation:scroll-w 2s ease-in-out infinite}
+@keyframes scroll-w{0%,100%{transform:translateY(0);opacity:1}60%{transform:translateY(8px);opacity:.3}}
+
+/* Noise overlay on hero */
+.hero::before{content:'';position:absolute;inset:0;pointer-events:none;z-index:0;opacity:.018;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");background-size:200px 200px}
+
+/* Case card improved border */
+.case-card{border-top:3px solid transparent;transition:transform .35s cubic-bezier(.22,1,.36,1),box-shadow .35s,border-color .25s}
+.case-card:hover{border-top-color:var(--red)}
+
 /* ── FOOTER ── */
 footer{background:var(--bg-card);padding:52px 64px 36px;border-top:1px solid var(--border)}
 .foot-inner{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:48px}
@@ -418,6 +498,7 @@ footer{background:var(--bg-card);padding:52px 64px 36px;border-top:1px solid var
     <img src="https://d8j0ntlcm91z4.cloudfront.net/user_39fS9dwEv1BGeL8PN3Ut7MGivEM/hf_20260515_173535_34e6e44f-ff16-44b0-a17d-c6541088dbb7.png" alt="Entrepreneur working in Belgium" loading="eager">
   </div>
   <div class="hero-inner">
+    <div class="hero-badge rv"><span class="hero-badge-dot"></span>Now taking new clients</div>
     <div class="hero-eyebrow rv">For businesses in Belgium</div>
     <h1 class="rv d1">
       Belgian clients<br>can't find you<span class="red-dot">.</span><br>Let's fix that<span class="red-dot">.</span>
@@ -460,12 +541,13 @@ footer{background:var(--bg-card);padding:52px 64px 36px;border-top:1px solid var
       <span class="hi-lbl">Ads</span>
     </div>
   </div>
+  <div class="scroll-hint rv d6"><div class="scroll-wheel"></div><span>Scroll down</span></div>
 </section>
 
 <!-- STATS -->
 <div class="stats-row">
   <div class="stat">
-    <div class="stat-n">11</div>
+    <div class="stat-n" data-count="11">11</div>
     <div class="stat-l">Services in one system</div>
   </div>
   <div class="stat">
@@ -482,8 +564,31 @@ footer{background:var(--bg-card);padding:52px 64px 36px;border-top:1px solid var
   </div>
 </div>
 
+<!-- MARQUEE -->
+<div class="marquee-wrap">
+  <div class="marquee-track">
+    <span class="marquee-item"><svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="16" rx="2"/><line x1="2" y1="8" x2="22" y2="8"/></svg>Website</span>
+    <span class="marquee-item"><svg viewBox="0 0 24 24"><path d="M12 2C8.7 2 6 4.7 6 8c0 5.3 6 13 6 13s6-7.7 6-13c0-3.3-2.7-6-6-6z"/><circle cx="12" cy="8" r="2.5"/></svg>Google Business</span>
+    <span class="marquee-item"><svg viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="3"/></svg>Social Media</span>
+    <span class="marquee-item"><svg viewBox="0 0 24 24"><polyline points="22,12 18,12 15,21 9,3 6,12 2,12"/></svg>Analytics</span>
+    <span class="marquee-item"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/></svg>Google Ads</span>
+    <span class="marquee-item"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89L17 22l-5-3-5 3 1.523-9.11"/></svg>Branding</span>
+    <span class="marquee-item"><svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.12 2.12 0 0 1 3 3L12 15l-4 1 1-4z"/></svg>Content</span>
+    <span class="marquee-item"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/></svg>Print</span>
+    <!-- duplicate for seamless loop -->
+    <span class="marquee-item"><svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="16" rx="2"/><line x1="2" y1="8" x2="22" y2="8"/></svg>Website</span>
+    <span class="marquee-item"><svg viewBox="0 0 24 24"><path d="M12 2C8.7 2 6 4.7 6 8c0 5.3 6 13 6 13s6-7.7 6-13c0-3.3-2.7-6-6-6z"/><circle cx="12" cy="8" r="2.5"/></svg>Google Business</span>
+    <span class="marquee-item"><svg viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="3"/></svg>Social Media</span>
+    <span class="marquee-item"><svg viewBox="0 0 24 24"><polyline points="22,12 18,12 15,21 9,3 6,12 2,12"/></svg>Analytics</span>
+    <span class="marquee-item"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/></svg>Google Ads</span>
+    <span class="marquee-item"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89L17 22l-5-3-5 3 1.523-9.11"/></svg>Branding</span>
+    <span class="marquee-item"><svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.12 2.12 0 0 1 3 3L12 15l-4 1 1-4z"/></svg>Content</span>
+    <span class="marquee-item"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/></svg>Print</span>
+  </div>
+</div>
+
 <!-- PROBLEM -->
-<section class="sec sec-warm" id="problem">
+<section class="sec sec-warm dot-grid" id="problem">
   <div class="s-bg-num">01</div>
   <div class="sec-tag rv">The real problem</div>
   <div class="big-h rv" style="font-size:clamp(56px,10vw,148px)">Why clients<br>choose<br><span class="red-acc">someone else?</span></div>
@@ -664,7 +769,7 @@ footer{background:var(--bg-card);padding:52px 64px 36px;border-top:1px solid var
 </section>
 
 <!-- PROCESS -->
-<section class="sec sec-alt" id="process">
+<section class="sec sec-alt dot-grid" id="process">
   <div class="s-bg-num">04</div>
   <div class="sec-tag rv">How it works</div>
   <div class="big-h rv" style="font-size:clamp(44px,7.5vw,100px)">From zero<br>to <span class="red-acc">live</span><br>in 2–4 weeks.</div>
@@ -761,36 +866,42 @@ footer{background:var(--bg-card);padding:52px 64px 36px;border-top:1px solid var
   <div class="sec-tag rv">Why WAT? Agency</div>
   <div class="big-h rv" style="font-size:clamp(44px,7.5vw,100px)">We know<br>the Belgian<br><span class="red-acc">market.</span></div>
   <p class="sec-sub rv">Not a generic agency. A team that understands your clients, your competition and your language needs.</p>
-  <div class="why-grid">
-    <div class="why-item rv">
-      <div class="why-num">01</div>
-      <p><strong>We speak NL, FR and EN.</strong> Your website and materials are created in the language your clients actually use — not Google-translated.</p>
+  <div class="bento-grid">
+    <div class="bento-cell bento-wide rv">
+      <div class="bento-num">01</div>
+      <div class="bento-cell-label">Local expertise</div>
+      <p><strong>We work exclusively with businesses in Belgium.</strong> We know what Belgian clients expect, how they make decisions, and why they choose one contractor over another.</p>
     </div>
-    <div class="why-item rv d1">
-      <div class="why-num">02</div>
-      <p><strong>Local market expertise.</strong> We work exclusively with businesses in Belgium and understand what Belgian clients expect before they trust you.</p>
+    <div class="bento-cell bento-accent rv d1">
+      <div class="bento-num">02</div>
+      <div class="bento-cell-label">Language</div>
+      <p><strong>NL / FR / EN.</strong> Your website is written in the language your clients actually use — not Google-translated.</p>
     </div>
-    <div class="why-item rv d2">
-      <div class="why-num">03</div>
-      <p><strong>One team, full system.</strong> No coordinating between a web designer, social media manager and SEO specialist. We handle it all.</p>
+    <div class="bento-cell rv d2">
+      <div class="bento-num">03</div>
+      <div class="bento-cell-label">One team</div>
+      <p><strong>Everything under one roof.</strong> No coordinating between a designer, SEO specialist and content writer.</p>
     </div>
-    <div class="why-item rv d3">
-      <div class="why-num">04</div>
-      <p><strong>Fast turnaround.</strong> From first call to live website in 2–4 weeks. Not months. Your competitors aren't waiting.</p>
+    <div class="bento-cell rv d3">
+      <div class="bento-num">04</div>
+      <div class="bento-cell-label">Speed</div>
+      <p><strong>Live in 2–4 weeks.</strong> Not months. Your competitors aren't waiting.</p>
     </div>
-    <div class="why-item rv d4">
-      <div class="why-num">05</div>
-      <p><strong>Results-focused.</strong> We don't measure success in "likes". We measure it in phone calls, enquiry forms and new clients.</p>
+    <div class="bento-cell bento-wide rv d4">
+      <div class="bento-num">05</div>
+      <div class="bento-cell-label">Results-focused</div>
+      <p><strong>We measure success in phone calls and enquiries — not follower counts.</strong> Every element of the system is designed with one goal: more clients contacting you.</p>
     </div>
-    <div class="why-item rv d5">
-      <div class="why-num">06</div>
-      <p><strong>Transparent pricing.</strong> Fixed packages, no hidden fees. You know exactly what you pay and what you get before we start.</p>
+    <div class="bento-cell rv d5">
+      <div class="bento-num">06</div>
+      <div class="bento-cell-label">Transparent</div>
+      <p><strong>Fixed pricing.</strong> No hidden fees. You know exactly what you pay before we start.</p>
     </div>
   </div>
 </section>
 
 <!-- PACKAGES -->
-<section class="sec sec-alt" id="packages">
+<section class="sec sec-alt dot-grid" id="packages">
   <div class="s-bg-num">07</div>
   <div class="sec-tag rv">Pricing</div>
   <div class="big-h rv" style="font-size:clamp(44px,7.5vw,100px)">Choose<br>your <span class="red-acc">package.</span></div>
@@ -1139,6 +1250,28 @@ document.querySelectorAll('.svc-card-3d').forEach(card => {
   });
   card.addEventListener('mouseleave', () => { card.style.transform = ''; });
 });
+
+// Animated counters on scroll
+const counters = document.querySelectorAll('.stat-n[data-count]');
+const cObs = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (!e.isIntersecting) return;
+    const el = e.target;
+    const target = parseInt(el.dataset.count);
+    let start = 0;
+    const dur = 1400;
+    const step = (ts) => {
+      if (!start) start = ts;
+      const prog = Math.min((ts - start) / dur, 1);
+      const ease = 1 - Math.pow(1 - prog, 3);
+      el.textContent = Math.round(ease * target);
+      if (prog < 1) requestAnimationFrame(step);
+    };
+    requestAnimationFrame(step);
+    cObs.unobserve(el);
+  });
+}, { threshold: 0.5 });
+counters.forEach(c => cObs.observe(c));
 
 // Form submit
 function handleSubmit(e) {

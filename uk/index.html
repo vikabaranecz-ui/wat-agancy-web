@@ -869,13 +869,37 @@ footer{background:var(--bg-card);padding:52px 64px 36px;border-top:1px solid var
   <div class="sec-tag rv">Чому WAT? Agency</div>
   <div class="big-h rv" style="font-size:clamp(44px,7.5vw,100px)">Ми не агентство<br>для <span class="red-acc">всіх.</span></div>
   <p class="sec-sub rv">Спеціалізуємось на локальному бізнесі в Бельгії. Говоримо прямо.</p>
-  <div class="why-grid">
-    <div class="why-item rv"><div class="why-num">01</div><p>Знаємо <strong>як думає бельгійський клієнт</strong> — що шукає, де шукає і що змушує дзвонити</p></div>
-    <div class="why-item rv d1"><div class="why-num">02</div><p>Розуміємо <strong>специфіку українця в Бельгії</strong> — мовний бар'єр, адаптацію, темп роботи</p></div>
-    <div class="why-item rv d2"><div class="why-num">03</div><p>Будуємо <strong>системи, не виконуємо замовлення</strong> — кожен елемент підсилює інший</p></div>
-    <div class="why-item rv d3"><div class="why-num">04</div><p>Говоримо прямо — <strong>без корпоративної води</strong> і порожніх обіцянок</p></div>
-    <div class="why-item rv d4"><div class="why-num">05</div><p>Ваш <strong>конкурент вже онлайн</strong> — ми виводимо вас туди поки не пізно</p></div>
-    <div class="why-item rv d5"><div class="why-num">06</div><p>Один партнер для всього — <strong>не треба координувати 5 підрядників</strong> для різних задач</p></div>
+  <div class="bento-grid">
+    <div class="bento-cell bento-wide rv">
+      <div class="bento-num">01</div>
+      <div class="bento-cell-label">Місцева команда</div>
+      <p><strong>Ми живемо і працюємо в Бельгії.</strong> Ми знаємо що шукають бельгійські клієнти, як вони приймають рішення і чому обирають одного підрядника замість іншого.</p>
+    </div>
+    <div class="bento-cell bento-accent rv d1">
+      <div class="bento-num">02</div>
+      <div class="bento-cell-label">Мова</div>
+      <p><strong>NL/FR/EN.</strong> Ваш сайт та матеріали написані мовою клієнтів — не перекладені через Google.</p>
+    </div>
+    <div class="bento-cell rv d2">
+      <div class="bento-num">03</div>
+      <div class="bento-cell-label">Одна команда</div>
+      <p><strong>Всі послуги — один виконавець.</strong> Не потрібно координувати різних підрядників.</p>
+    </div>
+    <div class="bento-cell rv d3">
+      <div class="bento-num">04</div>
+      <div class="bento-cell-label">Швидкість</div>
+      <p><strong>Запуск за 2–4 тижні.</strong> Не місяці. Ваші конкуренти не чекають.</p>
+    </div>
+    <div class="bento-cell bento-wide rv d4">
+      <div class="bento-num">05</div>
+      <div class="bento-cell-label">Результат</div>
+      <p><strong>Ми вимірюємо успіх дзвінками та заявками — не лайками.</strong> Кожне рішення в системі спрямоване на одне: щоб клієнти зверталися саме до вас.</p>
+    </div>
+    <div class="bento-cell rv d5">
+      <div class="bento-num">06</div>
+      <div class="bento-cell-label">Прозорість</div>
+      <p><strong>Фіксована ціна.</strong> Жодних прихованих платежів. Ви знаєте що платите до початку.</p>
+    </div>
   </div>
 </section>
 
@@ -965,7 +989,7 @@ footer{background:var(--bg-card);padding:52px 64px 36px;border-top:1px solid var
 </section>
 
 <!-- OFFER / PACKAGE -->
-<section class="sec sec-white" id="paket">
+<section class="sec sec-white dot-grid" id="paket">
   <div class="s-bg-num">08</div>
   <div class="sec-tag rv">Ваш старт</div>
   <div class="big-h rv" style="font-size:clamp(44px,7.5vw,100px)">3 пакети.<br><span class="red-acc">Один</span> вибір<span class="red-dot">.</span></div>
@@ -1274,6 +1298,28 @@ document.querySelectorAll('.svc-card-3d').forEach(card => {
     card.style.transform = '';
   });
 });
+
+// Animated counters on scroll
+const counters = document.querySelectorAll('.stat-n[data-count]');
+const cObs = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (!e.isIntersecting) return;
+    const el = e.target;
+    const target = parseInt(el.dataset.count);
+    let start = 0;
+    const dur = 1400;
+    const step = (ts) => {
+      if (!start) start = ts;
+      const prog = Math.min((ts - start) / dur, 1);
+      const ease = 1 - Math.pow(1 - prog, 3);
+      el.textContent = Math.round(ease * target);
+      if (prog < 1) requestAnimationFrame(step);
+    };
+    requestAnimationFrame(step);
+    cObs.unobserve(el);
+  });
+}, { threshold: 0.5 });
+counters.forEach(c => cObs.observe(c));
 
 // FORM SUBMIT
 document.getElementById('cform').addEventListener('submit', function (e) {
