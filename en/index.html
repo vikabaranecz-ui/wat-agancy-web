@@ -491,8 +491,8 @@ footer{background:var(--bg-card);padding:52px 64px 36px;border-top:1px solid var
     <a href="#contact">Contact</a>
   </div>
   <div class="lang-toggle">
-    <button class="lang-btn lang-active" id="lb-en" onclick="setLang('en')">EN</button>
-    <button class="lang-btn" id="lb-nl" onclick="setLang('nl')">NL</button>
+    <button class="lang-btn" id="lb-en" onclick="setLang('en')">EN</button>
+    <button class="lang-btn lang-active" id="lb-nl" onclick="setLang('nl')">NL</button>
   </div>
   <a class="nav-cta" id="nav-cta-btn" href="#contact">Free Analysis →</a>
   <button class="ham" id="ham" aria-label="Menu"><span></span><span></span><span></span></button>
@@ -505,8 +505,8 @@ footer{background:var(--bg-card);padding:52px 64px 36px;border-top:1px solid var
   <a class="ml" href="#packages" onclick="closeMob()">Packages <span class="arr">→</span></a>
   <a class="ml" href="#contact" onclick="closeMob()">Contact <span class="arr">→</span></a>
   <div class="mob-lang">
-    <button class="mob-lb mob-lb-act" id="mlb-en" onclick="setLang('en');closeMob()">EN</button>
-    <button class="mob-lb" id="mlb-nl" onclick="setLang('nl');closeMob()">NL</button>
+    <button class="mob-lb" id="mlb-en" onclick="setLang('en');closeMob()">EN</button>
+    <button class="mob-lb mob-lb-act" id="mlb-nl" onclick="setLang('nl');closeMob()">NL</button>
   </div>
   <a class="mc" id="mob-cta-btn" href="#contact" onclick="closeMob()">Free Analysis →</a>
 </div>
@@ -1328,10 +1328,11 @@ document.addEventListener('DOMContentLoaded', () => {
     closeBtn.addEventListener('click', () => overlay.classList.remove('open'));
     overlay.addEventListener('click', e => { if (e.target === overlay) overlay.classList.remove('open'); });
   }
+  setLang('nl');
 });
 
 // ── LANGUAGE SYSTEM ──
-let _lang = 'en';
+let _lang = 'nl';
 const $ = s => document.querySelector(s);
 const $$ = s => document.querySelectorAll(s);
 
