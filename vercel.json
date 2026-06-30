@@ -1,5 +1,7 @@
 {
   "redirects": [
-    { "source": "/", "destination": "/en/", "permanent": false }
+    { "source": "/", "destination": "/en/", "permanent": false },
+    { "source": "/work", "destination": "/systems-library/", "permanent": false },
+    { "source": "/work/", "destination": "/systems-library/", "permanent": false }
   ]
 }

@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Systems Library | WAT Agency Belgium</title>
+<meta name="description" content="Explore real client systems and strategic concept systems by WAT Agency Belgium. Websites, positioning, Google Business direction, trust elements and client journey structures for service businesses.">
+<link rel="canonical" href="https://watagencybelgium.be/systems-library/">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Grotesk:wght@400;500;600;700;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --red:#FFE500;--red-mid:#D4BE00;--red-dark:#8B7A00;
+  --red-10:rgba(255,229,0,.1);--red-15:rgba(255,229,0,.15);--red-06:rgba(255,229,0,.06);
+  --ink:#F5F5F5;--ink-60:rgba(245,245,245,.6);--ink-40:rgba(245,245,245,.4);--ink-12:rgba(245,245,245,.12);
+  --bg:#0D0D0D;--bg-card:#1A1A1A;--bg-alt:#222222;--bg-dark:#0D0D0D;
+  --border:rgba(245,245,245,.08);--border-red:rgba(255,229,0,.2);
+  --r24:24px;--r16:16px;--r12:12px;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{background:var(--bg);color:var(--ink);font-family:'Inter',sans-serif;font-size:16px;line-height:1.6;overflow-x:hidden}
+a{text-decoration:none;color:inherit}
+img{display:block;max-width:100%}
+ul{list-style:none}
+
+/* ── NAV ── */
+nav{position:fixed;top:0;left:0;right:0;z-index:500;background:rgba(13,13,13,.92);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);display:flex;align-items:center;justify-content:space-between;padding:0 56px;height:66px;border-bottom:1px solid var(--border);transition:height .3s,box-shadow .3s}
+nav.scrolled{height:56px;box-shadow:0 4px 24px rgba(0,0,0,.3)}
+.nav-logo{font-family:'Bebas Neue',sans-serif;font-size:24px;letter-spacing:5px;color:var(--ink);display:flex;align-items:center;gap:1px}
+.nav-logo .q{color:var(--red);font-size:30px;line-height:.85}
+.nav-links{display:flex;gap:32px;align-items:center}
+.nav-links a{font-family:'Inter',sans-serif;font-size:13px;font-weight:500;color:var(--ink-60);transition:color .2s;letter-spacing:.2px}
+.nav-links a:hover,.nav-links a.active{color:var(--red)}
+.nav-cta{font-family:'Space Grotesk',sans-serif;font-size:12px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#0D0D0D;background:var(--red);padding:10px 24px;border-radius:var(--r12);transition:background .2s,transform .15s,box-shadow .2s}
+.nav-cta:hover{background:var(--red-mid);transform:translateY(-1px);box-shadow:0 8px 24px var(--red-15)}
+.ham{display:none;flex-direction:column;gap:5px;padding:8px;cursor:pointer;background:none;border:none;-webkit-tap-highlight-color:transparent}
+.ham span{display:block;width:22px;height:2px;background:var(--ink);border-radius:2px;transition:transform .3s,opacity .3s}
+.ham.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.ham.open span:nth-child(2){opacity:0}
+.ham.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+.mob-drawer{position:fixed;top:0;left:0;right:0;bottom:0;background:var(--bg-card);z-index:490;display:flex;flex-direction:column;padding:88px 32px 40px;gap:4px;transform:translateX(100%);transition:transform .38s cubic-bezier(.22,1,.36,1)}
+.mob-drawer.open{transform:none}
+.mob-drawer a.ml{font-family:'Space Grotesk',sans-serif;font-size:clamp(22px,6vw,30px);font-weight:800;letter-spacing:.5px;color:var(--ink);padding:14px 0;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;transition:color .2s}
+.mob-drawer a.ml:hover{color:var(--red)}
+.mob-drawer a.ml .arr{font-size:16px;color:var(--red);opacity:.5}
+.mob-drawer a.mc{margin-top:24px;display:block;text-align:center;font-family:'Space Grotesk',sans-serif;font-size:14px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#0D0D0D;background:var(--red);padding:18px;border-radius:var(--r16);transition:background .2s}
+.mob-drawer a.mc:hover{background:var(--red-mid)}
+@media(max-width:768px){
+  nav{padding:0 24px;height:60px}
+  .nav-links,.nav-cta{display:none}
+  .ham{display:flex}
+  .nav-logo{font-size:20px;letter-spacing:4px}
+  .nav-logo .q{font-size:26px}
+}
+
+/* STICKY MOBILE */
+.sticky-m{position:fixed;bottom:0;left:0;right:0;z-index:450;background:var(--bg-card);border-top:1px solid var(--border);padding:12px 20px;display:none;align-items:center;justify-content:space-between;gap:12px;box-shadow:0 -4px 20px rgba(0,0,0,.3)}
+@media(max-width:768px){.sticky-m{display:flex}}
+.sticky-m p{font-size:12px;font-weight:500;color:var(--ink-60);line-height:1.3}
+.sticky-m p strong{color:var(--ink);display:block;font-size:13px}
+.sticky-m a{font-family:'Space Grotesk',sans-serif;font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#0D0D0D;background:var(--red);padding:12px 18px;border-radius:var(--r12);white-space:nowrap}
+
+/* BACK TOP */
+#back-top{position:fixed;bottom:28px;right:28px;z-index:400;width:44px;height:44px;border-radius:50%;background:var(--bg-card);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:16px;color:var(--red);cursor:pointer;opacity:0;transform:translateY(8px);transition:opacity .3s,transform .3s,box-shadow .2s;pointer-events:none;box-shadow:0 4px 16px rgba(0,0,0,.3)}
+#back-top.show{opacity:1;transform:none;pointer-events:auto}
+#back-top:hover{box-shadow:0 8px 24px var(--red-15)}
+@media(max-width:768px){#back-top{bottom:80px;right:16px;width:38px;height:38px}}
+
+/* REVEAL */
+.rv,.rv-l,.rv-r{transition:opacity .75s cubic-bezier(.22,1,.36,1),transform .75s cubic-bezier(.22,1,.36,1)}
+.js-on .rv{opacity:0;transform:translateY(22px)}
+.vi{opacity:1!important;transform:none!important}
+.d1{transition-delay:.1s!important}.d2{transition-delay:.19s!important}.d3{transition-delay:.28s!important}.d4{transition-delay:.37s!important}
+
+/* SHARED */
+.sec{padding:104px 64px;position:relative;overflow:hidden}
+@media(max-width:768px){.sec{padding:72px 24px}}
+.sec-white{background:var(--bg-card)}
+.sec-alt{background:var(--bg-alt)}
+.sec-tag{font-family:'Space Grotesk',sans-serif;font-size:11px;font-weight:700;letter-spacing:5px;text-transform:uppercase;display:flex;align-items:center;gap:12px;margin-bottom:20px;color:var(--red)}
+.sec-tag::before{content:'';display:block;width:28px;height:2px;background:currentColor;border-radius:2px}
+.big-h{font-family:'Space Grotesk',sans-serif;font-weight:900;line-height:.96;letter-spacing:-2px;color:var(--ink)}
+.red-acc{color:var(--red)}
+.sec-sub{font-size:clamp(15px,1.8vw,19px);font-weight:400;line-height:1.7;margin-top:16px;margin-bottom:44px;max-width:680px;color:var(--ink-60)}
+
+/* BUTTONS */
+.btn-red{font-family:'Space Grotesk',sans-serif;font-size:12px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#0D0D0D;background:var(--red);padding:16px 36px;border-radius:var(--r16);display:inline-flex;align-items:center;gap:10px;transition:background .2s,transform .15s,box-shadow .25s;border:none;cursor:pointer}
+.btn-red:hover{background:var(--red-mid);transform:translateY(-2px);box-shadow:0 12px 36px var(--red-15)}
+.btn-outline{font-family:'Space Grotesk',sans-serif;font-size:12px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--ink);background:transparent;padding:14px 36px;border-radius:var(--r16);border:1.5px solid var(--ink-12);display:inline-flex;align-items:center;gap:10px;transition:border-color .2s,color .2s;cursor:pointer}
+.btn-outline:hover{border-color:var(--red);color:var(--red)}
+
+/* ── HERO ── */
+.wl-hero{background:var(--bg);padding:150px 64px 90px;position:relative;overflow:hidden}
+.wl-hero::before{content:'';position:absolute;top:-260px;right:-260px;width:760px;height:760px;border-radius:50%;background:radial-gradient(circle at 38% 38%,rgba(255,229,0,.18) 0%,rgba(255,229,0,.06) 38%,transparent 68%);filter:blur(60px);pointer-events:none}
+.wl-hero-inner{position:relative;z-index:1;max-width:880px}
+.wl-eyebrow{display:inline-flex;align-items:center;gap:8px;font-family:'Space Grotesk',sans-serif;font-size:11px;font-weight:700;letter-spacing:5px;text-transform:uppercase;color:var(--red);margin-bottom:26px}
+.wl-eyebrow::before{content:'';width:28px;height:2px;background:var(--red);border-radius:2px;display:block}
+.wl-hero h1{font-size:clamp(46px,7.5vw,92px);letter-spacing:-3px}
+.wl-hero-sub{font-family:'Space Grotesk',sans-serif;font-size:clamp(17px,2vw,24px);font-weight:600;color:var(--ink);margin-top:22px;max-width:660px;line-height:1.4}
+.wl-hero p.lead{font-size:clamp(15px,1.6vw,17px);line-height:1.8;color:var(--ink-60);max-width:600px;margin-top:20px}
+.wl-hero-btns{display:flex;gap:14px;margin-top:40px;flex-wrap:wrap}
+@media(max-width:768px){
+  .wl-hero{padding:108px 24px 64px}
+  .wl-hero-btns{flex-direction:column}
+  .wl-hero-btns a{width:100%;justify-content:center}
+}
+
+/* ── INFO CARDS ── */
+.info-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+@media(max-width:768px){.info-grid{grid-template-columns:1fr}}
+.info-card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--r24);padding:36px;transition:border-color .25s,transform .25s}
+.info-card:hover{border-color:var(--border-red);transform:translateY(-3px)}
+.badge{display:inline-flex;align-items:center;font-family:'Space Grotesk',sans-serif;font-size:10.5px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:6px 14px;border-radius:30px;margin-bottom:18px}
+.badge.client{background:var(--red-10);color:var(--red);border:1px solid var(--border-red)}
+.badge.concept{background:rgba(245,245,245,.07);color:var(--ink-60);border:1px solid var(--border)}
+.info-card h3{font-family:'Space Grotesk',sans-serif;font-size:24px;font-weight:700;margin-bottom:12px}
+.info-card p{font-size:14px;line-height:1.8;color:var(--ink-60)}
+
+/* ── TABS ── */
+.tabs{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:48px}
+.tab-btn{font-family:'Space Grotesk',sans-serif;font-size:12px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:11px 22px;border-radius:30px;border:1px solid var(--border);background:transparent;color:var(--ink-60);cursor:pointer;transition:.2s}
+.tab-btn:hover{border-color:var(--border-red);color:var(--ink)}
+.tab-btn.active{background:var(--red);color:#0D0D0D;border-color:var(--red)}
+
+/* ── PROJECT GRID ── */
+.proj-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(330px,1fr));gap:26px}
+.proj-card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--r24);overflow:hidden;display:flex;flex-direction:column;transition:transform .25s,border-color .25s,box-shadow .25s}
+.proj-card:hover{transform:translateY(-5px);border-color:var(--border-red);box-shadow:0 20px 48px rgba(0,0,0,.45)}
+.proj-card.hide{display:none}
+.proj-mock{height:170px;position:relative;background:linear-gradient(135deg,var(--bg-alt) 0%,#141414 100%);display:flex;align-items:center;justify-content:center;overflow:hidden}
+.proj-mock-bar{position:absolute;top:0;left:0;right:0;height:26px;background:rgba(245,245,245,.04);display:flex;align-items:center;gap:6px;padding:0 12px}
+.proj-mock-dot{width:7px;height:7px;border-radius:50%;background:rgba(245,245,245,.16)}
+.proj-mock-label{font-family:'Bebas Neue',sans-serif;font-size:30px;letter-spacing:3px;color:rgba(245,245,245,.14);text-align:center;padding:0 16px;line-height:1.1}
+.proj-body{padding:26px;display:flex;flex-direction:column;gap:12px;flex:1}
+.proj-badges{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.proj-badge{font-family:'Space Grotesk',sans-serif;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:5px 11px;border-radius:20px}
+.proj-badge.type-client{background:var(--red-10);color:var(--red);border:1px solid var(--border-red)}
+.proj-badge.type-concept{background:rgba(245,245,245,.07);color:var(--ink-60);border:1px solid var(--border)}
+.proj-cat{font-size:12px;color:var(--ink-40);font-weight:500}
+.proj-title{font-family:'Space Grotesk',sans-serif;font-size:21px;font-weight:700;color:var(--ink)}
+.proj-desc{font-size:13.5px;line-height:1.65;color:var(--ink-60)}
+.proj-incl{font-size:12px;color:var(--ink-40);line-height:1.7;padding-top:10px;border-top:1px solid var(--border)}
+.proj-incl strong{color:var(--ink-60);display:block;margin-bottom:4px;font-family:'Space Grotesk',sans-serif;font-size:10px;letter-spacing:1px;text-transform:uppercase}
+.proj-note{font-size:11.5px;font-style:italic;color:var(--ink-40);background:rgba(255,229,0,.05);padding:10px 12px;border-radius:10px;border:1px solid var(--border)}
+.proj-actions{display:flex;gap:10px;margin-top:auto;flex-wrap:wrap}
+.proj-btn{flex:1;text-align:center;font-family:'Space Grotesk',sans-serif;font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:13px 10px;border-radius:12px;cursor:pointer;transition:.2s;border:none;min-width:120px}
+.proj-btn.primary{background:var(--red);color:#0D0D0D}
+.proj-btn.primary:hover{background:var(--red-mid)}
+.proj-btn.ghost{background:transparent;border:1.5px solid var(--ink-12);color:var(--ink)}
+.proj-btn.ghost:hover{border-color:var(--red);color:var(--red)}
+.proj-breakdown{display:none;padding:0 26px 24px;font-size:13px;color:var(--ink-60);line-height:1.8}
+.proj-breakdown.open{display:block}
+.proj-breakdown ul{display:flex;flex-direction:column;gap:6px;margin-top:10px}
+.proj-breakdown li{padding-left:16px;position:relative}
+.proj-breakdown li::before{content:'—';position:absolute;left:0;color:var(--red)}
+
+/* ── CONCEPT EXPLAIN ── */
+.concept-list{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:36px}
+@media(max-width:900px){.concept-list{grid-template-columns:1fr 1fr}}
+@media(max-width:600px){.concept-list{grid-template-columns:1fr}}
+.concept-item{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--r16);padding:18px 20px;font-size:13.5px;color:var(--ink-60);display:flex;gap:10px;align-items:flex-start}
+.concept-item .n{color:var(--red);font-family:'Space Grotesk',sans-serif;font-weight:700;flex-shrink:0}
+
+/* ── JOURNEY ── */
+.journey-steps{display:flex;flex-direction:column;margin-top:40px}
+.journey-step{display:flex;gap:24px;padding:22px 0;border-bottom:1px solid var(--border);align-items:flex-start}
+.journey-step:last-child{border-bottom:none}
+.journey-num{font-family:'Bebas Neue',sans-serif;font-size:38px;color:var(--red);min-width:54px;line-height:1}
+.journey-step p{font-size:15px;color:var(--ink-60);padding-top:4px}
+
+/* ── CTA ── */
+.cta-box{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--r24);padding:60px;text-align:center}
+.cta-box h2{font-family:'Space Grotesk',sans-serif;font-weight:900;font-size:clamp(28px,4vw,46px);letter-spacing:-1px;margin-bottom:18px}
+.cta-box p{font-size:15px;color:var(--ink-60);max-width:560px;margin:0 auto 32px}
+.cta-box .small{font-size:12px;color:var(--ink-40);margin-top:22px;max-width:480px}
+.cta-btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+
+/* ── FOOTER ── */
+footer{padding:64px 64px 32px;background:var(--bg)}
+@media(max-width:768px){footer{padding:48px 24px 24px}}
+.foot-inner{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:48px}
+@media(max-width:768px){.foot-inner{grid-template-columns:1fr;gap:28px}}
+.foot-logo{font-family:'Bebas Neue',sans-serif;font-size:26px;letter-spacing:5px;color:var(--ink);display:flex;align-items:center;margin-bottom:12px}
+.foot-logo .q{color:var(--red);font-size:32px;line-height:.85}
+.foot-desc{font-size:13px;line-height:1.8;color:var(--ink-60);max-width:300px}
+.foot-ttl{font-family:'Space Grotesk',sans-serif;font-size:10px;font-weight:700;letter-spacing:4px;text-transform:uppercase;color:var(--red);margin-bottom:16px}
+.foot-links{display:flex;flex-direction:column;gap:8px}
+.foot-links a{font-size:13px;color:var(--ink-60);transition:color .2s}
+.foot-links a:hover{color:var(--red)}
+.foot-bottom{margin-top:40px;padding-top:24px;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+.foot-bottom p{font-size:12px;color:var(--ink-40)}
+.foot-tagline{font-family:'Space Grotesk',sans-serif;font-size:10px;font-weight:700;letter-spacing:4px;text-transform:uppercase;color:var(--ink-40)}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="nav">
+  <a class="nav-logo" href="/en/">WAT<span class="q">?</span>&nbsp;AGENCY</a>
+  <div class="nav-links">
+    <a href="/en/">Home</a>
+    <a href="#client">Client Systems</a>
+    <a href="#concept">Concept Systems</a>
+    <a href="#journey">Client Journey</a>
+    <a href="/en/#contact">Contact</a>
+  </div>
+  <a class="nav-cta" href="/en/#contact">Request an audit →</a>
+  <button class="ham" id="ham" aria-label="Menu"><span></span><span></span><span></span></button>
+</nav>
+
+<div class="mob-drawer" id="mob-drawer">
+  <a class="ml" href="/en/" onclick="closeMob()">Home <span class="arr">→</span></a>
+  <a class="ml" href="#client" onclick="closeMob()">Client Systems <span class="arr">→</span></a>
+  <a class="ml" href="#concept" onclick="closeMob()">Concept Systems <span class="arr">→</span></a>
+  <a class="ml" href="#journey" onclick="closeMob()">Client Journey <span class="arr">→</span></a>
+  <a class="ml" href="/en/#contact" onclick="closeMob()">Contact <span class="arr">→</span></a>
+  <a class="mc" href="/en/#contact" onclick="closeMob()">Request an audit →</a>
+</div>
+
+<div class="sticky-m">
+  <p><strong>Systems Library</strong>Real & concept work, explained</p>
+  <a href="/en/#contact">Get an audit →</a>
+</div>
+
+<!-- HERO -->
+<section class="wl-hero">
+  <div class="wl-hero-inner">
+    <div class="wl-eyebrow rv">Work</div>
+    <h1 class="big-h rv d1">Systems<br>Library<span class="red-acc">.</span></h1>
+    <p class="wl-hero-sub rv d2">Not just websites. Complete systems built around service businesses.</p>
+    <p class="lead rv d3">WAT Agency Belgium creates strategic systems for service businesses: websites, positioning, Google Business direction, social media structure, trust elements and contact flows. Some projects here are real client systems. Others are concept systems created to show how different service businesses can be positioned, structured and presented professionally.</p>
+    <div class="wl-hero-btns rv d4">
+      <a class="btn-red" href="#client">View Client Systems →</a>
+      <a class="btn-outline" href="#concept">View Concept Systems</a>
+    </div>
+  </div>
+</section>
+
+<!-- EXPLANATION -->
+<section class="sec sec-white">
+  <div class="sec-tag rv">What you'll find here</div>
+  <div class="big-h rv" style="font-size:clamp(34px,5vw,56px);margin-bottom:40px">Two kinds<br>of <span class="red-acc">work.</span></div>
+  <div class="info-grid">
+    <div class="info-card rv">
+      <span class="badge client">Real client work</span>
+      <h3>Client Systems</h3>
+      <p>Real projects created for service businesses. These cases show what we built, what problem we solved and how the system supports trust, visibility and enquiries.</p>
+    </div>
+    <div class="info-card rv d1">
+      <span class="badge concept">Demo / strategy concept</span>
+      <h3>Concept Systems</h3>
+      <p>Strategic demo projects created by WAT Agency Belgium to demonstrate how a service business could be positioned, structured and presented. These concepts show our thinking before design.</p>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECT GRID -->
+<section class="sec sec-alt" id="library">
+  <div class="sec-tag rv">Systems Library</div>
+  <div class="big-h rv" style="font-size:clamp(34px,5vw,56px)">Browse the <span class="red-acc">work.</span></div>
+  <p class="sec-sub rv">Filter by type or by what's included.</p>
+
+  <div class="tabs rv">
+    <button class="tab-btn active" data-filter="all">All</button>
+    <button class="tab-btn" data-filter="client">Client Systems</button>
+    <button class="tab-btn" data-filter="concept">Concept Systems</button>
+    <button class="tab-btn" data-filter="websites">Websites</button>
+    <button class="tab-btn" data-filter="google-business">Google Business</button>
+    <button class="tab-btn" data-filter="branding">Branding</button>
+    <button class="tab-btn" data-filter="lead-flow">Lead Flow</button>
+  </div>
+
+  <div class="proj-grid" id="proj-grid">
+
+    <!-- CLIENT 1: RENO RANGERS -->
+    <div class="proj-card rv" data-type="client" data-tags="websites,google-business,lead-flow">
+      <div class="proj-mock">
+        <div class="proj-mock-bar"><span class="proj-mock-dot"></span><span class="proj-mock-dot"></span><span class="proj-mock-dot"></span></div>
+        <div class="proj-mock-label">RENO<br>RANGERS</div>
+      </div>
+      <div class="proj-body">
+        <div class="proj-badges"><span class="proj-badge type-client">Client System</span></div>
+        <div class="proj-cat">Renovation / Local Service Business</div>
+        <div class="proj-title">Reno Rangers System</div>
+        <p class="proj-desc">A real website and visibility system built for a renovation business covering 18 cities around Antwerp — structured around trust, proof and a single fixed-price contact path.</p>
+        <div class="proj-incl"><strong>Included</strong>Website (18 city pages) · NL-language SEO · Google Business direction · Fixed-price positioning · WhatsApp contact flow</div>
+        <div class="proj-actions">
+          <a class="proj-btn primary" href="https://www.renorangers.be" target="_blank" rel="noopener">View website →</a>
+          <button class="proj-btn ghost" onclick="toggleBreakdown(this)">View breakdown</button>
+        </div>
+      </div>
+      <div class="proj-breakdown">
+        <p><strong>What we built:</strong></p>
+        <ul>
+          <li>React website with Dutch-language SEO targeting the Antwerp market</li>
+          <li>Separate service pages — bathroom renovation, full renovation, interior finishing</li>
+          <li>18 city pages ranking across districts and municipalities</li>
+          <li>"Fixed price, one contact" positioning matched to local buyer expectations</li>
+        </ul>
+        <p style="margin-top:10px"><strong>Result:</strong> 5.0★ on Google Maps, ranking in 18 cities, a steady stream of enquiries — there was no website before this system.</p>
+      </div>
+    </div>
+
+    <!-- CLIENT 2: ISOPROTECH -->
+    <div class="proj-card rv d1" data-type="client" data-tags="websites,google-business,lead-flow">
+      <div class="proj-mock">
+        <div class="proj-mock-bar"><span class="proj-mock-dot"></span><span class="proj-mock-dot"></span><span class="proj-mock-dot"></span></div>
+        <div class="proj-mock-label">ISO<br>PROTECH</div>
+      </div>
+      <div class="proj-body">
+        <div class="proj-badges"><span class="proj-badge type-client">Client System</span></div>
+        <div class="proj-cat">Insulation / Local Service Business</div>
+        <div class="proj-title">ISOPROTECH System</div>
+        <p class="proj-desc">A real client system for an insulation company — built around search visibility across 10 cities, verified reviews, and a price calculator that turns visitors into enquiries.</p>
+        <div class="proj-incl"><strong>Included</strong>Website (10 city pages) · Google Business direction · FAQ schema · WhatsApp tracking + GTM · Price calculator & inspection form</div>
+        <div class="proj-actions">
+          <a class="proj-btn primary" href="https://www.isoprotech.be" target="_blank" rel="noopener">View website →</a>
+          <button class="proj-btn ghost" onclick="toggleBreakdown(this)">View breakdown</button>
+        </div>
+      </div>
+      <div class="proj-breakdown">
+        <p><strong>What we built:</strong></p>
+        <ul>
+          <li>Next.js website with full Dutch SEO — roofing, facade, insulation, asbestos</li>
+          <li>10 city pages — Antwerp, Mechelen, Brasschaat, Schoten, Edegem and more</li>
+          <li>FAQ schema and structured data for Google Knowledge Panel visibility</li>
+          <li>WhatsApp tracking and Google Tag Manager for lead analytics from day one</li>
+          <li>Price calculator and "free inspection" form converting directly on-site</li>
+        </ul>
+        <p style="margin-top:10px"><strong>Result:</strong> 5.0★ on Google Maps, 47 verified reviews, top rankings for "dakisolatie Antwerpen" and "gevelisolatie" across 10 cities.</p>
+      </div>
+    </div>
+
+    <!-- CONCEPT 1: BEAUTY SALON -->
+    <div class="proj-card rv" data-type="concept" data-tags="websites,branding,google-business,lead-flow">
+      <div class="proj-mock">
+        <div class="proj-mock-bar"><span class="proj-mock-dot"></span><span class="proj-mock-dot"></span><span class="proj-mock-dot"></span></div>
+        <div class="proj-mock-label">BEAUTY<br>SALON</div>
+      </div>
+      <div class="proj-body">
+        <div class="proj-badges"><span class="proj-badge type-concept">Concept System</span></div>
+        <div class="proj-cat">Beauty / Local Service Business</div>
+        <div class="proj-title">Beauty Salon System</div>
+        <p class="proj-desc">A strategic concept showing how a beauty salon can move from random Instagram content to a clear system that helps clients find, trust and book the service.</p>
+        <div class="proj-incl"><strong>Included</strong>Website structure · Service clarity · Real proof · Booking flow · Google direction</div>
+        <div class="proj-note">Concept project — created to demonstrate strategy, structure and client journey.</div>
+        <div class="proj-actions">
+          <button class="proj-btn ghost" style="flex:1 1 100%" onclick="toggleBreakdown(this)">View breakdown</button>
+        </div>
+      </div>
+      <div class="proj-breakdown">
+        <p><strong>Concept direction:</strong></p>
+        <ul>
+          <li>Positioning around expertise and consistency, not just before/after photos</li>
+          <li>Homepage built to answer "what service, what result, what price" in seconds</li>
+          <li>Trust elements: reviews, certifications, real client results</li>
+          <li>Direct booking flow replacing DM-only appointment requests</li>
+          <li>Google Business direction to capture local "near me" searches</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- CONCEPT 2: CLEANING COMPANY -->
+    <div class="proj-card rv d1" data-type="concept" data-tags="websites,google-business,lead-flow">
+      <div class="proj-mock">
+        <div class="proj-mock-bar"><span class="proj-mock-dot"></span><span class="proj-mock-dot"></span><span class="proj-mock-dot"></span></div>
+        <div class="proj-mock-label">CLEANING<br>COMPANY</div>
+      </div>
+      <div class="proj-body">
+        <div class="proj-badges"><span class="proj-badge type-concept">Concept System</span></div>
+        <div class="proj-cat">Cleaning / Local Service Business</div>
+        <div class="proj-title">Cleaning Company System</div>
+        <p class="proj-desc">A concept system created to show how a cleaning company can build trust, explain its services clearly and make quote requests easier.</p>
+        <div class="proj-incl"><strong>Included</strong>Service pages · Trust elements · Quote flow · Reviews direction · Contact structure</div>
+        <div class="proj-note">Concept project — created to demonstrate strategy, structure and client journey.</div>
+        <div class="proj-actions">
+          <button class="proj-btn ghost" style="flex:1 1 100%" onclick="toggleBreakdown(this)">View breakdown</button>
+        </div>
+      </div>
+      <div class="proj-breakdown">
+        <p><strong>Concept direction:</strong></p>
+        <ul>
+          <li>Clear service pages — residential, office, one-off vs. recurring contracts</li>
+          <li>Trust block: insurance, vetted staff, satisfaction guarantee</li>
+          <li>Quote request flow replacing phone-only enquiries</li>
+          <li>Reviews direction to build a verifiable track record on Google</li>
+          <li>Simple contact structure: form, WhatsApp, callback request</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- CONCEPT 3: CONSULTANT -->
+    <div class="proj-card rv d2" data-type="concept" data-tags="websites,branding,lead-flow">
+      <div class="proj-mock">
+        <div class="proj-mock-bar"><span class="proj-mock-dot"></span><span class="proj-mock-dot"></span><span class="proj-mock-dot"></span></div>
+        <div class="proj-mock-label">CONSULTANT</div>
+      </div>
+      <div class="proj-body">
+        <div class="proj-badges"><span class="proj-badge type-concept">Concept System</span></div>
+        <div class="proj-cat">Consulting / Service Business</div>
+        <div class="proj-title">Consultant System</div>
+        <p class="proj-desc">A positioning and website concept for a consultant, focused on clear offer structure, proof, booking flow and trust-building content.</p>
+        <div class="proj-incl"><strong>Included</strong>Positioning · Offer clarity · Case structure · Booking flow · Content direction</div>
+        <div class="proj-note">Concept project — created to demonstrate strategy, structure and client journey.</div>
+        <div class="proj-actions">
+          <button class="proj-btn ghost" style="flex:1 1 100%" onclick="toggleBreakdown(this)">View breakdown</button>
+        </div>
+      </div>
+      <div class="proj-breakdown">
+        <p><strong>Concept direction:</strong></p>
+        <ul>
+          <li>One clear offer above the fold instead of a list of vague services</li>
+          <li>Case study structure to show outcomes, not just credentials</li>
+          <li>Booking flow connected directly to a calendar, no email back-and-forth</li>
+          <li>Content direction built around the questions prospects actually ask</li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- WHAT IS A CONCEPT SYSTEM -->
+<section class="sec sec-white" id="concept-info">
+  <div class="sec-tag rv">Concept Systems explained</div>
+  <div class="big-h rv" style="font-size:clamp(34px,5vw,56px)">What is a <span class="red-acc">Concept System?</span></div>
+  <p class="sec-sub rv">A Concept System is not a random website design. It is a strategic demo project created to show how a service business could be positioned, structured and presented.</p>
+  <div class="concept-list">
+    <div class="concept-item rv"><span class="n">01</span>A business positioning idea</div>
+    <div class="concept-item rv"><span class="n">02</span>Website structure</div>
+    <div class="concept-item rv"><span class="n">03</span>Homepage direction</div>
+    <div class="concept-item rv"><span class="n">04</span>Service clarity</div>
+    <div class="concept-item rv"><span class="n">05</span>Trust elements</div>
+    <div class="concept-item rv"><span class="n">06</span>Google Business direction</div>
+    <div class="concept-item rv"><span class="n">07</span>Content ideas</div>
+    <div class="concept-item rv"><span class="n">08</span>Contact flow</div>
+    <div class="concept-item rv"><span class="n">09</span>Client journey logic</div>
+  </div>
+  <p class="sec-sub rv" style="margin-top:32px;margin-bottom:0">Concept Systems help future clients understand how we think before we build.</p>
+</section>
+
+<!-- CLIENT JOURNEY -->
+<section class="sec sec-alt" id="journey">
+  <div class="sec-tag rv">The foundation</div>
+  <div class="big-h rv" style="font-size:clamp(34px,5vw,56px)">Every system starts with<br>the <span class="red-acc">client journey.</span></div>
+  <p class="sec-sub rv">Before we design a page, we look at the full path a potential client takes:</p>
+  <div class="journey-steps">
+    <div class="journey-step rv"><span class="journey-num">01</span><p>Can they find the business?</p></div>
+    <div class="journey-step rv"><span class="journey-num">02</span><p>Do they understand the service?</p></div>
+    <div class="journey-step rv"><span class="journey-num">03</span><p>Do they trust the business?</p></div>
+    <div class="journey-step rv"><span class="journey-num">04</span><p>Can they see proof?</p></div>
+    <div class="journey-step rv"><span class="journey-num">05</span><p>Is it easy to contact or book?</p></div>
+    <div class="journey-step rv"><span class="journey-num">06</span><p>What happens after the enquiry?</p></div>
+  </div>
+  <p class="sec-sub rv" style="margin-top:32px;margin-bottom:0">This is why our work is not just about websites. It is about building the structure around the website.</p>
+</section>
+
+<!-- CTA -->
+<section class="sec sec-white" id="contact-cta">
+  <div class="cta-box rv">
+    <h2>Want a system like this<br>for your service business?</h2>
+    <p>If your business has a website, Google profile or social media, but everything feels disconnected, we can help you understand what is missing.</p>
+    <div class="cta-btns">
+      <a class="btn-red" href="/en/#contact">Request an audit →</a>
+      <a class="btn-outline" href="/en/#contact">Contact WAT Agency</a>
+    </div>
+    <p class="small" style="margin-left:auto;margin-right:auto">We'll review your current website, Google Business profile, social media presence and client journey.</p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="foot-inner">
+    <div>
+      <div class="foot-logo">WAT<span class="q">?</span>&nbsp;AGENCY</div>
+      <p class="foot-desc">Full online presence for businesses in Belgium. Website, Google Business, social media and content — one system that brings clients while you work.</p>
+    </div>
+    <div>
+      <div class="foot-ttl">Navigation</div>
+      <div class="foot-links">
+        <a href="/en/">Home</a>
+        <a href="#client">Client Systems</a>
+        <a href="#concept">Concept Systems</a>
+        <a href="#journey">Client Journey</a>
+        <a href="/en/#contact">Contact</a>
+      </div>
+    </div>
+    <div>
+      <div class="foot-ttl">Contact</div>
+      <div class="foot-links">
+        <a href="mailto:hello@viktoriiamarketing.be">hello@viktoriiamarketing.be</a>
+        <a href="https://wa.me/32471623105">WhatsApp</a>
+        <a href="https://instagram.com/wat.agency">Instagram</a>
+      </div>
+    </div>
+  </div>
+  <div class="foot-bottom">
+    <p>© 2025 WAT? Agency Belgium. All rights reserved.</p>
+    <div class="foot-tagline">Built for Belgium</div>
+  </div>
+</footer>
+
+<button id="back-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Back to top">↑</button>
+
+<script>
+document.body.classList.add('js-on');
+
+// Nav scroll
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 40);
+}, { passive: true });
+
+// Mobile drawer
+const ham = document.getElementById('ham');
+const drawer = document.getElementById('mob-drawer');
+function closeMob() {
+  ham.classList.remove('open');
+  drawer.classList.remove('open');
+  document.body.style.overflow = '';
+}
+ham.addEventListener('click', () => {
+  const o = ham.classList.toggle('open');
+  drawer.classList.toggle('open', o);
+  document.body.style.overflow = o ? 'hidden' : '';
+});
+
+// Back to top
+const bt = document.getElementById('back-top');
+window.addEventListener('scroll', () => {
+  bt.classList.toggle('show', window.scrollY > 500);
+}, { passive: true });
+
+// Reveal on scroll
+const revEls = document.querySelectorAll('.rv');
+const obs = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('vi'); obs.unobserve(e.target); } });
+}, { threshold: 0.12 });
+revEls.forEach(el => obs.observe(el));
+
+// Breakdown toggle
+function toggleBreakdown(btn) {
+  const card = btn.closest('.proj-card');
+  const bd = card.querySelector('.proj-breakdown');
+  const open = bd.classList.toggle('open');
+  btn.textContent = open ? 'Hide breakdown' : 'View breakdown';
+}
+
+// Filter tabs
+const tabBtns = document.querySelectorAll('.tab-btn');
+const cards = document.querySelectorAll('.proj-card');
+tabBtns.forEach(btn => {
+  btn.addEventListener('click', () => {
+    tabBtns.forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const f = btn.dataset.filter;
+    cards.forEach(card => {
+      const type = card.dataset.type;
+      const tags = (card.dataset.tags || '').split(',');
+      const match = f === 'all' || f === type || tags.includes(f);
+      card.classList.toggle('hide', !match);
+    });
+  });
+});
+
+// Anchors that scroll to the library grid and apply a filter
+function wireFilterLink(href, filter) {
+  document.querySelectorAll('a[href="' + href + '"]').forEach(a => {
+    a.addEventListener('click', (e) => {
+      e.preventDefault();
+      document.getElementById('library').scrollIntoView({ behavior: 'smooth' });
+      document.querySelector('.tab-btn[data-filter="' + filter + '"]').click();
+      closeMob();
+    });
+  });
+}
+wireFilterLink('#client', 'client');
+wireFilterLink('#concept', 'concept');
+</script>
+</body>
+</html>
