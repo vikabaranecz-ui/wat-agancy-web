@@ -79,6 +79,8 @@ nav.slim{height:54px}
 .hero{background:var(--red-deep);padding:120px 48px 80px;min-height:100vh;display:flex;flex-direction:column;justify-content:center;position:relative;overflow:hidden}
 .hero-ghost{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-family:'Bebas Neue',sans-serif;font-size:clamp(100px,18vw,280px);color:rgba(255,255,255,.03);white-space:nowrap;user-select:none;letter-spacing:-6px;animation:ghost-drift 22s ease-in-out infinite alternate;pointer-events:none}
 @keyframes ghost-drift{from{transform:translate(-51%,-50%)}to{transform:translate(-49%,-50%)}}
+.hero-for{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:22px;position:relative;z-index:1}
+.hero-for span{font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:rgba(247,242,234,.4);background:rgba(255,255,255,.05);padding:5px 12px;border:1px solid rgba(255,255,255,.1)}
 .hero-tag{font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:6px;text-transform:uppercase;color:var(--lime);display:flex;align-items:center;gap:14px;margin-bottom:28px;}
 .hero-tag::before{content:'';display:block;width:36px;height:1.5px;background:var(--lime)}
 .hero h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(52px,10vw,120px);line-height:.88;letter-spacing:2px;color:#F7F2EA;max-width:900px;position:relative;z-index:1;}
@@ -86,7 +88,11 @@ nav.slim{height:54px}
 .hero h1 .stroke{-webkit-text-stroke:2px #F7F2EA;color:transparent}
 .hero h1 .stroke-lime{-webkit-text-stroke:2px var(--lime);color:transparent}
 .hero-sub{font-size:clamp(15px,2vw,18px);font-weight:300;line-height:1.8;color:rgba(247,242,234,.75);max-width:540px;margin-top:30px;position:relative;z-index:1}
-.hero-btns{display:flex;gap:14px;margin-top:44px;flex-wrap:wrap;position:relative;z-index:1}
+.hero-services{display:flex;gap:8px;flex-wrap:wrap;margin-top:24px;position:relative;z-index:1}
+.hs-item{display:flex;align-items:center;gap:8px;font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(247,242,234,.6);background:rgba(255,255,255,.05);padding:9px 14px;border:1px solid rgba(132,224,33,.18);transition:background .2s,color .2s,border-color .2s;cursor:default}
+.hs-item:hover{background:rgba(132,224,33,.1);color:var(--lime);border-color:rgba(132,224,33,.35)}
+.hs-item .hs-ico{font-size:13px}
+.hero-btns{display:flex;gap:14px;margin-top:36px;flex-wrap:wrap;position:relative;z-index:1}
 .btn-prime{font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:700;letter-spacing:4px;text-transform:uppercase;color:var(--ink);background:var(--lime);padding:16px 36px;display:inline-block;clip-path:polygon(12px 0%,100% 0%,calc(100% - 12px) 100%,0% 100%);transition:background .2s,transform .15s,box-shadow .2s;position:relative;overflow:hidden}
 .btn-prime::after{content:'';position:absolute;inset:0;background:linear-gradient(120deg,transparent 30%,rgba(255,255,255,.3) 50%,transparent 70%);transform:translateX(-120%);transition:transform .5s}
 .btn-prime:hover{background:var(--lime-bright);transform:scale(1.03);box-shadow:0 0 36px rgba(132,224,33,.45)}
@@ -112,6 +118,8 @@ nav.slim{height:54px}
   .hero-orb{display:none}
   .hero h1{font-size:clamp(46px,13vw,76px)}
   .hero-sub{font-size:15px}
+  .hero-for{gap:6px}.hero-for span{font-size:9px;padding:4px 10px}
+  .hero-services{gap:6px}.hs-item{font-size:10px;padding:8px 10px}
   .hero-btns{flex-direction:column;gap:12px}
   .btn-prime,.btn-ghost-light,.btn-outline-dark{width:100%;text-align:center;padding:16px 24px}
 }
@@ -503,25 +511,47 @@ footer{background:var(--red-dark);border-top:1px solid rgba(132,224,33,.12);padd
 
 <!-- HERO -->
 <section class="hero">
-  <div class="hero-ghost">MARKETING</div>
-  <div class="hero-tag">Marketingbureau voor renovatiebedrijven — Antwerpen</div>
-  <h1>WIJ BOUWEN<br><span class="lime">HET SYSTEEM</span><br><span class="stroke">DAT KLANTEN</span><br><span class="stroke-lime">AANTREKT</span></h1>
-  <p class="hero-sub">Google Business, website, social media en klantbewijzen — in één systeem. Geen losse tools. Geen halve maatregelen. Een fundament dat jaar na jaar sterker wordt.</p>
+  <div class="hero-ghost">RENOVATIE</div>
+
+  <!-- Sector labels — direct duidelijk voor wie -->
+  <div class="hero-for">
+    <span>🏗️ Renovatiebedrijven</span>
+    <span>🔧 Isolatiebedrijven</span>
+    <span>🏠 Dakwerkers</span>
+    <span>🪟 Schrijnwerkers</span>
+    <span>🎨 Schilderbedrijven</span>
+  </div>
+
+  <div class="hero-tag">Gespecialiseerd marketingbureau — Antwerpen &amp; omgeving</div>
+
+  <h1>UW KLANTEN<br>VINDEN U<br><span class="lime">OP GOOGLE</span><br><span class="stroke">EN KIEZEN</span><br><span class="stroke-lime">VOOR U</span></h1>
+
+  <p class="hero-sub">Wij bouwen het complete marketingsysteem voor renovatie- en isolatiebedrijven: Google Business, website, social media en reviews — zodat klanten u vinden, vertrouwen en bellen.</p>
+
+  <!-- Wat zit er in het systeem — 4 pijlers direct zichtbaar -->
+  <div class="hero-services">
+    <div class="hs-item"><span class="hs-ico">🔍</span>Google Business</div>
+    <div class="hs-item"><span class="hs-ico">💻</span>Website op maat</div>
+    <div class="hs-item"><span class="hs-ico">📱</span>Social media</div>
+    <div class="hs-item"><span class="hs-ico">⭐</span>Reviews &amp; bewijs</div>
+  </div>
+
   <div class="hero-btns">
     <a class="btn-prime" href="contact.html">Gratis consult aanvragen</a>
     <a class="btn-ghost-light" href="#wat">Bekijk het systeem</a>
   </div>
+
   <a class="hero-orb" href="contact.html" title="Consult aanvragen">
-    <div class="orb-core"><strong>ONE<br>SYSTEM</strong><span>Google → Vertrouwen → Aanvraag</span></div>
+    <div class="orb-core"><strong>MEER<br>KLANTEN</strong><span>Renovatie · Isolatie · Antwerpen</span></div>
   </a>
 </section>
 
 <!-- STATS -->
 <div class="stats-bar">
-  <a class="stat-link rv" href="#waar"><div class="stat-num">Google</div><div class="stat-label">Lokaal gevonden worden</div></a>
-  <a class="stat-link rv d1" href="#waarom"><div class="stat-num">Vertrouwen</div><div class="stat-label">Van eerste blik af</div></a>
-  <a class="stat-link rv d2" href="#hoe"><div class="stat-num">Systeem</div><div class="stat-label">Alles werkt samen</div></a>
-  <a class="stat-link rv d3" href="#resultaat"><div class="stat-num">Groei</div><div class="stat-label">Stabiel, niet toevallig</div></a>
+  <a class="stat-link rv" href="#voor-wie"><div class="stat-num">Renovatie</div><div class="stat-label">Isolatie · dakwerken · schrijnwerk</div></a>
+  <a class="stat-link rv d1" href="#wat"><div class="stat-num">4 kanalen</div><div class="stat-label">Google · website · social · reviews</div></a>
+  <a class="stat-link rv d2" href="#hoe"><div class="stat-num">1 systeem</div><div class="stat-label">Alles werkt samen — niets apart</div></a>
+  <a class="stat-link rv d3" href="#resultaat"><div class="stat-num">Meer klanten</div><div class="stat-label">Stabiel, niet toevallig</div></a>
 </div>
 
 <div class="div-l"></div>
