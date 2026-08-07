@@ -204,55 +204,27 @@ nav.slim{height:52px}
 @media(max-width:900px){.mech-grid{grid-template-columns:1fr}.mech-right{position:static}}
 @media(max-width:768px){.mech-right{padding:28px 22px}}
 
-/* PACKAGES */
-.packages-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin-top:52px;align-items:start}
-.pkg{background:var(--bg-card);padding:0;border-top:3px solid var(--border);position:relative;transition:transform .3s,box-shadow .3s}
-.pkg:hover{transform:translateY(-6px);box-shadow:0 16px 48px rgba(110,13,13,.12)}
-.pkg.featured{border-top:3px solid var(--lime);transform:translateY(-12px);box-shadow:0 20px 56px rgba(110,13,13,.18)}
-.pkg.featured:hover{transform:translateY(-16px)}
-.pkg-badge{position:absolute;top:-14px;left:50%;transform:translateX(-50%);background:var(--lime);color:var(--ink);font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:700;letter-spacing:4px;text-transform:uppercase;padding:5px 16px;white-space:nowrap;clip-path:polygon(6px 0%,100% 0%,calc(100% - 6px) 100%,0% 100%)}
-.pkg-head{padding:28px 28px 20px;border-bottom:1px solid var(--border)}
-.pkg.featured .pkg-head{background:var(--red-deep)}
-.pkg-num{font-family:'Bebas Neue',sans-serif;font-size:13px;letter-spacing:4px;color:var(--ink-soft);margin-bottom:8px}
-.pkg.featured .pkg-num{color:rgba(247,242,234,.4)}
-.pkg-name{font-family:'Bebas Neue',sans-serif;font-size:clamp(22px,2.8vw,34px);letter-spacing:1px;color:var(--ink);line-height:.95;margin-bottom:10px}
-.pkg.featured .pkg-name{color:#F7F2EA}
-.pkg-result{font-size:13px;line-height:1.6;color:var(--ink-soft);font-style:italic}
-.pkg.featured .pkg-result{color:rgba(247,242,234,.55)}
-.pkg-price{font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-top:10px}
-.pkg-price span{background:rgba(132,224,33,.15);border:1px solid rgba(132,224,33,.3);padding:4px 10px;color:var(--red)}
-.pkg.featured .pkg-price span{background:rgba(132,224,33,.15);border:1px solid rgba(132,224,33,.4);color:var(--lime)}
-.pkg-body{padding:22px 28px}
-.pkg-for{font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:4px;text-transform:uppercase;color:var(--red);margin-bottom:12px;display:block}
-.pkg.featured .pkg-for{color:var(--lime)}
-.pkg-items{list-style:none;display:flex;flex-direction:column;gap:8px;margin-bottom:18px}
-.pkg-items li{display:flex;align-items:flex-start;gap:10px;font-size:13px;line-height:1.6;color:var(--ink-mid)}
-.pkg-items li::before{content:'✓';color:var(--lime);font-weight:700;flex-shrink:0}
-.pkg-footer{padding:0 28px 28px}
-.pkg-cta{display:block;text-align:center;font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:700;letter-spacing:4px;text-transform:uppercase;color:var(--ink);background:var(--lime);padding:15px;clip-path:polygon(10px 0%,100% 0%,calc(100% - 10px) 100%,0% 100%);transition:background .2s,transform .15s}
-.pkg-cta:hover{background:var(--lime-bright);transform:scale(1.02)}
-.pkg-note{text-align:center;font-size:11px;color:var(--ink-soft);margin-top:10px;letter-spacing:.5px}
-@media(max-width:900px){
-  .packages-grid{grid-template-columns:1fr;gap:4px}
-  .pkg.featured{transform:none}.pkg.featured:hover{transform:translateY(-4px)}
-  .pkg:hover{transform:translateY(-4px)}
-  .pkg-badge{top:-12px}
-}
+/* PARTNER SECTION */
+.partner-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:52px}
+.partner-card{padding:32px 24px;background:var(--bg-card);border:1px solid var(--border);border-top:3px solid var(--lime);transition:transform .3s,box-shadow .3s}
+.partner-card:hover{transform:translateY(-4px);box-shadow:0 12px 36px rgba(110,13,13,.1)}
+.pc-ico{font-size:32px;display:block;margin-bottom:14px}
+.partner-card h3{font-family:'Barlow Condensed',sans-serif;font-size:16px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--ink);margin-bottom:10px}
+.partner-card p{font-size:14px;line-height:1.72;color:var(--ink-mid)}
+@media(max-width:768px){.partner-grid{grid-template-columns:1fr}}
 
-/* PACKAGE COMPARISON TABLE */
-.pkg-compare{margin-top:52px;overflow-x:auto}
-.pkg-compare table{width:100%;border-collapse:collapse;background:var(--bg-card)}
-.pkg-compare th{font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:700;letter-spacing:3px;text-transform:uppercase;padding:16px 20px;text-align:center;border-bottom:2px solid var(--border)}
-.pkg-compare th:first-child{text-align:left;color:var(--ink-soft)}
-.pkg-compare th.featured-col{background:var(--red-deep);color:var(--lime)}
-.pkg-compare td{padding:13px 20px;border-bottom:1px solid var(--border);font-size:13px;text-align:center;color:var(--ink-mid)}
-.pkg-compare td:first-child{text-align:left;font-family:'Barlow Condensed',sans-serif;font-weight:600;letter-spacing:.5px;color:var(--ink)}
-.pkg-compare td.featured-col{background:rgba(72,8,8,.04)}
-.pkg-compare tr:last-child td{border-bottom:none}
-.pkg-compare .chk{color:var(--lime);font-size:16px;font-weight:700}
-.pkg-compare .dash{color:rgba(110,13,13,.25);font-size:14px}
-.pkg-compare .partial{color:var(--ink-soft);font-size:12px;font-style:italic}
-@media(max-width:600px){.pkg-compare th,.pkg-compare td{padding:10px 12px;font-size:12px}}
+.partner-pillars{border:1px solid var(--border)}
+.pp-item{display:flex;gap:24px;align-items:flex-start;padding:24px;border-bottom:1px solid var(--border);background:var(--bg-card);transition:background .25s}
+.pp-item:last-child{border-bottom:none}
+.pp-item:hover{background:var(--bg-warm)}
+.pp-num{width:44px;height:44px;border-radius:50%;background:var(--lime);display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue',sans-serif;font-size:22px;color:var(--ink);flex-shrink:0}
+.pp-item strong{font-family:'Barlow Condensed',sans-serif;font-size:16px;font-weight:700;letter-spacing:.5px;color:var(--ink);display:block;margin-bottom:5px}
+.pp-item p{font-size:14px;line-height:1.7;color:var(--ink-mid);margin:0}
+
+.partner-promise{background:var(--red-deep);padding:44px 48px;display:flex;align-items:center;gap:40px;flex-wrap:wrap;margin-top:52px}
+.pp-label{font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:6px;text-transform:uppercase;color:var(--lime);margin-bottom:10px;display:block}
+.pp-text{font-family:'Barlow Condensed',sans-serif;font-size:clamp(16px,2.2vw,22px);font-weight:700;color:#F7F2EA;line-height:1.45;flex:1;min-width:260px;font-style:italic}
+@media(max-width:768px){.partner-promise{padding:28px 22px;flex-direction:column;gap:24px}.pp-text{font-size:16px}}
 
 /* PROCESS */
 .process-wrap{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin-top:52px;position:relative}
@@ -472,7 +444,7 @@ footer p{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:rgba(2
   <div class="nav-links">
     <a href="#problemen" data-sec="problemen">Probleem</a>
     <a href="#oplossing" data-sec="oplossing">Oplossing</a>
-    <a href="#pakketten" data-sec="pakketten">Pakketten</a>
+    <a href="#samenwerking" data-sec="samenwerking">Samenwerking</a>
     <a href="#resultaten" data-sec="resultaten">Resultaten</a>
     <a href="#faq" data-sec="faq">FAQ</a>
   </div>
@@ -485,7 +457,7 @@ footer p{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:rgba(2
 <div class="mob-drawer" id="mob-drawer">
   <a class="mob-sec" href="#problemen">Probleem<span class="arr">→</span></a>
   <a class="mob-sec" href="#oplossing">Oplossing<span class="arr">→</span></a>
-  <a class="mob-sec" href="#pakketten">Pakketten<span class="arr">→</span></a>
+  <a class="mob-sec" href="#samenwerking">Samenwerking<span class="arr">→</span></a>
   <a class="mob-sec" href="#hoe-het-werkt">Hoe het werkt<span class="arr">→</span></a>
   <a class="mob-sec" href="#resultaten">Resultaten<span class="arr">→</span></a>
   <a class="mob-sec" href="#waarom-wij">Waarom wij<span class="arr">→</span></a>
@@ -516,7 +488,7 @@ footer p{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:rgba(2
   <p class="hero-sub">Klanten vergelijken vandaag eerst online. Als uw bedrijf daar geen vertrouwen wekt, gaat de aanvraag naar iemand anders — ook als u beter werk levert.</p>
   <div class="hero-actions">
     <a class="btn-lime" href="#form">Gratis analyse aanvragen</a>
-    <a class="btn-ghost-d" href="#pakketten">Bekijk de pakketten</a>
+    <a class="btn-ghost-d" href="#samenwerking">Hoe wij samenwerken →</a>
   </div>
   <div class="hero-proof">
     <div class="proof-item"><span>✓</span> Lokale servicebedrijven</div>
@@ -665,154 +637,58 @@ footer p{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:rgba(2
 
 <div class="div-l"></div>
 
-<!-- ══ PACKAGES ══ -->
-<section class="sec sec-alt" id="pakketten">
+<!-- ══ SAMENWERKING ══ -->
+<section class="sec sec-alt" id="samenwerking">
   <div class="s-num-bg">05</div>
-  <div class="sec-tag rv">De pakketten</div>
-  <div class="big-h rv" style="font-size:clamp(52px,8vw,88px)">KIES UW<br><span class="red-acc">STARTPUNT</span></div>
-  <div class="sec-sub rv">Elk pakket is gebouwd rond één doel: <span class="acc">meer klanten voor uw servicebedrijf</span>. U start waar u staat.</div>
+  <div class="sec-tag rv">Hoe wij samenwerken</div>
+  <div class="big-h rv" style="font-size:clamp(52px,8vw,88px)">EEN PARTNER,<br><span class="red-acc">NIET EEN</span><br><span class="stroke-r">LEVERANCIER</span></div>
+  <div class="sec-sub rv">Wij doen meer dan bouwen. Wij denken mee — voor uw sector, uw klanten en uw groei.</div>
 
-  <div class="packages-grid">
-
-    <!-- PAKKET 1 -->
-    <div class="pkg rv">
-      <div class="pkg-head">
-        <div class="pkg-num">Pakket 01</div>
-        <div class="pkg-name">Landingpagina<br>+ basis<br>vertrouwen</div>
-        <div class="pkg-result">U krijgt een professionele online aanwezigheid die klanten overtuigt — ook als u nog geen volledige website heeft.</div>
-        <div class="pkg-price"><span>Prijs op aanvraag</span></div>
-      </div>
-      <div class="pkg-body">
-        <span class="pkg-for">Voor wie: bedrijven zonder website of met een zwakke online aanwezigheid</span>
-        <ul class="pkg-items">
-          <li>Professionele landingpagina op maat — gericht op aanvragen</li>
-          <li>Google Business volledig opgezet en geoptimaliseerd</li>
-          <li>Bedrijfsprofiel met foto's, diensten en contactinfo</li>
-          <li>Strategie voor de eerste reviews</li>
-          <li>Mobiel geoptimaliseerd — klanten vinden u via smartphone</li>
-        </ul>
-      </div>
-      <div class="pkg-footer">
-        <a class="pkg-cta" href="#form">Start hier →</a>
-        <p class="pkg-note">Online en zichtbaar in 2–3 weken</p>
-      </div>
+  <div class="partner-grid">
+    <div class="partner-card rv">
+      <span class="pc-ico">🤝</span>
+      <h3>Vaste contactpersoon</h3>
+      <p>Geen tickets, geen doorverwijzingen. Eén aanspreekpunt die uw bedrijf kent en direct bereikbaar is.</p>
     </div>
-
-    <!-- PAKKET 2 — FEATURED: nieuwe naam -->
-    <div class="pkg featured rv d1">
-      <div class="pkg-badge">Meest gekozen</div>
-      <div class="pkg-head">
-        <div class="pkg-num">Pakket 02</div>
-        <div class="pkg-name">Website +<br>Google +<br>meer aanvragen</div>
-        <div class="pkg-result">Een volledig systeem: gevonden worden, overtuigen en aanvragen genereren. De combinatie die het meeste oplevert.</div>
-        <div class="pkg-price"><span>Prijs op aanvraag</span></div>
-      </div>
-      <div class="pkg-body">
-        <span class="pkg-for">Voor wie: bedrijven die structureel willen groeien en klaar zijn voor een echte aanpak</span>
-        <ul class="pkg-items">
-          <li>Professionele website op maat — niet alleen mooi, maar gericht op conversie</li>
-          <li>Portfoliopagina met projecten en before/after's</li>
-          <li>Google Business volledig opgezet en geoptimaliseerd</li>
-          <li>Contactformulier dat aanvragen rechtstreeks naar u stuurt</li>
-          <li>Reviewstrategie: systematisch meer beoordelingen verzamelen</li>
-          <li>Mobiel en snel — ook op de smartphone van uw klant</li>
-          <li>Koppeling Google Analytics — u ziet wat werkt</li>
-        </ul>
-      </div>
-      <div class="pkg-footer">
-        <a class="pkg-cta" href="#form">Dit wil ik →</a>
-        <p class="pkg-note">Eerste aanvragen verwacht in 4–6 weken</p>
-      </div>
+    <div class="partner-card rv d1">
+      <span class="pc-ico">🔍</span>
+      <h3>Wij kennen uw sector</h3>
+      <p>Uitsluitend lokale servicebedrijven. Wij weten hoe uw klanten zoeken, denken en beslissen — en sturen daar op aan.</p>
     </div>
+    <div class="partner-card rv d2">
+      <span class="pc-ico">📈</span>
+      <h3>Aanpak op maat</h3>
+      <p>Geen standaardoplossingen. Wij bekijken uw situatie, uw regio en uw doelen — en bepalen samen wat zinvol is.</p>
+    </div>
+  </div>
 
-    <!-- PAKKET 3 — minder pafos -->
-    <div class="pkg rv d2">
-      <div class="pkg-head">
-        <div class="pkg-num">Pakket 03</div>
-        <div class="pkg-name">Volledig<br>klanten­systeem</div>
-        <div class="pkg-result">Alles uit pakket 02, aangevuld met actieve opvolging, content en gerichte advertenties. Voor bedrijven die structureel willen groeien.</div>
-        <div class="pkg-price"><span>Op maat — bespreek tijdens analyse</span></div>
+  <div style="margin-top:52px">
+    <div class="partner-pillars rv">
+      <div class="pp-item">
+        <div class="pp-num">1</div>
+        <div><strong>Gratis analyse</strong><p>We beginnen met een gesprek van 10 minuten. Wij bekijken uw huidige situatie en vertellen u eerlijk wat ontbreekt en wat het kan opleveren.</p></div>
       </div>
-      <div class="pkg-body">
-        <span class="pkg-for">Voor wie: bedrijven die klaar zijn voor een structurele, langetermijn aanpak</span>
-        <ul class="pkg-items">
-          <li>Alles van pakket 02, aangevuld met:</li>
-          <li>Meta Ads of Google Ads — gericht op uw regio en doelgroep</li>
-          <li>Maandelijks beheer en bijsturing van alle kanalen</li>
-          <li>Begeleiding bij projectdocumentatie en bewijscontent</li>
-          <li>Uitgebreid reviewsysteem en opvolging</li>
-          <li>Maandelijkse rapportage: aanvragen, bezoekers, resultaten</li>
-          <li>Vast aanspreekpunt — wij zijn uw marketingpartner</li>
-        </ul>
+      <div class="pp-item">
+        <div class="pp-num">2</div>
+        <div><strong>Strategie en aanpak</strong><p>Op basis van de analyse bepalen we samen de aanpak. Wat bouwen we eerst? Wat levert het snelste resultaat? U weet wat er komt vóór we starten.</p></div>
       </div>
-      <div class="pkg-footer">
-        <a class="pkg-cta" href="#form">Bespreek mijn situatie →</a>
-        <p class="pkg-note">Traject op maat — startgesprek gratis</p>
+      <div class="pp-item">
+        <div class="pp-num">3</div>
+        <div><strong>Wij bouwen — u werkt</strong><p>Wij nemen de uitvoering volledig over: website, Google, reviews, content. U levert uw info en foto's — wij doen de rest. Zo blijft u doen wat u het beste doet.</p></div>
+      </div>
+      <div class="pp-item">
+        <div class="pp-num">4</div>
+        <div><strong>Blijvende opvolging</strong><p>Na de lancering zijn we niet weg. Wij sturen maandelijks bij, volgen resultaten op en passen aan waar nodig. Het systeem wordt elke maand sterker.</p></div>
       </div>
     </div>
   </div>
 
-  <!-- PACKAGE COMPARISON TABLE -->
-  <div class="pkg-compare rv" style="margin-top:48px">
-    <div style="font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:700;letter-spacing:4px;text-transform:uppercase;color:var(--ink-soft);margin-bottom:16px">Overzicht — wat zit in welk pakket?</div>
-    <table>
-      <thead>
-        <tr>
-          <th style="width:36%"></th>
-          <th>Pakket 01</th>
-          <th class="featured-col">Pakket 02</th>
-          <th>Pakket 03</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>Landingpagina / website</td>
-          <td><span class="partial">Landingpagina</span></td>
-          <td class="featured-col"><span class="chk">✓</span></td>
-          <td><span class="chk">✓</span></td>
-        </tr>
-        <tr>
-          <td>Google Business</td>
-          <td><span class="chk">✓</span></td>
-          <td class="featured-col"><span class="chk">✓</span></td>
-          <td><span class="chk">✓</span></td>
-        </tr>
-        <tr>
-          <td>Portfoliopagina &amp; before/after</td>
-          <td><span class="dash">–</span></td>
-          <td class="featured-col"><span class="chk">✓</span></td>
-          <td><span class="chk">✓</span></td>
-        </tr>
-        <tr>
-          <td>Reviewstrategie</td>
-          <td><span class="partial">Basis</span></td>
-          <td class="featured-col"><span class="chk">✓</span></td>
-          <td><span class="chk">✓</span></td>
-        </tr>
-        <tr>
-          <td>Google Analytics koppeling</td>
-          <td><span class="dash">–</span></td>
-          <td class="featured-col"><span class="chk">✓</span></td>
-          <td><span class="chk">✓</span></td>
-        </tr>
-        <tr>
-          <td>Meta Ads / Google Ads</td>
-          <td><span class="dash">–</span></td>
-          <td class="featured-col"><span class="dash">–</span></td>
-          <td><span class="chk">✓</span></td>
-        </tr>
-        <tr>
-          <td>Maandelijks beheer &amp; rapportage</td>
-          <td><span class="dash">–</span></td>
-          <td class="featured-col"><span class="dash">–</span></td>
-          <td><span class="chk">✓</span></td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-
-  <div style="margin-top:28px;text-align:center">
-    <p class="rv" style="font-family:'Barlow Condensed',sans-serif;font-size:14px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--ink-soft)">Niet zeker welk pakket bij u past? <a href="#form" style="color:var(--red);text-decoration:underline">Vraag een gratis analyse aan — wij adviseren u eerlijk.</a></p>
+  <div class="partner-promise rv">
+    <div>
+      <span class="pp-label">Onze belofte</span>
+      <p class="pp-text">"Als wij na het gesprek niet geloven dat we u concrete resultaten kunnen geven — nemen we u niet aan. Geen druk, geen verplichtingen."</p>
+    </div>
+    <a class="btn-lime" href="#form" style="flex-shrink:0">Gratis gesprek →</a>
   </div>
 </section>
 
@@ -825,7 +701,7 @@ footer p{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:rgba(2
   <div class="big-h rv" style="font-size:clamp(52px,8vw,88px)">VAN ANALYSE<br>TOT EERSTE <span class="red-acc">KLANT</span></div>
   <div class="sec-sub rv">In 4 stappen — zonder gedoe van uw kant. U blijft doen wat u het beste doet.</div>
   <div class="process-wrap">
-    <div class="proc-step rv"><div class="proc-ball">1</div><h3>Analyse</h3><p>Gratis gesprek van 10 minuten. Wij bekijken uw situatie en adviseren eerlijk welk pakket zinvol is.</p></div>
+    <div class="proc-step rv"><div class="proc-ball">1</div><h3>Analyse</h3><p>Gratis gesprek van 10 minuten. Wij bekijken uw situatie en geven direct concrete feedback.</p></div>
     <div class="proc-step rv d1"><div class="proc-ball">2</div><h3>Opbouwen</h3><p>Wij bouwen uw systeem: website, Google-profiel en vertrouwensstructuur. U levert uw info en foto's — wij doen de rest.</p></div>
     <div class="proc-step rv d2"><div class="proc-ball">3</div><h3>Lanceren</h3><p>Alles gaat live. Uw bedrijf is zichtbaar, professioneel en klaar om aanvragen te ontvangen.</p></div>
     <div class="proc-step rv d3"><div class="proc-ball">4</div><h3>Groeien</h3><p>Wij blijven bijsturen. Elke maand sterker, meer aanvragen, meer vertrouwen bij uw klanten.</p></div>
@@ -967,7 +843,7 @@ footer p{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:rgba(2
       <div class="tb-avatar">R</div>
       <div>
         <div class="tb-author">Lokaal servicebedrijf, Antwerpen regio</div>
-        <div class="tb-role">Na 3 maanden met pakket 02</div>
+        <div class="tb-role">Na 3 maanden samenwerking</div>
       </div>
     </div>
   </div>
@@ -1061,7 +937,7 @@ footer p{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:rgba(2
     <span class="ab-label">Tijdens de gratis analyse krijgt u:</span>
     <ul class="ab-list">
       <li>Inzicht in wat u vandaag online mist</li>
-      <li>Advies welk pakket zinvol is voor uw situatie</li>
+      <li>Advies over de aanpak die zinvol is voor uw situatie</li>
       <li>3 concrete verbeterpunten — direct toepasbaar</li>
     </ul>
   </div>
@@ -1155,12 +1031,13 @@ footer p{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:rgba(2
           <input type="text" id="lf-city" placeholder="Antwerpen, Mechelen, Gent..." autocomplete="address-level2">
         </div>
         <div class="f-group">
-          <label for="lf-service">Welk pakket spreekt u het meest aan?</label>
+          <label for="lf-service">Wat is uw voornaamste doel?</label>
           <select id="lf-service">
             <option value="">— Kies een optie —</option>
-            <option>Pakket 01 — Landingpagina + basis vertrouwen</option>
-            <option>Pakket 02 — Website + Google + meer aanvragen</option>
-            <option>Pakket 03 — Volledig klantensysteem (op maat)</option>
+            <option>Meer klanten via Google en online zichtbaarheid</option>
+            <option>Een professionele website die aanvragen genereert</option>
+            <option>Meer reviews en vertrouwen opbouwen</option>
+            <option>Een volledig systeem — website, Google en content</option>
             <option>Nog niet zeker — ik wil eerst advies</option>
           </select>
         </div>
