@@ -135,6 +135,9 @@ nav.scrolled{height:56px;box-shadow:0 4px 24px rgba(17,17,17,.07)}
 .chip{font-family:'Inter',sans-serif;font-size:12px;font-weight:500;color:var(--ink-60);background:var(--bg-alt);padding:7px 14px;border-radius:40px;border:1px solid var(--border)}
 .chip.active{color:var(--red);background:var(--red-10);border-color:var(--border-red)}
 .hero-btns{display:flex;gap:12px;margin-top:40px;flex-wrap:wrap}
+.hero-why{display:flex;flex-wrap:wrap;gap:10px 22px;margin-top:34px;padding:0;list-style:none}
+.hero-why li{display:flex;align-items:center;gap:8px;font-family:'Inter',sans-serif;font-size:13.5px;font-weight:600;color:var(--ink);line-height:1.3}
+.hero-why li svg{width:17px;height:17px;flex:none;stroke:var(--red);fill:none;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
 .hero-icons{display:flex;gap:12px;margin-top:64px;flex-wrap:nowrap;overflow-x:auto;padding-bottom:4px}
 .hero-icons::-webkit-scrollbar{display:none}
 .hi-card{background:var(--bg-card);border-radius:20px;padding:18px 20px;display:flex;flex-direction:column;align-items:center;gap:8px;min-width:96px;box-shadow:0 1px 2px rgba(17,17,17,.04),0 4px 12px rgba(17,17,17,.06),0 12px 28px rgba(17,17,17,.05);border:1px solid var(--border);animation:float var(--fd,4s) ease-in-out infinite;transition:transform .35s,box-shadow .35s}
@@ -278,35 +281,6 @@ nav.scrolled{height:56px;box-shadow:0 4px 24px rgba(17,17,17,.07)}
 .why-item strong{color:var(--ink);font-weight:600}
 @media(max-width:768px){.why-grid{grid-template-columns:1fr}}
 
-/* ── PACKAGES ── */
-.pkg-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:52px;align-items:start}
-.pkg-card{background:var(--bg-card);border-radius:var(--r24);padding:30px 26px;border:1.5px solid var(--border);position:relative;overflow:visible;transition:transform .35s,box-shadow .35s}
-.pkg-card:hover{transform:translateY(-5px);box-shadow:0 28px 72px rgba(17,17,17,.09)}
-.pkg-card.pkg-pop{border-color:var(--red);border-width:2px}
-.pkg-pop-lbl{position:absolute;top:-13px;left:50%;transform:translateX(-50%);background:var(--red);color:#0D0D0D;font-family:'Space Grotesk',sans-serif;font-size:9px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;padding:4px 14px;border-radius:20px;white-space:nowrap}
-.pkg-num{font-family:'Space Grotesk',sans-serif;font-size:9px;font-weight:700;letter-spacing:4px;text-transform:uppercase;color:var(--ink-40);margin-bottom:6px}
-.pkg-title{font-family:'Space Grotesk',sans-serif;font-size:18px;font-weight:900;color:var(--ink);letter-spacing:-.5px;line-height:1;margin-bottom:14px}
-.pkg-price{font-family:'Space Grotesk',sans-serif;font-size:42px;font-weight:900;color:var(--red);letter-spacing:-2px;line-height:1;margin-bottom:4px}
-.pkg-price sub{font-size:.33em;font-weight:600;color:var(--ink-60);bottom:4px;letter-spacing:0;font-style:normal}
-.pkg-days{display:inline-flex;align-items:center;gap:6px;background:var(--bg-alt);color:var(--ink-60);font-size:11px;font-weight:600;padding:5px 12px;border-radius:20px;margin-bottom:18px;font-family:'Space Grotesk',sans-serif}
-.pkg-dot{width:5px;height:5px;border-radius:50%;background:var(--red);flex-shrink:0}
-.pkg-sep{height:1px;background:var(--border);margin:16px 0}
-.pkg-cat{display:flex;align-items:center;gap:8px;margin:14px 0 8px}
-.pkg-cico{width:24px;height:24px;border-radius:7px;background:var(--red-10);display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.pkg-cico svg{width:12px;height:12px;stroke:var(--red);stroke-width:2;fill:none;stroke-linecap:round;stroke-linejoin:round}
-.pkg-clbl{font-family:'Space Grotesk',sans-serif;font-size:9px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--ink-40)}
-.pkg-li{font-size:12px;color:var(--ink-60);line-height:1.6;padding-left:14px;margin-bottom:3px;position:relative}
-.pkg-li::before{content:'·';position:absolute;left:2px;color:var(--red);font-weight:900;font-size:14px;line-height:1.3}
-.pkg-li strong{color:var(--ink);font-weight:600}
-.pkg-from{background:var(--bg-alt);border-radius:10px;padding:9px 12px;font-size:11.5px;color:var(--ink-60);display:flex;align-items:center;gap:7px;margin-bottom:14px;font-style:italic}
-.pkg-from svg{width:12px;height:12px;stroke:var(--red);flex-shrink:0;stroke-width:2.5;fill:none;stroke-linecap:round;stroke-linejoin:round}
-.pkg-cta{display:block;text-align:center;font-family:'Space Grotesk',sans-serif;font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:14px;border-radius:var(--r16);transition:all .2s;margin-top:18px;border:2px solid var(--red);color:var(--red)}
-.pkg-cta:hover{background:var(--red);color:#0D0D0D;transform:translateY(-1px);box-shadow:0 8px 24px var(--red-15)}
-.pkg-card.pkg-pop .pkg-cta{background:var(--red);color:#0D0D0D}
-.pkg-card.pkg-pop .pkg-cta:hover{background:var(--red-mid)}
-.pkg-sub{font-size:10.5px;color:var(--ink-40);text-align:center;margin-top:8px;letter-spacing:.3px}
-@media(max-width:960px){.pkg-grid{grid-template-columns:1fr;max-width:500px;margin-left:auto;margin-right:auto}}
-@media(max-width:600px){.pkg-grid{max-width:100%}}
 
 /* ── CASES ── */
 .case-grid{display:grid;grid-template-columns:1fr 1fr;gap:32px;margin-top:52px}
@@ -419,9 +393,6 @@ nav.scrolled{height:56px;box-shadow:0 4px 24px rgba(17,17,17,.07)}
 /* Animated counter */
 .stat-n{font-variant-numeric:tabular-nums}
 
-/* Package popular glow */
-.pkg-card.pkg-pop{box-shadow:0 0 0 1px var(--red),0 8px 32px rgba(255,229,0,.12)}
-.pkg-card.pkg-pop:hover{box-shadow:0 0 0 1px var(--red),0 24px 64px rgba(255,229,0,.18)}
 
 /* Form field focus line */
 .fg input:focus,.fg select:focus,.fg textarea:focus{box-shadow:0 0 0 3px rgba(255,229,0,.08)}
@@ -493,8 +464,8 @@ footer{background:var(--bg-card);padding:52px 64px 36px;border-top:1px solid var
   <a class="nav-logo" href="/">WAT<span class="q">?</span>&nbsp;AGENCY</a>
   <div class="nav-links">
     <a href="#services">Services</a>
+    <a href="#why">Why us</a>
     <a href="/systems-library/">Work</a>
-    <a href="#packages">Packages</a>
     <a href="#contact">Contact</a>
   </div>
   <div class="lang-toggle">
@@ -507,8 +478,8 @@ footer{background:var(--bg-card);padding:52px 64px 36px;border-top:1px solid var
 
 <div class="mob-drawer" id="mob-drawer">
   <a class="ml" href="#services" onclick="closeMob()">Services <span class="arr">→</span></a>
+  <a class="ml" href="#why" onclick="closeMob()">Why us <span class="arr">→</span></a>
   <a class="ml" href="/systems-library/" onclick="closeMob()">Work <span class="arr">→</span></a>
-  <a class="ml" href="#packages" onclick="closeMob()">Packages <span class="arr">→</span></a>
   <a class="ml" href="#contact" onclick="closeMob()">Contact <span class="arr">→</span></a>
   <div class="mob-lang">
     <button class="mob-lb" id="mlb-en" onclick="setLang('en');closeMob()">EN</button>
@@ -553,6 +524,11 @@ footer{background:var(--bg-card);padding:52px 64px 36px;border-top:1px solid var
       <a class="btn-outline" href="#services">What's included</a>
       <a class="btn-outline" href="/systems-library/">View our work →</a>
     </div>
+    <ul class="hero-why rv d5">
+      <li><svg viewBox="0 0 24 24"><path d="M12 2C8.7 2 6 4.7 6 8c0 5.3 6 13 6 13s6-7.7 6-13c0-3.3-2.7-6-6-6z"/><circle cx="12" cy="8" r="2.5"/></svg>Local specialists in Belgium</li>
+      <li><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M8 12l3 3 5-6"/></svg>One team, one system</li>
+      <li><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Live in 2–4 weeks</li>
+    </ul>
   </div>
   <div class="hero-icons rv d5">
     <div class="hi-card">
@@ -917,140 +893,14 @@ footer{background:var(--bg-card);padding:52px 64px 36px;border-top:1px solid var
     <div class="bento-cell rv d5">
       <div class="bento-num">06</div>
       <div class="bento-cell-label">Transparent</div>
-      <p><strong>Fixed pricing.</strong> No hidden fees. You know exactly what you pay before we start.</p>
+      <p><strong>Clear from day one.</strong> No jargon, no surprises. You always know exactly what we're building and why.</p>
     </div>
-  </div>
-</section>
-
-<!-- PACKAGES -->
-<section class="sec sec-alt dot-grid" id="packages">
-  <div class="s-bg-num">07</div>
-  <div class="sec-tag rv">Pricing</div>
-  <div class="big-h rv" style="font-size:clamp(44px,7.5vw,100px)">Choose<br>your <span class="red-acc">package.</span></div>
-  <p class="sec-sub rv">Fixed price. Clear deliverables. No surprises. <strong>All packages include a free audit call.</strong></p>
-  <div class="pkg-grid">
-
-    <!-- PACKAGE 1 -->
-    <div class="pkg-card rv">
-      <div class="pkg-num">Package 01</div>
-      <div class="pkg-title">Digital Launch</div>
-      <div class="pkg-price">€1,100<sub>one-time</sub></div>
-      <div class="pkg-days"><span class="pkg-dot"></span>12 working days</div>
-      <div class="pkg-sep"></div>
-
-      <div class="pkg-cat">
-        <div class="pkg-cico"><svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="16" rx="2"/><line x1="2" y1="8" x2="22" y2="8"/></svg></div>
-        <span class="pkg-clbl">Website</span>
-      </div>
-      <div class="pkg-li">Up to <strong>5 pages</strong> (Home, About, Services, Projects, Contact)</div>
-      <div class="pkg-li">Mobile-first, fast loading</div>
-      <div class="pkg-li">Basic SEO setup</div>
-      <div class="pkg-li">Contact form + WhatsApp button</div>
-
-      <div class="pkg-cat">
-        <div class="pkg-cico"><svg viewBox="0 0 24 24"><path d="M12 2C8.7 2 6 4.7 6 8c0 5.3 6 13 6 13s6-7.7 6-13c0-3.3-2.7-6-6-6z"/><circle cx="12" cy="8" r="2.5"/></svg></div>
-        <span class="pkg-clbl">Google Business</span>
-      </div>
-      <div class="pkg-li">Full profile setup in NL/FR</div>
-      <div class="pkg-li">Photos and description</div>
-      <div class="pkg-li">Review strategy guide</div>
-
-      <div class="pkg-cat">
-        <div class="pkg-cico"><svg viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="3"/></svg></div>
-        <span class="pkg-clbl">Social Media</span>
-      </div>
-      <div class="pkg-li">Instagram & Facebook setup</div>
-      <div class="pkg-li">Profile bio and highlights</div>
-      <div class="pkg-li"><strong>6 branded post templates</strong> (NL/FR) — post-ready</div>
-
-      <a class="pkg-cta" href="#contact">Get started →</a>
-      <p class="pkg-sub">Free audit call included</p>
-    </div>
-
-    <!-- PACKAGE 2 -->
-    <div class="pkg-card pkg-pop rv d1">
-      <div class="pkg-pop-lbl">★ Most popular</div>
-      <div class="pkg-num">Package 02</div>
-      <div class="pkg-title">Digital Foundation</div>
-      <div class="pkg-price">€1,900<sub>one-time</sub></div>
-      <div class="pkg-days"><span class="pkg-dot"></span>18 working days</div>
-      <div class="pkg-sep"></div>
-
-      <div class="pkg-from">
-        <svg viewBox="0 0 24 24"><polyline points="20,6 9,17 4,12"/></svg>
-        Everything in Package 1, plus:
-      </div>
-
-      <div class="pkg-cat">
-        <div class="pkg-cico"><svg viewBox="0 0 24 24"><polyline points="22,12 18,12 15,21 9,3 6,12 2,12"/></svg></div>
-        <span class="pkg-clbl">Analytics & GTM</span>
-      </div>
-      <div class="pkg-li">Google Analytics 4 setup</div>
-      <div class="pkg-li">Google Tag Manager</div>
-      <div class="pkg-li">Conversion tracking</div>
-
-      <div class="pkg-cat">
-        <div class="pkg-cico"><svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.12 2.12 0 0 1 3 3L12 15l-4 1 1-4z"/></svg></div>
-        <span class="pkg-clbl">Content</span>
-      </div>
-      <div class="pkg-li"><strong>12 branded post templates</strong> (NL/FR) — post-ready</div>
-      <div class="pkg-li">1 professional photo session</div>
-      <div class="pkg-li">Reels / short video editing</div>
-
-      <div class="pkg-cat">
-        <div class="pkg-cico"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89L17 22l-5-3-5 3 1.523-9.11"/></svg></div>
-        <span class="pkg-clbl">Branding</span>
-      </div>
-      <div class="pkg-li">Logo design or refresh</div>
-      <div class="pkg-li">Brand colours & fonts</div>
-      <div class="pkg-li">Brand guide (PDF)</div>
-
-      <a class="pkg-cta" href="#contact">Get started →</a>
-      <p class="pkg-sub">Free audit call included</p>
-    </div>
-
-    <!-- PACKAGE 3 -->
-    <div class="pkg-card rv d2">
-      <div class="pkg-num">Package 03</div>
-      <div class="pkg-title">Complete Presence</div>
-      <div class="pkg-price">€2,900<sub>one-time</sub></div>
-      <div class="pkg-days"><span class="pkg-dot"></span>24 working days</div>
-      <div class="pkg-sep"></div>
-
-      <div class="pkg-from">
-        <svg viewBox="0 0 24 24"><polyline points="20,6 9,17 4,12"/></svg>
-        Everything in Package 2, plus:
-      </div>
-
-      <div class="pkg-cat">
-        <div class="pkg-cico"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg></div>
-        <span class="pkg-clbl">Print Materials</span>
-      </div>
-      <div class="pkg-li">Business cards (design + print)</div>
-      <div class="pkg-li">A5 flyer design</div>
-      <div class="pkg-li">Vehicle sticker design</div>
-
-      <div class="pkg-cat">
-        <div class="pkg-cico"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14,2 14,8 20,8"/></svg></div>
-        <span class="pkg-clbl">Quotes & Materials</span>
-      </div>
-      <div class="pkg-li">Professional PDF quote template</div>
-      <div class="pkg-li">Letterhead design</div>
-      <div class="pkg-li">Email signature</div>
-
-      <a class="pkg-cta" href="#contact">Get started →</a>
-      <p class="pkg-sub">Free audit call included</p>
-    </div>
-
-  </div>
-  <div style="text-align:center;margin-top:40px">
-    <a class="btn-outline rv" href="packages-print.html" target="_blank" id="pkg-pdf-btn">View full comparison table →</a>
   </div>
 </section>
 
 <!-- CASES -->
 <section class="sec sec-white" id="cases">
-  <div class="s-bg-num">08</div>
+  <div class="s-bg-num">07</div>
   <div class="sec-tag rv">Real results</div>
   <div class="big-h rv" style="font-size:clamp(44px,7.5vw,100px)">Real people.<br>Real time.<br><span class="red-acc">Real work.</span></div>
   <p class="sec-sub rv">Real businesses in Belgium. Real numbers. No stock photos — their actual projects.</p>
@@ -1075,7 +925,7 @@ footer{background:var(--bg-card);padding:52px 64px 36px;border-top:1px solid var
         <div class="case-what-item">React website with Dutch-language SEO — individual pages for each service and city</div>
         <div class="case-what-item">Google Business Profile full setup with review generation strategy</div>
         <div class="case-what-item">Meta ads (Instagram & Facebook) targeting homeowners across Antwerp region</div>
-        <div class="case-what-item">Clear positioning: fixed price, single point of contact — exactly what Belgian clients look for</div>
+        <div class="case-what-item">Clear positioning: trusted local specialist, single point of contact — exactly what Belgian clients look for</div>
       </div>
       <div class="case-result">
         <p><span>What the client got:</span> 5.0★ on Google Maps, rankings in 18 Antwerp-area cities, and a steady stream of inbound enquiries — before us, no website existed.</p>
@@ -1143,7 +993,7 @@ footer{background:var(--bg-card);padding:52px 64px 36px;border-top:1px solid var
 
 <!-- CONTACT -->
 <section class="sec sec-dark" id="contact">
-  <div class="s-bg-num">09</div>
+  <div class="s-bg-num">08</div>
   <div class="form-cols">
     <div>
       <div class="sec-tag rv">Get in touch</div>
@@ -1188,15 +1038,6 @@ footer{background:var(--bg-card);padding:52px 64px 36px;border-top:1px solid var
         </select>
       </div>
       <div class="fg">
-        <label>Which package interests you?</label>
-        <select name="package">
-          <option value="">Not sure yet — help me choose</option>
-          <option>Digital Launch — €1,100</option>
-          <option>Digital Foundation — €1,900</option>
-          <option>Complete Presence — €2,900</option>
-        </select>
-      </div>
-      <div class="fg">
         <label>Tell us about your business</label>
         <textarea name="message" placeholder="Where are you based, what do you do, what's your biggest challenge online?"></textarea>
       </div>
@@ -1220,8 +1061,8 @@ footer{background:var(--bg-card);padding:52px 64px 36px;border-top:1px solid var
       <div class="foot-ttl">Navigation</div>
       <div class="foot-links">
         <a href="#services">Services</a>
+        <a href="#why">Why us</a>
         <a href="/systems-library/">Work</a>
-        <a href="#packages">Pricing</a>
         <a href="#contact">Contact</a>
       </div>
     </div>
@@ -1332,7 +1173,6 @@ function handleSubmit(e) {
   ];
   if (fd.get('phone')) lines.push((nl ? 'Telefoon' : 'Phone') + ': ' + fd.get('phone'));
   if (fd.get('business-type')) lines.push((nl ? 'Bedrijfstype' : 'Business') + ': ' + fd.get('business-type'));
-  if (fd.get('package')) lines.push((nl ? 'Pakket' : 'Package') + ': ' + fd.get('package'));
   if (fd.get('message')) lines.push('', (nl ? 'Bericht' : 'Message') + ':', fd.get('message'));
 
   const url = 'https://wa.me/32471623105?text=' + encodeURIComponent(lines.join('\n'));
@@ -1388,8 +1228,8 @@ function setLang(l) {
 
   // Nav links
   const navLinks = $$('.nav-links a');
-  const navEN = ['Services','Work','Packages','Contact'];
-  const navNL = ['Diensten','Werk','Pakketten','Contact'];
+  const navEN = ['Services','Why us','Work','Contact'];
+  const navNL = ['Diensten','Waarom wij','Werk','Contact'];
   navLinks.forEach((a, i) => { if (navEN[i]) a.textContent = nl ? navNL[i] : navEN[i]; });
 
   // Nav CTA
@@ -1430,6 +1270,15 @@ function setLang(l) {
   const scrollHint = $('.scroll-hint span');
   if (scrollHint) scrollHint.textContent = nl ? 'Scroll naar beneden' : 'Scroll down';
 
+  // Hero why-us strip
+  const heroWhy = $$('.hero-why li');
+  const hwEN = ['Local specialists in Belgium','One team, one system','Live in 2–4 weeks'];
+  const hwNL = ['Lokale specialisten in België','Één team, één systeem','Live in 2–4 weken'];
+  heroWhy.forEach((li, i) => {
+    const svg = li.querySelector('svg');
+    if (hwEN[i]) li.innerHTML = (svg ? svg.outerHTML : '') + (nl ? hwNL[i] : hwEN[i]);
+  });
+
   // Stats
   const statLabels = $$('.stat-l');
   const statEN = ['Services in one system','Belgian market focus','Weeks to go live',"In your client's language"];
@@ -1438,8 +1287,8 @@ function setLang(l) {
 
   // Section tags
   const secTags = $$('.sec-tag');
-  const tagEN = ['The real problem','Our approach',"What's included",'How it works','Who this is for','Why WAT? Agency','Pricing','Real results','Get in touch'];
-  const tagNL = ['Het echte probleem','Onze aanpak','Wat is inbegrepen','Hoe het werkt','Voor wie','Waarom WAT? Agency','Prijzen','Echte resultaten','Neem contact op'];
+  const tagEN = ['The real problem','Our approach',"What's included",'How it works','Who this is for','Why WAT? Agency','Real results','Get in touch'];
+  const tagNL = ['Het echte probleem','Onze aanpak','Wat is inbegrepen','Hoe het werkt','Voor wie','Waarom WAT? Agency','Echte resultaten','Neem contact op'];
   secTags.forEach((t, i) => { if (tagEN[i]) t.textContent = nl ? tagNL[i] : tagEN[i]; });
 
   // Big headings
@@ -1451,7 +1300,6 @@ function setLang(l) {
     'From zero<br>to <span class="red-acc">live</span><br>in 2–4 weeks.',
     'Businesses<br>in Belgium<br><span class="red-acc">ready to grow</span>',
     'We know<br>the Belgian<br><span class="red-acc">market.</span>',
-    'Choose<br>your <span class="red-acc">package.</span>',
     'Real people.<br>Real time.<br><span class="red-acc">Real work.</span>',
   ];
   const bhNL = [
@@ -1461,7 +1309,6 @@ function setLang(l) {
     'Van nul<br>tot <span class="red-acc">live</span><br>in 2–4 weken.',
     'Bedrijven<br>in België<br><span class="red-acc">klaar om te groeien</span>',
     'We kennen<br>de Belgische<br><span class="red-acc">markt.</span>',
-    'Kies<br>uw <span class="red-acc">pakket.</span>',
     'Echte mensen.<br>Echte tijd.<br><span class="red-acc">Echte resultaten.</span>',
   ];
   bigHs.forEach((h, i) => { if (bhEN[i]) h.innerHTML = nl ? bhNL[i] : bhEN[i]; });
@@ -1475,7 +1322,6 @@ function setLang(l) {
     "Clear milestones. No agency jargon. You always know what's happening and what's next.",
     'We know what Belgian clients expect — and how to make your business <strong>the obvious choice</strong>.',
     'Not a generic agency. A team that understands your clients, your competition and your language needs.',
-    'Fixed price. Clear deliverables. No surprises. <strong>All packages include a free audit call.</strong>',
     "Real businesses in Belgium. Real numbers. No stock photos — their actual projects.",
   ];
   const subNL = [
@@ -1485,7 +1331,6 @@ function setLang(l) {
     'Duidelijke mijlpalen. Geen agentschapsjargon. U weet altijd wat er gebeurt en wat er volgt.',
     'We weten wat Belgische klanten verwachten — en hoe u <strong>de voor de hand liggende keuze</strong> wordt.',
     'Geen generiek agentschap. Een team dat uw klanten, uw concurrenten en uw taalbehoeften begrijpt.',
-    'Vaste prijs. Duidelijke resultaten. Geen verrassingen. <strong>Alle pakketten bevatten een gratis auditgesprek.</strong>',
     "Echte bedrijven in België. Echte cijfers. Geen stockfoto's — hun eigen projecten.",
   ];
   secSubs.forEach((s, i) => { if (subEN[i]) s.innerHTML = nl ? subNL[i] : subEN[i]; });
@@ -1536,33 +1381,6 @@ function setLang(l) {
     if (wcBtn) wcBtn.textContent = nl ? 'Begin nu →' : 'Start now →';
   }
 
-  // Packages most-popular label
-  const pkgPop = $('.pkg-pop-lbl');
-  if (pkgPop) pkgPop.textContent = nl ? '★ Meest populair' : '★ Most popular';
-
-  // Package "one-time" sub
-  $$('.pkg-price sub').forEach(s => s.textContent = nl ? 'eenmalig' : 'one-time');
-
-  // Package working days
-  const pkgDays = $$('.pkg-days');
-  const pdEN = ['12 working days','18 working days','24 working days'];
-  const pdNL = ['12 werkdagen','18 werkdagen','24 werkdagen'];
-  pkgDays.forEach((d, i) => { if (pdEN[i]) d.innerHTML = `<span class="pkg-dot"></span>${nl ? pdNL[i] : pdEN[i]}`; });
-
-  // Package "from" lines
-  const pkgFroms = $$('.pkg-from');
-  pkgFroms.forEach((f, i) => {
-    const svgEl = f.querySelector('svg');
-    const svgStr = svgEl ? svgEl.outerHTML : '';
-    f.innerHTML = svgStr + (nl ? ` Alles uit Pakket ${i+1}, plus:` : ` Everything in Package ${i+1}, plus:`);
-  });
-
-  // Package CTAs & subs
-  $$('.pkg-cta').forEach(b => b.textContent = nl ? 'Starten →' : 'Get started →');
-  $$('.pkg-sub').forEach(p => p.textContent = nl ? 'Gratis auditgesprek inbegrepen' : 'Free audit call included');
-  const pkgPdfBtn = document.getElementById('pkg-pdf-btn');
-  if (pkgPdfBtn) pkgPdfBtn.textContent = nl ? 'Vergelijkingstabel bekijken →' : 'View full comparison table →';
-
   // Contact section
   const flTitle = $('.fl-title');
   if (flTitle) flTitle.innerHTML = nl
@@ -1581,8 +1399,8 @@ function setLang(l) {
 
   // Form labels
   const fLabels = $$('.f-form label');
-  const flEN = ['First name','Last name','Email','Phone (optional)','Business type','Which package interests you?','Tell us about your business'];
-  const flNL = ['Voornaam','Achternaam','E-mail','Telefoon (optioneel)','Type bedrijf','Welk pakket interesseert u?','Vertel ons over uw bedrijf'];
+  const flEN = ['First name','Last name','Email','Phone (optional)','Business type','Tell us about your business'];
+  const flNL = ['Voornaam','Achternaam','E-mail','Telefoon (optioneel)','Type bedrijf','Vertel ons over uw bedrijf'];
   fLabels.forEach((l, i) => { if (flEN[i]) l.textContent = nl ? flNL[i] : flEN[i]; });
 
   // Form placeholders (inputs only, not select)
@@ -1600,9 +1418,6 @@ function setLang(l) {
   if (fSelects[0]) fSelects[0].innerHTML = nl
     ? `<option value="">Selecteer uw sector</option><option>Bouw &amp; Renovatie</option><option>Isolatie &amp; Energie</option><option>Elektriciteit / Loodgieterij</option><option>Schoonmaak / Tuinieren</option><option>Restaurant / Retail</option><option>Andere</option>`
     : `<option value="">Select your industry</option><option>Construction &amp; Renovation</option><option>Insulation &amp; Energy</option><option>Electrical / Plumbing</option><option>Cleaning / Gardening</option><option>Restaurant / Retail</option><option>Other</option>`;
-  if (fSelects[1]) fSelects[1].innerHTML = nl
-    ? `<option value="">Nog niet zeker — help me kiezen</option><option>Digital Launch — €1.100</option><option>Digital Foundation — €1.900</option><option>Complete Presence — €2.900</option>`
-    : `<option value="">Not sure yet — help me choose</option><option>Digital Launch — €1,100</option><option>Digital Foundation — €1,900</option><option>Complete Presence — €2,900</option>`;
 
   // Form submit button
   $('.f-btn').textContent = nl ? 'Bericht verzenden →' : 'Send message →';
@@ -1616,8 +1431,8 @@ function setLang(l) {
   const footTtl = $('.foot-ttl');
   if (footTtl) footTtl.textContent = nl ? 'Navigatie' : 'Navigation';
   const footAs = $$('.foot-links a');
-  const foEN = ['Services','Work','Pricing','Contact'];
-  const foNL = ['Diensten','Werk','Prijzen','Contact'];
+  const foEN = ['Services','Why us','Work','Contact'];
+  const foNL = ['Diensten','Waarom wij','Werk','Contact'];
   footAs.forEach((a, i) => { if (foEN[i]) a.textContent = nl ? foNL[i] : foEN[i]; });
   const footBottom = $('.foot-bottom p');
   if (footBottom) footBottom.textContent = nl ? '© 2025 WAT? Agency Belgium. Alle rechten voorbehouden.' : '© 2025 WAT? Agency Belgium. All rights reserved.';
