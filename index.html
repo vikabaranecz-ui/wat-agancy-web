@@ -3,9 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>WAT? Agency | Marketing voor renovatie- en isolatiebedrijven in Antwerpen</title>
-<meta name="description" content="WAT? Agency bouwt een volledig marketingsysteem voor renovatie- en isolatiebedrijven. Google Business, website, social media en klantbewijzen — in één systeem dat werkt.">
-<meta name="keywords" content="marketing bureau antwerpen, renovatie marketing, isolatie marketing, google business optimalisatie, website renovatiebedrijf, social media renovatie">
+<title>WAT? Agency | Marketing voor lokale servicebedrijven in Antwerpen</title>
+<meta name="description" content="WAT? Agency bouwt een volledig marketingsysteem voor lokale servicebedrijven. Google Business, website, social media en klantbewijzen — in één systeem dat werkt.">
+<meta name="keywords" content="marketing bureau antwerpen, marketing servicebedrijf, google business optimalisatie, website lokaal bedrijf, social media servicebedrijf antwerpen">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@400;600;700;900&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
@@ -79,6 +79,8 @@ nav.slim{height:54px}
 .hero{background:var(--red-deep);padding:120px 48px 80px;min-height:100vh;display:flex;flex-direction:column;justify-content:center;position:relative;overflow:hidden}
 .hero-ghost{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-family:'Bebas Neue',sans-serif;font-size:clamp(100px,18vw,280px);color:rgba(255,255,255,.03);white-space:nowrap;user-select:none;letter-spacing:-6px;animation:ghost-drift 22s ease-in-out infinite alternate;pointer-events:none}
 @keyframes ghost-drift{from{transform:translate(-51%,-50%)}to{transform:translate(-49%,-50%)}}
+.hero-for{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:22px;position:relative;z-index:1}
+.hero-for span{font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:rgba(247,242,234,.4);background:rgba(255,255,255,.05);padding:5px 12px;border:1px solid rgba(255,255,255,.1)}
 .hero-tag{font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:6px;text-transform:uppercase;color:var(--lime);display:flex;align-items:center;gap:14px;margin-bottom:28px;}
 .hero-tag::before{content:'';display:block;width:36px;height:1.5px;background:var(--lime)}
 .hero h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(52px,10vw,120px);line-height:.88;letter-spacing:2px;color:#F7F2EA;max-width:900px;position:relative;z-index:1;}
@@ -86,7 +88,11 @@ nav.slim{height:54px}
 .hero h1 .stroke{-webkit-text-stroke:2px #F7F2EA;color:transparent}
 .hero h1 .stroke-lime{-webkit-text-stroke:2px var(--lime);color:transparent}
 .hero-sub{font-size:clamp(15px,2vw,18px);font-weight:300;line-height:1.8;color:rgba(247,242,234,.75);max-width:540px;margin-top:30px;position:relative;z-index:1}
-.hero-btns{display:flex;gap:14px;margin-top:44px;flex-wrap:wrap;position:relative;z-index:1}
+.hero-services{display:flex;gap:8px;flex-wrap:wrap;margin-top:24px;position:relative;z-index:1}
+.hs-item{display:flex;align-items:center;gap:8px;font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(247,242,234,.6);background:rgba(255,255,255,.05);padding:9px 14px;border:1px solid rgba(132,224,33,.18);transition:background .2s,color .2s,border-color .2s;cursor:default}
+.hs-item:hover{background:rgba(132,224,33,.1);color:var(--lime);border-color:rgba(132,224,33,.35)}
+.hs-item .hs-ico{font-size:13px}
+.hero-btns{display:flex;gap:14px;margin-top:36px;flex-wrap:wrap;position:relative;z-index:1}
 .btn-prime{font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:700;letter-spacing:4px;text-transform:uppercase;color:var(--ink);background:var(--lime);padding:16px 36px;display:inline-block;clip-path:polygon(12px 0%,100% 0%,calc(100% - 12px) 100%,0% 100%);transition:background .2s,transform .15s,box-shadow .2s;position:relative;overflow:hidden}
 .btn-prime::after{content:'';position:absolute;inset:0;background:linear-gradient(120deg,transparent 30%,rgba(255,255,255,.3) 50%,transparent 70%);transform:translateX(-120%);transition:transform .5s}
 .btn-prime:hover{background:var(--lime-bright);transform:scale(1.03);box-shadow:0 0 36px rgba(132,224,33,.45)}
@@ -112,6 +118,8 @@ nav.slim{height:54px}
   .hero-orb{display:none}
   .hero h1{font-size:clamp(46px,13vw,76px)}
   .hero-sub{font-size:15px}
+  .hero-for{gap:6px}.hero-for span{font-size:9px;padding:4px 10px}
+  .hero-services{gap:6px}.hs-item{font-size:10px;padding:8px 10px}
   .hero-btns{flex-direction:column;gap:12px}
   .btn-prime,.btn-ghost-light,.btn-outline-dark{width:100%;text-align:center;padding:16px 24px}
 }
@@ -503,25 +511,50 @@ footer{background:var(--red-dark);border-top:1px solid rgba(132,224,33,.12);padd
 
 <!-- HERO -->
 <section class="hero">
-  <div class="hero-ghost">MARKETING</div>
-  <div class="hero-tag">Marketingbureau voor renovatiebedrijven — Antwerpen</div>
-  <h1>WIJ BOUWEN<br><span class="lime">HET SYSTEEM</span><br><span class="stroke">DAT KLANTEN</span><br><span class="stroke-lime">AANTREKT</span></h1>
-  <p class="hero-sub">Google Business, website, social media en klantbewijzen — in één systeem. Geen losse tools. Geen halve maatregelen. Een fundament dat jaar na jaar sterker wordt.</p>
+  <div class="hero-ghost">DIENSTEN</div>
+
+  <!-- Sector labels — direct duidelijk voor wie -->
+  <div class="hero-for">
+    <span>🏗️ Bouw &amp; renovatie</span>
+    <span>🔧 Sanitair &amp; verwarming</span>
+    <span>⚡ Elektriciens</span>
+    <span>🌿 Tuin &amp; groen</span>
+    <span>🎨 Schilder &amp; afwerking</span>
+    <span>💈 Beauty &amp; wellness</span>
+    <span>🐾 Huisdierenverzorging</span>
+    <span>🏥 Kinesisten &amp; zorg</span>
+  </div>
+
+  <div class="hero-tag">Marketingbureau voor lokale servicebedrijven — Antwerpen &amp; omgeving</div>
+
+  <h1>UW KLANTEN<br>VINDEN U<br><span class="lime">OP GOOGLE</span><br><span class="stroke">EN KIEZEN</span><br><span class="stroke-lime">VOOR U</span></h1>
+
+  <p class="hero-sub">Wij bouwen het complete marketingsysteem voor lokale servicebedrijven: Google Business, website, social media en reviews — zodat klanten u vinden, vertrouwen en bellen.</p>
+
+  <!-- Wat zit er in het systeem — 4 pijlers direct zichtbaar -->
+  <div class="hero-services">
+    <div class="hs-item"><span class="hs-ico">🔍</span>Google Business</div>
+    <div class="hs-item"><span class="hs-ico">💻</span>Website op maat</div>
+    <div class="hs-item"><span class="hs-ico">📱</span>Social media</div>
+    <div class="hs-item"><span class="hs-ico">⭐</span>Reviews &amp; bewijs</div>
+  </div>
+
   <div class="hero-btns">
     <a class="btn-prime" href="contact.html">Gratis consult aanvragen</a>
     <a class="btn-ghost-light" href="#wat">Bekijk het systeem</a>
   </div>
+
   <a class="hero-orb" href="contact.html" title="Consult aanvragen">
-    <div class="orb-core"><strong>ONE<br>SYSTEM</strong><span>Google → Vertrouwen → Aanvraag</span></div>
+    <div class="orb-core"><strong>MEER<br>KLANTEN</strong><span>Lokale diensten · Antwerpen</span></div>
   </a>
 </section>
 
 <!-- STATS -->
 <div class="stats-bar">
-  <a class="stat-link rv" href="#waar"><div class="stat-num">Google</div><div class="stat-label">Lokaal gevonden worden</div></a>
-  <a class="stat-link rv d1" href="#waarom"><div class="stat-num">Vertrouwen</div><div class="stat-label">Van eerste blik af</div></a>
-  <a class="stat-link rv d2" href="#hoe"><div class="stat-num">Systeem</div><div class="stat-label">Alles werkt samen</div></a>
-  <a class="stat-link rv d3" href="#resultaat"><div class="stat-num">Groei</div><div class="stat-label">Stabiel, niet toevallig</div></a>
+  <a class="stat-link rv" href="#voor-wie"><div class="stat-num">Lokale diensten</div><div class="stat-label">Bouw · sanitair · beauty · tuin</div></a>
+  <a class="stat-link rv d1" href="#wat"><div class="stat-num">4 kanalen</div><div class="stat-label">Google · website · social · reviews</div></a>
+  <a class="stat-link rv d2" href="#hoe"><div class="stat-num">1 systeem</div><div class="stat-label">Alles werkt samen — niets apart</div></a>
+  <a class="stat-link rv d3" href="#resultaat"><div class="stat-num">Meer klanten</div><div class="stat-label">Stabiel, niet toevallig</div></a>
 </div>
 
 <div class="div-l"></div>
@@ -531,10 +564,10 @@ footer{background:var(--red-dark);border-top:1px solid rgba(132,224,33,.12);padd
   <div class="s-num">01</div>
   <div class="s-tag rv">Wat wij doen</div>
   <div class="big-q rv">WAT<span class="lime">?</span></div>
-  <div class="sec-sub rv">Het systeem dat <span class="acc">renovatiebedrijven</span> stabiele klantenstroom geeft</div>
+  <div class="sec-sub rv">Het systeem dat <span class="acc">lokale servicebedrijven</span> stabiele klantenstroom geeft</div>
   <div class="wat-grid">
     <div>
-      <p class="body-text rv">Wij zijn een gespecialiseerd marketingbureau voor renovatie- en isolatiebedrijven. Geen generieke campagnes. Geen losse tricks. Wij bouwen een complete online aanwezigheid die werkt als één machine — en die klanten overtuigt nog voor ze bellen.</p>
+      <p class="body-text rv">Wij zijn een gespecialiseerd marketingbureau voor lokale servicebedrijven. Geen generieke campagnes. Geen losse tricks. Wij bouwen een complete online aanwezigheid die werkt als één machine — en die klanten overtuigt nog voor ze bellen.</p>
       <ul class="check-list">
         <li class="rv d1"><a href="#" onclick="openModal('modal-google');return false"><span class="arr">→</span>Google Business Profile — optimalisatie &amp; beheer</a></li>
         <li class="rv d2"><a href="#" onclick="openModal('modal-website');return false"><span class="arr">→</span>Website die overtuigt en aanvragen genereert</a></li>
@@ -545,7 +578,7 @@ footer{background:var(--red-dark);border-top:1px solid rgba(132,224,33,.12);padd
     </div>
     <div class="wat-aside rv-r">
       <div class="aside-block"><strong>Geen losse onderdelen</strong><p>Elk onderdeel versterkt het andere. Google vindt de klant. De website overtuigt. Social media bewijst dat de zaak écht bestaat. De cascades zorgen dat de klant belt — niet bij de concurrent.</p></div>
-      <div class="aside-block"><strong>Wij kennen uw sector</strong><p>Renovatie en isolatie is ons specialisme. Wij weten welke vragen klanten stellen, hoe ze zoeken en wat hen overtuigt. Dat kennis vertalen wij direct naar uw online aanwezigheid.</p></div>
+      <div class="aside-block"><strong>Wij kennen uw klant</strong><p>Lokale klanten zoeken lokaal. Wij weten hoe mensen een vakman of servicebedrijf kiezen, welke vragen ze stellen en wat hen overtuigt. Die kennis vertalen wij direct naar uw online aanwezigheid.</p></div>
       <a class="btn-outline-dark rv" href="contact.html" style="margin-top:8px;display:inline-block">Gratis consult →</a>
     </div>
   </div>
@@ -560,11 +593,11 @@ footer{background:var(--red-dark);border-top:1px solid rgba(132,224,33,.12);padd
   <div class="big-q rv">VOOR<br><span class="red-acc">WIE</span><span class="stroke-red">?</span></div>
   <div class="sec-sub rv">Gebouwd voor bedrijven die willen <span class="acc">groeien</span> — niet overleven</div>
   <div class="cards-grid">
-    <a class="c-card rv" href="contact.html"><span class="ico">🏗️</span><h3>Renovatiebedrijven</h3><p>Algemene renovatie, afwerking, verbouwing — klaar voor meer</p><span class="card-arr">→</span></a>
-    <a class="c-card rv d1" href="contact.html"><span class="ico">🏠</span><h3>Gevelbedrijven</h3><p>Gevelbekleding, schilderwerk, metselwerk — zichtbaar online</p><span class="card-arr">→</span></a>
-    <a class="c-card rv d2" href="contact.html"><span class="ico">🔧</span><h3>Isolatiebedrijven</h3><p>Dak-, spouw- en vloerisolatie — gevonden door wie zoekt</p><span class="card-arr">→</span></a>
-    <a class="c-card rv d3" href="contact.html"><span class="ico">👷</span><h3>Vaklieden &amp; ploegen</h3><p>Zelfstandigen die écht professioneel willen ogen</p><span class="card-arr">→</span></a>
-    <a class="c-card rv d4" href="contact.html"><span class="ico">📍</span><h3>Lokale spelers</h3><p>Bedrijven die lokaal marktleider willen worden</p><span class="card-arr">→</span></a>
+    <a class="c-card rv" href="contact.html"><span class="ico">🏗️</span><h3>Bouw &amp; renovatie</h3><p>Aannemers, afwerking, verbouwing — meer aanvragen via Google</p><span class="card-arr">→</span></a>
+    <a class="c-card rv d1" href="contact.html"><span class="ico">🔧</span><h3>Sanitair &amp; verwarming</h3><p>Loodgieters, HVAC, elektriciens — gevonden door wie zoekt</p><span class="card-arr">→</span></a>
+    <a class="c-card rv d2" href="contact.html"><span class="ico">🌿</span><h3>Tuin &amp; groen</h3><p>Tuinaanleg, hoveniers, landschapsbeheer — zichtbaar lokaal</p><span class="card-arr">→</span></a>
+    <a class="c-card rv d3" href="contact.html"><span class="ico">💈</span><h3>Beauty &amp; wellness</h3><p>Kappers, schoonheidsspecialisten, kinesisten — klaar voor meer</p><span class="card-arr">→</span></a>
+    <a class="c-card rv d4" href="contact.html"><span class="ico">📍</span><h3>Elke lokale dienst</h3><p>Als klanten u moeten kunnen vinden in uw regio — wij helpen u</p><span class="card-arr">→</span></a>
   </div>
   <div style="margin-top:56px">
     <div class="s-tag rv" style="margin-bottom:18px">Problemen die wij oplossen</div>
@@ -687,7 +720,7 @@ footer{background:var(--red-dark);border-top:1px solid rgba(132,224,33,.12);padd
   <div class="big-q rv">WAAR<span class="red-acc">OM</span><br><span class="stroke-red">WIJ</span><span class="lime">?</span></div>
   <div class="sec-sub rv">Geen bureau dat <span class="acc">alles doet voor iedereen</span></div>
   <div class="wu-grid">
-    <a class="wu-item rv" href="contact.html"><div class="wu-dot"></div><p>Wij werken <strong>uitsluitend voor renovatie- en isolatiebedrijven</strong> — geen generieke aanpak</p></a>
+    <a class="wu-item rv" href="contact.html"><div class="wu-dot"></div><p>Wij werken <strong>uitsluitend voor lokale servicebedrijven</strong> — geen grote merken, geen eenheidsworst</p></a>
     <a class="wu-item rv d1" href="#hoe"><div class="wu-dot"></div><p>Geen losse tools — één <strong>samenhangend systeem</strong> dat elke stap versterkt</p></a>
     <a class="wu-item rv d2" href="#waarom"><div class="wu-dot"></div><p>Wij weten hoe klanten in deze sector <strong>zoeken, denken en beslissen</strong></p></a>
     <a class="wu-item rv d3" href="#cases"><div class="wu-dot"></div><p><strong>Bewijs telt</strong> — wij weten hoe vakwerk gepresenteerd moet worden online</p></a>
@@ -788,7 +821,7 @@ footer{background:var(--red-dark);border-top:1px solid rgba(132,224,33,.12);padd
           </div>
           <div class="cf-group">
             <label for="cf-company">Bedrijfsnaam *</label>
-            <input type="text" id="cf-company" placeholder="Renovatie Janssens BV" required>
+            <input type="text" id="cf-company" placeholder="Janssens Loodgieters BV" required>
           </div>
         </div>
         <div class="cf-row">
@@ -840,7 +873,7 @@ footer{background:var(--red-dark);border-top:1px solid rgba(132,224,33,.12);padd
   <div class="footer-top">
     <div>
       <a class="f-logo" href="#">WAT<span class="q">?</span> AGENCY</a>
-      <p class="f-tagline">Marketingbureau gespecialiseerd in renovatie- en isolatiebedrijven. Antwerpen, België.</p>
+      <p class="f-tagline">Marketingbureau voor lokale servicebedrijven. Antwerpen, België.</p>
     </div>
     <div class="f-col">
       <h5>Navigatie</h5>
@@ -885,7 +918,7 @@ footer{background:var(--red-dark);border-top:1px solid rgba(132,224,33,.12);padd
     <div class="modal-hero" data-icon="🔍">
       <div class="modal-tag">Service 01</div>
       <div class="modal-title">GOOGLE<br><span class="lime">BUSINESS</span></div>
-      <p class="modal-subtitle">De meeste klanten zoeken een renovatiebedrijf via Google. Als u daar niet sterk aanwezig bent, bestaat u niet voor hen.</p>
+      <p class="modal-subtitle">De meeste klanten zoeken een lokaal servicebedrijf via Google. Als u daar niet sterk aanwezig bent, bestaat u niet voor hen.</p>
     </div>
     <div class="modal-body">
       <div class="modal-section">
@@ -933,7 +966,7 @@ footer{background:var(--red-dark);border-top:1px solid rgba(132,224,33,.12);padd
     <div class="modal-body">
       <div class="modal-section">
         <h4>Het probleem met de meeste websites</h4>
-        <p>De meeste websites van renovatiebedrijven zijn gebouwd om er "iets te hebben". Ze zien er verouderd uit, laden traag op mobiel en geven de bezoeker geen duidelijke reden om contact op te nemen.</p>
+        <p>De meeste websites van lokale servicebedrijven zijn gebouwd om er "iets te hebben". Ze zien er verouderd uit, laden traag op mobiel en geven de bezoeker geen duidelijke reden om contact op te nemen.</p>
         <p>Een website die verkoopt is anders: hij legt uit, overtuigt met bewijs en leidt de bezoeker stap voor stap naar een aanvraag.</p>
       </div>
       <div class="modal-section">
@@ -1006,7 +1039,7 @@ footer{background:var(--red-dark);border-top:1px solid rgba(132,224,33,.12);padd
     <div class="modal-body">
       <div class="modal-section">
         <h4>Waarom bewijscontent onmisbaar is</h4>
-        <p>Een klant die een renovatie overweegt wil één ding zien: eerder werk. Voor/na foto's, getuigenissen van tevreden klanten en processbeelden geven het vertrouwen dat nodig is om te bellen.</p>
+        <p>Een klant die een dienst overweegt wil één ding zien: bewijs dat u het eerder goed hebt gedaan. Voor/na foto's, getuigenissen van tevreden klanten en procesbeelden geven het vertrouwen dat nodig is om te bellen.</p>
         <p>Bedrijven die hun werk goed documenteren winnen het altijd van bedrijven die dat niet doen — ongeacht de prijs.</p>
       </div>
       <div class="modal-section">
@@ -1040,7 +1073,7 @@ footer{background:var(--red-dark);border-top:1px solid rgba(132,224,33,.12);padd
     <div class="modal-body">
       <div class="modal-section">
         <h4>Adverteren zonder strategie is geld verbranden</h4>
-        <p>Veel renovatiebedrijven hebben geld verspild aan Facebook of Google advertenties die niets opleverden. De reden is bijna altijd dezelfde: geen duidelijke doelgroep, geen overtuigende boodschap, geen goede landingspagina.</p>
+        <p>Veel lokale bedrijven hebben geld verspild aan Facebook of Google advertenties die niets opleverden. De reden is bijna altijd dezelfde: geen duidelijke doelgroep, geen overtuigende boodschap, geen goede landingspagina.</p>
         <p>Wij zetten advertenties op die werken — gericht op mensen in uw regio die actief op zoek zijn naar uw diensten.</p>
       </div>
       <div class="modal-section">
@@ -1112,8 +1145,8 @@ footer{background:var(--red-dark);border-top:1px solid rgba(132,224,33,.12);padd
     </div>
     <div class="modal-body">
       <div class="modal-section">
-        <h4>De realiteit van de renovatiemarkt</h4>
-        <p>Wanneer iemand zijn huis wil laten renoveren of isoleren, staat er veel op het spel. Het gaat om duizenden euro's, weken van overlast en de langdurige relatie met een aannemer. Geen klant neemt die beslissing lichtvaardig.</p>
+        <h4>De realiteit van de lokale markt</h4>
+        <p>Wanneer iemand een vakman of servicebedrijf zoekt, staat er veel op het spel: geld, tijd en vertrouwen in iemand die bij hen thuis of in hun zaak komt. Geen klant neemt die beslissing lichtvaardig.</p>
         <p>Dat betekent dat hij research doet. Hij googelt. Hij kijkt op Maps. Hij bezoekt de website. Hij scrolt door Instagram. Hij leest reviews. Pas daarna belt hij.</p>
       </div>
       <div class="modal-section">
@@ -1151,11 +1184,11 @@ footer{background:var(--red-dark);border-top:1px solid rgba(132,224,33,.12);padd
     <div class="modal-body">
       <div class="modal-section">
         <h4>Wat is lokale SEO?</h4>
-        <p>Lokale SEO is het optimaliseren van uw online aanwezigheid zodat u gevonden wordt door mensen in uw regio die zoeken naar uw diensten. Denk aan zoekopdrachten als "renovatiebedrijf Antwerpen" of "gevel isoleren Mechelen".</p>
+        <p>Lokale SEO is het optimaliseren van uw online aanwezigheid zodat u gevonden wordt door mensen in uw regio die zoeken naar uw diensten. Denk aan zoekopdrachten als "loodgieter Antwerpen" of "kapper Mechelen centrum".</p>
         <p>Lokale SEO bestaat uit drie pijlers: uw Google Business profiel, uw website en de consistentie van uw bedrijfsinformatie online.</p>
       </div>
       <div class="modal-section">
-        <h4>Waarom renovatiebedrijven lokale SEO nodig hebben</h4>
+        <h4>Waarom lokale servicebedrijven lokale SEO nodig hebben</h4>
         <ul class="modal-list">
           <li>Klanten zoeken altijd lokaal — niemand zoekt een aannemer op 100 km afstand</li>
           <li>Google Maps resultaten krijgen meer kliks dan gewone websites</li>
