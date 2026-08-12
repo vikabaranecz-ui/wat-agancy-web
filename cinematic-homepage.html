@@ -1046,12 +1046,7 @@
 <script src="/lib/ScrollTrigger.min.js"></script>
 
 <script>
-  // Register ScrollTrigger
-  if (window.gsap && window.gsap.plugins && window.gsap.plugins.ScrollTrigger) {
-    gsap.registerPlugin(ScrollTrigger);
-  }
-
-  // Initialize WebGL Scene
+  // FluidScene class definition
   class FluidScene {
     constructor() {
       this.scene = new THREE.Scene();
@@ -1168,33 +1163,108 @@
     }
   }
 
-  // Initialize scene
-  const fluidScene = new FluidScene();
-
-  // Scroll animations
-  const navElement = document.getElementById('nav');
-  window.addEventListener('scroll', () => {
-    if (window.scrollY > 40) {
-      navElement.classList.add('scrolled');
-    } else {
-      navElement.classList.remove('scrolled');
+  // Initialize everything after libraries and DOM are ready
+  function initializeApp() {
+    // Register ScrollTrigger with GSAP (ScrollTrigger auto-exports globally)
+    try {
+      if (typeof ScrollTrigger !== 'undefined') {
+        gsap.registerPlugin(ScrollTrigger);
+      }
+    } catch (e) {
+      console.warn('Failed to register ScrollTrigger:', e.message);
     }
-  });
 
-  // Capability animations
-  const observerOptions = { threshold: 0.3 };
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('active');
-        observer.unobserve(entry.target);
+    // Initialize WebGL scene
+    const fluidScene = new FluidScene();
+
+    // ═══════════════════════════════════════════════════════════════════
+    // STEP 5: HERO → CHAOS → SYSTEM Cinematic Sequence
+    // ═══════════════════════════════════════════════════════════════════
+
+    // Hero section entrance animations (play immediately)
+    const heroElements = document.querySelectorAll('.hero-eyebrow, .hero-title, .hero-subtitle, .hero-capabilities, .hero-buttons');
+    gsap.from(heroElements, {
+      opacity: 0,
+      y: 40,
+      duration: 1,
+      stagger: 0.15,
+      ease: 'power2.out'
+    });
+
+    // Chaos section: animate chaos words to appear and increase opacity on scroll
+    gsap.from('.chaos-word', {
+      scrollTrigger: {
+        trigger: '#chaos',
+        start: 'top 80%',
+        end: 'center 20%',
+        scrub: 0.5
+      },
+      opacity: 0,
+      duration: 1,
+      stagger: 0.1,
+      ease: 'power2.out'
+    });
+
+    // System section: animate system nodes to appear
+    gsap.from('.system-node', {
+      scrollTrigger: {
+        trigger: '#system',
+        start: 'top 80%',
+        end: 'center 30%',
+        scrub: 0.5
+      },
+      opacity: 0,
+      y: 30,
+      duration: 0.8,
+      stagger: 0.12,
+      ease: 'back.out(1.2)'
+    });
+
+    // System notification appears on scroll into system section
+    gsap.to('.notification', {
+      scrollTrigger: {
+        trigger: '#system',
+        start: 'center 50%',
+        end: 'bottom 20%',
+        scrub: 0.5
+      },
+      opacity: 1,
+      duration: 0.6,
+      ease: 'power2.out'
+    });
+
+    // Navigation scroll state
+    const navElement = document.getElementById('nav');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 40) {
+        navElement.classList.add('scrolled');
+      } else {
+        navElement.classList.remove('scrolled');
       }
     });
-  }, observerOptions);
 
-  document.querySelectorAll('.capability, .case-study, .process-step, .why-fact').forEach(el => {
-    observer.observe(el);
-  });
+    // Capability animations using IntersectionObserver
+    const observerOptions = { threshold: 0.3 };
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('active');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, observerOptions);
+
+    document.querySelectorAll('.capability, .case-study, .process-step, .why-fact').forEach(el => {
+      observer.observe(el);
+    });
+  }
+
+  // Execute after DOM and libraries load
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initializeApp);
+  } else {
+    initializeApp();
+  }
 </script>
 
 </body>
