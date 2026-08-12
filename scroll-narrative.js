@@ -1,7 +1,10 @@
 // Scroll-Driven Narrative Animation with GSAP
 // Language support: EN/NL with dynamic text updates on scroll
 
-gsap.registerPlugin(ScrollTrigger);
+// Register ScrollTrigger plugin if available
+if (typeof ScrollTrigger !== 'undefined' && gsap) {
+  gsap.registerPlugin(ScrollTrigger);
+}
 
 const scrollNarrative = {
   // Language strings
