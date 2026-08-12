@@ -190,6 +190,8 @@
       display: flex;
       align-items: center;
       gap: 12px;
+      opacity: 0;
+      transform: translateY(40px);
     }
 
     .hero-eyebrow::before {
@@ -203,11 +205,15 @@
     .hero-title {
       max-width: 900px;
       margin-bottom: 28px;
+      opacity: 0;
+      transform: translateY(40px);
     }
 
     .hero-subtitle {
       max-width: 600px;
       margin-bottom: 40px;
+      opacity: 0;
+      transform: translateY(40px);
     }
 
     .hero-capabilities {
@@ -215,6 +221,8 @@
       gap: 12px;
       flex-wrap: wrap;
       margin-bottom: 48px;
+      opacity: 0;
+      transform: translateY(40px);
     }
 
     .cap-item {
@@ -240,6 +248,8 @@
       gap: 16px;
       flex-wrap: wrap;
       align-items: center;
+      opacity: 0;
+      transform: translateY(40px);
     }
 
     .btn {
@@ -1183,23 +1193,24 @@
 
     // Hero section entrance animations (play immediately)
     const heroElements = document.querySelectorAll('.hero-eyebrow, .hero-title, .hero-subtitle, .hero-capabilities, .hero-buttons');
-    gsap.from(heroElements, {
-      opacity: 0,
-      y: 40,
+    gsap.to(heroElements, {
+      opacity: 1,
+      y: 0,
       duration: 1,
       stagger: 0.15,
-      ease: 'power2.out'
+      ease: 'power2.out',
+      delay: 0
     });
 
     // Chaos section: animate chaos words to appear and increase opacity on scroll
-    gsap.from('.chaos-word', {
+    gsap.to('.chaos-word', {
       scrollTrigger: {
         trigger: '#chaos',
         start: 'top 80%',
         end: 'center 20%',
         scrub: 0.5
       },
-      opacity: 0,
+      opacity: 0.8,
       duration: 1,
       stagger: 0.1,
       ease: 'power2.out'
