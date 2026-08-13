@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reno Rangers — Case Study | WAT? Agency</title>
+  <meta name="description" content="How we rebuilt the online system for Reno Rangers, a renovation and construction business in Antwerp.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700;900&family=Bebas+Neue&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Space Grotesk', sans-serif;
+      background: #050505;
+      color: #F4F2EC;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      padding: 20px 56px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      backdrop-filter: blur(16px);
+      background: rgba(5, 5, 5, 0.85);
+      border-bottom: 1px solid rgba(255, 212, 0, 0.1);
+    }
+
+    .nav-logo {
+      font-family: 'Bebas Neue', serif;
+      font-size: 26px;
+      letter-spacing: 4px;
+      color: #F4F2EC;
+      text-decoration: none;
+      text-transform: uppercase;
+    }
+
+    .nav-logo .q { color: #FFD400; font-size: 30px; }
+
+    .nav-right { display: flex; gap: 28px; align-items: center; }
+
+    .nav-back {
+      font-size: 12px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      font-weight: 600;
+      color: rgba(244, 242, 236, 0.6);
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    .nav-back:hover { color: #FFD400; }
+
+    .lang-toggle {
+      display: flex;
+      gap: 8px;
+      padding: 6px 12px;
+      border: 1px solid rgba(255, 212, 0, 0.25);
+      border-radius: 4px;
+      background: rgba(255, 212, 0, 0.05);
+    }
+
+    .lang-btn {
+      font-size: 12px;
+      letter-spacing: 1px;
+      font-weight: 700;
+      background: none;
+      border: none;
+      color: rgba(244, 242, 236, 0.45);
+      cursor: pointer;
+      padding: 3px 6px;
+      transition: color 0.25s ease;
+    }
+
+    .lang-btn.active, .lang-btn:hover { color: #FFD400; }
+
+    .wrap { max-width: 900px; margin: 0 auto; padding: 0 56px; }
+
+    header.case-hero { padding: 190px 0 80px; }
+
+    .case-eyebrow {
+      font-size: 12px;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: #FFD400;
+      margin-bottom: 24px;
+      font-weight: 700;
+    }
+
+    h1 {
+      font-family: 'Bebas Neue', serif;
+      font-size: clamp(3rem, 10vw, 6rem);
+      line-height: 0.92;
+      letter-spacing: -2px;
+      margin-bottom: 24px;
+    }
+
+    .accent { color: #FFD400; }
+
+    .case-summary {
+      font-size: clamp(1.05rem, 2.2vw, 1.3rem);
+      color: rgba(244, 242, 236, 0.75);
+      line-height: 1.75;
+      max-width: 720px;
+    }
+
+    .case-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 40px;
+      margin-top: 48px;
+      padding-top: 32px;
+      border-top: 1px solid rgba(255, 212, 0, 0.15);
+    }
+
+    .meta-item .meta-label {
+      font-size: 11px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: rgba(255, 212, 0, 0.7);
+      margin-bottom: 6px;
+      font-weight: 700;
+    }
+
+    .meta-item .meta-value { font-size: 15px; color: rgba(244, 242, 236, 0.8); }
+
+    .chapter { padding: 72px 0; border-top: 1px solid rgba(255, 212, 0, 0.1); }
+
+    .chapter-label {
+      font-size: 11px;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: rgba(255, 212, 0, 0.7);
+      margin-bottom: 20px;
+      font-weight: 700;
+    }
+
+    h2 {
+      font-family: 'Bebas Neue', serif;
+      font-size: clamp(2rem, 6vw, 3.2rem);
+      line-height: 1;
+      letter-spacing: -1px;
+      margin-bottom: 28px;
+    }
+
+    .chapter p {
+      font-size: 1rem;
+      color: rgba(244, 242, 236, 0.72);
+      line-height: 1.85;
+      margin-bottom: 20px;
+      max-width: 760px;
+    }
+
+    .build-list { list-style: none; margin-top: 32px; display: grid; gap: 24px; }
+
+    .build-list li { border-left: 3px solid #FFD400; padding-left: 22px; }
+
+    .build-list h3 {
+      font-size: 16px;
+      font-weight: 700;
+      color: #FFD400;
+      margin-bottom: 8px;
+    }
+
+    .build-list p { font-size: 14px; color: rgba(244, 242, 236, 0.65); margin-bottom: 0; }
+
+    .metrics {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 24px;
+      margin-top: 36px;
+    }
+
+    .metric {
+      padding: 24px;
+      background: rgba(255, 212, 0, 0.06);
+      border: 1px solid rgba(255, 212, 0, 0.18);
+      border-radius: 6px;
+    }
+
+    .metric-value {
+      font-family: 'Bebas Neue', serif;
+      font-size: 40px;
+      line-height: 1;
+      color: #FFD400;
+      margin-bottom: 8px;
+    }
+
+    .metric-label {
+      font-size: 11px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: rgba(244, 242, 236, 0.5);
+    }
+
+    .note {
+      margin-top: 28px;
+      font-size: 13px;
+      color: rgba(244, 242, 236, 0.45);
+      font-style: italic;
+      max-width: 720px;
+    }
+
+    .case-cta {
+      padding: 80px 0 120px;
+      border-top: 1px solid rgba(255, 212, 0, 0.1);
+      text-align: center;
+    }
+
+    .btn {
+      font-size: 13px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      font-weight: 700;
+      padding: 16px 30px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-decoration: none;
+      display: inline-block;
+      border-radius: 4px;
+      background: #FFD400;
+      color: #050505;
+      border: none;
+    }
+
+    .btn:hover {
+      background: #FFF000;
+      transform: translateY(-4px);
+      box-shadow: 0 20px 40px rgba(255, 212, 0, 0.25);
+    }
+
+    .case-nav {
+      display: flex;
+      justify-content: space-between;
+      gap: 24px;
+      flex-wrap: wrap;
+      padding: 40px 0 80px;
+      border-top: 1px solid rgba(255, 212, 0, 0.1);
+    }
+
+    .case-nav a {
+      font-size: 13px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      font-weight: 700;
+      color: #FFD400;
+      text-decoration: none;
+    }
+
+    .case-nav a:hover { color: #FFF000; }
+
+    @media(max-width: 768px) {
+      nav { padding: 14px 20px; flex-direction: column; gap: 12px; }
+      .nav-right { width: 100%; justify-content: space-between; }
+      .wrap { padding: 0 22px; }
+      header.case-hero { padding: 180px 0 56px; }
+      .chapter { padding: 56px 0; }
+    }
+
+    [data-lang="nl"] .en { display: none; }
+    [data-lang="en"] .nl { display: none; }
+  </style>
+</head>
+
+<body>
+  <nav>
+    <a href="/en/index.html" class="nav-logo"><span class="q">?</span> WAT</a>
+    <div class="nav-right">
+      <a href="/en/index.html#work" class="nav-back"><span class="en">← All work</span><span class="nl">← Al het werk</span></a>
+      <div class="lang-toggle">
+        <button class="lang-btn" data-lang="en" onclick="setLanguage('en')">EN</button>
+        <button class="lang-btn" data-lang="nl" onclick="setLanguage('nl')">NL</button>
+      </div>
+    </div>
+  </nav>
+
+  <div class="wrap">
+    <header class="case-hero">
+      <div class="case-eyebrow"><span class="en">Case study · Renovation &amp; construction</span><span class="nl">Case study · Renovatie &amp; bouw</span></div>
+      <h1>RENO<br>RANGERS</h1>
+      <p class="case-summary">
+        <span class="en">A renovation business that wasn't short on attention — it was short on the right kind. We rebuilt the front end of the business around clarity, so the enquiries arriving matched the work they actually wanted to do.</span>
+        <span class="nl">Een renovatiebedrijf dat geen gebrek had aan aandacht — wel aan het juiste soort. We herbouwden de voorkant van het bedrijf rond duidelijkheid, zodat binnenkomende aanvragen pasten bij het werk dat ze echt wilden doen.</span>
+      </p>
+
+      <div class="case-meta">
+        <div class="meta-item">
+          <div class="meta-label"><span class="en">Sector</span><span class="nl">Sector</span></div>
+          <div class="meta-value"><span class="en">Renovation &amp; construction</span><span class="nl">Renovatie &amp; bouw</span></div>
+        </div>
+        <div class="meta-item">
+          <div class="meta-label"><span class="en">Region</span><span class="nl">Regio</span></div>
+          <div class="meta-value"><span class="en">Antwerp &amp; 18 cities</span><span class="nl">Antwerpen &amp; 18 steden</span></div>
+        </div>
+        <div class="meta-item">
+          <div class="meta-label"><span class="en">What we ran</span><span class="nl">Wat we deden</span></div>
+          <div class="meta-value">Website · SEO · Google Business · Positioning · WhatsApp</div>
+        </div>
+      </div>
+    </header>
+
+    <section class="chapter">
+      <div class="chapter-label"><span class="en">The situation</span><span class="nl">De situatie</span></div>
+      <h2><span class="en">Enquiries, but<br>the wrong <span class="accent">ones</span></span><span class="nl">Aanvragen, maar<br>de <span class="accent">verkeerde</span></span></h2>
+      <p>
+        <span class="en">Reno Rangers were getting contacted. The problem was who was contacting them. Most enquiries came from people comparing on price alone, asking for a quote on a job they hadn't thought through, or looking for something the company didn't want to take on. Every one of them still cost time to answer.</span>
+        <span class="nl">Reno Rangers werden gecontacteerd. Het probleem was wie hen contacteerde. De meeste aanvragen kwamen van mensen die enkel op prijs vergeleken, een offerte vroegen voor werk dat ze niet doordacht hadden, of iets zochten dat het bedrijf niet wilde aannemen. Elk van hen kostte alsnog tijd om te beantwoorden.</span>
+      </p>
+      <p>
+        <span class="en">Underneath it sat a positioning problem. Nothing online said what kind of renovation work they did best, in which cities, at roughly what level of investment. Without that, they were sorted into the same pile as everyone else, and the market decided for them — always on price.</span>
+        <span class="nl">Daaronder zat een positioneringsprobleem. Niets online vertelde welk soort renovatiewerk ze het best deden, in welke steden, en op welk investeringsniveau ongeveer. Daardoor belandden ze op dezelfde hoop als alle anderen, en besliste de markt voor hen — altijd op prijs.</span>
+      </p>
+    </section>
+
+    <section class="chapter">
+      <div class="chapter-label"><span class="en">What we built</span><span class="nl">Wat we bouwden</span></div>
+      <h2><span class="en">Clarity as a<br><span class="accent">filter</span></span><span class="nl">Duidelijkheid als<br><span class="accent">filter</span></span></h2>
+      <p>
+        <span class="en">The goal wasn't more enquiries. It was fewer of the wrong ones and more of the right ones. Everything we built pushed the same idea: say clearly what you do, where, and at what level — and let that do the sorting before anyone picks up the phone.</span>
+        <span class="nl">Het doel was niet méér aanvragen. Het was minder verkeerde en meer juiste. Alles wat we bouwden duwde hetzelfde idee: zeg duidelijk wat je doet, waar, en op welk niveau — en laat dat sorteren voor iemand de telefoon opneemt.</span>
+      </p>
+
+      <ul class="build-list">
+        <li>
+          <h3><span class="en">Fixed-price positioning</span><span class="nl">Vaste-prijspositionering</span></h3>
+          <p>
+            <span class="en">Instead of "contact us for a quote", the offer was stated up front with a clear structure. People who found it too expensive stopped enquiring. People who found it fair arrived already half-decided.</span>
+            <span class="nl">In plaats van "contacteer ons voor een offerte" werd het aanbod vooraf helder gestructureerd. Wie het te duur vond, vroeg niet meer aan. Wie het correct vond, kwam al half beslist binnen.</span>
+          </p>
+        </li>
+        <li>
+          <h3><span class="en">A website built around 18 city pages</span><span class="nl">Een website rond 18 stadspagina's</span></h3>
+          <p>
+            <span class="en">One page per city they actually serve, each one specific about the work done there. It matches how people search — by service plus place — instead of hoping a single homepage covers a whole region.</span>
+            <span class="nl">Eén pagina per stad die ze echt bedienen, elk specifiek over het werk daar. Dat sluit aan op hoe mensen zoeken — dienst plus plaats — in plaats van hopen dat één homepage een hele regio dekt.</span>
+          </p>
+        </li>
+        <li>
+          <h3><span class="en">SEO aimed at intent, not volume</span><span class="nl">SEO gericht op intentie, niet volume</span></h3>
+          <p>
+            <span class="en">We targeted the searches made by people ready to commission work, not the broad informational terms that bring traffic and no enquiries.</span>
+            <span class="nl">We mikten op zoekopdrachten van mensen die klaar zijn om werk te laten uitvoeren, niet op brede informatieve termen die verkeer brengen en geen aanvragen.</span>
+          </p>
+        </li>
+        <li>
+          <h3><span class="en">Google Business as a routing point</span><span class="nl">Google Business als routeringspunt</span></h3>
+          <p>
+            <span class="en">Profile set up to send people to the right city page and the right service, with photos of completed projects so the first impression is finished work rather than a logo.</span>
+            <span class="nl">Profiel zo opgezet dat mensen naar de juiste stadspagina en dienst gaan, met foto's van afgewerkte projecten zodat de eerste indruk afgewerkt werk is en geen logo.</span>
+          </p>
+        </li>
+        <li>
+          <h3><span class="en">A WhatsApp flow with qualifying questions</span><span class="nl">Een WhatsApp-flow met kwalificerende vragen</span></h3>
+          <p>
+            <span class="en">Enquiries land in one place and start with the few questions that determine whether it's a fit — scope, city, timing. The conversation begins already useful instead of starting from zero.</span>
+            <span class="nl">Aanvragen komen op één plek binnen en starten met de paar vragen die bepalen of het past — scope, stad, timing. Het gesprek begint meteen nuttig in plaats van bij nul.</span>
+          </p>
+        </li>
+        <li>
+          <h3><span class="en">Tracking on every route</span><span class="nl">Tracking op elke route</span></h3>
+          <p>
+            <span class="en">Every enquiry is attributed to the page and channel it came from, so the city pages and campaigns that produce real work can be told apart from the ones that only produce traffic.</span>
+            <span class="nl">Elke aanvraag wordt toegewezen aan de pagina en het kanaal waar ze vandaan komt, zodat stadspagina's en campagnes die echt werk opleveren te onderscheiden zijn van die met alleen verkeer.</span>
+          </p>
+        </li>
+      </ul>
+    </section>
+
+    <section class="chapter">
+      <div class="chapter-label"><span class="en">What the client ended up with</span><span class="nl">Waar de klant mee eindigde</span></div>
+      <h2><span class="en">A front end that<br><span class="accent">sorts</span> for them</span><span class="nl">Een voorkant die<br>voor hen <span class="accent">sorteert</span></span></h2>
+      <p>
+        <span class="en">Reno Rangers now cover 18 cities with pages built for each one, and the enquiries that arrive are pre-sorted by the positioning before anyone spends time on them. Instead of answering everything and hoping, they can see which cities and which channels produce the work they want — and put their effort there.</span>
+        <span class="nl">Reno Rangers dekken nu 18 steden met pagina's per stad, en binnenkomende aanvragen zijn al voorgesorteerd door de positionering voor iemand er tijd aan besteedt. In plaats van alles beantwoorden en hopen, zien ze welke steden en kanalen het gewenste werk opleveren — en zetten ze daar hun energie op in.</span>
+      </p>
+
+      <div class="metrics">
+        <div class="metric">
+          <div class="metric-value">+200%</div>
+          <div class="metric-label"><span class="en">Enquiry growth</span><span class="nl">Groei aanvragen</span></div>
+        </div>
+        <div class="metric">
+          <div class="metric-value">18</div>
+          <div class="metric-label"><span class="en">Cities covered</span><span class="nl">Steden gedekt</span></div>
+        </div>
+        <div class="metric">
+          <div class="metric-value">5.0★</div>
+          <div class="metric-label"><span class="en">Google rating</span><span class="nl">Google-rating</span></div>
+        </div>
+      </div>
+
+      <p class="note">
+        <span class="en">Figures reflect this project at the time of writing. Every business starts from a different position — these numbers describe what happened here, not a promise for the next project.</span>
+        <span class="nl">Cijfers weerspiegelen dit project op moment van schrijven. Elk bedrijf start vanuit een andere positie — deze cijfers beschrijven wat hier gebeurde, geen belofte voor het volgende project.</span>
+      </p>
+    </section>
+
+    <section class="case-cta">
+      <h2><span class="en">Recognise your <span class="accent">situation?</span></span><span class="nl">Herken je je <span class="accent">situatie?</span></span></h2>
+      <p style="margin: 0 auto 32px; max-width: 560px; color: rgba(244,242,236,0.7);">
+        <span class="en">Tell us what your business does and where it's stuck. We'll tell you what we'd fix first.</span>
+        <span class="nl">Vertel ons wat je bedrijf doet en waar het vastloopt. Wij zeggen wat we als eerste zouden aanpakken.</span>
+      </p>
+      <a href="https://wa.me/32000000000?text=Hi%20WAT%3F%20I%20read%20the%20Reno%20Rangers%20case" target="_blank" rel="noopener" class="btn">
+        <span class="en">Message us on WhatsApp →</span><span class="nl">Stuur ons een WhatsApp →</span>
+      </a>
+    </section>
+
+    <nav class="case-nav">
+      <a href="/en/index.html#work"><span class="en">← All work</span><span class="nl">← Al het werk</span></a>
+      <a href="/work/isoprotech.html"><span class="en">Previous case: Isoprotech →</span><span class="nl">Vorige case: Isoprotech →</span></a>
+    </nav>
+  </div>
+
+  <script>
+    function setLanguage(lang) {
+      document.documentElement.setAttribute('data-lang', lang);
+      document.documentElement.setAttribute('lang', lang);
+      document.querySelectorAll('.lang-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.lang === lang);
+      });
+      localStorage.setItem('preferred-lang', lang);
+    }
+    setLanguage(localStorage.getItem('preferred-lang') || 'en');
+  </script>
+</body>
+</html>

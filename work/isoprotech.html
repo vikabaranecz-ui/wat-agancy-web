@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Isoprotech — Case Study | WAT? Agency</title>
+  <meta name="description" content="How we built the online system for Isoprotech, an insulation and energy service business in Antwerp.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700;900&family=Bebas+Neue&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Space Grotesk', sans-serif;
+      background: #050505;
+      color: #F4F2EC;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      padding: 20px 56px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      backdrop-filter: blur(16px);
+      background: rgba(5, 5, 5, 0.85);
+      border-bottom: 1px solid rgba(255, 212, 0, 0.1);
+    }
+
+    .nav-logo {
+      font-family: 'Bebas Neue', serif;
+      font-size: 26px;
+      letter-spacing: 4px;
+      color: #F4F2EC;
+      text-decoration: none;
+      text-transform: uppercase;
+    }
+
+    .nav-logo .q { color: #FFD400; font-size: 30px; }
+
+    .nav-right { display: flex; gap: 28px; align-items: center; }
+
+    .nav-back {
+      font-size: 12px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      font-weight: 600;
+      color: rgba(244, 242, 236, 0.6);
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    .nav-back:hover { color: #FFD400; }
+
+    .lang-toggle {
+      display: flex;
+      gap: 8px;
+      padding: 6px 12px;
+      border: 1px solid rgba(255, 212, 0, 0.25);
+      border-radius: 4px;
+      background: rgba(255, 212, 0, 0.05);
+    }
+
+    .lang-btn {
+      font-size: 12px;
+      letter-spacing: 1px;
+      font-weight: 700;
+      background: none;
+      border: none;
+      color: rgba(244, 242, 236, 0.45);
+      cursor: pointer;
+      padding: 3px 6px;
+      transition: color 0.25s ease;
+    }
+
+    .lang-btn.active, .lang-btn:hover { color: #FFD400; }
+
+    .wrap { max-width: 900px; margin: 0 auto; padding: 0 56px; }
+
+    header.case-hero { padding: 190px 0 80px; }
+
+    .case-eyebrow {
+      font-size: 12px;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: #FFD400;
+      margin-bottom: 24px;
+      font-weight: 700;
+    }
+
+    h1 {
+      font-family: 'Bebas Neue', serif;
+      font-size: clamp(3rem, 10vw, 6rem);
+      line-height: 0.92;
+      letter-spacing: -2px;
+      margin-bottom: 24px;
+    }
+
+    .accent { color: #FFD400; }
+
+    .case-summary {
+      font-size: clamp(1.05rem, 2.2vw, 1.3rem);
+      color: rgba(244, 242, 236, 0.75);
+      line-height: 1.75;
+      max-width: 720px;
+    }
+
+    .case-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 40px;
+      margin-top: 48px;
+      padding-top: 32px;
+      border-top: 1px solid rgba(255, 212, 0, 0.15);
+    }
+
+    .meta-item .meta-label {
+      font-size: 11px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: rgba(255, 212, 0, 0.7);
+      margin-bottom: 6px;
+      font-weight: 700;
+    }
+
+    .meta-item .meta-value { font-size: 15px; color: rgba(244, 242, 236, 0.8); }
+
+    .chapter { padding: 72px 0; border-top: 1px solid rgba(255, 212, 0, 0.1); }
+
+    .chapter-label {
+      font-size: 11px;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: rgba(255, 212, 0, 0.7);
+      margin-bottom: 20px;
+      font-weight: 700;
+    }
+
+    h2 {
+      font-family: 'Bebas Neue', serif;
+      font-size: clamp(2rem, 6vw, 3.2rem);
+      line-height: 1;
+      letter-spacing: -1px;
+      margin-bottom: 28px;
+    }
+
+    .chapter p {
+      font-size: 1rem;
+      color: rgba(244, 242, 236, 0.72);
+      line-height: 1.85;
+      margin-bottom: 20px;
+      max-width: 760px;
+    }
+
+    .build-list { list-style: none; margin-top: 32px; display: grid; gap: 24px; }
+
+    .build-list li { border-left: 3px solid #FFD400; padding-left: 22px; }
+
+    .build-list h3 {
+      font-size: 16px;
+      font-weight: 700;
+      color: #FFD400;
+      margin-bottom: 8px;
+    }
+
+    .build-list p { font-size: 14px; color: rgba(244, 242, 236, 0.65); margin-bottom: 0; }
+
+    .metrics {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 24px;
+      margin-top: 36px;
+    }
+
+    .metric {
+      padding: 24px;
+      background: rgba(255, 212, 0, 0.06);
+      border: 1px solid rgba(255, 212, 0, 0.18);
+      border-radius: 6px;
+    }
+
+    .metric-value {
+      font-family: 'Bebas Neue', serif;
+      font-size: 40px;
+      line-height: 1;
+      color: #FFD400;
+      margin-bottom: 8px;
+    }
+
+    .metric-label {
+      font-size: 11px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: rgba(244, 242, 236, 0.5);
+    }
+
+    .note {
+      margin-top: 28px;
+      font-size: 13px;
+      color: rgba(244, 242, 236, 0.45);
+      font-style: italic;
+      max-width: 720px;
+    }
+
+    .case-cta {
+      padding: 80px 0 120px;
+      border-top: 1px solid rgba(255, 212, 0, 0.1);
+      text-align: center;
+    }
+
+    .btn {
+      font-size: 13px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      font-weight: 700;
+      padding: 16px 30px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-decoration: none;
+      display: inline-block;
+      border-radius: 4px;
+      background: #FFD400;
+      color: #050505;
+      border: none;
+    }
+
+    .btn:hover {
+      background: #FFF000;
+      transform: translateY(-4px);
+      box-shadow: 0 20px 40px rgba(255, 212, 0, 0.25);
+    }
+
+    .case-nav {
+      display: flex;
+      justify-content: space-between;
+      gap: 24px;
+      flex-wrap: wrap;
+      padding: 40px 0 80px;
+      border-top: 1px solid rgba(255, 212, 0, 0.1);
+    }
+
+    .case-nav a {
+      font-size: 13px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      font-weight: 700;
+      color: #FFD400;
+      text-decoration: none;
+    }
+
+    .case-nav a:hover { color: #FFF000; }
+
+    @media(max-width: 768px) {
+      nav { padding: 14px 20px; flex-direction: column; gap: 12px; }
+      .nav-right { width: 100%; justify-content: space-between; }
+      .wrap { padding: 0 22px; }
+      header.case-hero { padding: 180px 0 56px; }
+      .chapter { padding: 56px 0; }
+    }
+
+    [data-lang="nl"] .en { display: none; }
+    [data-lang="en"] .nl { display: none; }
+  </style>
+</head>
+
+<body>
+  <nav>
+    <a href="/en/index.html" class="nav-logo"><span class="q">?</span> WAT</a>
+    <div class="nav-right">
+      <a href="/en/index.html#work" class="nav-back"><span class="en">← All work</span><span class="nl">← Al het werk</span></a>
+      <div class="lang-toggle">
+        <button class="lang-btn" data-lang="en" onclick="setLanguage('en')">EN</button>
+        <button class="lang-btn" data-lang="nl" onclick="setLanguage('nl')">NL</button>
+      </div>
+    </div>
+  </nav>
+
+  <div class="wrap">
+    <header class="case-hero">
+      <div class="case-eyebrow"><span class="en">Case study · Insulation &amp; energy services</span><span class="nl">Case study · Isolatie &amp; energiediensten</span></div>
+      <h1>ISOPROTECH</h1>
+      <p class="case-summary">
+        <span class="en">A technical service business in Antwerp with genuine expertise and almost no online trace. We built the visibility and the proof — so that the people already searching for insulation work in their region could actually find them, and trust what they found.</span>
+        <span class="nl">Een technisch dienstenbedrijf in Antwerpen met echte expertise en bijna geen online spoor. We bouwden de zichtbaarheid en het bewijs — zodat mensen die al zochten naar isolatiewerk in hun regio hen konden vinden, en konden vertrouwen wat ze vonden.</span>
+      </p>
+
+      <div class="case-meta">
+        <div class="meta-item">
+          <div class="meta-label"><span class="en">Sector</span><span class="nl">Sector</span></div>
+          <div class="meta-value"><span class="en">Insulation &amp; energy</span><span class="nl">Isolatie &amp; energie</span></div>
+        </div>
+        <div class="meta-item">
+          <div class="meta-label"><span class="en">Region</span><span class="nl">Regio</span></div>
+          <div class="meta-value"><span class="en">Antwerp &amp; surroundings</span><span class="nl">Antwerpen &amp; omgeving</span></div>
+        </div>
+        <div class="meta-item">
+          <div class="meta-label"><span class="en">What we ran</span><span class="nl">Wat we deden</span></div>
+          <div class="meta-value">Website · Google Business · SEO · Reviews · WhatsApp</div>
+        </div>
+      </div>
+    </header>
+
+    <section class="chapter">
+      <div class="chapter-label"><span class="en">The situation</span><span class="nl">De situatie</span></div>
+      <h2><span class="en">Good work,<br>no online <span class="accent">trace</span></span><span class="nl">Goed werk,<br>geen online <span class="accent">spoor</span></span></h2>
+      <p>
+        <span class="en">Isoprotech did solid technical work and had satisfied customers. But if you searched for insulation services in their region, you wouldn't find them. There was no website worth the name, the Google Business profile was thin, and the reviews that existed didn't reflect the number of jobs they had actually completed.</span>
+        <span class="nl">Isoprotech leverde degelijk technisch werk en had tevreden klanten. Maar wie zocht naar isolatiediensten in hun regio, vond hen niet. Er was geen website die die naam waard was, het Google Business-profiel was mager, en de reviews die er waren weerspiegelden niet het aantal uitgevoerde opdrachten.</span>
+      </p>
+      <p>
+        <span class="en">That created a specific problem. In insulation work, people compare two or three companies before deciding, and they compare on trust: does this company look like it will show up, do it properly, and stand behind it? Without visible proof, Isoprotech was competing on price against companies that were simply more visible — not better.</span>
+        <span class="nl">Dat zorgde voor een specifiek probleem. Bij isolatiewerk vergelijken mensen twee tot drie bedrijven voor ze beslissen, en ze vergelijken op vertrouwen: lijkt dit bedrijf op te dagen, het goed te doen en erachter te staan? Zonder zichtbaar bewijs concurreerde Isoprotech op prijs tegen bedrijven die simpelweg zichtbaarder waren — niet beter.</span>
+      </p>
+    </section>
+
+    <section class="chapter">
+      <div class="chapter-label"><span class="en">What we built</span><span class="nl">Wat we bouwden</span></div>
+      <h2><span class="en">Visibility first,<br>then <span class="accent">proof</span></span><span class="nl">Eerst zichtbaarheid,<br>dan <span class="accent">bewijs</span></span></h2>
+      <p>
+        <span class="en">The order mattered. There's no point collecting reviews if nobody reaches the profile, and no point ranking if what people find doesn't convince them. We built the pieces so each one fed the next.</span>
+        <span class="nl">De volgorde was belangrijk. Reviews verzamelen heeft geen zin als niemand het profiel bereikt, en ranken heeft geen zin als wat mensen vinden hen niet overtuigt. We bouwden de onderdelen zo dat elk het volgende voedde.</span>
+      </p>
+
+      <ul class="build-list">
+        <li>
+          <h3><span class="en">A website that explains the service</span><span class="nl">Een website die de dienst uitlegt</span></h3>
+          <p>
+            <span class="en">Built around the questions people actually ask before ordering insulation work: what it involves, what affects the price, how long it takes, what happens after. Every page ends with one obvious next step.</span>
+            <span class="nl">Gebouwd rond de vragen die mensen echt stellen voor ze isolatiewerk bestellen: wat het inhoudt, wat de prijs bepaalt, hoe lang het duurt, wat er daarna gebeurt. Elke pagina eindigt met één duidelijke volgende stap.</span>
+          </p>
+        </li>
+        <li>
+          <h3><span class="en">A Google Business profile that competes</span><span class="nl">Een Google Business-profiel dat meedoet</span></h3>
+          <p>
+            <span class="en">Complete service list, real photos of finished work, service areas, hours, and answers to the questions that kept coming in by phone. This is the page most people see before the website.</span>
+            <span class="nl">Volledige dienstenlijst, echte foto's van afgewerkt werk, servicegebieden, uren en antwoorden op de vragen die telkens telefonisch binnenkwamen. Dit is de pagina die de meeste mensen zien vóór de website.</span>
+          </p>
+        </li>
+        <li>
+          <h3><span class="en">Local SEO across their service area</span><span class="nl">Lokale SEO in hun servicegebied</span></h3>
+          <p>
+            <span class="en">Pages and content built for the cities they actually serve, matching how people in Belgium search for this work — not generic national keywords they'd never rank for.</span>
+            <span class="nl">Pagina's en content gebouwd voor de steden die ze echt bedienen, afgestemd op hoe mensen in België naar dit werk zoeken — geen generieke nationale zoekwoorden waarop ze nooit zouden ranken.</span>
+          </p>
+        </li>
+        <li>
+          <h3><span class="en">A review flow that runs itself</span><span class="nl">Een reviewflow die vanzelf loopt</span></h3>
+          <p>
+            <span class="en">A fixed moment after each completed job when the client is asked for a review, with a link that takes two taps. The reputation stopped depending on whether someone remembered to ask.</span>
+            <span class="nl">Een vast moment na elke afgewerkte opdracht waarop de klant om een review wordt gevraagd, met een link van twee tikken. De reputatie hing niet langer af van wie eraan dacht het te vragen.</span>
+          </p>
+        </li>
+        <li>
+          <h3><span class="en">WhatsApp as the main enquiry route</span><span class="nl">WhatsApp als hoofdroute voor aanvragen</span></h3>
+          <p>
+            <span class="en">Most people would rather send a photo of their attic than fill in a form. We made WhatsApp the primary route from every page, and tracked it so enquiries could be counted.</span>
+            <span class="nl">De meeste mensen sturen liever een foto van hun zolder dan dat ze een formulier invullen. We maakten WhatsApp de primaire route vanaf elke pagina, en trackten die zodat aanvragen geteld konden worden.</span>
+          </p>
+        </li>
+        <li>
+          <h3><span class="en">A price calculator</span><span class="nl">Een prijscalculator</span></h3>
+          <p>
+            <span class="en">A simple tool that gives a realistic range before contact. It filters out people looking for something else entirely, and starts the conversation with someone who already understands the order of magnitude.</span>
+            <span class="nl">Een eenvoudige tool die vóór contact een realistische marge geeft. Het filtert mensen weg die iets heel anders zoeken, en start het gesprek met iemand die de grootteorde al begrijpt.</span>
+          </p>
+        </li>
+      </ul>
+    </section>
+
+    <section class="chapter">
+      <div class="chapter-label"><span class="en">What the client ended up with</span><span class="nl">Waar de klant mee eindigde</span></div>
+      <h2><span class="en">A business that<br>can be <span class="accent">found</span></span><span class="nl">Een bedrijf dat<br><span class="accent">gevonden</span> kan worden</span></h2>
+      <p>
+        <span class="en">Isoprotech now appears in local search across the cities they serve, with a profile that carries real proof of finished work. Reviews accumulate automatically after each job instead of by chance. Enquiries arrive through WhatsApp in one place, and can be counted — so decisions about where to spend time and money are based on numbers rather than impressions.</span>
+        <span class="nl">Isoprotech verschijnt nu in lokale zoekresultaten in de steden die ze bedienen, met een profiel dat echt bewijs van afgewerkt werk draagt. Reviews stapelen zich automatisch op na elke opdracht in plaats van bij toeval. Aanvragen komen via WhatsApp op één plek binnen en kunnen geteld worden — zodat beslissingen over tijd en geld op cijfers berusten in plaats van op indrukken.</span>
+      </p>
+
+      <div class="metrics">
+        <div class="metric">
+          <div class="metric-value">5.0★</div>
+          <div class="metric-label"><span class="en">Google rating</span><span class="nl">Google-rating</span></div>
+        </div>
+        <div class="metric">
+          <div class="metric-value">47+</div>
+          <div class="metric-label"><span class="en">Verified reviews</span><span class="nl">Geverifieerde reviews</span></div>
+        </div>
+        <div class="metric">
+          <div class="metric-value">10</div>
+          <div class="metric-label"><span class="en">Cities ranking</span><span class="nl">Steden in ranking</span></div>
+        </div>
+      </div>
+
+      <p class="note">
+        <span class="en">Figures reflect the state of the Google Business profile at the time of writing. Every business starts from a different position — these numbers describe this project, not a promise for the next one.</span>
+        <span class="nl">Cijfers weerspiegelen de staat van het Google Business-profiel op moment van schrijven. Elk bedrijf start vanuit een andere positie — deze cijfers beschrijven dit project, geen belofte voor het volgende.</span>
+      </p>
+    </section>
+
+    <section class="case-cta">
+      <h2><span class="en">Recognise your <span class="accent">situation?</span></span><span class="nl">Herken je je <span class="accent">situatie?</span></span></h2>
+      <p style="margin: 0 auto 32px; max-width: 560px; color: rgba(244,242,236,0.7);">
+        <span class="en">Tell us what your business does and where it's stuck. We'll tell you what we'd fix first.</span>
+        <span class="nl">Vertel ons wat je bedrijf doet en waar het vastloopt. Wij zeggen wat we als eerste zouden aanpakken.</span>
+      </p>
+      <a href="https://wa.me/32000000000?text=Hi%20WAT%3F%20I%20read%20the%20Isoprotech%20case" target="_blank" rel="noopener" class="btn">
+        <span class="en">Message us on WhatsApp →</span><span class="nl">Stuur ons een WhatsApp →</span>
+      </a>
+    </section>
+
+    <nav class="case-nav">
+      <a href="/en/index.html#work"><span class="en">← All work</span><span class="nl">← Al het werk</span></a>
+      <a href="/work/reno-rangers.html"><span class="en">Next case: Reno Rangers →</span><span class="nl">Volgende case: Reno Rangers →</span></a>
+    </nav>
+  </div>
+
+  <script>
+    function setLanguage(lang) {
+      document.documentElement.setAttribute('data-lang', lang);
+      document.documentElement.setAttribute('lang', lang);
+      document.querySelectorAll('.lang-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.lang === lang);
+      });
+      localStorage.setItem('preferred-lang', lang);
+    }
+    setLanguage(localStorage.getItem('preferred-lang') || 'en');
+  </script>
+</body>
+</html>
