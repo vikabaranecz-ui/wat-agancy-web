@@ -98,6 +98,38 @@
 
     .lang-btn.active, .lang-btn:hover { color: #FFD400; }
 
+    /* BURGER — hidden on desktop */
+    .nav-burger {
+      display: none;
+      width: 44px;
+      height: 44px;
+      padding: 0;
+      background: none;
+      border: none;
+      cursor: pointer;
+      position: relative;
+      flex: 0 0 auto;
+    }
+
+    .nav-burger span {
+      position: absolute;
+      left: 10px;
+      width: 24px;
+      height: 2px;
+      background: #F4F2EC;
+      transition: transform 0.3s ease, opacity 0.2s ease;
+    }
+
+    .nav-burger span:nth-child(1) { top: 15px; }
+    .nav-burger span:nth-child(2) { top: 21px; }
+    .nav-burger span:nth-child(3) { top: 27px; }
+
+    body.menu-open .nav-burger span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+    body.menu-open .nav-burger span:nth-child(2) { opacity: 0; }
+    body.menu-open .nav-burger span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+
+    .menu-cta, .menu-foot { display: none; }
+
     /* SECTIONS */
     section {
       min-height: 100vh;
@@ -205,7 +237,7 @@
     /* PAIN */
     .pain-list {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr));
       gap: 24px;
       margin-top: 48px;
     }
@@ -241,7 +273,7 @@
     /* WHO */
     .who-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr));
       gap: 24px;
       margin-top: 48px;
     }
@@ -266,7 +298,7 @@
     /* SYSTEM */
     .system-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(min(230px, 100%), 1fr));
       gap: 20px;
       margin-top: 48px;
     }
@@ -292,7 +324,7 @@
     /* WORK */
     .work-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(min(340px, 100%), 1fr));
       gap: 32px;
       margin-top: 48px;
     }
@@ -418,10 +450,100 @@
     }
 
     @media(max-width: 900px) {
-      nav { padding: 14px 20px; flex-direction: column; gap: 12px; }
-      nav.scrolled { padding: 12px 20px; }
-      .nav-right { width: 100%; justify-content: space-between; gap: 16px; }
-      .nav-links { gap: 18px; flex-wrap: wrap; }
+      /* Nav stays one compact row: logo · lang · burger */
+      nav { padding: 10px 16px; }
+      nav.scrolled { padding: 8px 16px; }
+      .nav-logo { font-size: 23px; letter-spacing: 3px; }
+      .nav-logo .q { font-size: 26px; }
+      .nav-right { gap: 10px; }
+      .nav-burger { display: block; }
+
+      /* Lang toggle: real tap targets */
+      .lang-toggle { padding: 0; gap: 0; overflow: hidden; }
+      .lang-btn {
+        min-width: 44px;
+        min-height: 40px;
+        padding: 0 12px;
+        font-size: 13px;
+      }
+      .lang-btn.active { background: rgba(255, 212, 0, 0.14); }
+
+      /* Links become a full-height panel.
+         `nav` has backdrop-filter, which makes it the containing block for
+         fixed children — so `inset: 0` would size to the bar, not the screen.
+         nav sits at the viewport origin, so explicit viewport units are correct. */
+      .nav-links {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        height: 100dvh;
+        z-index: -1;
+        flex-direction: column;
+        justify-content: center;
+        align-items: stretch;
+        gap: 0;
+        padding: 84px 24px 32px;
+        background: #050505;
+        overflow-y: auto;
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(-12px);
+        transition: opacity 0.28s ease, transform 0.28s ease, visibility 0.28s;
+      }
+
+      body.menu-open .nav-links {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+        z-index: 1;
+      }
+
+      .nav-links a {
+        font-family: 'Bebas Neue', serif;
+        font-size: 30px;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        color: #F4F2EC;
+        padding: 16px 0;
+        border-bottom: 1px solid rgba(255, 212, 0, 0.12);
+        min-height: 56px;
+        display: flex;
+        align-items: center;
+      }
+
+      .nav-links a:active { color: #FFD400; }
+
+      /* Must out-specify `.nav-links a` above, or the CTA inherits the
+         30px Bebas + nowrap treatment and overflows narrow screens. */
+      .nav-links a.menu-cta {
+        display: block;
+        margin-top: 28px;
+        text-align: center;
+        background: #FFD400;
+        color: #050505;
+        font-family: 'Space Grotesk', sans-serif;
+        font-size: 14px;
+        font-weight: 700;
+        letter-spacing: 1.5px;
+        text-transform: uppercase;
+        text-decoration: none;
+        padding: 18px 20px;
+        border: none;
+        border-radius: 4px;
+        white-space: normal;
+        min-height: 0;
+      }
+
+      .menu-foot {
+        display: block;
+        margin-top: 18px;
+        text-align: center;
+        font-size: 13px;
+        color: rgba(244, 242, 236, 0.45);
+      }
+
       section { padding: 90px 22px; }
       footer { padding: 56px 22px 28px; }
       .footer-content { flex-direction: column; gap: 36px; }
@@ -440,17 +562,26 @@
     <nav id="nav">
       <a href="#hero" class="nav-logo"><span class="q">?</span> WAT</a>
       <div class="nav-right">
-        <div class="nav-links">
+        <div class="nav-links" id="nav-links">
           <a href="#situation"><span class="en">Your situation</span><span class="nl">Jouw situatie</span></a>
           <a href="#who"><span class="en">Who we help</span><span class="nl">Wie we helpen</span></a>
           <a href="#system"><span class="en">What we build</span><span class="nl">Wat we bouwen</span></a>
           <a href="#work"><span class="en">Our work</span><span class="nl">Ons werk</span></a>
           <a href="#contact"><span class="en">Contact</span><span class="nl">Contact</span></a>
+          <a href="https://wa.me/32471623105" target="_blank" rel="noopener" class="menu-cta">
+            <span class="en">Message us on WhatsApp →</span><span class="nl">Stuur ons een WhatsApp →</span>
+          </a>
+          <p class="menu-foot">
+            <span class="en">Antwerp · NL / FR / EN</span><span class="nl">Antwerpen · NL / FR / EN</span>
+          </p>
         </div>
         <div class="lang-toggle">
           <button class="lang-btn" data-lang="en" onclick="setLanguage('en')">EN</button>
           <button class="lang-btn" data-lang="nl" onclick="setLanguage('nl')">NL</button>
         </div>
+        <button class="nav-burger" id="nav-burger" aria-label="Menu" aria-expanded="false" aria-controls="nav-links">
+          <span></span><span></span><span></span>
+        </button>
       </div>
     </nav>
 
@@ -960,6 +1091,33 @@
       const navElement = document.getElementById('nav');
       window.addEventListener('scroll', () => {
         navElement.classList.toggle('scrolled', window.scrollY > 50);
+      });
+
+      // Mobile menu
+      const burger = document.getElementById('nav-burger');
+      const navLinks = document.getElementById('nav-links');
+
+      const setMenu = (open) => {
+        document.body.classList.toggle('menu-open', open);
+        burger.setAttribute('aria-expanded', String(open));
+        document.body.style.overflow = open ? 'hidden' : '';
+      };
+
+      burger.addEventListener('click', () => {
+        setMenu(!document.body.classList.contains('menu-open'));
+      });
+
+      navLinks.addEventListener('click', (e) => {
+        if (e.target.closest('a')) setMenu(false);
+      });
+
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') setMenu(false);
+      });
+
+      // Never leave the panel open when resizing back to desktop
+      window.addEventListener('resize', () => {
+        if (window.innerWidth > 900) setMenu(false);
       });
     }
 

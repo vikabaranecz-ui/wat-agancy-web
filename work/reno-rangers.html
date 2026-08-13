@@ -172,7 +172,7 @@
 
     .metrics {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(min(160px, 100%), 1fr));
       gap: 24px;
       margin-top: 36px;
     }
@@ -256,11 +256,34 @@
     .case-nav a:hover { color: #FFF000; }
 
     @media(max-width: 768px) {
-      nav { padding: 14px 20px; flex-direction: column; gap: 12px; }
-      .nav-right { width: 100%; justify-content: space-between; }
+      /* One compact row; no wrapping, real tap targets */
+      nav { padding: 8px 16px; gap: 12px; }
+      .nav-logo { font-size: 23px; letter-spacing: 3px; }
+      .nav-logo .q { font-size: 26px; }
+      .nav-right { gap: 10px; }
+      .nav-back {
+        font-size: 0;
+        min-width: 44px;
+        min-height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .nav-back::before {
+        content: '\2190';
+        font-size: 20px;
+        color: rgba(244, 242, 236, 0.75);
+      }
+      .lang-toggle { padding: 0; gap: 0; overflow: hidden; }
+      .lang-btn { min-width: 44px; min-height: 40px; padding: 0 12px; font-size: 13px; }
+      .lang-btn.active { background: rgba(255, 212, 0, 0.14); }
+
       .wrap { padding: 0 22px; }
-      header.case-hero { padding: 180px 0 56px; }
+      header.case-hero { padding: 140px 0 56px; }
       .chapter { padding: 56px 0; }
+      .case-meta { gap: 24px; }
+      .case-nav { flex-direction: column; gap: 18px; }
+      .btn { width: 100%; text-align: center; padding: 18px 24px; }
     }
 
     [data-lang="nl"] .en { display: none; }
