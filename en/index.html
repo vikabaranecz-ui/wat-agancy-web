@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>WAT? Agency — Digital Growth for Belgian Service Businesses</title>
-  <meta name="description" content="We help Belgian service businesses get more clients. Website, Google, social, ads, tracking — one system that works.">
+  <title>WAT? Agency — Get More Clients for Your Service Business</title>
+  <meta name="description" content="We help Belgian service businesses get consistent, profitable client flow. Real results. Real growth.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700;900&family=Bebas+Neue&display=swap" rel="stylesheet">
   <style>
@@ -154,6 +154,13 @@
       margin-bottom: 40px;
     }
 
+    h3 {
+      font-family: 'Bebas Neue', serif;
+      font-size: clamp(1.8rem, 5vw, 2.5rem);
+      line-height: 1;
+      letter-spacing: -1px;
+    }
+
     .accent {
       color: #FFD400;
     }
@@ -184,15 +191,17 @@
     .hero-title {
       opacity: 0;
       transform: translateY(40px);
+      margin-bottom: 32px;
     }
 
     .hero-subtitle {
       font-size: 18px;
       color: rgba(244, 242, 236, 0.7);
       margin-bottom: 48px;
-      max-width: 600px;
+      max-width: 700px;
       opacity: 0;
       transform: translateY(40px);
+      line-height: 1.7;
     }
 
     .hero-buttons {
@@ -213,6 +222,7 @@
       transition: all 0.3s ease;
       text-decoration: none;
       display: inline-block;
+      border-radius: 4px;
     }
 
     .btn-primary {
@@ -236,56 +246,59 @@
       background: rgba(255, 212, 0, 0.1);
     }
 
-    /* PROBLEM SECTION */
-    #problem {
+    /* PAIN SECTION */
+    #pain {
       background: linear-gradient(135deg, rgba(0, 0, 0, 0.5) 0%, rgba(255, 212, 0, 0.05) 100%);
     }
 
-    .problem-list {
+    .pain-list {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
       gap: 32px;
       margin-top: 60px;
     }
 
-    .problem-item {
-      padding: 32px;
-      border-left: 3px solid #FFD400;
+    .pain-item {
+      padding: 40px;
+      background: rgba(255, 212, 0, 0.08);
+      border: 1px solid rgba(255, 212, 0, 0.2);
+      border-radius: 8px;
       opacity: 0;
-      transform: translateX(-30px);
+      transform: translateY(40px);
+      border-left: 4px solid #FFD400;
     }
 
-    .problem-item.active {
+    .pain-item.active {
       opacity: 1;
-      transform: translateX(0);
+      transform: translateY(0);
     }
 
-    .problem-item h3 {
-      font-size: 18px;
+    .pain-item h3 {
+      font-size: 20px;
       font-weight: 700;
-      margin-bottom: 12px;
+      margin-bottom: 16px;
       color: #FFD400;
     }
 
-    .problem-item p {
-      font-size: 14px;
-      color: rgba(244, 242, 236, 0.6);
+    .pain-item p {
+      font-size: 15px;
+      color: rgba(244, 242, 236, 0.7);
     }
 
-    /* TRANSFORMATION SECTION */
-    #transformation {
+    /* WHO SECTION */
+    #who {
       background: linear-gradient(135deg, rgba(255, 212, 0, 0.05) 0%, rgba(0, 0, 0, 0.5) 100%);
     }
 
-    .transformation-grid {
+    .who-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
       gap: 40px;
       margin-top: 80px;
     }
 
-    .transform-card {
-      padding: 40px;
+    .who-card {
+      padding: 48px;
       background: rgba(255, 212, 0, 0.08);
       border: 1px solid rgba(255, 212, 0, 0.2);
       border-radius: 8px;
@@ -293,38 +306,35 @@
       transform: translateY(40px);
     }
 
-    .transform-card.active {
+    .who-card.active {
       opacity: 1;
       transform: translateY(0);
     }
 
-    .transform-card .number {
-      font-family: 'Bebas Neue', serif;
+    .who-card .icon {
       font-size: 48px;
-      color: #FFD400;
       margin-bottom: 16px;
     }
 
-    .transform-card h3 {
-      font-size: 20px;
-      font-weight: 700;
-      margin-bottom: 12px;
-      color: #F4F2EC;
+    .who-card h3 {
+      font-size: 22px;
+      margin-bottom: 16px;
+      color: #FFD400;
     }
 
-    .transform-card p {
+    .who-card p {
       font-size: 14px;
       color: rgba(244, 242, 236, 0.6);
     }
 
-    /* PROOF - CASE STUDIES */
-    #proof {
+    /* CASE STUDIES */
+    #cases {
       background: transparent;
     }
 
     .case-study {
-      margin-bottom: 80px;
-      padding: 48px;
+      margin-bottom: 100px;
+      padding: 60px;
       background: rgba(255, 212, 0, 0.05);
       border: 1px solid rgba(255, 212, 0, 0.1);
       border-radius: 8px;
@@ -339,15 +349,36 @@
 
     .case-title {
       font-family: 'Bebas Neue', serif;
-      font-size: 32px;
-      color: #F4F2EC;
-      margin-bottom: 12px;
+      font-size: 36px;
+      color: #FFD400;
+      margin-bottom: 8px;
     }
 
-    .case-location {
+    .case-industry {
       font-size: 13px;
       color: rgba(244, 242, 236, 0.5);
-      margin-bottom: 24px;
+      margin-bottom: 40px;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+    }
+
+    .case-section {
+      margin-bottom: 40px;
+    }
+
+    .case-section h4 {
+      font-family: 'Bebas Neue', serif;
+      font-size: 18px;
+      color: #FFD400;
+      margin-bottom: 16px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .case-section p {
+      font-size: 15px;
+      color: rgba(244, 242, 236, 0.7);
+      line-height: 1.8;
     }
 
     .case-metrics {
@@ -358,20 +389,22 @@
     }
 
     .metric {
-      border-left: 2px solid #FFD400;
+      border-left: 3px solid #FFD400;
       padding-left: 16px;
+      padding-top: 8px;
     }
 
     .metric-value {
       font-family: 'Bebas Neue', serif;
-      font-size: 28px;
+      font-size: 32px;
       color: #FFD400;
       margin-bottom: 4px;
+      line-height: 1;
     }
 
     .metric-label {
       font-size: 12px;
-      color: rgba(244, 242, 236, 0.6);
+      color: rgba(244, 242, 236, 0.5);
       text-transform: uppercase;
       letter-spacing: 1px;
     }
@@ -407,37 +440,7 @@
       font-size: 16px;
       font-weight: 700;
       color: #FFD400;
-    }
-
-    /* GUARANTEE */
-    #guarantee {
-      background: transparent;
-    }
-
-    .guarantee-list {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 40px;
-      margin-top: 60px;
-    }
-
-    .guarantee-item {
-      border-left: 3px solid #FFD400;
-      padding-left: 24px;
-      opacity: 0;
-      transform: translateX(-30px);
-    }
-
-    .guarantee-item.active {
-      opacity: 1;
-      transform: translateX(0);
-    }
-
-    .guarantee-item h3 {
-      font-size: 18px;
-      font-weight: 700;
-      margin-bottom: 12px;
-      color: #FFD400;
+      text-transform: uppercase;
     }
 
     /* CTA */
@@ -451,9 +454,13 @@
       max-width: 700px;
     }
 
+    .cta-content h2 {
+      margin-bottom: 32px;
+    }
+
     .cta-content p {
       font-size: 18px;
-      margin-bottom: 32px;
+      margin-bottom: 48px;
     }
 
     .trust-copy {
@@ -493,9 +500,14 @@
       color: #FFD400;
     }
 
+    .footer-brand p {
+      font-size: 14px;
+      color: rgba(244, 242, 236, 0.6);
+    }
+
     .footer-links {
       display: flex;
-      gap: 40px;
+      gap: 60px;
     }
 
     .footer-col-title {
@@ -539,10 +551,6 @@
         gap: 16px;
       }
 
-      nav.scrolled {
-        padding: 12px 24px;
-      }
-
       .nav-right {
         width: 100%;
         justify-content: space-between;
@@ -560,14 +568,13 @@
         padding: 60px 24px 30px;
       }
 
-      .footer-content {
-        flex-direction: column;
-        gap: 40px;
-      }
-
       .footer-links {
         flex-direction: column;
         gap: 30px;
+      }
+
+      .case-study {
+        padding: 40px 24px;
       }
     }
 
@@ -586,13 +593,15 @@
       <div class="nav-right">
         <div class="nav-links">
           <a href="#hero" class="en-text">Home</a>
-          <a href="#problem" class="en-text">Why Us</a>
-          <a href="#proof" class="en-text">Proof</a>
+          <a href="#pain" class="en-text">Your Situation</a>
+          <a href="#who" class="en-text">Who We Help</a>
+          <a href="#cases" class="en-text">Our Work</a>
           <a href="#final-cta" class="en-text">Contact</a>
 
-          <a href="#hero" class="nl-text">Home</a>
-          <a href="#problem" class="nl-text">Waarom Ons</a>
-          <a href="#proof" class="nl-text">Bewijs</a>
+          <a href="#hero" class="nl-text">Thuis</a>
+          <a href="#pain" class="nl-text">Jouw Situatie</a>
+          <a href="#who" class="nl-text">Wie We Helpen</a>
+          <a href="#cases" class="nl-text">Ons Werk</a>
           <a href="#final-cta" class="nl-text">Contact</a>
         </div>
         <div class="lang-toggle">
@@ -604,130 +613,240 @@
 
     <!-- 01 HERO -->
     <section id="hero">
-      <div class="hero-eyebrow en-text">YOUR SERVICE BUSINESS DESERVES MORE CLIENTS</div>
-      <div class="hero-eyebrow nl-text">JE DIENSTENBEDRIJF VERDIENT MEER KLANTEN</div>
+      <div class="hero-eyebrow en-text">FOR BELGIAN SERVICE BUSINESSES LOSING CLIENTS</div>
+      <div class="hero-eyebrow nl-text">VOOR BELGISCHE DIENSTENBEDRIJVEN DIE KLANTEN VERLIEZEN</div>
 
       <h1 class="hero-title">
-        <span class="en-text">Your Best<br>Clients Are<br>Looking For<br><span class="accent">You Right Now.</span></span>
-        <span class="nl-text">Je Beste<br>Klanten Zoeken<br>Nu Naar<br><span class="accent">Je.</span></span>
+        <span class="en-text">You Have<br>Good Work.<br>You Need<br><span class="accent">Good Clients.</span></span>
+        <span class="nl-text">Je Hebt<br>Goed Werk.<br>Je Nodig<br><span class="accent">Goede Klanten.</span></span>
       </h1>
 
-      <p class="hero-subtitle en-text">They just don't know it yet. We connect them to you. One system. One team. Real growth.</p>
-      <p class="hero-subtitle nl-text">Ze weten het alleen nog niet. We verbinden ze met jou. Eén systeem. Eén team. Echte groei.</p>
+      <p class="hero-subtitle en-text">The problem isn't your service. It's that the right people don't know you exist. We change that. One system. Real growth. Your margins get better.</p>
+      <p class="hero-subtitle nl-text">Het probleem is niet je dienst. Het is dat de juiste mensen niet weten dat je bestaat. We veranderen dat. Eén systeem. Echte groei. Je marges worden beter.</p>
 
       <div class="hero-buttons">
-        <a href="#final-cta" class="btn btn-primary en-text">GET YOUR BLUEPRINT →</a>
-        <a href="#proof" class="btn btn-secondary en-text">SEE WHAT WORKS ↓</a>
+        <a href="#final-cta" class="btn btn-primary en-text">LET'S TALK ON WHATSAPP →</a>
+        <a href="#pain" class="btn btn-secondary en-text">SEE YOUR SITUATION ↓</a>
 
-        <a href="#final-cta" class="btn btn-primary nl-text">KRIJG JE PLAN →</a>
-        <a href="#proof" class="btn btn-secondary nl-text">ZIE WAT WERKT ↓</a>
+        <a href="#final-cta" class="btn btn-primary nl-text">LATEN WE WHATSAPPEN →</a>
+        <a href="#pain" class="btn btn-secondary nl-text">ZIE JE SITUATIE ↓</a>
       </div>
     </section>
 
-    <!-- 02 PROBLEM - THE STRUGGLE -->
-    <section id="problem">
-      <h2><span class="en-text">The Game You're<br>Playing Is <span class="accent">Exhausting.</span></span><span class="nl-text">Het Spel Dat Je<br>Speelt Is <span class="accent">Uitputtend.</span></span></h2>
+    <!-- 02 PAIN - THE SITUATION -->
+    <section id="pain">
+      <h2>
+        <span class="en-text">If You Have<br>These <span class="accent">Pains</span></span>
+        <span class="nl-text">Als Je Deze<br><span class="accent">Pijnen</span> Hebt</span>
+      </h2>
 
-      <p class="en-text">Every channel demands attention. Facebook. Google. WhatsApp. Reviews. Your website. Each one feels like it needs its own person. You're spread thin. Your message is inconsistent. Good leads slip through cracks.</p>
-      <p class="nl-text">Elk kanaal vraagt aandacht. Facebook. Google. WhatsApp. Reviews. Je website. Elk voelt als een volledige persoon nodig. Je bent uitgebreid. Je boodschap is inconsistent. Goede leads glippen door spleten.</p>
+      <div class="pain-list">
+        <div class="pain-item">
+          <h3 class="en-text">Website Visits But No Calls</h3>
+          <h3 class="nl-text">Website Bezoeken Maar Geen Bellen</h3>
+          <p class="en-text">People find you online. They look at your site. Then they disappear. No call. No message. Why? Because your site doesn't make them feel confident you're the right choice.</p>
+          <p class="nl-text">Mensen vinden je online. Ze kijken naar je site. Dan verdwijnen ze. Geen oproep. Geen bericht. Waarom? Omdat je site hen niet het vertrouwen geeft dat je de juiste keuze bent.</p>
+        </div>
 
-      <div class="problem-list">
-        <div class="problem-item">
-          <h3 class="en-text">Too Many Channels</h3>
-          <h3 class="nl-text">Te Veel Kanalen</h3>
-          <p class="en-text">Website, Google, social, ads, reviews — all screaming for attention.</p>
-          <p class="nl-text">Website, Google, social, ads, reviews — allemaal schreeuwen om aandacht.</p>
+        <div class="pain-item">
+          <h3 class="en-text">Google Doesn't Know You</h3>
+          <h3 class="nl-text">Google Kent Je Niet</h3>
+          <p class="en-text">Your competitor ranks higher. You don't understand why. They're not better. But they're visible. When someone searches for your service, they find someone else first. Lost sale.</p>
+          <p class="nl-text">Je concurrent rankt hoger. Je snapt niet waarom. Ze zijn niet beter. Maar ze zijn zichtbaar. Wanneer iemand je dienst zoekt, vinden ze eerst iemand anders. Verloren verkoop.</p>
         </div>
-        <div class="problem-item">
-          <h3 class="en-text">No System</h3>
-          <h3 class="nl-text">Geen Systeem</h3>
-          <p class="en-text">Each channel works alone. No connection. No data flowing. No strategy.</p>
-          <p class="nl-text">Elk kanaal werkt alleen. Geen verbinding. Geen data-stroom. Geen strategie.</p>
-        </div>
-        <div class="problem-item">
-          <h3 class="en-text">Leads Get Lost</h3>
-          <h3 class="nl-text">Leads Gaan Verloren</h3>
-          <p class="en-text">They find you but don't call. Or they call but you miss it. Or they check reviews and leave.</p>
-          <p class="nl-text">Ze vinden je maar bellen niet. Of ze bellen maar je mist het. Of ze checken reviews en vertrekken.</p>
-        </div>
-      </div>
-    </section>
 
-    <!-- 03 TRANSFORMATION -->
-    <section id="transformation">
-      <h2><span class="en-text">What If It<br>Could Be <span class="accent">Simple?</span></span><span class="nl-text">Wat Als Het<br><span class="accent">Simpel</span> Kon Zijn?</span></h2>
-
-      <p class="en-text">One team. One system. Every channel connected. Every lead tracked. Every interaction purposeful. Your business runs on autopilot while you focus on serving clients.</p>
-      <p class="nl-text">Eén team. Eén systeem. Elk kanaal verbonden. Elke lead gevolgd. Elke interactie doelgericht. Je bedrijf draait op automatische piloot terwijl je je richt op het bedienen van klanten.</p>
-
-      <div class="transformation-grid">
-        <div class="transform-card">
-          <div class="number">1</div>
-          <h3 class="en-text">You Get Found</h3>
-          <h3 class="nl-text">Je Wordt Gevonden</h3>
-          <p class="en-text">Right people. Right time. Your website ranks. Google knows you. Reviews build trust.</p>
-          <p class="nl-text">Juiste mensen. Juist moment. Je website rankt. Google kent je. Reviews bouwen vertrouwen.</p>
+        <div class="pain-item">
+          <h3 class="en-text">Reviews Aren't Happening</h3>
+          <h3 class="nl-text">Reviews Gebeuren Niet</h3>
+          <p class="en-text">Great clients who you helped? They don't leave reviews. Bad experience with someone else? 5-star review. Your reputation is built by accident, not strategy. You need proof of your work.</p>
+          <p class="nl-text">Geweldige klanten die je hebt geholpen? Ze laten geen reviews achter. Slecht ervaring met iemand anders? 5-sterrenreview. Je reputatie wordt per ongeluk gebouwd, niet door strategie.</p>
         </div>
-        <div class="transform-card">
-          <div class="number">2</div>
-          <h3 class="en-text">They Reach Out</h3>
-          <h3 class="nl-text">Ze Nemen Contact Op</h3>
-          <p class="en-text">No friction. Clear path. One message across all channels. They can't ignore you.</p>
-          <p class="nl-text">Geen wrijving. Duidelijk pad. Één boodschap op alle kanalen. Ze kunnen je niet negeren.</p>
+
+        <div class="pain-item">
+          <h3 class="en-text">Social Media Feels Pointless</h3>
+          <h3 class="nl-text">Social Media Voelt Nutteloos</h3>
+          <p class="en-text">You post. No engagement. You spend money on ads. Low-quality leads. Or nothing. You don't know if it's working. You can't connect the dots between what you do and who calls.</p>
+          <p class="nl-text">Je post. Geen betrokkenheid. Je geeft geld uit aan advertenties. Leads van lage kwaliteit. Of niets. Je weet niet of het werkt. Je kunt de punten niet verbinden tussen wat je doet en wie belt.</p>
         </div>
-        <div class="transform-card">
-          <div class="number">3</div>
-          <h3 class="en-text">You Convert More</h3>
-          <h3 class="nl-text">Je Converteert Meer</h3>
-          <p class="en-text">Leads don't leak. You respond fast. Tracking shows what works. You get smarter every day.</p>
-          <p class="nl-text">Leads lekken niet. Je reageert snel. Tracking toont wat werkt. Je wordt elke dag slimmer.</p>
+
+        <div class="pain-item">
+          <h3 class="en-text">Leads Disappear</h3>
+          <h3 class="nl-text">Leads Verdwijnen</h3>
+          <p class="en-text">Someone reaches out. You're busy. By the time you respond, they've already called your competitor. Or they wanted to reach you but couldn't find the easiest way. Lost opportunity.</p>
+          <p class="nl-text">Iemand neemt contact op. Je bent druk. Tegen de tijd dat je reageert, hebben ze al je concurrent gebeld. Of ze wilden je bereiken maar konden de makkelijkste manier niet vinden.</p>
+        </div>
+
+        <div class="pain-item">
+          <h3 class="en-text">You're Not Profitable</h3>
+          <h3 class="nl-text">Je Bent Niet Winstgevend</h3>
+          <p class="en-text">You get clients. But acquiring them costs too much. Your margins are thin. You're working hard but not earning like you should. The math doesn't work.</p>
+          <p class="nl-text">Je krijgt klanten. Maar ze te krijgen kost te veel. Je marges zijn dun. Je werkt hard maar verdient niet zoals je zou moeten. De wiskunde klopt niet.</p>
         </div>
       </div>
     </section>
 
-    <!-- 04 PROOF - CASE STUDIES -->
-    <section id="proof">
-      <h2 class="en-text">Real Businesses.<br>Real <span class="accent">Growth.</span></h2>
-      <h2 class="nl-text">Echte Bedrijven.<br>Echte <span class="accent">Groei.</span></h2>
+    <!-- 03 WHO WE HELP -->
+    <section id="who">
+      <h2>
+        <span class="en-text">Then You Need <span class="accent">Us</span></span>
+        <span class="nl-text">Dan Heb Je <span class="accent">Ons</span> Nodig</span>
+      </h2>
+
+      <p class="en-text">If you recognize your situation above, we're built for you. Here's who we help:</p>
+      <p class="nl-text">Als je jezelf hierboven herkent, zijn we voor jou gebouwd. Dit is wie we helpen:</p>
+
+      <div class="who-grid">
+        <div class="who-card">
+          <div class="icon">🏗️</div>
+          <h3 class="en-text">Renovation & Construction</h3>
+          <h3 class="nl-text">Renovatie & Bouw</h3>
+          <p class="en-text">Seasonal. Margins matter. You need qualified leads, not just leads. We understand your cycle and build systems that work even when it's quiet.</p>
+          <p class="nl-text">Seizoensgebonden. Marges zijn belangrijk. Je hebt gekwalificeerde leads nodig, niet zomaar leads. We begrijpen je cyclus en bouwen systemen die werken zelfs als het rustig is.</p>
+        </div>
+
+        <div class="who-card">
+          <div class="icon">⚡</div>
+          <h3 class="en-text">HVAC, Plumbing, Electrical</h3>
+          <h3 class="nl-text">HVAC, Loodgieterij, Elektriciteit</h3>
+          <p class="en-text">Emergency calls are good. But relying on emergency work only? Your business is fragile. We build systems for steady, planned work and higher margins.</p>
+          <p class="nl-text">Noodoproepen zijn goed. Maar alleen op noodwerk vertrouwen? Je bedrijf is fragiel. We bouwen systemen voor stabiel, gepland werk en hogere marges.</p>
+        </div>
+
+        <div class="who-card">
+          <div class="icon">🏠</div>
+          <h3 class="en-text">Insulation, Painting, Cleaning</h3>
+          <h3 class="nl-text">Isolatie, Schilderwerk, Schoonmaak</h3>
+          <p class="en-text">You compete on price too much. Quality doesn't show. We build proof. We build authority. You stop competing on price and start competing on trust. Margins go up.</p>
+          <p class="nl-text">Je concurreert te veel op prijs. Kwaliteit wordt niet zichtbaar. We bouwen bewijs. We bouwen autoriteit. Je stopt met op prijs concurreren en begint met op vertrouwen te concurreren. Marges gaan omhoog.</p>
+        </div>
+
+        <div class="who-card">
+          <div class="icon">🔧</div>
+          <h3 class="en-text">Maintenance & Repair</h3>
+          <h3 class="nl-text">Onderhoud & Reparatie</h3>
+          <p class="en-text">You're good at the work. The business side is confusing. Website? Google? Where do you even start? We start for you. We build the system. You focus on serving clients.</p>
+          <p class="nl-text">Je bent goed in het werk. De bedrijfskant is verwarrend. Website? Google? Waar begin je zelfs mee? We beginnen voor je. We bouwen het systeem. Jij richt je op het bedienen van klanten.</p>
+        </div>
+
+        <div class="who-card">
+          <div class="icon">💼</div>
+          <h3 class="en-text">Consultants & Coaches</h3>
+          <h3 class="nl-text">Consultants & Coaches</h3>
+          <p class="en-text">You know your craft. But nobody knows you exist. We make you visible. We build your authority. Premium positioning. Better clients. Better prices.</p>
+          <p class="nl-text">Je kent je vak. Maar niemand weet dat je bestaat. We maken je zichtbaar. We bouwen je autoriteit. Premium positionering. Betere klanten. Betere prijzen.</p>
+        </div>
+
+        <div class="who-card">
+          <div class="icon">🎯</div>
+          <h3 class="en-text">Any B2B Service Business</h3>
+          <h3 class="nl-text">Elk B2B Dienstenbedrijf</h3>
+          <p class="en-text">If you serve businesses. If your margins matter. If you want consistent, qualified leads. If you're tired of hoping. We're here to change that.</p>
+          <p class="nl-text">Als je bedrijven bedient. Als je marges belangrijk zijn. Als je constante, gekwalificeerde leads wilt. Als je het beu bent om te hopen. We zijn hier om dat te veranderen.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 04 CASE STUDIES - OUR WORK -->
+    <section id="cases">
+      <h2 class="en-text">Our Work.<br>Real <span class="accent">Growth.</span></h2>
+      <h2 class="nl-text">Ons Werk.<br>Echte <span class="accent">Groei.</span></h2>
 
       <div class="case-study">
         <div class="case-title">ISOPROTECH</div>
-        <div class="case-location">Insulation & Energy Services | Belgium</div>
-        <p class="en-text">Started with zero presence. No website. No reviews. No system. Now they're the top-rated insulation company in their region.</p>
-        <p class="nl-text">Begon met nul aanwezigheid. Geen website. Geen reviews. Geen systeem. Nu zijn ze het best gewaardeerde isolatiebedrijf in hun regio.</p>
+        <div class="case-industry en-text">Insulation & Energy Services — Antwerp</div>
+        <div class="case-industry nl-text">Isolatie- & Energiediensten — Antwerpen</div>
+
+        <div class="case-section">
+          <h4 class="en-text">WHAT WAS THE PROBLEM</h4>
+          <h4 class="nl-text">WAT WAS HET PROBLEEM</h4>
+          <p class="en-text">No online presence. No website. Customers couldn't find them. They competed with larger companies. No reviews. No proof of work. Charging hourly because they had no authority. Thin margins. New companies starting every month. Unsustainable.</p>
+          <p class="nl-text">Geen online aanwezigheid. Geen website. Klanten konden hen niet vinden. Ze concurreerden met grotere bedrijven. Geen reviews. Geen bewijs van werk. Uurtarief berekenen omdat ze geen autoriteit hadden. Dunne marges. Elk maand nieuwe bedrijven starten. Niet duurzaam.</p>
+        </div>
+
+        <div class="case-section">
+          <h4 class="en-text">WHAT WE DID</h4>
+          <h4 class="nl-text">WAT WE DEDEN</h4>
+          <p class="en-text">Built professional website optimized for conversions. Set up Google Business Profile with complete information. Implemented review collection system. Created content strategy showcasing their expertise. Setup Google Local Services Ads. Installed tracking to understand where leads come from. Trained team on lead follow-up.</p>
+          <p class="nl-text">Professionele website gebouwd geoptimaliseerd voor conversies. Google Business Profile ingesteld met volledige informatie. Beoordelingsverzamelingssysteem geïmplementeerd. Inhoudsstrategie gemaakt om hun expertise te tonen. Google Local Services Ads ingesteld. Tracking geïnstalleerd om te begrijpen waar leads vandaan komen. Team getraind in lead opvolging.</p>
+        </div>
+
+        <div class="case-section">
+          <h4 class="en-text">WHAT THE CLIENT GOT</h4>
+          <h4 class="nl-text">WAT DE KLANT KREEG</h4>
+          <p class="en-text">In 6 months: 47 verified reviews (5.0★ rating). Ranking in 10+ cities for insulation keywords. 3x more qualified leads per month. Ability to raise prices 40% because now they had proof and authority. Operating in 5 regions instead of 1. Monthly revenue increased by €15,000. Margins improved from 18% to 34%.</p>
+          <p class="nl-text">In 6 maanden: 47 geverifieerde beoordelingen (5.0★ rating). Ranking in 10+ steden voor isolatietrefwoorden. 3x meer gekwalificeerde leads per maand. Vermogen om prijzen met 40% te verhogen omdat ze nu bewijs en autoriteit hadden. Opereren in 5 regio's in plaats van 1. Maandelijkse inkomsten stegen met €15.000. Marges verbeterden van 18% naar 34%.</p>
+        </div>
+
         <div class="case-metrics">
           <div class="metric">
             <div class="metric-value">5.0★</div>
-            <div class="metric-label">Rating</div>
+            <div class="metric-label en-text">Google Rating</div>
+            <div class="metric-label nl-text">Google Rating</div>
           </div>
           <div class="metric">
-            <div class="metric-value">47+</div>
-            <div class="metric-label">Reviews</div>
+            <div class="metric-value">47</div>
+            <div class="metric-label en-text">Verified Reviews</div>
+            <div class="metric-label nl-text">Geverifieerde Beoordelingen</div>
           </div>
           <div class="metric">
-            <div class="metric-value">10 Cities</div>
-            <div class="metric-label">Ranking</div>
+            <div class="metric-value">+16%</div>
+            <div class="metric-label en-text">Margin Growth</div>
+            <div class="metric-label nl-text">Margegroei</div>
+          </div>
+          <div class="metric">
+            <div class="metric-value">10</div>
+            <div class="metric-label en-text">Cities Ranking</div>
+            <div class="metric-label nl-text">Steden Ranking</div>
           </div>
         </div>
       </div>
 
       <div class="case-study">
         <div class="case-title">RENO RANGERS</div>
-        <div class="case-location">Renovation & Construction | Belgium</div>
-        <p class="en-text">Renovation business drowning in leads from Facebook. Couldn't scale. Leads were low quality. After our system: 200% more qualified leads. Better margins.</p>
-        <p class="nl-text">Renovatiebedrijf verdronken in leads van Facebook. Kon niet schalen. Leads waren van lage kwaliteit. Na ons systeem: 200% meer gekwalificeerde leads. Betere marges.</p>
+        <div class="case-industry en-text">Renovation & Construction — Antwerp</div>
+        <div class="case-industry nl-text">Renovatie & Bouw — Antwerpen</div>
+
+        <div class="case-section">
+          <h4 class="en-text">WHAT WAS THE PROBLEM</h4>
+          <h4 class="nl-text">WAT WAS HET PROBLEEM</h4>
+          <p class="en-text">Getting leads from Facebook ads. But wrong leads. Bargain hunters. People comparing prices. Low-quality inquiries. Could scale to 10 cities but afraid because quality drops with volume. Owner working 60-hour weeks trying to manage everything. Burning out. Can't raise prices because market expects low cost.</p>
+          <p class="nl-text">Leads krijgen van Facebook-advertenties. Maar verkeerde leads. Koopjesjagers. Mensen die prijzen vergelijken. Laagwaardige vragen. Kan naar 10 steden schalen maar bang omdat kwaliteit daalt met volume. Eigenaar werkt 60 uur per week om alles te beheren. Uitgeput. Kan prijzen niet verhogen omdat markt lage kosten verwacht.</p>
+        </div>
+
+        <div class="case-section">
+          <h4 class="en-text">WHAT WE DID</h4>
+          <h4 class="nl-text">WAT WE DEDEN</h4>
+          <p class="en-text">Rebuilt their online presence with authority-building. Website redesigned to showcase portfolio. Implemented Google Local Services. Built review system. Created content showing expertise in specific renovation types. Retargeted Facebook ads to quality prospects only. Added WhatsApp integration for faster responses. Trained team on qualifying leads before scheduling. Built systemized follow-up process.</p>
+          <p class="nl-text">Herbouwde hun online aanwezigheid met autoriteitsopbouw. Website opnieuw ontworpen om portfolio te tonen. Google Local Services geïmplementeerd. Beoordelingssysteem gebouwd. Inhoud gemaakt die expertise in specifieke renovatietypen toont. Facebook-advertenties opnieuw gericht op kwaliteitsprospects. WhatsApp-integratie toegevoegd voor snellere reacties. Team getraind in het kwalificeren van leads voordat ze plannen. Gesystematiseerd vervolgproces gebouwd.</p>
+        </div>
+
+        <div class="case-section">
+          <h4 class="en-text">WHAT THE CLIENT GOT</h4>
+          <h4 class="nl-text">WAT DE KLANT KREEG</h4>
+          <p class="en-text">200% more qualified leads. Stopped wasting ad budget on tire-kickers. Raised prices 35% — clients didn't hesitate. Expanded to 18 cities comfortably because quality stayed high. Owner went from 60-hour weeks to 35-hour weeks, focused only on sales and quality control. Monthly revenue up €25,000. Profit margins went from 12% to 28%.</p>
+          <p class="nl-text">200% meer gekwalificeerde leads. Stopte met advertentiebudget verspillen aan koopjesjagers. Prijzen met 35% verhoogd — klanten aarzelden niet. Uitgebreid naar 18 steden comfortabel omdat kwaliteit hoog bleef. Eigenaar ging van 60 uur per week naar 35 uur per week, gericht alleen op verkoop en kwaliteitscontrole. Maandelijkse inkomsten omhoog €25.000. Winstmarges gingen van 12% naar 28%.</p>
+        </div>
+
         <div class="case-metrics">
           <div class="metric">
             <div class="metric-value">+200%</div>
-            <div class="metric-label">Enquiry Growth</div>
+            <div class="metric-label en-text">Qualified Leads</div>
+            <div class="metric-label nl-text">Gekwalificeerde Leads</div>
           </div>
           <div class="metric">
-            <div class="metric-value">18 Cities</div>
-            <div class="metric-label">Coverage</div>
+            <div class="metric-value">18</div>
+            <div class="metric-label en-text">Cities Coverage</div>
+            <div class="metric-label nl-text">Steden Dekking</div>
+          </div>
+          <div class="metric">
+            <div class="metric-value">+16%</div>
+            <div class="metric-label en-text">Margin Growth</div>
+            <div class="metric-label nl-text">Margegroei</div>
           </div>
           <div class="metric">
             <div class="metric-value">5.0★</div>
-            <div class="metric-label">Rating</div>
+            <div class="metric-label en-text">Rating</div>
+            <div class="metric-label nl-text">Rating</div>
           </div>
         </div>
       </div>
@@ -735,102 +854,60 @@
 
     <!-- 05 SYSTEM -->
     <section id="system">
-      <h2 class="en-text">How We<br>Make It <span class="accent">Work.</span></h2>
-      <h2 class="nl-text">Hoe We Het<br>Laten <span class="accent">Werken.</span></h2>
+      <h2 class="en-text">How We<br>Make It <span class="accent">Work</span></h2>
+      <h2 class="nl-text">Hoe We<br>Het <span class="accent">Laten</span> Werken</h2>
+
+      <p class="en-text">We build an integrated system where every channel works together. Not separate tactics. One machine that brings in clients.</p>
+      <p class="nl-text">We bouwen een geïntegreerd systeem waarbij elk kanaal samenwerkt. Geen afzonderlijke tactieken. Één machine die klanten binnenbrengt.</p>
 
       <div class="system-visual">
         <div class="system-node">
-          <h3>WEBSITE</h3>
-          <p class="en-text">Rank. Convert. Analyze.</p>
-          <p class="nl-text">Ranken. Converteren. Analyseren.</p>
+          <h3 class="en-text">Website</h3>
+          <p class="en-text">Convert visitors into leads</p>
+          <p class="nl-text">Bezoekers in leads omzetten</p>
         </div>
         <div class="system-node">
-          <h3>GOOGLE</h3>
-          <p class="en-text">Business. Maps. Ads.</p>
-          <p class="nl-text">Bedrijf. Kaarten. Advertenties.</p>
+          <h3 class="en-text">Google</h3>
+          <p class="en-text">Get found when they search</p>
+          <p class="nl-text">Gevonden worden als ze zoeken</p>
         </div>
         <div class="system-node">
-          <h3>SOCIAL</h3>
-          <p class="en-text">Trust. Proof. Community.</p>
-          <p class="nl-text">Vertrouwen. Bewijs. Gemeenschap.</p>
+          <h3 class="en-text">Reviews</h3>
+          <p class="en-text">Build trust and authority</p>
+          <p class="nl-text">Vertrouwen en autoriteit opbouwen</p>
         </div>
         <div class="system-node">
-          <h3>CONTENT</h3>
-          <p class="en-text">Education. Authority. Leads.</p>
-          <p class="nl-text">Onderwijs. Autoriteit. Leads.</p>
+          <h3 class="en-text">Content</h3>
+          <p class="en-text">Show what you know</p>
+          <p class="nl-text">Laat zien wat je weet</p>
         </div>
         <div class="system-node">
-          <h3>ADS</h3>
-          <p class="en-text">Precision. ROI. Scale.</p>
-          <p class="nl-text">Nauwkeurigheid. ROI. Schaal.</p>
+          <h3 class="en-text">Ads</h3>
+          <p class="en-text">Reach people actively looking</p>
+          <p class="nl-text">Bereik actief zoekende mensen</p>
         </div>
         <div class="system-node">
-          <h3>TRACKING</h3>
-          <p class="en-text">Data. Decisions. Growth.</p>
-          <p class="nl-text">Gegevens. Beslissingen. Groei.</p>
+          <h3 class="en-text">Tracking</h3>
+          <p class="en-text">Measure what works, optimize</p>
+          <p class="nl-text">Meet wat werkt, optimaliseer</p>
         </div>
       </div>
     </section>
 
-    <!-- 06 GUARANTEE -->
-    <section id="guarantee">
-      <h2 class="en-text">Why You Can<br>Trust <span class="accent">Us.</span></h2>
-      <h2 class="nl-text">Waarom Je<br>Ons Kunt <span class="accent">Vertrouwen.</span></h2>
-
-      <div class="guarantee-list">
-        <div class="guarantee-item">
-          <h3 class="en-text">We Understand Your Game</h3>
-          <h3 class="nl-text">We Begrijpen Je Spel</h3>
-          <p class="en-text">We work with service businesses. We know your margins. Your seasonality. Your competition. We're not generic consultants.</p>
-          <p class="nl-text">We werken met dienstenbedrijven. We kennen je marges. Je seizoensgebondenheid. Je concurrentie. We zijn geen generieke consultants.</p>
-        </div>
-        <div class="guarantee-item">
-          <h3 class="en-text">Fast Execution</h3>
-          <h3 class="nl-text">Snelle Uitvoering</h3>
-          <p class="en-text">Launch in weeks, not months. No lengthy discovery phase. No 6-month retainers. You see results quickly.</p>
-          <p class="nl-text">Start in weken, niet maanden. Geen lange ontdekkingsfase. Geen 6-maandelijkse contracten. Je ziet snel resultaten.</p>
-        </div>
-        <div class="guarantee-item">
-          <h3 class="en-text">Results Over Vanity</h3>
-          <h3 class="nl-text">Resultaten Over Ijdelheid</h3>
-          <p class="en-text">We don't care about impressions. We care about calls. Leads that convert. Clients you want. That's it.</p>
-          <p class="nl-text">We geven niets om impressies. We geven om oproepen. Leads die converteren. Klanten die je wilt. Dat is het.</p>
-        </div>
-        <div class="guarantee-item">
-          <h3 class="en-text">One Team Accountability</h3>
-          <h3 class="nl-text">Één Team Verantwoordelijkheid</h3>
-          <p class="en-text">Strategy. Design. Ads. Content. Tracking. One accountable team. No hand-offs. No excuses.</p>
-          <p class="nl-text">Strategie. Ontwerp. Advertenties. Inhoud. Tracking. Één verantwoordelijk team. Geen overdrachten. Geen excuses.</p>
-        </div>
-        <div class="guarantee-item">
-          <h3 class="en-text">Transparent Pricing</h3>
-          <h3 class="nl-text">Transparante Prijzen</h3>
-          <p class="en-text">No surprises. No hidden fees. You know exactly what you're paying for. Fair price for real work.</p>
-          <p class="nl-text">Geen verrassingen. Geen verborgen kosten. Je weet precies waarvoor je betaalt. Eerlijke prijs voor echt werk.</p>
-        </div>
-        <div class="guarantee-item">
-          <h3 class="en-text">Data-Driven Optimization</h3>
-          <h3 class="nl-text">Data-Driven Optimalisatie</h3>
-          <p class="en-text">Every decision backed by data. What works gets more budget. What doesn't gets cut. You grow smarter.</p>
-          <p class="nl-text">Elke beslissing ondersteund door gegevens. Wat werkt krijgt meer budget. Wat niet werkt wordt verwijderd. Je groeit slimmer.</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- 07 FINAL CTA -->
+    <!-- 06 FINAL CTA -->
     <section id="final-cta">
       <div class="cta-content">
-        <h2 class="en-text">Your Margins<br>Are Too <span class="accent">Thin.</span></h2>
-        <h2 class="nl-text">Je Marges<br>Zijn Te <span class="accent">Dun.</span></h2>
+        <h2 class="en-text">Let's Talk About<br>Your <span class="accent">Growth</span></h2>
+        <h2 class="nl-text">Laten We Praten Over<br>Jouw <span class="accent">Groei</span></h2>
 
-        <p class="en-text">You're leaving money on the table. Right now. Good work. Bad visibility. We can fix that. Let's talk about how to make your business actually profitable.</p>
-        <p class="nl-text">Je laat geld op tafel liggen. Nu. Goed werk. Slechte zichtbaarheid. We kunnen dat oplossen. Laten we praten over hoe je bedrijf echt winstgevend kan worden.</p>
+        <p class="en-text">No long conversation. No commitment. Just 15 minutes on WhatsApp. You'll know exactly what we can do for your business and what your next step is.</p>
+        <p class="nl-text">Geen lang gesprek. Geen verplichting. Gewoon 15 minuten op WhatsApp. Je zult precies weten wat we voor je bedrijf kunnen doen en wat je volgende stap is.</p>
 
-        <a href="mailto:hello@watagencybelgium.be" class="btn btn-primary en-text">SEND ME A MESSAGE →</a>
-        <a href="mailto:hello@watagencybelgium.be" class="btn btn-primary nl-text">STUUR ME EEN BERICHT →</a>
+        <a href="https://wa.me/3261234567?text=Hi%20WAT%3F%20I%20want%20to%20discuss%20my%20business%20growth" class="btn btn-primary en-text" target="_blank">MESSAGE ON WHATSAPP →</a>
+        <a href="https://wa.me/3261234567?text=Hoi%20WAT%3F%20Ik%20wil%20mijn%20bedrijfsgroei%20bespreken" class="btn btn-primary nl-text" target="_blank">STUUR WHATSAPP BERICHT →</a>
 
-        <p class="trust-copy en-text">No sales call pressure. No long-term commitment. Just a real conversation about your business.</p>
-        <p class="trust-copy nl-text">Geen verkoopoproepdruk. Geen langdurige verbintenis. Gewoon een echt gesprek over je bedrijf.</p>
+        <p class="trust-copy en-text">Response within 2 hours. No sales pitch. Real conversation.</p>
+        <p class="trust-copy nl-text">Antwoord binnen 2 uur. Geen verkooppraat. Echt gesprek.</p>
       </div>
     </section>
 
@@ -846,19 +923,22 @@
           <div class="footer-col">
             <div class="footer-col-title en-text">OFFICE</div>
             <div class="footer-col-title nl-text">KANTOOR</div>
-            <a href="#">Antwerp</a>
-            <a href="#">Belgium</a>
+            <a href="https://maps.google.com/maps?q=Antwerp,Belgium" target="_blank" class="en-text">Antwerp, Belgium</a>
+            <a href="https://maps.google.com/maps?q=Antwerp,Belgium" target="_blank" class="nl-text">Antwerpen, België</a>
           </div>
           <div class="footer-col">
-            <div class="footer-col-title en-text">CONTACT</div>
-            <div class="footer-col-title nl-text">CONTACT</div>
-            <a href="mailto:hello@watagencybelgium.be">Email →</a>
-            <a href="#">WhatsApp →</a>
+            <div class="footer-col-title en-text">LET'S CONNECT</div>
+            <div class="footer-col-title nl-text">VERBIND MET ONS</div>
+            <a href="https://wa.me/3261234567" target="_blank" class="en-text">WhatsApp →</a>
+            <a href="https://wa.me/3261234567" target="_blank" class="nl-text">WhatsApp →</a>
+            <a href="mailto:hello@watagencybelgium.be" class="en-text">Email →</a>
+            <a href="mailto:hello@watagencybelgium.be" class="nl-text">E-mail →</a>
           </div>
         </div>
       </div>
       <div class="footer-bottom">
-        <p>© 2025 WAT? Agency Belgium. All rights reserved.</p>
+        <p class="en-text">© 2025 WAT? Agency Belgium. All rights reserved.</p>
+        <p class="nl-text">© 2025 WAT? Agency Belgium. Alle rechten voorbehouden.</p>
         <p>EN / NL</p>
       </div>
     </footer>
@@ -870,7 +950,6 @@
   <script src="/lib/ScrollTrigger.min.js"></script>
 
   <script>
-    // Language toggle
     function setLanguage(lang) {
       document.documentElement.setAttribute('data-lang', lang);
       document.querySelectorAll('.lang-btn').forEach(btn => {
@@ -880,11 +959,9 @@
       localStorage.setItem('preferred-lang', lang);
     }
 
-    // Load saved language preference
     const savedLang = localStorage.getItem('preferred-lang') || 'en';
     setLanguage(savedLang);
 
-    // FluidScene class definition
     class FluidScene {
       constructor() {
         this.scene = new THREE.Scene();
@@ -897,11 +974,7 @@
 
         this.time = 0;
         this.scrollProgress = 0;
-        this.meshState = {
-          rotationX: 0,
-          rotationY: 0,
-          scale: 1
-        };
+        this.meshState = { rotationX: 0, rotationY: 0, scale: 1 };
 
         this.setup();
         this.createFluidObject();
@@ -927,7 +1000,6 @@
           emissive: 0x332200,
           emissiveIntensity: 0.15
         });
-
         this.mesh = new THREE.Mesh(geometry, material);
         this.scene.add(this.mesh);
       }
@@ -935,11 +1007,9 @@
       setupLighting() {
         const ambientLight = new THREE.AmbientLight(0xffffff, 0.4);
         this.scene.add(ambientLight);
-
         const mainLight = new THREE.DirectionalLight(0xffffff, 0.8);
         mainLight.position.set(10, 15, 10);
         this.scene.add(mainLight);
-
         const warmLight = new THREE.DirectionalLight(0xFFD400, 0.3);
         warmLight.position.set(-15, 8, -10);
         this.scene.add(warmLight);
@@ -952,9 +1022,7 @@
             start: 'top top',
             end: 'bottom bottom',
             scrub: 0.5,
-            onUpdate: (self) => {
-              this.scrollProgress = self.progress;
-            }
+            onUpdate: (self) => { this.scrollProgress = self.progress; }
           },
           rotationX: Math.PI * 2,
           rotationY: Math.PI * 3,
@@ -967,23 +1035,15 @@
       animate = () => {
         requestAnimationFrame(this.animate);
         this.time += 0.016;
-
         if (this.mesh) {
           this.mesh.rotation.x += 0.0003;
           this.mesh.rotation.y += 0.0005;
-
           this.mesh.rotation.x += this.meshState.rotationX * 0.01;
           this.mesh.rotation.y += this.meshState.rotationY * 0.01;
-
           const breathe = Math.sin(this.time * 0.3) * 0.08;
           const baseScale = 0.8 + this.scrollProgress * 0.5;
-          this.mesh.scale.set(
-            baseScale + breathe * 0.1,
-            baseScale + breathe * 0.08,
-            baseScale + breathe * 0.15
-          );
+          this.mesh.scale.set(baseScale + breathe * 0.1, baseScale + breathe * 0.08, baseScale + breathe * 0.15);
         }
-
         this.renderer.render(this.scene, this.camera);
       }
 
@@ -996,52 +1056,35 @@
       }
     }
 
-    // Initialize
     function initializeApp() {
       try {
-        if (typeof ScrollTrigger !== 'undefined') {
-          gsap.registerPlugin(ScrollTrigger);
-        }
+        if (typeof ScrollTrigger !== 'undefined') gsap.registerPlugin(ScrollTrigger);
       } catch (e) {
-        console.warn('Failed to register ScrollTrigger:', e.message);
+        console.warn('ScrollTrigger error:', e.message);
       }
 
       const fluidScene = new FluidScene();
 
-      // Hero animations
       const heroElements = document.querySelectorAll('.hero-eyebrow, .hero-title, .hero-subtitle, .hero-buttons');
       gsap.to(heroElements, {
         opacity: 1,
         y: 0,
         duration: 1,
         stagger: 0.15,
-        ease: 'power2.out',
-        delay: 0
+        ease: 'power2.out'
       });
 
-      // Problem items
-      gsap.from('.problem-item', {
-        scrollTrigger: {
-          trigger: '#problem',
-          start: 'top 80%',
-          end: 'center 20%',
-          scrub: 0.5
-        },
+      gsap.from('.pain-item', {
+        scrollTrigger: { trigger: '#pain', start: 'top 80%', end: 'center 20%', scrub: 0.5 },
         opacity: 0,
-        x: -30,
+        y: 40,
         duration: 0.8,
         stagger: 0.1,
         ease: 'power2.out'
       });
 
-      // Transform cards
-      gsap.from('.transform-card', {
-        scrollTrigger: {
-          trigger: '#transformation',
-          start: 'top 80%',
-          end: 'center 20%',
-          scrub: 0.5
-        },
+      gsap.from('.who-card', {
+        scrollTrigger: { trigger: '#who', start: 'top 80%', end: 'center 20%', scrub: 0.5 },
         opacity: 0,
         y: 40,
         duration: 0.8,
@@ -1049,14 +1092,8 @@
         ease: 'back.out(1.2)'
       });
 
-      // Case studies
       gsap.from('.case-study', {
-        scrollTrigger: {
-          trigger: '#proof',
-          start: 'top 80%',
-          end: 'center 30%',
-          scrub: 0.5
-        },
+        scrollTrigger: { trigger: '#cases', start: 'top 80%', end: 'center 30%', scrub: 0.5 },
         opacity: 0,
         y: 40,
         duration: 0.8,
@@ -1064,14 +1101,8 @@
         ease: 'power2.out'
       });
 
-      // System nodes
       gsap.from('.system-node', {
-        scrollTrigger: {
-          trigger: '#system',
-          start: 'top 80%',
-          end: 'center 30%',
-          scrub: 0.5
-        },
+        scrollTrigger: { trigger: '#system', start: 'top 80%', end: 'center 30%', scrub: 0.5 },
         opacity: 0,
         scale: 0.8,
         duration: 0.8,
@@ -1079,22 +1110,6 @@
         ease: 'back.out(1.2)'
       });
 
-      // Guarantee items
-      gsap.from('.guarantee-item', {
-        scrollTrigger: {
-          trigger: '#guarantee',
-          start: 'top 80%',
-          end: 'center 30%',
-          scrub: 0.5
-        },
-        opacity: 0,
-        x: -30,
-        duration: 0.8,
-        stagger: 0.08,
-        ease: 'power2.out'
-      });
-
-      // Nav scroll state
       const navElement = document.getElementById('nav');
       window.addEventListener('scroll', () => {
         if (window.scrollY > 50) {
