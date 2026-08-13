@@ -9,7 +9,10 @@
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700;900&family=Bebas+Neue&display=swap" rel="stylesheet">
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
+
+    /* Lenis drives scrolling; native smooth scroll would fight it. */
+    html { scroll-behavior: auto; }
+    html.lenis-smooth { scroll-behavior: auto !important; }
 
     body {
       font-family: 'Space Grotesk', sans-serif;
@@ -19,12 +22,69 @@
       line-height: 1.6;
     }
 
-    #webgl-canvas {
+    /* ─────────────────────────────────────────────────────────────
+       STAGE — three parallax planes behind the content.
+       Everything here is transform/opacity only.
+       ───────────────────────────────────────────────────────────── */
+    .stage {
       position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      z-index: 1;
+      inset: 0;
+      z-index: 0;
       pointer-events: none;
+      overflow: hidden;
+      /* Isolates the planes' paint and keeps their bleed out of the
+         document's scroll width. */
+      contain: paint;
+    }
+
+    .stage__plane {
+      position: absolute;
+      inset: -20% -10%;
+      transform: translate3d(0, 0, 0);
+    }
+
+    /* Only the planes that actually move get a compositor layer. */
+    .stage__bg,
+    .stage__mid { will-change: transform; }
+
+    /* BACKGROUND — slow drifting field */
+    .stage__bg {
+      background:
+        radial-gradient(60% 45% at 18% 12%, rgba(255, 212, 0, 0.10), transparent 70%),
+        radial-gradient(50% 40% at 85% 78%, rgba(255, 212, 0, 0.07), transparent 70%);
+    }
+
+    /* MIDGROUND — grid that gives the camera something to travel past.
+       No mask here: masking a translating layer forces a repaint every frame.
+       The foreground vignette below fades the grid edges for free. */
+    .stage__mid {
+      background-image:
+        linear-gradient(rgba(255, 212, 0, 0.042) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 212, 0, 0.042) 1px, transparent 1px);
+      background-size: 96px 96px;
+    }
+
+    /* FOREGROUND — static vignette. Fades the grid edges and stops the frame
+       from ever reading as an empty box. Never animated, so no layer needed. */
+    .stage__fg {
+      background: radial-gradient(115% 85% at 50% 48%, transparent 30%, rgba(5, 5, 5, 0.92) 92%);
+    }
+
+    /* The brand mark survives every section instead of being recreated.
+       Kept moderate in size: scaling a glyph re-rasterises it, and the cost
+       grows with the glyph's raster area. */
+    .brand-mark {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      font-family: 'Bebas Neue', serif;
+      font-size: clamp(14rem, 34vw, 30rem);
+      line-height: 0.8;
+      color: #FFD400;
+      opacity: 0.06;
+      will-change: transform;
+      transform: translate3d(-50%, -50%, 0);
+      user-select: none;
     }
 
     #scroll-container { position: relative; z-index: 10; }
@@ -44,7 +104,14 @@
       transition: all 0.3s ease;
     }
 
-    nav.scrolled { padding: 14px 56px; background: rgba(5, 5, 5, 0.95); }
+    /* Once scrolled the bar is effectively opaque, so the backdrop blur costs a
+       GPU pass every frame for no visible gain. Dropped past the top of page. */
+    nav.scrolled {
+      padding: 14px 56px;
+      background: rgba(5, 5, 5, 0.97);
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
+    }
 
     .nav-logo {
       font-family: 'Bebas Neue', serif;
@@ -130,6 +197,10 @@
 
     .menu-cta, .menu-foot { display: none; }
 
+    /* Touch scrolling is native (syncTouch is off), so pausing Lenis alone
+       would not stop a drag over the open menu. This does. */
+    body.menu-open { overflow: hidden; touch-action: none; }
+
     /* SECTIONS */
     section {
       min-height: 100vh;
@@ -139,6 +210,11 @@
       padding: 120px 56px;
       max-width: 1400px;
       margin: 0 auto;
+      /* Scene elements travel outside their section on purpose (sweeps,
+         scatter, camera pans). `clip` contains that sideways travel without
+         turning the section into a scroll container the way `hidden` would —
+         which would break the pinning. */
+      overflow-x: clip;
     }
 
     h2 {
@@ -168,6 +244,13 @@
       line-height: 1.8;
     }
 
+    /* Scenes are the pinned units of the scroll film. */
+    .scene { position: relative; }
+    .scene__inner { width: 100%; }
+
+    /* Animated groups get their own compositing layer while a scene is live. */
+    .is-animating { will-change: transform, opacity; }
+
     /* HERO */
     #hero { padding-top: 190px; }
 
@@ -177,8 +260,6 @@
       text-transform: uppercase;
       color: #FFD400;
       margin-bottom: 28px;
-      opacity: 0;
-      transform: translateY(40px);
       font-weight: 700;
     }
 
@@ -187,9 +268,20 @@
       font-size: clamp(3rem, 9vw, 6rem);
       line-height: 0.92;
       letter-spacing: -2px;
-      opacity: 0;
-      transform: translateY(40px);
       margin-bottom: 32px;
+    }
+
+    /* Lines and words are explicit in the markup rather than split at runtime,
+       so the language toggle keeps working and frame 0 is always valid. */
+    .hero-title .line {
+      display: block;
+      overflow: hidden;
+      padding-bottom: 0.06em;
+    }
+
+    .hero-title .word {
+      display: inline-block;
+      will-change: transform;
     }
 
     .hero-subtitle {
@@ -197,8 +289,6 @@
       color: rgba(244, 242, 236, 0.7);
       margin-bottom: 44px;
       max-width: 660px;
-      opacity: 0;
-      transform: translateY(40px);
       line-height: 1.8;
     }
 
@@ -206,8 +296,16 @@
       display: flex;
       gap: 20px;
       flex-wrap: wrap;
-      opacity: 0;
-      transform: translateY(40px);
+    }
+
+    .hero-scroll-hint {
+      position: absolute;
+      left: 56px;
+      bottom: 40px;
+      font-size: 11px;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: rgba(244, 242, 236, 0.35);
     }
 
     .btn {
@@ -340,10 +438,11 @@
       transition: all 0.3s ease;
     }
 
+    /* No transform here — the scroll timeline owns this element's transform. */
     .work-card:hover {
       background: rgba(255, 212, 0, 0.09);
-      border-color: rgba(255, 212, 0, 0.4);
-      transform: translateY(-6px);
+      border-color: rgba(255, 212, 0, 0.45);
+      box-shadow: 0 24px 60px rgba(255, 212, 0, 0.08);
     }
 
     .work-card .work-title {
@@ -456,7 +555,19 @@
       .nav-logo { font-size: 23px; letter-spacing: 3px; }
       .nav-logo .q { font-size: 26px; }
       .nav-right { gap: 10px; }
-      .nav-burger { display: block; }
+
+      /* The open panel is z-index 1, so the controls must sit above it —
+         otherwise the panel swallows taps on its own close button. */
+      .nav-burger {
+        display: block;
+        position: relative;
+        z-index: 2;
+      }
+
+      .lang-toggle {
+        position: relative;
+        z-index: 2;
+      }
 
       /* Lang toggle: real tap targets */
       .lang-toggle { padding: 0; gap: 0; overflow: hidden; }
@@ -556,7 +667,13 @@
 </head>
 
 <body>
-  <canvas id="webgl-canvas"></canvas>
+  <!-- Depth planes + the brand mark that travels through the whole film -->
+  <div class="stage" aria-hidden="true">
+    <div class="stage__plane stage__bg" data-plane="bg"></div>
+    <div class="stage__plane stage__mid" data-plane="mid"></div>
+    <div class="brand-mark" data-plane="mark">?</div>
+    <div class="stage__plane stage__fg" data-plane="fg"></div>
+  </div>
 
   <div id="scroll-container">
     <nav id="nav">
@@ -586,30 +703,44 @@
     </nav>
 
     <!-- HERO -->
-    <section id="hero">
-      <div class="hero-eyebrow">
+    <section id="hero" class="scene" data-scene="hero">
+      <div class="hero-eyebrow" data-hero="eyebrow">
         <span class="en">Marketing agency in Antwerp — for local service businesses in Belgium</span>
         <span class="nl">Marketingbureau in Antwerpen — voor lokale dienstenbedrijven in België</span>
       </div>
 
-      <h1 class="hero-title">
-        <span class="en">You deliver<br>the service.<br>We build the<br><span class="accent">system around it.</span></span>
-        <span class="nl">Jij levert<br>de dienst.<br>Wij bouwen het<br><span class="accent">systeem eromheen.</span></span>
+      <h1 class="hero-title" data-hero="title">
+        <span class="en">
+          <span class="line"><span class="word">You</span> <span class="word">deliver</span></span>
+          <span class="line"><span class="word">the</span> <span class="word">service.</span></span>
+          <span class="line"><span class="word">We</span> <span class="word">build</span> <span class="word">the</span></span>
+          <span class="line accent"><span class="word">system</span> <span class="word">around</span> <span class="word">it.</span></span>
+        </span>
+        <span class="nl">
+          <span class="line"><span class="word">Jij</span> <span class="word">levert</span></span>
+          <span class="line"><span class="word">de</span> <span class="word">dienst.</span></span>
+          <span class="line"><span class="word">Wij</span> <span class="word">bouwen</span> <span class="word">het</span></span>
+          <span class="line accent"><span class="word">systeem</span> <span class="word">eromheen.</span></span>
+        </span>
       </h1>
 
-      <p class="hero-subtitle">
+      <p class="hero-subtitle" data-hero="subtitle">
         <span class="en">Website, Google Business, social, branding, content, email, WhatsApp, analytics — connected into one online system that helps people find you, trust you and contact you.</span>
         <span class="nl">Website, Google Business, social, branding, content, e-mail, WhatsApp, analytics — verbonden tot één online systeem dat mensen helpt je te vinden, je te vertrouwen en contact op te nemen.</span>
       </p>
 
-      <div class="hero-buttons">
+      <div class="hero-buttons" data-hero="buttons">
         <a href="#contact" class="btn btn-primary"><span class="en">Talk to us on WhatsApp →</span><span class="nl">Praat met ons op WhatsApp →</span></a>
         <a href="#situation" class="btn btn-secondary"><span class="en">See your situation ↓</span><span class="nl">Bekijk jouw situatie ↓</span></a>
+      </div>
+
+      <div class="hero-scroll-hint" data-hero="hint">
+        <span class="en">Scroll</span><span class="nl">Scroll</span>
       </div>
     </section>
 
     <!-- SITUATION -->
-    <section id="situation">
+    <section id="situation" class="scene" data-scene="situation">
       <div class="section-label"><span class="en">Your situation</span><span class="nl">Jouw situatie</span></div>
       <h2>
         <span class="en">If any of this<br>sounds <span class="accent">familiar</span></span>
@@ -680,7 +811,7 @@
     </section>
 
     <!-- WHO -->
-    <section id="who">
+    <section id="who" class="scene" data-scene="who">
       <div class="section-label"><span class="en">Who we help</span><span class="nl">Wie we helpen</span></div>
       <h2>
         <span class="en">Then we're<br>built for <span class="accent">you</span></span>
@@ -750,7 +881,7 @@
     </section>
 
     <!-- SYSTEM -->
-    <section id="system">
+    <section id="system" class="scene" data-scene="system">
       <div class="section-label"><span class="en">What we build</span><span class="nl">Wat we bouwen</span></div>
       <h2>
         <span class="en">One system.<br>Nine <span class="accent">moving parts.</span></span>
@@ -803,7 +934,7 @@
     </section>
 
     <!-- WORK -->
-    <section id="work">
+    <section id="work" class="scene" data-scene="work">
       <div class="section-label"><span class="en">Our work</span><span class="nl">Ons werk</span></div>
       <h2>
         <span class="en">What we built,<br>and <span class="accent">why</span></span>
@@ -853,7 +984,7 @@
     </section>
 
     <!-- APPROACH -->
-    <section id="approach">
+    <section id="approach" class="scene" data-scene="approach">
       <div class="section-label"><span class="en">How we work</span><span class="nl">Hoe we werken</span></div>
       <h2>
         <span class="en">What we promise —<br>and what we <span class="accent">don't</span></span>
@@ -896,7 +1027,7 @@
     </section>
 
     <!-- CONTACT -->
-    <section id="contact">
+    <section id="contact" class="scene" data-scene="contact">
       <div class="cta-content">
         <h2>
           <span class="en">Let's look at<br>your <span class="accent">situation</span></span>
@@ -952,180 +1083,9 @@
     </footer>
   </div>
 
-  <script src="/lib/three-bundle.js"></script>
   <script src="/lib/gsap.min.js"></script>
   <script src="/lib/ScrollTrigger.min.js"></script>
-
-  <script>
-    function setLanguage(lang) {
-      document.documentElement.setAttribute('data-lang', lang);
-      document.documentElement.setAttribute('lang', lang);
-      document.querySelectorAll('.lang-btn').forEach(btn => {
-        btn.classList.toggle('active', btn.dataset.lang === lang);
-      });
-      localStorage.setItem('preferred-lang', lang);
-      if (window.ScrollTrigger) ScrollTrigger.refresh();
-    }
-
-    setLanguage(localStorage.getItem('preferred-lang') || 'en');
-
-    class FluidScene {
-      constructor() {
-        this.scene = new THREE.Scene();
-        this.camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-        this.renderer = new THREE.WebGLRenderer({
-          canvas: document.getElementById('webgl-canvas'),
-          antialias: true,
-          alpha: true
-        });
-
-        this.time = 0;
-        this.scrollProgress = 0;
-        this.meshState = { rotationX: 0, rotationY: 0 };
-
-        this.setup();
-        this.createFluidObject();
-        this.setupLighting();
-        this.setupScrollAnimations();
-        this.animate();
-      }
-
-      setup() {
-        this.renderer.setSize(window.innerWidth, window.innerHeight);
-        this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-        this.renderer.setClearColor(0x050505, 1);
-        this.camera.position.z = 3;
-        window.addEventListener('resize', () => this.onResize());
-      }
-
-      createFluidObject() {
-        const geometry = new THREE.IcosahedronGeometry(1.2, 6);
-        const material = new THREE.MeshPhysicalMaterial({
-          color: 0xFFD400,
-          metalness: 0.7,
-          roughness: 0.2,
-          emissive: 0x332200,
-          emissiveIntensity: 0.15
-        });
-        this.mesh = new THREE.Mesh(geometry, material);
-        this.scene.add(this.mesh);
-      }
-
-      setupLighting() {
-        this.scene.add(new THREE.AmbientLight(0xffffff, 0.4));
-        const mainLight = new THREE.DirectionalLight(0xffffff, 0.8);
-        mainLight.position.set(10, 15, 10);
-        this.scene.add(mainLight);
-        const warmLight = new THREE.DirectionalLight(0xFFD400, 0.3);
-        warmLight.position.set(-15, 8, -10);
-        this.scene.add(warmLight);
-      }
-
-      setupScrollAnimations() {
-        gsap.to(this.meshState, {
-          scrollTrigger: {
-            trigger: 'body',
-            start: 'top top',
-            end: 'bottom bottom',
-            scrub: 0.5,
-            onUpdate: (self) => { this.scrollProgress = self.progress; }
-          },
-          rotationX: Math.PI * 2,
-          rotationY: Math.PI * 3,
-          duration: 1,
-          ease: 'none'
-        });
-      }
-
-      animate = () => {
-        requestAnimationFrame(this.animate);
-        this.time += 0.016;
-        if (this.mesh) {
-          this.mesh.rotation.x += 0.0003 + this.meshState.rotationX * 0.01;
-          this.mesh.rotation.y += 0.0005 + this.meshState.rotationY * 0.01;
-          const breathe = Math.sin(this.time * 0.3) * 0.08;
-          const baseScale = 0.8 + this.scrollProgress * 0.5;
-          this.mesh.scale.set(baseScale + breathe * 0.1, baseScale + breathe * 0.08, baseScale + breathe * 0.15);
-        }
-        this.renderer.render(this.scene, this.camera);
-      }
-
-      onResize() {
-        this.camera.aspect = window.innerWidth / window.innerHeight;
-        this.camera.updateProjectionMatrix();
-        this.renderer.setSize(window.innerWidth, window.innerHeight);
-      }
-    }
-
-    function initializeApp() {
-      try {
-        if (typeof ScrollTrigger !== 'undefined') gsap.registerPlugin(ScrollTrigger);
-      } catch (e) {
-        console.warn('ScrollTrigger registration failed:', e.message);
-      }
-
-      new FluidScene();
-
-      gsap.to('.hero-eyebrow, .hero-title, .hero-subtitle, .hero-buttons', {
-        opacity: 1,
-        y: 0,
-        duration: 1,
-        stagger: 0.15,
-        ease: 'power2.out'
-      });
-
-      const reveal = (selector, trigger, vars) => {
-        gsap.from(selector, Object.assign({
-          scrollTrigger: { trigger: trigger, start: 'top 80%', end: 'center 30%', scrub: 0.5 },
-          duration: 0.8,
-          ease: 'power2.out'
-        }, vars));
-      };
-
-      reveal('.pain-item', '#situation', { opacity: 0, y: 40, stagger: 0.08 });
-      reveal('.who-card', '#who', { opacity: 0, y: 40, stagger: 0.08 });
-      reveal('.system-node', '#system', { opacity: 0, scale: 0.85, stagger: 0.06 });
-      reveal('.work-card', '#work', { opacity: 0, y: 40, stagger: 0.12 });
-      reveal('.approach-item', '#approach', { opacity: 0, x: -30, stagger: 0.1 });
-
-      const navElement = document.getElementById('nav');
-      window.addEventListener('scroll', () => {
-        navElement.classList.toggle('scrolled', window.scrollY > 50);
-      });
-
-      // Mobile menu
-      const burger = document.getElementById('nav-burger');
-      const navLinks = document.getElementById('nav-links');
-
-      const setMenu = (open) => {
-        document.body.classList.toggle('menu-open', open);
-        burger.setAttribute('aria-expanded', String(open));
-        document.body.style.overflow = open ? 'hidden' : '';
-      };
-
-      burger.addEventListener('click', () => {
-        setMenu(!document.body.classList.contains('menu-open'));
-      });
-
-      navLinks.addEventListener('click', (e) => {
-        if (e.target.closest('a')) setMenu(false);
-      });
-
-      document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape') setMenu(false);
-      });
-
-      // Never leave the panel open when resizing back to desktop
-      window.addEventListener('resize', () => {
-        if (window.innerWidth > 900) setMenu(false);
-      });
-    }
-
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', initializeApp);
-    } else {
-      initializeApp();
-    }
-  </script>
+  <script src="/lib/lenis.min.js"></script>
+  <script src="/js/scroll-system.js"></script>
 </body>
 </html>
