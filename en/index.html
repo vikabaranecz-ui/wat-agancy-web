@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>WAT? Agency — Digital Growth System for Belgian Businesses</title>
-  <meta name="description" content="Premium digital growth agency. Website, Google Business, Content, Social, Ads, Analytics. One system. Real results.">
+  <title>WAT? Agency — Digital Growth for Belgian Service Businesses</title>
+  <meta name="description" content="We help Belgian service businesses get more clients. Website, Google, social, ads, tracking — one system that works.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700;900&family=Bebas+Neue&display=swap" rel="stylesheet">
   <style>
@@ -26,8 +26,6 @@
       line-height: 1.6;
     }
 
-    /* ━━━━━━━━━━━━━━━━━━━━━━ CORE ━━━━━━━━━━━━━━━━━━━━━━ */
-
     #webgl-canvas {
       position: fixed;
       top: 0;
@@ -43,8 +41,7 @@
       z-index: 10;
     }
 
-    /* ━━━━━━━━━━━━━━━━━━━━━━ NAVIGATION ━━━━━━━━━━━━━━━━━━━━━━ */
-
+    /* NAVIGATION */
     nav {
       position: fixed;
       top: 0;
@@ -80,6 +77,12 @@
       font-size: 32px;
     }
 
+    .nav-right {
+      display: flex;
+      gap: 32px;
+      align-items: center;
+    }
+
     .nav-links {
       display: flex;
       gap: 48px;
@@ -100,172 +103,116 @@
       color: #FFD400;
     }
 
-    .nav-cta {
-      font-size: 12px;
-      letter-spacing: 1.5px;
-      text-transform: uppercase;
-      font-weight: 700;
-      color: #050505;
-      background: #FFD400;
-      padding: 12px 28px;
+    /* LANGUAGE TOGGLE */
+    .lang-toggle {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      padding: 8px 16px;
+      border: 1px solid rgba(255, 212, 0, 0.2);
       border-radius: 4px;
-      text-decoration: none;
+      background: rgba(255, 212, 0, 0.05);
+    }
+
+    .lang-btn {
+      font-size: 12px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      font-weight: 600;
+      background: none;
+      border: none;
+      color: rgba(244, 242, 236, 0.5);
+      cursor: pointer;
       transition: all 0.3s ease;
+      padding: 4px 8px;
     }
 
-    .nav-cta:hover {
-      background: #FFC400;
-      transform: translateY(-2px);
+    .lang-btn.active {
+      color: #FFD400;
     }
 
-    @media(max-width: 768px) {
-      nav {
-        padding: 20px 24px;
-      }
-      .nav-links {
-        display: none;
-      }
+    .lang-btn:hover {
+      color: #FFD400;
     }
 
-    /* ━━━━━━━━━━━━━━━━━━━━━━ TYPOGRAPHY ━━━━━━━━━━━━━━━━━━━━━━ */
-
-    h1 {
-      font-family: 'Bebas Neue', serif;
-      font-size: clamp(3.5rem, 12vw, 11rem);
-      line-height: 0.92;
-      letter-spacing: -2px;
-      font-weight: 400;
+    /* SECTIONS */
+    section {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 120px 56px;
+      max-width: 1400px;
+      margin: 0 auto;
     }
 
     h2 {
       font-family: 'Bebas Neue', serif;
-      font-size: clamp(2.5rem, 8vw, 6rem);
+      font-size: clamp(2.5rem, 8vw, 5rem);
       line-height: 0.95;
       letter-spacing: -1px;
-      font-weight: 400;
-    }
-
-    p {
-      font-size: clamp(15px, 1.8vw, 18px);
-      line-height: 1.7;
-      color: rgba(244, 242, 236, 0.7);
+      margin-bottom: 40px;
     }
 
     .accent {
       color: #FFD400;
     }
 
-    /* ━━━━━━━━━━━━━━━━━━━━━━ SECTIONS ━━━━━━━━━━━━━━━━━━━━━━ */
-
-    section {
-      min-height: 100vh;
-      padding: 100px 56px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      position: relative;
-      overflow: hidden;
+    p {
+      font-size: clamp(1rem, 2vw, 1.25rem);
+      color: rgba(244, 242, 236, 0.8);
+      max-width: 800px;
+      margin-bottom: 24px;
+      line-height: 1.8;
     }
 
-    @media(max-width: 768px) {
-      section {
-        padding: 80px 24px;
-      }
-    }
-
-    /* ━━━━━━━━━━━━━━━━━━━━━━ 00 HERO ━━━━━━━━━━━━━━━━━━━━━━ */
-
+    /* HERO */
     #hero {
-      position: relative;
-      z-index: 2;
+      padding-top: 200px;
     }
 
     .hero-eyebrow {
-      font-size: 11px;
-      letter-spacing: 5px;
+      font-size: 13px;
+      letter-spacing: 2px;
       text-transform: uppercase;
       color: #FFD400;
-      margin-bottom: 32px;
-      font-weight: 700;
-      display: flex;
-      align-items: center;
-      gap: 12px;
+      margin-bottom: 24px;
       opacity: 0;
       transform: translateY(40px);
     }
 
-    .hero-eyebrow::before {
-      content: '';
-      display: block;
-      width: 32px;
-      height: 2px;
-      background: #FFD400;
-    }
-
     .hero-title {
-      max-width: 900px;
-      margin-bottom: 28px;
       opacity: 0;
       transform: translateY(40px);
     }
 
     .hero-subtitle {
-      max-width: 600px;
-      margin-bottom: 40px;
-      opacity: 0;
-      transform: translateY(40px);
-    }
-
-    .hero-capabilities {
-      display: flex;
-      gap: 12px;
-      flex-wrap: wrap;
+      font-size: 18px;
+      color: rgba(244, 242, 236, 0.7);
       margin-bottom: 48px;
+      max-width: 600px;
       opacity: 0;
       transform: translateY(40px);
-    }
-
-    .cap-item {
-      font-size: 11px;
-      letter-spacing: 1.5px;
-      text-transform: uppercase;
-      font-weight: 600;
-      color: rgba(244, 242, 236, 0.6);
-      background: rgba(255, 212, 0, 0.08);
-      border: 1px solid rgba(255, 212, 0, 0.2);
-      padding: 10px 16px;
-      border-radius: 3px;
-      transition: all 0.3s ease;
-    }
-
-    .cap-item:hover {
-      background: rgba(255, 212, 0, 0.15);
-      color: #FFD400;
     }
 
     .hero-buttons {
       display: flex;
-      gap: 16px;
-      flex-wrap: wrap;
-      align-items: center;
+      gap: 24px;
       opacity: 0;
       transform: translateY(40px);
     }
 
     .btn {
-      font-size: 12px;
+      font-size: 14px;
       letter-spacing: 1.5px;
       text-transform: uppercase;
-      font-weight: 700;
-      padding: 16px 36px;
-      border-radius: 4px;
-      text-decoration: none;
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      transition: all 0.3s ease;
-      cursor: pointer;
+      font-weight: 600;
+      padding: 16px 32px;
       border: none;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-decoration: none;
+      display: inline-block;
     }
 
     .btn-primary {
@@ -274,177 +221,115 @@
     }
 
     .btn-primary:hover {
-      background: #FFC400;
-      transform: translateY(-3px);
-      box-shadow: 0 12px 36px rgba(255, 212, 0, 0.3);
+      background: #FFF000;
+      transform: translateY(-4px);
+      box-shadow: 0 20px 40px rgba(255, 212, 0, 0.3);
     }
 
     .btn-secondary {
-      border: 1.5px solid rgba(244, 242, 236, 0.3);
-      color: #F4F2EC;
+      background: transparent;
+      border: 1px solid #FFD400;
+      color: #FFD400;
     }
 
     .btn-secondary:hover {
-      border-color: #FFD400;
-      color: #FFD400;
-    }
-
-    /* ━━━━━━━━━━━━━━━━━━━━━━ 01 CHAOS ━━━━━━━━━━━━━━━━━━━━━━ */
-
-    #chaos {
-      position: relative;
-    }
-
-    .chaos-words {
-      position: absolute;
-      inset: 0;
-      opacity: 0.3;
-      pointer-events: none;
-    }
-
-    .chaos-word {
-      position: absolute;
-      font-family: 'Bebas Neue', serif;
-      font-size: clamp(2rem, 5vw, 4rem);
-      color: #FFD400;
-      opacity: 0.2;
-      transform: rotate(-12deg);
-    }
-
-    .chaos-content {
-      position: relative;
-      z-index: 2;
-      max-width: 800px;
-    }
-
-    .chaos-content h2 {
-      margin-bottom: 24px;
-    }
-
-    .chaos-content p {
-      font-size: 18px;
-      max-width: 600px;
-    }
-
-    /* ━━━━━━━━━━━━━━━━━━━━━━ 02 SYSTEM ━━━━━━━━━━━━━━━━━━━━━━ */
-
-    #system {
-      position: relative;
-    }
-
-    .system-diagram {
-      position: relative;
-      margin-top: 60px;
-      min-height: 400px;
-    }
-
-    .system-node {
-      position: absolute;
-      font-size: 12px;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-      font-weight: 700;
-      padding: 12px 20px;
-      border: 1px solid rgba(255, 212, 0, 0.3);
-      border-radius: 4px;
-      color: rgba(244, 242, 236, 0.8);
-      background: rgba(15, 15, 15, 0.6);
-    }
-
-    .system-content {
-      position: relative;
-      z-index: 2;
-      max-width: 900px;
-    }
-
-    .system-content h2 {
-      margin-bottom: 24px;
-    }
-
-    .notification {
-      position: absolute;
-      bottom: 100px;
-      right: 56px;
       background: rgba(255, 212, 0, 0.1);
-      border: 1px solid rgba(255, 212, 0, 0.3);
-      border-radius: 8px;
-      padding: 16px 24px;
-      font-size: 12px;
-      letter-spacing: 1.5px;
-      text-transform: uppercase;
-      color: #FFD400;
+    }
+
+    /* PROBLEM SECTION */
+    #problem {
+      background: linear-gradient(135deg, rgba(0, 0, 0, 0.5) 0%, rgba(255, 212, 0, 0.05) 100%);
+    }
+
+    .problem-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 32px;
+      margin-top: 60px;
+    }
+
+    .problem-item {
+      padding: 32px;
+      border-left: 3px solid #FFD400;
       opacity: 0;
+      transform: translateX(-30px);
     }
 
-    @media(max-width: 768px) {
-      .system-diagram {
-        min-height: 600px;
-      }
-      .notification {
-        right: 24px;
-        bottom: 80px;
-        font-size: 11px;
-        padding: 12px 16px;
-      }
+    .problem-item.active {
+      opacity: 1;
+      transform: translateX(0);
     }
 
-    /* ━━━━━━━━━━━━━━━━━━━━━━ 03 CAPABILITIES ━━━━━━━━━━━━━━━━━━━━━━ */
-
-    #capabilities {
-      position: relative;
+    .problem-item h3 {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 12px;
+      color: #FFD400;
     }
 
-    .capability {
-      margin-bottom: 80px;
-      max-width: 800px;
+    .problem-item p {
+      font-size: 14px;
+      color: rgba(244, 242, 236, 0.6);
+    }
+
+    /* TRANSFORMATION SECTION */
+    #transformation {
+      background: linear-gradient(135deg, rgba(255, 212, 0, 0.05) 0%, rgba(0, 0, 0, 0.5) 100%);
+    }
+
+    .transformation-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 40px;
+      margin-top: 80px;
+    }
+
+    .transform-card {
+      padding: 40px;
+      background: rgba(255, 212, 0, 0.08);
+      border: 1px solid rgba(255, 212, 0, 0.2);
+      border-radius: 8px;
       opacity: 0;
       transform: translateY(40px);
     }
 
-    .capability.active {
+    .transform-card.active {
       opacity: 1;
       transform: translateY(0);
     }
 
-    .capability h3 {
+    .transform-card .number {
       font-family: 'Bebas Neue', serif;
-      font-size: clamp(2rem, 5vw, 3.5rem);
-      line-height: 1;
-      letter-spacing: -1px;
-      margin-bottom: 16px;
+      font-size: 48px;
       color: #FFD400;
+      margin-bottom: 16px;
     }
 
-    .capability-number {
-      font-size: 13px;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      color: rgba(244, 242, 236, 0.4);
-      margin-bottom: 8px;
-    }
-
-    .capability-subtitle {
-      font-size: 16px;
-      color: rgba(244, 242, 236, 0.6);
+    .transform-card h3 {
+      font-size: 20px;
+      font-weight: 700;
       margin-bottom: 12px;
+      color: #F4F2EC;
     }
 
-    .capability-copy {
-      font-size: 15px;
-      color: rgba(244, 242, 236, 0.5);
-      max-width: 600px;
+    .transform-card p {
+      font-size: 14px;
+      color: rgba(244, 242, 236, 0.6);
     }
 
-    /* ━━━━━━━━━━━━━━━━━━━━━━ 04 CASE STUDIES ━━━━━━━━━━━━━━━━━━━━━━ */
-
-    #cases {
-      position: relative;
+    /* PROOF - CASE STUDIES */
+    #proof {
+      background: transparent;
     }
 
     .case-study {
-      margin-bottom: 120px;
+      margin-bottom: 80px;
+      padding: 48px;
+      background: rgba(255, 212, 0, 0.05);
+      border: 1px solid rgba(255, 212, 0, 0.1);
+      border-radius: 8px;
       opacity: 0;
-      transform: translateY(50px);
+      transform: translateY(40px);
     }
 
     .case-study.active {
@@ -452,188 +337,123 @@
       transform: translateY(0);
     }
 
-    .case-header {
-      margin-bottom: 40px;
-    }
-
     .case-title {
       font-family: 'Bebas Neue', serif;
-      font-size: clamp(2.5rem, 6vw, 4rem);
-      line-height: 0.95;
-      letter-spacing: -1px;
-      margin-bottom: 8px;
+      font-size: 32px;
+      color: #F4F2EC;
+      margin-bottom: 12px;
     }
 
     .case-location {
       font-size: 13px;
-      letter-spacing: 1.5px;
-      text-transform: uppercase;
       color: rgba(244, 242, 236, 0.5);
-    }
-
-    .case-image {
-      width: 100%;
-      height: 400px;
-      background: linear-gradient(135deg, #0A0A0A 0%, #1A1A1A 100%);
-      border-radius: 8px;
-      margin-bottom: 40px;
-      overflow: hidden;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 14px;
-      color: rgba(244, 242, 236, 0.3);
+      margin-bottom: 24px;
     }
 
     .case-metrics {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
       gap: 24px;
-      margin-bottom: 40px;
+      margin-top: 32px;
     }
 
-    .case-metric {
-      border: 1px solid rgba(255, 212, 0, 0.2);
-      border-radius: 4px;
-      padding: 20px;
-      background: rgba(255, 212, 0, 0.05);
+    .metric {
+      border-left: 2px solid #FFD400;
+      padding-left: 16px;
     }
 
-    .case-metric-value {
+    .metric-value {
       font-family: 'Bebas Neue', serif;
-      font-size: clamp(2rem, 4vw, 2.5rem);
-      line-height: 1;
+      font-size: 28px;
       color: #FFD400;
-      margin-bottom: 8px;
+      margin-bottom: 4px;
     }
 
-    .case-metric-label {
+    .metric-label {
       font-size: 12px;
-      letter-spacing: 1px;
-      text-transform: uppercase;
       color: rgba(244, 242, 236, 0.6);
+      text-transform: uppercase;
+      letter-spacing: 1px;
     }
 
-    /* ━━━━━━━━━━━━━━━━━━━━━━ 05 PROCESS ━━━━━━━━━━━━━━━━━━━━━━ */
-
-    #process {
-      position: relative;
+    /* SYSTEM */
+    #system {
+      background: linear-gradient(135deg, rgba(255, 212, 0, 0.05) 0%, rgba(0, 0, 0, 0.5) 100%);
     }
 
-    .process-steps {
-      max-width: 800px;
+    .system-visual {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
       margin-top: 60px;
     }
 
-    .process-step {
-      margin-bottom: 60px;
+    .system-node {
+      padding: 32px;
+      background: rgba(255, 212, 0, 0.1);
+      border: 1px solid rgba(255, 212, 0, 0.2);
+      border-radius: 8px;
+      text-align: center;
       opacity: 0;
-      transform: translateX(-30px);
+      transform: scale(0.8);
     }
 
-    .process-step.active {
+    .system-node.active {
       opacity: 1;
-      transform: translateX(0);
+      transform: scale(1);
     }
 
-    .step-number {
-      font-family: 'Bebas Neue', serif;
-      font-size: 48px;
-      color: #FFD400;
-      margin-bottom: 8px;
-      letter-spacing: -1px;
-    }
-
-    .step-title {
-      font-size: 24px;
+    .system-node h3 {
+      font-size: 16px;
       font-weight: 700;
-      margin-bottom: 12px;
-      color: #F4F2EC;
+      color: #FFD400;
     }
 
-    .step-description {
-      font-size: 15px;
-      color: rgba(244, 242, 236, 0.6);
-      max-width: 600px;
+    /* GUARANTEE */
+    #guarantee {
+      background: transparent;
     }
 
-    /* ━━━━━━━━━━━━━━━━━━━━━━ 06 WHY ━━━━━━━━━━━━━━━━━━━━━━ */
-
-    #why {
-      position: relative;
-    }
-
-    .why-marquee {
-      font-family: 'Bebas Neue', serif;
-      font-size: clamp(2rem, 6vw, 4rem);
-      letter-spacing: -1px;
-      color: rgba(244, 242, 236, 0.1);
-      white-space: nowrap;
-      overflow: hidden;
-      margin-bottom: 80px;
-      line-height: 1.2;
-    }
-
-    .why-facts {
+    .guarantee-list {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
       gap: 40px;
       margin-top: 60px;
     }
 
-    .why-fact {
-      border-left: 2px solid #FFD400;
-      padding-left: 20px;
+    .guarantee-item {
+      border-left: 3px solid #FFD400;
+      padding-left: 24px;
       opacity: 0;
-      transform: translateY(20px);
+      transform: translateX(-30px);
     }
 
-    .why-fact.active {
+    .guarantee-item.active {
       opacity: 1;
-      transform: translateY(0);
+      transform: translateX(0);
     }
 
-    .fact-title {
-      font-size: 16px;
+    .guarantee-item h3 {
+      font-size: 18px;
       font-weight: 700;
-      margin-bottom: 8px;
-      color: #F4F2EC;
+      margin-bottom: 12px;
+      color: #FFD400;
     }
 
-    .fact-desc {
-      font-size: 14px;
-      color: rgba(244, 242, 236, 0.6);
-      line-height: 1.6;
-    }
-
-    /* ━━━━━━━━━━━━━━━━━━━━━━ 07 FINAL CTA ━━━━━━━━━━━━━━━━━━━━━━ */
-
+    /* CTA */
     #final-cta {
-      position: relative;
-      display: flex;
-      flex-direction: column;
+      text-align: center;
       justify-content: center;
       align-items: center;
-      text-align: center;
     }
 
-    .final-content {
-      max-width: 900px;
-      z-index: 2;
-      position: relative;
+    .cta-content {
+      max-width: 700px;
     }
 
-    .final-content h2 {
-      margin-bottom: 24px;
-    }
-
-    .final-content p {
+    .cta-content p {
       font-size: 18px;
-      margin-bottom: 48px;
-    }
-
-    .final-content .btn {
-      margin: 0 auto;
+      margin-bottom: 32px;
     }
 
     .trust-copy {
@@ -642,8 +462,7 @@
       margin-top: 24px;
     }
 
-    /* ━━━━━━━━━━━━━━━━━━━━━━ FOOTER ━━━━━━━━━━━━━━━━━━━━━━ */
-
+    /* FOOTER */
     footer {
       background: #050505;
       padding: 80px 56px 40px;
@@ -663,10 +482,6 @@
       gap: 80px;
     }
 
-    .footer-brand {
-      flex: 0 0 auto;
-    }
-
     .footer-brand h3 {
       font-family: 'Bebas Neue', serif;
       font-size: 32px;
@@ -678,18 +493,9 @@
       color: #FFD400;
     }
 
-    .footer-brand p {
-      font-size: 13px;
-      color: rgba(244, 242, 236, 0.5);
-    }
-
     .footer-links {
       display: flex;
       gap: 40px;
-    }
-
-    .footer-col {
-      flex: 0 0 auto;
     }
 
     .footer-col-title {
@@ -727,556 +533,583 @@
     }
 
     @media(max-width: 768px) {
+      nav {
+        padding: 16px 24px;
+        flex-direction: column;
+        gap: 16px;
+      }
+
+      nav.scrolled {
+        padding: 12px 24px;
+      }
+
+      .nav-right {
+        width: 100%;
+        justify-content: space-between;
+      }
+
+      section {
+        padding: 80px 24px;
+      }
+
+      .system-visual {
+        grid-template-columns: 1fr;
+      }
+
       footer {
         padding: 60px 24px 30px;
       }
+
       .footer-content {
         flex-direction: column;
         gap: 40px;
       }
+
       .footer-links {
         flex-direction: column;
         gap: 30px;
       }
     }
 
-    /* ━━━━━━━━━━━━━━━━━━━━━━ ANIMATIONS ━━━━━━━━━━━━━━━━━━━━━━ */
-
-    @media (prefers-reduced-motion: no-preference) {
-      .hero-eyebrow {
-        animation: fadeInUp 0.8s ease-out;
-      }
-
-      .hero-title {
-        animation: fadeInUp 0.8s ease-out 0.1s backwards;
-      }
-
-      .hero-subtitle {
-        animation: fadeInUp 0.8s ease-out 0.2s backwards;
-      }
-
-      .hero-buttons {
-        animation: fadeInUp 0.8s ease-out 0.3s backwards;
-      }
-    }
-
-    @keyframes fadeInUp {
-      from {
-        opacity: 0;
-        transform: translateY(40px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    /* ━━━━━━━━━━━━━━━━━━━━━━ NO WHITE FLASHES ━━━━━━━━━━━━━━━━━━━━━━ */
-
-    html, body, section {
-      background: #050505 !important;
-    }
+    [data-lang="nl"] .en-text { display: none; }
+    [data-lang="en"] .nl-text { display: none; }
   </style>
 </head>
+
 <body>
+  <canvas id="webgl-canvas"></canvas>
 
-<canvas id="webgl-canvas"></canvas>
+  <div id="scroll-container">
+    <!-- NAVIGATION -->
+    <nav id="nav">
+      <div class="nav-logo"><span class="q">?</span> WAT</div>
+      <div class="nav-right">
+        <div class="nav-links">
+          <a href="#hero" class="en-text">Home</a>
+          <a href="#problem" class="en-text">Why Us</a>
+          <a href="#proof" class="en-text">Proof</a>
+          <a href="#final-cta" class="en-text">Contact</a>
 
-<div id="scroll-container">
-  <!-- NAVIGATION -->
-  <nav id="nav">
-    <div class="nav-logo"><span class="q">?</span> WAT AGENCY</div>
-    <div class="nav-links">
-      <a href="#capabilities">SERVICES</a>
-      <a href="#cases">WORK</a>
-      <a href="#why">ABOUT</a>
-    </div>
-    <a href="#contact" class="nav-cta">FREE AUDIT →</a>
-  </nav>
-
-  <!-- 00 HERO -->
-  <section id="hero">
-    <div class="hero-eyebrow">FOR BELGIAN SERVICE BUSINESSES</div>
-    <h1 class="hero-title">DON'T LOSE<br>CLIENTS<br>BEFORE THE<br><span class="accent">FIRST CALL.</span></h1>
-    <p class="hero-subtitle">We build the digital system behind businesses people notice, trust and contact.</p>
-    <div class="hero-capabilities">
-      <span class="cap-item">WEBSITE</span>
-      <span class="cap-item">GOOGLE</span>
-      <span class="cap-item">CONTENT</span>
-      <span class="cap-item">SOCIAL</span>
-      <span class="cap-item">ADS</span>
-      <span class="cap-item">ANALYTICS</span>
-    </div>
-    <div class="hero-buttons">
-      <a href="#contact" class="btn btn-primary">GET YOUR FREE AUDIT →</a>
-      <a href="#capabilities" class="btn btn-secondary">VIEW OUR WORK ↓</a>
-    </div>
-  </section>
-
-  <!-- 01 CHAOS -->
-  <section id="chaos">
-    <div class="chaos-words">
-      <div class="chaos-word" style="top: 15%; left: 10%;">WEBSITE?</div>
-      <div class="chaos-word" style="top: 25%; right: 12%;">GOOGLE?</div>
-      <div class="chaos-word" style="top: 45%; left: 5%;">SOCIAL?</div>
-      <div class="chaos-word" style="top: 55%; right: 8%;">ADS?</div>
-      <div class="chaos-word" style="top: 70%; left: 15%;">SEO?</div>
-      <div class="chaos-word" style="top: 65%; right: 15%;">REVIEWS?</div>
-    </div>
-    <div class="chaos-content">
-      <h2>TOO MANY<br>CHANNELS.<br>NO <span class="accent">SYSTEM.</span></h2>
-      <p>Good business. Bad visibility. Every channel disconnected. Every lead lost.</p>
-    </div>
-  </section>
-
-  <!-- 02 SYSTEM -->
-  <section id="system">
-    <div class="system-content">
-      <h2>ONE TEAM.<br>ONE <span class="accent">SYSTEM.</span><br>ONE GOAL:<br>MORE CLIENTS.</h2>
-      <p style="margin-top: 24px;">Connect website, Google, social, reviews, content, ads, tracking. Not separate tools. One customer acquisition machine.</p>
-    </div>
-    <div class="system-diagram">
-      <div class="system-node" style="top: 10%; left: 5%;">WEBSITE</div>
-      <div class="system-node" style="top: 20%; left: 25%;">GOOGLE</div>
-      <div class="system-node" style="top: 30%; right: 15%;">SOCIAL</div>
-      <div class="system-node" style="top: 50%; left: 10%;">CONTENT</div>
-      <div class="system-node" style="top: 55%; right: 10%;">ADS</div>
-      <div class="system-node" style="bottom: 20%; left: 30%;">ANALYTICS</div>
-      <div class="notification">
-        <div>NEW ENQUIRY</div>
-      </div>
-    </div>
-  </section>
-
-  <!-- 03 CAPABILITIES -->
-  <section id="capabilities">
-    <h2 style="margin-bottom: 80px;">WHAT WE <span class="accent">BUILD.</span></h2>
-
-    <div class="capability">
-      <div class="capability-number">01</div>
-      <h3>GET FOUND.</h3>
-      <div class="capability-subtitle">Website · SEO · Google Business</div>
-      <p class="capability-copy">Make sure the right people can find you when they search for the services you deliver.</p>
-    </div>
-
-    <div class="capability">
-      <div class="capability-number">02</div>
-      <h3>GET TRUSTED.</h3>
-      <div class="capability-subtitle">Brand · Content · Social · Reviews</div>
-      <p class="capability-copy">Build proof and authority. Make people believe you're the best choice, not just another option.</p>
-    </div>
-
-    <div class="capability">
-      <div class="capability-number">03</div>
-      <h3>GET CLIENTS.</h3>
-      <div class="capability-subtitle">Meta Ads · Google Ads · WhatsApp · Landing Pages</div>
-      <p class="capability-copy">Turn attention into enquiries. Capture interested people and guide them directly to contact.</p>
-    </div>
-
-    <div class="capability">
-      <div class="capability-number">04</div>
-      <h3>KNOW WHAT WORKS.</h3>
-      <div class="capability-subtitle">Tracking · GA4 · GTM · CRM</div>
-      <p class="capability-copy">Know exactly where your leads come from. Measure. Optimize. Grow smarter, not just bigger.</p>
-    </div>
-  </section>
-
-  <!-- 04 CASE STUDIES -->
-  <section id="cases">
-    <h2 style="margin-bottom: 80px;">REAL WORK.<br>REAL <span class="accent">RESULTS.</span></h2>
-
-    <div class="case-study">
-      <div class="case-header">
-        <h3 class="case-title">ISOPROTECH</h3>
-        <div class="case-location">Antwerp, Belgium · Insulation & Energy Services</div>
-      </div>
-      <div class="case-image">[Project imagery would load here]</div>
-      <div class="case-metrics">
-        <div class="case-metric">
-          <div class="case-metric-value">5.0★</div>
-          <div class="case-metric-label">Google Maps Rating</div>
+          <a href="#hero" class="nl-text">Home</a>
+          <a href="#problem" class="nl-text">Waarom Ons</a>
+          <a href="#proof" class="nl-text">Bewijs</a>
+          <a href="#final-cta" class="nl-text">Contact</a>
         </div>
-        <div class="case-metric">
-          <div class="case-metric-value">47+</div>
-          <div class="case-metric-label">Verified Reviews</div>
-        </div>
-        <div class="case-metric">
-          <div class="case-metric-value">10 Cities</div>
-          <div class="case-metric-label">Ranking Positions</div>
+        <div class="lang-toggle">
+          <button class="lang-btn active" data-lang="en" onclick="setLanguage('en')">EN</button>
+          <button class="lang-btn" data-lang="nl" onclick="setLanguage('nl')">NL</button>
         </div>
       </div>
-      <p>Website · Google Business · SEO · Reviews · WhatsApp Tracking · Price Calculator</p>
-    </div>
+    </nav>
 
-    <div class="case-study">
-      <div class="case-header">
-        <h3 class="case-title">RENO RANGERS</h3>
-        <div class="case-location">Antwerp, Belgium · Renovation & Construction</div>
+    <!-- 01 HERO -->
+    <section id="hero">
+      <div class="hero-eyebrow en-text">YOUR SERVICE BUSINESS DESERVES MORE CLIENTS</div>
+      <div class="hero-eyebrow nl-text">JE DIENSTENBEDRIJF VERDIENT MEER KLANTEN</div>
+
+      <h1 class="hero-title">
+        <span class="en-text">Your Best<br>Clients Are<br>Looking For<br><span class="accent">You Right Now.</span></span>
+        <span class="nl-text">Je Beste<br>Klanten Zoeken<br>Nu Naar<br><span class="accent">Je.</span></span>
+      </h1>
+
+      <p class="hero-subtitle en-text">They just don't know it yet. We connect them to you. One system. One team. Real growth.</p>
+      <p class="hero-subtitle nl-text">Ze weten het alleen nog niet. We verbinden ze met jou. Eén systeem. Eén team. Echte groei.</p>
+
+      <div class="hero-buttons">
+        <a href="#final-cta" class="btn btn-primary en-text">GET YOUR BLUEPRINT →</a>
+        <a href="#proof" class="btn btn-secondary en-text">SEE WHAT WORKS ↓</a>
+
+        <a href="#final-cta" class="btn btn-primary nl-text">KRIJG JE PLAN →</a>
+        <a href="#proof" class="btn btn-secondary nl-text">ZIE WAT WERKT ↓</a>
       </div>
-      <div class="case-image">[Project imagery would load here]</div>
-      <div class="case-metrics">
-        <div class="case-metric">
-          <div class="case-metric-value">5.0★</div>
-          <div class="case-metric-label">Google Maps Rating</div>
+    </section>
+
+    <!-- 02 PROBLEM - THE STRUGGLE -->
+    <section id="problem">
+      <h2><span class="en-text">The Game You're<br>Playing Is <span class="accent">Exhausting.</span></span><span class="nl-text">Het Spel Dat Je<br>Speelt Is <span class="accent">Uitputtend.</span></span></h2>
+
+      <p class="en-text">Every channel demands attention. Facebook. Google. WhatsApp. Reviews. Your website. Each one feels like it needs its own person. You're spread thin. Your message is inconsistent. Good leads slip through cracks.</p>
+      <p class="nl-text">Elk kanaal vraagt aandacht. Facebook. Google. WhatsApp. Reviews. Je website. Elk voelt als een volledige persoon nodig. Je bent uitgebreid. Je boodschap is inconsistent. Goede leads glippen door spleten.</p>
+
+      <div class="problem-list">
+        <div class="problem-item">
+          <h3 class="en-text">Too Many Channels</h3>
+          <h3 class="nl-text">Te Veel Kanalen</h3>
+          <p class="en-text">Website, Google, social, ads, reviews — all screaming for attention.</p>
+          <p class="nl-text">Website, Google, social, ads, reviews — allemaal schreeuwen om aandacht.</p>
         </div>
-        <div class="case-metric">
-          <div class="case-metric-value">18 Cities</div>
-          <div class="case-metric-label">Coverage Area</div>
+        <div class="problem-item">
+          <h3 class="en-text">No System</h3>
+          <h3 class="nl-text">Geen Systeem</h3>
+          <p class="en-text">Each channel works alone. No connection. No data flowing. No strategy.</p>
+          <p class="nl-text">Elk kanaal werkt alleen. Geen verbinding. Geen data-stroom. Geen strategie.</p>
         </div>
-        <div class="case-metric">
-          <div class="case-metric-value">+200%</div>
-          <div class="case-metric-label">Enquiry Growth</div>
-        </div>
-      </div>
-      <p>Website (18 City Pages) · SEO · Google Business Direction · Fixed-Price Positioning · WhatsApp Flow</p>
-    </div>
-  </section>
-
-  <!-- 05 PROCESS -->
-  <section id="process">
-    <h2 style="margin-bottom: 60px;">FROM WAT? TO <span class="accent">WOW.</span></h2>
-
-    <div class="process-steps">
-      <div class="process-step">
-        <div class="step-number">01</div>
-        <div class="step-title">Audit</div>
-        <div class="step-description">We analyze your current presence, competition, and opportunity. What's missing. What's broken. What will work.</div>
-      </div>
-
-      <div class="process-step">
-        <div class="step-number">02</div>
-        <div class="step-title">Strategy</div>
-        <div class="step-description">We define your positioning, messaging, channels, and timeline. The system blueprint.</div>
-      </div>
-
-      <div class="process-step">
-        <div class="step-number">03</div>
-        <div class="step-title">Build</div>
-        <div class="step-description">We create your website, set up Google, launch content, connect ads, install tracking. Layer by layer.</div>
-      </div>
-
-      <div class="process-step">
-        <div class="step-number">04</div>
-        <div class="step-title">Launch</div>
-        <div class="step-description">We activate everything. Test. Fix. Optimize. Ready for clients to find and contact you.</div>
-      </div>
-
-      <div class="process-step">
-        <div class="step-number">05</div>
-        <div class="step-title">Grow</div>
-        <div class="step-description">We monitor, measure, and improve. More leads. Better quality. Smarter spend. Continuous improvement.</div>
-      </div>
-    </div>
-  </section>
-
-  <!-- 06 WHY -->
-  <section id="why">
-    <div class="why-marquee">BUILT FOR BELGIUM / BUILT FOR BELGIUM / BUILT FOR BELGIUM</div>
-
-    <h2 style="margin-bottom: 60px;">WHY <span class="accent">WAT?</span></h2>
-
-    <div class="why-facts">
-      <div class="why-fact">
-        <div class="fact-title">BELGIAN MARKET</div>
-        <p class="fact-desc">We understand Dutch buyers, Belgian seasonality, local competition. We're not importing generic tactics.</p>
-      </div>
-
-      <div class="why-fact">
-        <div class="fact-title">NL / FR / EN</div>
-        <p class="fact-desc">Your language. Your culture. Regional nuance in every strategy, message, and execution.</p>
-      </div>
-
-      <div class="why-fact">
-        <div class="fact-title">ONE TEAM</div>
-        <p class="fact-desc">No hand-offs. No delays. Strategy, design, development, marketing — one accountable team.</p>
-      </div>
-
-      <div class="why-fact">
-        <div class="fact-title">FAST EXECUTION</div>
-        <p class="fact-desc">Launch in weeks, not months. Setup costs low. Results visible quickly. Grow while you work.</p>
-      </div>
-
-      <div class="why-fact">
-        <div class="fact-title">RESULTS > VANITY</div>
-        <p class="fact-desc">We don't care about social impressions or website visitors. We care about clients who call and convert.</p>
-      </div>
-
-      <div class="why-fact">
-        <div class="fact-title">NO AGENCY BULLSHIT</div>
-        <p class="fact-desc">No jargon. No 6-month retainers. No inflated invoices. Clear. Fair. Honest price for real work.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- 07 FINAL CTA -->
-  <section id="final-cta">
-    <div class="final-content">
-      <h2>YOUR BUSINESS<br>IS GOOD.</h2>
-      <p style="margin-top: 32px;">Let's make sure people know it.</p>
-      <a href="#contact" class="btn btn-primary">GET YOUR FREE AUDIT →</a>
-      <p class="trust-copy">No commitment. No sales pressure. Response within 24h.</p>
-    </div>
-  </section>
-
-  <!-- FOOTER -->
-  <footer>
-    <div class="footer-content">
-      <div class="footer-brand">
-        <h3><span class="q">?</span> WAT AGENCY</h3>
-        <p>Digital growth system for Belgian service businesses.</p>
-      </div>
-      <div class="footer-links">
-        <div class="footer-col">
-          <div class="footer-col-title">OFFICE</div>
-          <a href="#">Antwerp</a>
-          <a href="#">Belgium</a>
-        </div>
-        <div class="footer-col">
-          <div class="footer-col-title">SOCIAL</div>
-          <a href="#">Instagram →</a>
-          <a href="#">LinkedIn →</a>
-        </div>
-        <div class="footer-col">
-          <div class="footer-col-title">CONTACT</div>
-          <a href="mailto:hello@watagencybelgium.be">Email →</a>
-          <a href="#">WhatsApp →</a>
+        <div class="problem-item">
+          <h3 class="en-text">Leads Get Lost</h3>
+          <h3 class="nl-text">Leads Gaan Verloren</h3>
+          <p class="en-text">They find you but don't call. Or they call but you miss it. Or they check reviews and leave.</p>
+          <p class="nl-text">Ze vinden je maar bellen niet. Of ze bellen maar je mist het. Of ze checken reviews en vertrekken.</p>
         </div>
       </div>
-    </div>
-    <div class="footer-bottom">
-      <p>© 2025 WAT? Agency Belgium. All rights reserved.</p>
-      <p>EN / NL</p>
-    </div>
-  </footer>
-</div>
+    </section>
 
-<!-- SCRIPTS -->
-<script src="/lib/three-bundle.js"></script>
-<script src="/lib/gsap.min.js"></script>
-<script src="/lib/ScrollTrigger.min.js"></script>
+    <!-- 03 TRANSFORMATION -->
+    <section id="transformation">
+      <h2><span class="en-text">What If It<br>Could Be <span class="accent">Simple?</span></span><span class="nl-text">Wat Als Het<br><span class="accent">Simpel</span> Kon Zijn?</span></h2>
 
-<script>
-  // FluidScene class definition
-  class FluidScene {
-    constructor() {
-      this.scene = new THREE.Scene();
-      this.camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-      this.renderer = new THREE.WebGLRenderer({
-        canvas: document.getElementById('webgl-canvas'),
-        antialias: true,
-        alpha: true
+      <p class="en-text">One team. One system. Every channel connected. Every lead tracked. Every interaction purposeful. Your business runs on autopilot while you focus on serving clients.</p>
+      <p class="nl-text">Eén team. Eén systeem. Elk kanaal verbonden. Elke lead gevolgd. Elke interactie doelgericht. Je bedrijf draait op automatische piloot terwijl je je richt op het bedienen van klanten.</p>
+
+      <div class="transformation-grid">
+        <div class="transform-card">
+          <div class="number">1</div>
+          <h3 class="en-text">You Get Found</h3>
+          <h3 class="nl-text">Je Wordt Gevonden</h3>
+          <p class="en-text">Right people. Right time. Your website ranks. Google knows you. Reviews build trust.</p>
+          <p class="nl-text">Juiste mensen. Juist moment. Je website rankt. Google kent je. Reviews bouwen vertrouwen.</p>
+        </div>
+        <div class="transform-card">
+          <div class="number">2</div>
+          <h3 class="en-text">They Reach Out</h3>
+          <h3 class="nl-text">Ze Nemen Contact Op</h3>
+          <p class="en-text">No friction. Clear path. One message across all channels. They can't ignore you.</p>
+          <p class="nl-text">Geen wrijving. Duidelijk pad. Één boodschap op alle kanalen. Ze kunnen je niet negeren.</p>
+        </div>
+        <div class="transform-card">
+          <div class="number">3</div>
+          <h3 class="en-text">You Convert More</h3>
+          <h3 class="nl-text">Je Converteert Meer</h3>
+          <p class="en-text">Leads don't leak. You respond fast. Tracking shows what works. You get smarter every day.</p>
+          <p class="nl-text">Leads lekken niet. Je reageert snel. Tracking toont wat werkt. Je wordt elke dag slimmer.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 04 PROOF - CASE STUDIES -->
+    <section id="proof">
+      <h2 class="en-text">Real Businesses.<br>Real <span class="accent">Growth.</span></h2>
+      <h2 class="nl-text">Echte Bedrijven.<br>Echte <span class="accent">Groei.</span></h2>
+
+      <div class="case-study">
+        <div class="case-title">ISOPROTECH</div>
+        <div class="case-location">Insulation & Energy Services | Belgium</div>
+        <p class="en-text">Started with zero presence. No website. No reviews. No system. Now they're the top-rated insulation company in their region.</p>
+        <p class="nl-text">Begon met nul aanwezigheid. Geen website. Geen reviews. Geen systeem. Nu zijn ze het best gewaardeerde isolatiebedrijf in hun regio.</p>
+        <div class="case-metrics">
+          <div class="metric">
+            <div class="metric-value">5.0★</div>
+            <div class="metric-label">Rating</div>
+          </div>
+          <div class="metric">
+            <div class="metric-value">47+</div>
+            <div class="metric-label">Reviews</div>
+          </div>
+          <div class="metric">
+            <div class="metric-value">10 Cities</div>
+            <div class="metric-label">Ranking</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="case-study">
+        <div class="case-title">RENO RANGERS</div>
+        <div class="case-location">Renovation & Construction | Belgium</div>
+        <p class="en-text">Renovation business drowning in leads from Facebook. Couldn't scale. Leads were low quality. After our system: 200% more qualified leads. Better margins.</p>
+        <p class="nl-text">Renovatiebedrijf verdronken in leads van Facebook. Kon niet schalen. Leads waren van lage kwaliteit. Na ons systeem: 200% meer gekwalificeerde leads. Betere marges.</p>
+        <div class="case-metrics">
+          <div class="metric">
+            <div class="metric-value">+200%</div>
+            <div class="metric-label">Enquiry Growth</div>
+          </div>
+          <div class="metric">
+            <div class="metric-value">18 Cities</div>
+            <div class="metric-label">Coverage</div>
+          </div>
+          <div class="metric">
+            <div class="metric-value">5.0★</div>
+            <div class="metric-label">Rating</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 05 SYSTEM -->
+    <section id="system">
+      <h2 class="en-text">How We<br>Make It <span class="accent">Work.</span></h2>
+      <h2 class="nl-text">Hoe We Het<br>Laten <span class="accent">Werken.</span></h2>
+
+      <div class="system-visual">
+        <div class="system-node">
+          <h3>WEBSITE</h3>
+          <p class="en-text">Rank. Convert. Analyze.</p>
+          <p class="nl-text">Ranken. Converteren. Analyseren.</p>
+        </div>
+        <div class="system-node">
+          <h3>GOOGLE</h3>
+          <p class="en-text">Business. Maps. Ads.</p>
+          <p class="nl-text">Bedrijf. Kaarten. Advertenties.</p>
+        </div>
+        <div class="system-node">
+          <h3>SOCIAL</h3>
+          <p class="en-text">Trust. Proof. Community.</p>
+          <p class="nl-text">Vertrouwen. Bewijs. Gemeenschap.</p>
+        </div>
+        <div class="system-node">
+          <h3>CONTENT</h3>
+          <p class="en-text">Education. Authority. Leads.</p>
+          <p class="nl-text">Onderwijs. Autoriteit. Leads.</p>
+        </div>
+        <div class="system-node">
+          <h3>ADS</h3>
+          <p class="en-text">Precision. ROI. Scale.</p>
+          <p class="nl-text">Nauwkeurigheid. ROI. Schaal.</p>
+        </div>
+        <div class="system-node">
+          <h3>TRACKING</h3>
+          <p class="en-text">Data. Decisions. Growth.</p>
+          <p class="nl-text">Gegevens. Beslissingen. Groei.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 06 GUARANTEE -->
+    <section id="guarantee">
+      <h2 class="en-text">Why You Can<br>Trust <span class="accent">Us.</span></h2>
+      <h2 class="nl-text">Waarom Je<br>Ons Kunt <span class="accent">Vertrouwen.</span></h2>
+
+      <div class="guarantee-list">
+        <div class="guarantee-item">
+          <h3 class="en-text">We Understand Your Game</h3>
+          <h3 class="nl-text">We Begrijpen Je Spel</h3>
+          <p class="en-text">We work with service businesses. We know your margins. Your seasonality. Your competition. We're not generic consultants.</p>
+          <p class="nl-text">We werken met dienstenbedrijven. We kennen je marges. Je seizoensgebondenheid. Je concurrentie. We zijn geen generieke consultants.</p>
+        </div>
+        <div class="guarantee-item">
+          <h3 class="en-text">Fast Execution</h3>
+          <h3 class="nl-text">Snelle Uitvoering</h3>
+          <p class="en-text">Launch in weeks, not months. No lengthy discovery phase. No 6-month retainers. You see results quickly.</p>
+          <p class="nl-text">Start in weken, niet maanden. Geen lange ontdekkingsfase. Geen 6-maandelijkse contracten. Je ziet snel resultaten.</p>
+        </div>
+        <div class="guarantee-item">
+          <h3 class="en-text">Results Over Vanity</h3>
+          <h3 class="nl-text">Resultaten Over Ijdelheid</h3>
+          <p class="en-text">We don't care about impressions. We care about calls. Leads that convert. Clients you want. That's it.</p>
+          <p class="nl-text">We geven niets om impressies. We geven om oproepen. Leads die converteren. Klanten die je wilt. Dat is het.</p>
+        </div>
+        <div class="guarantee-item">
+          <h3 class="en-text">One Team Accountability</h3>
+          <h3 class="nl-text">Één Team Verantwoordelijkheid</h3>
+          <p class="en-text">Strategy. Design. Ads. Content. Tracking. One accountable team. No hand-offs. No excuses.</p>
+          <p class="nl-text">Strategie. Ontwerp. Advertenties. Inhoud. Tracking. Één verantwoordelijk team. Geen overdrachten. Geen excuses.</p>
+        </div>
+        <div class="guarantee-item">
+          <h3 class="en-text">Transparent Pricing</h3>
+          <h3 class="nl-text">Transparante Prijzen</h3>
+          <p class="en-text">No surprises. No hidden fees. You know exactly what you're paying for. Fair price for real work.</p>
+          <p class="nl-text">Geen verrassingen. Geen verborgen kosten. Je weet precies waarvoor je betaalt. Eerlijke prijs voor echt werk.</p>
+        </div>
+        <div class="guarantee-item">
+          <h3 class="en-text">Data-Driven Optimization</h3>
+          <h3 class="nl-text">Data-Driven Optimalisatie</h3>
+          <p class="en-text">Every decision backed by data. What works gets more budget. What doesn't gets cut. You grow smarter.</p>
+          <p class="nl-text">Elke beslissing ondersteund door gegevens. Wat werkt krijgt meer budget. Wat niet werkt wordt verwijderd. Je groeit slimmer.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 07 FINAL CTA -->
+    <section id="final-cta">
+      <div class="cta-content">
+        <h2 class="en-text">Your Margins<br>Are Too <span class="accent">Thin.</span></h2>
+        <h2 class="nl-text">Je Marges<br>Zijn Te <span class="accent">Dun.</span></h2>
+
+        <p class="en-text">You're leaving money on the table. Right now. Good work. Bad visibility. We can fix that. Let's talk about how to make your business actually profitable.</p>
+        <p class="nl-text">Je laat geld op tafel liggen. Nu. Goed werk. Slechte zichtbaarheid. We kunnen dat oplossen. Laten we praten over hoe je bedrijf echt winstgevend kan worden.</p>
+
+        <a href="mailto:hello@watagencybelgium.be" class="btn btn-primary en-text">SEND ME A MESSAGE →</a>
+        <a href="mailto:hello@watagencybelgium.be" class="btn btn-primary nl-text">STUUR ME EEN BERICHT →</a>
+
+        <p class="trust-copy en-text">No sales call pressure. No long-term commitment. Just a real conversation about your business.</p>
+        <p class="trust-copy nl-text">Geen verkoopoproepdruk. Geen langdurige verbintenis. Gewoon een echt gesprek over je bedrijf.</p>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+      <div class="footer-content">
+        <div class="footer-brand">
+          <h3><span class="q">?</span> WAT AGENCY</h3>
+          <p class="en-text">Digital growth for Belgian service businesses.</p>
+          <p class="nl-text">Digitale groei voor Belgische dienstenbedrijven.</p>
+        </div>
+        <div class="footer-links">
+          <div class="footer-col">
+            <div class="footer-col-title en-text">OFFICE</div>
+            <div class="footer-col-title nl-text">KANTOOR</div>
+            <a href="#">Antwerp</a>
+            <a href="#">Belgium</a>
+          </div>
+          <div class="footer-col">
+            <div class="footer-col-title en-text">CONTACT</div>
+            <div class="footer-col-title nl-text">CONTACT</div>
+            <a href="mailto:hello@watagencybelgium.be">Email →</a>
+            <a href="#">WhatsApp →</a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2025 WAT? Agency Belgium. All rights reserved.</p>
+        <p>EN / NL</p>
+      </div>
+    </footer>
+  </div>
+
+  <!-- SCRIPTS -->
+  <script src="/lib/three-bundle.js"></script>
+  <script src="/lib/gsap.min.js"></script>
+  <script src="/lib/ScrollTrigger.min.js"></script>
+
+  <script>
+    // Language toggle
+    function setLanguage(lang) {
+      document.documentElement.setAttribute('data-lang', lang);
+      document.querySelectorAll('.lang-btn').forEach(btn => {
+        btn.classList.remove('active');
+        if (btn.dataset.lang === lang) btn.classList.add('active');
       });
-
-      this.time = 0;
-      this.scrollProgress = 0;
-      this.meshState = {
-        rotationX: 0,
-        rotationY: 0,
-        scale: 1
-      };
-
-      this.setup();
-      this.createFluidObject();
-      this.setupLighting();
-      this.setupScrollAnimations();
-      this.animate();
+      localStorage.setItem('preferred-lang', lang);
     }
 
-    setup() {
-      this.renderer.setSize(window.innerWidth, window.innerHeight);
-      this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-      this.renderer.setClearColor(0x050505, 1);
-      this.camera.position.z = 3;
+    // Load saved language preference
+    const savedLang = localStorage.getItem('preferred-lang') || 'en';
+    setLanguage(savedLang);
 
-      window.addEventListener('resize', () => this.onResize());
+    // FluidScene class definition
+    class FluidScene {
+      constructor() {
+        this.scene = new THREE.Scene();
+        this.camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        this.renderer = new THREE.WebGLRenderer({
+          canvas: document.getElementById('webgl-canvas'),
+          antialias: true,
+          alpha: true
+        });
+
+        this.time = 0;
+        this.scrollProgress = 0;
+        this.meshState = {
+          rotationX: 0,
+          rotationY: 0,
+          scale: 1
+        };
+
+        this.setup();
+        this.createFluidObject();
+        this.setupLighting();
+        this.setupScrollAnimations();
+        this.animate();
+      }
+
+      setup() {
+        this.renderer.setSize(window.innerWidth, window.innerHeight);
+        this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+        this.renderer.setClearColor(0x050505, 1);
+        this.camera.position.z = 3;
+        window.addEventListener('resize', () => this.onResize());
+      }
+
+      createFluidObject() {
+        const geometry = new THREE.IcosahedronGeometry(1.2, 6);
+        const material = new THREE.MeshPhysicalMaterial({
+          color: 0xFFD400,
+          metalness: 0.7,
+          roughness: 0.2,
+          emissive: 0x332200,
+          emissiveIntensity: 0.15
+        });
+
+        this.mesh = new THREE.Mesh(geometry, material);
+        this.scene.add(this.mesh);
+      }
+
+      setupLighting() {
+        const ambientLight = new THREE.AmbientLight(0xffffff, 0.4);
+        this.scene.add(ambientLight);
+
+        const mainLight = new THREE.DirectionalLight(0xffffff, 0.8);
+        mainLight.position.set(10, 15, 10);
+        this.scene.add(mainLight);
+
+        const warmLight = new THREE.DirectionalLight(0xFFD400, 0.3);
+        warmLight.position.set(-15, 8, -10);
+        this.scene.add(warmLight);
+      }
+
+      setupScrollAnimations() {
+        gsap.to(this.meshState, {
+          scrollTrigger: {
+            trigger: 'body',
+            start: 'top top',
+            end: 'bottom bottom',
+            scrub: 0.5,
+            onUpdate: (self) => {
+              this.scrollProgress = self.progress;
+            }
+          },
+          rotationX: Math.PI * 2,
+          rotationY: Math.PI * 3,
+          scale: 1.3,
+          duration: 1,
+          ease: 'none'
+        });
+      }
+
+      animate = () => {
+        requestAnimationFrame(this.animate);
+        this.time += 0.016;
+
+        if (this.mesh) {
+          this.mesh.rotation.x += 0.0003;
+          this.mesh.rotation.y += 0.0005;
+
+          this.mesh.rotation.x += this.meshState.rotationX * 0.01;
+          this.mesh.rotation.y += this.meshState.rotationY * 0.01;
+
+          const breathe = Math.sin(this.time * 0.3) * 0.08;
+          const baseScale = 0.8 + this.scrollProgress * 0.5;
+          this.mesh.scale.set(
+            baseScale + breathe * 0.1,
+            baseScale + breathe * 0.08,
+            baseScale + breathe * 0.15
+          );
+        }
+
+        this.renderer.render(this.scene, this.camera);
+      }
+
+      onResize() {
+        const width = window.innerWidth;
+        const height = window.innerHeight;
+        this.camera.aspect = width / height;
+        this.camera.updateProjectionMatrix();
+        this.renderer.setSize(width, height);
+      }
     }
 
-    createFluidObject() {
-      const geometry = new THREE.IcosahedronGeometry(1.2, 6);
-      const material = new THREE.MeshPhysicalMaterial({
-        color: 0xFFD400,
-        metalness: 0.7,
-        roughness: 0.2,
-        emissive: 0x332200,
-        emissiveIntensity: 0.15
-      });
+    // Initialize
+    function initializeApp() {
+      try {
+        if (typeof ScrollTrigger !== 'undefined') {
+          gsap.registerPlugin(ScrollTrigger);
+        }
+      } catch (e) {
+        console.warn('Failed to register ScrollTrigger:', e.message);
+      }
 
-      this.mesh = new THREE.Mesh(geometry, material);
-      this.scene.add(this.mesh);
-    }
+      const fluidScene = new FluidScene();
 
-    setupLighting() {
-      const ambientLight = new THREE.AmbientLight(0xffffff, 0.4);
-      this.scene.add(ambientLight);
-
-      const mainLight = new THREE.DirectionalLight(0xffffff, 0.8);
-      mainLight.position.set(10, 15, 10);
-      this.scene.add(mainLight);
-
-      const warmLight = new THREE.DirectionalLight(0xFFD400, 0.3);
-      warmLight.position.set(-15, 8, -10);
-      this.scene.add(warmLight);
-    }
-
-    setupScrollAnimations() {
-      // Create scroll-driven timeline that controls mesh rotation and scale
-      gsap.to(this.meshState, {
-        scrollTrigger: {
-          trigger: 'body',
-          start: 'top top',
-          end: 'bottom bottom',
-          scrub: 0.5,
-          onUpdate: (self) => {
-            this.scrollProgress = self.progress;
-          }
-        },
-        rotationX: Math.PI * 2,
-        rotationY: Math.PI * 3,
-        scale: 1.3,
+      // Hero animations
+      const heroElements = document.querySelectorAll('.hero-eyebrow, .hero-title, .hero-subtitle, .hero-buttons');
+      gsap.to(heroElements, {
+        opacity: 1,
+        y: 0,
         duration: 1,
-        ease: 'none'
+        stagger: 0.15,
+        ease: 'power2.out',
+        delay: 0
       });
-    }
 
-    animate = () => {
-      requestAnimationFrame(this.animate);
-      this.time += 0.016;
+      // Problem items
+      gsap.from('.problem-item', {
+        scrollTrigger: {
+          trigger: '#problem',
+          start: 'top 80%',
+          end: 'center 20%',
+          scrub: 0.5
+        },
+        opacity: 0,
+        x: -30,
+        duration: 0.8,
+        stagger: 0.1,
+        ease: 'power2.out'
+      });
 
-      if (this.mesh) {
-        // Ambient continuous rotation
-        this.mesh.rotation.x += 0.0003;
-        this.mesh.rotation.y += 0.0005;
+      // Transform cards
+      gsap.from('.transform-card', {
+        scrollTrigger: {
+          trigger: '#transformation',
+          start: 'top 80%',
+          end: 'center 20%',
+          scrub: 0.5
+        },
+        opacity: 0,
+        y: 40,
+        duration: 0.8,
+        stagger: 0.1,
+        ease: 'back.out(1.2)'
+      });
 
-        // Apply scroll-driven transformations
-        this.mesh.rotation.x += this.meshState.rotationX * 0.01;
-        this.mesh.rotation.y += this.meshState.rotationY * 0.01;
+      // Case studies
+      gsap.from('.case-study', {
+        scrollTrigger: {
+          trigger: '#proof',
+          start: 'top 80%',
+          end: 'center 30%',
+          scrub: 0.5
+        },
+        opacity: 0,
+        y: 40,
+        duration: 0.8,
+        stagger: 0.15,
+        ease: 'power2.out'
+      });
 
-        // Breathing scale animation
-        const breathe = Math.sin(this.time * 0.3) * 0.08;
-        const baseScale = 0.8 + this.scrollProgress * 0.5;
-        this.mesh.scale.set(
-          baseScale + breathe * 0.1,
-          baseScale + breathe * 0.08,
-          baseScale + breathe * 0.15
-        );
-      }
+      // System nodes
+      gsap.from('.system-node', {
+        scrollTrigger: {
+          trigger: '#system',
+          start: 'top 80%',
+          end: 'center 30%',
+          scrub: 0.5
+        },
+        opacity: 0,
+        scale: 0.8,
+        duration: 0.8,
+        stagger: 0.1,
+        ease: 'back.out(1.2)'
+      });
 
-      this.renderer.render(this.scene, this.camera);
-    }
+      // Guarantee items
+      gsap.from('.guarantee-item', {
+        scrollTrigger: {
+          trigger: '#guarantee',
+          start: 'top 80%',
+          end: 'center 30%',
+          scrub: 0.5
+        },
+        opacity: 0,
+        x: -30,
+        duration: 0.8,
+        stagger: 0.08,
+        ease: 'power2.out'
+      });
 
-    onResize() {
-      const width = window.innerWidth;
-      const height = window.innerHeight;
-      this.camera.aspect = width / height;
-      this.camera.updateProjectionMatrix();
-      this.renderer.setSize(width, height);
-    }
-  }
-
-  // Initialize everything after libraries and DOM are ready
-  function initializeApp() {
-    // Register ScrollTrigger with GSAP (ScrollTrigger auto-exports globally)
-    try {
-      if (typeof ScrollTrigger !== 'undefined') {
-        gsap.registerPlugin(ScrollTrigger);
-      }
-    } catch (e) {
-      console.warn('Failed to register ScrollTrigger:', e.message);
-    }
-
-    // Initialize WebGL scene
-    const fluidScene = new FluidScene();
-
-    // ═══════════════════════════════════════════════════════════════════
-    // STEP 5: HERO → CHAOS → SYSTEM Cinematic Sequence
-    // ═══════════════════════════════════════════════════════════════════
-
-    // Hero section entrance animations (play immediately)
-    const heroElements = document.querySelectorAll('.hero-eyebrow, .hero-title, .hero-subtitle, .hero-capabilities, .hero-buttons');
-    gsap.to(heroElements, {
-      opacity: 1,
-      y: 0,
-      duration: 1,
-      stagger: 0.15,
-      ease: 'power2.out',
-      delay: 0
-    });
-
-    // Chaos section: animate chaos words to appear and increase opacity on scroll
-    gsap.to('.chaos-word', {
-      scrollTrigger: {
-        trigger: '#chaos',
-        start: 'top 80%',
-        end: 'center 20%',
-        scrub: 0.5
-      },
-      opacity: 0.8,
-      duration: 1,
-      stagger: 0.1,
-      ease: 'power2.out'
-    });
-
-    // System section: animate system nodes to appear
-    gsap.from('.system-node', {
-      scrollTrigger: {
-        trigger: '#system',
-        start: 'top 80%',
-        end: 'center 30%',
-        scrub: 0.5
-      },
-      opacity: 0,
-      y: 30,
-      duration: 0.8,
-      stagger: 0.12,
-      ease: 'back.out(1.2)'
-    });
-
-    // System notification appears on scroll into system section
-    gsap.to('.notification', {
-      scrollTrigger: {
-        trigger: '#system',
-        start: 'center 50%',
-        end: 'bottom 20%',
-        scrub: 0.5
-      },
-      opacity: 1,
-      duration: 0.6,
-      ease: 'power2.out'
-    });
-
-    // Navigation scroll state
-    const navElement = document.getElementById('nav');
-    window.addEventListener('scroll', () => {
-      if (window.scrollY > 40) {
-        navElement.classList.add('scrolled');
-      } else {
-        navElement.classList.remove('scrolled');
-      }
-    });
-
-    // Capability animations using IntersectionObserver
-    const observerOptions = { threshold: 0.3 };
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('active');
-          observer.unobserve(entry.target);
+      // Nav scroll state
+      const navElement = document.getElementById('nav');
+      window.addEventListener('scroll', () => {
+        if (window.scrollY > 50) {
+          navElement.classList.add('scrolled');
+        } else {
+          navElement.classList.remove('scrolled');
         }
       });
-    }, observerOptions);
+    }
 
-    document.querySelectorAll('.capability, .case-study, .process-step, .why-fact').forEach(el => {
-      observer.observe(el);
-    });
-  }
-
-  // Execute after DOM and libraries load
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initializeApp);
-  } else {
-    initializeApp();
-  }
-</script>
-
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initializeApp);
+    } else {
+      initializeApp();
+    }
+  </script>
 </body>
 </html>
