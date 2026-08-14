@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 200" fill="none">
+  <defs>
+    <linearGradient id="dEdge" x1="30" y1="90" x2="200" y2="170" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#2A2A2A"/><stop offset="0.55" stop-color="#050505"/><stop offset="1" stop-color="#242424"/>
+    </linearGradient>
+    <linearGradient id="dFace" x1="24" y1="24" x2="180" y2="130" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#FFE85C"/><stop offset="0.6" stop-color="#FFD400"/><stop offset="1" stop-color="#D89A00"/>
+    </linearGradient>
+  </defs>
+  <path d="M18 74 A 84 62 -14 1 0 186 40 L186 96 A 84 62 -14 1 1 18 130 Z" fill="url(#dEdge)"/>
+  <ellipse cx="102" cy="72" rx="84" ry="62" transform="rotate(-14 102 72)" fill="url(#dFace)"/>
+  <ellipse cx="102" cy="72" rx="84" ry="62" transform="rotate(-14 102 72)" stroke="#FFFFFF" stroke-opacity="0.18" stroke-width="1.5"/>
+</svg>

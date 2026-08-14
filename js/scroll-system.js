@@ -223,7 +223,6 @@
     var planes = {
       bg: q('[data-plane="bg"]'),
       mid: q('[data-plane="mid"]'),
-      mark: q('[data-plane="mark"]'),
       fg: q('[data-plane="fg"]')
     };
 
@@ -243,46 +242,263 @@
       }));
     }
 
-    /* The brand mark travels the entire film instead of being re-created per
-       section — the single strongest continuity cue on the page. */
-    if (planes.mark) {
-      gsap.timeline({
-        defaults: { ease: 'none' },
-        scrollTrigger: {
-          trigger: document.body,
-          start: 'top top',
+    /* ═══════════════════════════════════════════════════════════════════
+       THE OBJECT FILM
+
+       Three brand objects are choreographed across the whole page as one
+       continuous sequence in five acts. Each act is anchored to the section
+       whose scroll window it belongs to, and the windows tile edge to edge
+       (`top center` → `bottom center`), so consecutive acts hand over without
+       gaps and without two timelines ever owning the same transform.
+
+       Every act uses .to() from whatever state the previous act left behind,
+       which is what makes any scroll position a valid frame in both
+       directions.
+       ═══════════════════════════════════════════════════════════════════ */
+    function buildObjectFilm() {
+      var mark = q('[data-obj="mark"]');
+      var ring = q('[data-obj="ring"]');
+      var shards = qa('[data-obj="shard"]');
+      if (!mark || !ring || !shards.length) return;
+
+      var all = [mark, ring].concat(shards);
+
+      // Centre every object on the viewport; from here the choreography is
+      // written in viewport units so it stays composed at any screen size.
+      gsap.set(all, { xPercent: -50, yPercent: -50 });
+
+      var o = cfg.obj;
+
+      /* ---- idle life ---------------------------------------------------
+         Runs on the inner image, independent of scroll, so the objects are
+         alive before the first wheel event and never freeze mid-scene. */
+      var idle = function (el, vars) {
+        return gsap.to(el.querySelector('img'), Object.assign({
+          repeat: -1, yoyo: true, ease: 'sine.inOut'
+        }, vars));
+      };
+
+      idle(mark, { y: o.float, duration: 4.6 });
+      idle(mark, { rotation: 2.2, duration: 7.4 });
+
+      // The artwork carries three concentric orbits, so one slowly turning
+      // element already reads as a layered orbital system.
+      var spins = [];
+
+      spins.push(gsap.to(ring.querySelector('img'), {
+        rotation: 360, duration: 150, ease: 'none', repeat: -1, paused: true
+      }));
+      idle(ring, { scale: 1.03, duration: 6.2 });
+
+      shards.forEach(function (el, i) {
+        var dir = i % 2 ? 1 : -1;
+        spins.push(gsap.to(el.querySelector('img'), {
+          rotation: dir * 360,
+          duration: 74 + i * 21,          // every shard turns at its own rate
+          ease: 'none',
+          repeat: -1,
+          paused: true
+        }));
+        idle(el, { y: (6 + i * 2) * dir, duration: 4.2 + i * 0.7 });
+      });
+
+      /* Rotating a large alpha texture costs a composite every frame, so the
+         spins only run across the stretch of the page where these objects are
+         actually on screen. */
+      var spinFrom = q('[data-scene="situation"]');
+      var spinTo = q('[data-scene="contact"]');
+      if (spinFrom && spinTo) {
+        ScrollTrigger.create({
+          trigger: spinFrom,
+          start: 'top bottom',
+          endTrigger: spinTo,
           end: 'bottom bottom',
-          scrub: 0.7,
-          invalidateOnRefresh: true
-        }
-      })
-        /* Travel is expressed in viewport units, not percentages of the glyph:
-           translating a composited layer is cheap, so the mark can cross the
-           frame. Scale stays in a narrow band because scaling a glyph forces
-           a re-rasterisation every frame. */
-        .fromTo(planes.mark,
-          { xPercent: -50, yPercent: -50, x: 0, y: 0, scale: 1, rotate: 0, opacity: 0.06 },
-          {
-            x: function () { return vw(26); },
-            y: function () { return -vh(18); },
-            scale: 1.16, rotate: 8, opacity: 0.1
-          })
-        .to(planes.mark, {
-          x: function () { return -vw(30); },
-          y: function () { return vh(10); },
-          scale: 1.04, rotate: -6, opacity: 0.07
-        })
-        .to(planes.mark, {
-          x: function () { return vw(8); },
-          y: function () { return -vh(22); },
-          scale: 1.24, rotate: 3, opacity: 0.05
-        })
-        .to(planes.mark, {
-          x: function () { return vw(30); },
-          y: function () { return vh(6); },
-          scale: 1.1, rotate: -4, opacity: 0.09
+          onToggle: function (self) {
+            spins.forEach(function (t) { self.isActive ? t.play() : t.pause(); });
+          }
         });
+      } else {
+        spins.forEach(function (t) { t.play(); });
+      }
+
+      /* ---- act helper --------------------------------------------------
+         One timeline per section, tiled so they never overlap. */
+      var act = function (sceneName, isFirst) {
+        var section = q('[data-scene="' + sceneName + '"]');
+        if (!section) return null;
+        return gsap.timeline({
+          defaults: { ease: 'none' },
+          scrollTrigger: {
+            trigger: section,
+            start: isFirst ? 'top top' : 'top center',
+            end: 'bottom center',
+            scrub: o.scrub,
+            invalidateOnRefresh: true
+          }
+        });
+      };
+
+      // Shard destinations, expressed as fractions of the viewport so the
+      // composition holds together on any screen.
+      var field = [
+        { x: -0.30, y: -0.18, s: 1.00, rx: -12, ry: 22 },
+        { x:  0.30, y: -0.24, s: 0.92, rx:  16, ry: -18 },
+        { x:  0.34, y:  0.22, s: 0.86, rx: -10, ry: 26 },
+        { x: -0.34, y:  0.24, s: 0.80, rx:  14, ry: -22 },
+        { x:  0.05, y: -0.34, s: 0.74, rx: -18, ry: 14 }
+      ];
+      var at = function (i, key, mul) {
+        return function () {
+          var f = field[i % field.length];
+          return (key === 'x' ? vw(100) : vh(100)) * f[key] * (mul == null ? 1 : mul);
+        };
+      };
+
+      /* ── ACT 1 · HERO — the question mark is the main character ───────── */
+      var a1 = act('hero', true);
+      if (a1) {
+        a1.fromTo(mark,
+          { scale: o.markIn, z: 0, rotationX: 0, rotationY: 0, rotation: 0, opacity: 1 },
+          { scale: o.markHero, z: o.push, rotationY: 14, rotationX: -8, rotation: -5 }, 0)
+          // Camera drifts as the mark grows, then the mark clears the frame
+          // for what comes next.
+          .to(mark, { y: function () { return -vh(o.markExit); }, scale: o.markHero * 0.88, rotationY: 26 }, 0.62)
+          // The ring is already waking up behind it — the scenes overlap.
+          .fromTo(ring, { scale: 0.35, opacity: 0 }, { scale: 0.5, opacity: 0.14 }, 0.7);
+      }
+
+      /* ── ACT 2 · SITUATION — the mark breaks into a field of shards ───── */
+      var a2 = act('situation');
+      if (a2) {
+        a2.to(mark, {
+          x: function () { return -vw(o.markAside); },
+          y: function () { return -vh(4); },
+          scale: o.markSmall,
+          rotationY: 38,
+          rotation: -14,
+          opacity: 0.5
+        }, 0);
+
+        shards.forEach(function (el, i) {
+          var depth = el.dataset.depth;
+          // Depth decides both how far and how fast a piece travels.
+          var speed = depth === 'fg' ? 1 : depth === 'mid' ? 0.72 : 0.48;
+          a2.fromTo(el,
+            {
+              x: function () { return at(i, 'x', 2.1)() * speed; },
+              y: function () { return at(i, 'y', 2.1)() * speed; },
+              scale: 0.5,
+              rotationX: 0, rotationY: 0,
+              opacity: 0
+            },
+            {
+              x: at(i, 'x'),
+              y: at(i, 'y'),
+              scale: function () { return field[i].s * (depth === 'fg' ? 1.1 : depth === 'mid' ? 0.9 : 0.7); },
+              rotationX: field[i].rx,
+              rotationY: field[i].ry,
+              opacity: depth === 'bg' ? 0.55 : depth === 'mid' ? 0.8 : 1
+            },
+            // Staggered entry, foreground first — reads as depth, not noise.
+            0.04 + i * 0.07);
+        });
+      }
+
+      /* ── ACT 3 · WHO + SYSTEM — the orbital system arrives ────────────── */
+      var a3 = act('who');
+      if (a3) {
+        a3.to(ring, { scale: 0.86, opacity: 0.55, rotation: 8 }, 0)
+          .to(mark, {
+            x: function () { return vw(o.markAside * 0.5); },
+            scale: o.markSmall * 0.8,
+            rotationY: -18,
+            opacity: 0.32
+          }, 0);
+
+        // Shards keep crossing the frame at their own speeds.
+        shards.forEach(function (el, i) {
+          var speed = el.dataset.depth === 'fg' ? 1 : el.dataset.depth === 'mid' ? 0.65 : 0.4;
+          a3.to(el, {
+            x: function () { return at(i, 'x', -0.55)() * speed; },
+            y: function () { return at(i, 'y', 1.5)() * speed; },
+            rotationY: field[i].ry * -1.4,
+            rotationX: field[i].rx * -1.2
+          }, i * 0.05);
+        });
+      }
+
+      var a4 = act('system');
+      if (a4) {
+        // Camera pushes toward the ring: it becomes the whole frame.
+        a4.to(ring, { scale: o.ringFull, opacity: 0.75, rotation: 18, z: o.push * 0.6 }, 0)
+          .to(mark, { scale: o.markSmall * 0.62, opacity: 0.2, y: function () { return vh(6); } }, 0);
+
+        shards.forEach(function (el, i) {
+          a4.to(el, {
+            x: at(i, 'x', 1.25),
+            y: at(i, 'y', 1.3),
+            opacity: el.dataset.depth === 'bg' ? 0.28 : 0.55,
+            scale: function () { return field[i].s * 0.72; }
+          }, i * 0.04);
+        });
+      }
+
+      /* ── ACT 4 · WORK — everything belongs to one composition ─────────── */
+      var a5 = act('work');
+      if (a5) {
+        a5.to(ring, { scale: o.ringFrame, opacity: 0.4, rotation: 26, z: 0 }, 0)
+          // The mark comes back to the centre, forward of the ring.
+          .to(mark, {
+            x: 0, y: 0,
+            scale: o.markCombined,
+            rotationY: 10, rotationX: -6, rotation: 3,
+            opacity: 0.85,
+            z: o.push * 0.5
+          }, 0);
+
+        shards.forEach(function (el, i) {
+          var speed = el.dataset.depth === 'fg' ? 1.15 : el.dataset.depth === 'mid' ? 0.8 : 0.5;
+          a5.to(el, {
+            x: function () { return at(i, 'x', 0.95)() * speed; },
+            y: function () { return at(i, 'y', 0.95)() * speed; },
+            scale: function () { return field[i].s * 0.9 * speed; },
+            rotationY: field[i].ry * 0.6,
+            opacity: el.dataset.depth === 'bg' ? 0.35 : 0.7
+          }, i * 0.05);
+        });
+      }
+
+      /* ── ACT 5 · APPROACH + CONTACT — the system resolves ─────────────── */
+      var a6 = act('approach');
+      if (a6) {
+        // Shards drift outward and release the frame.
+        shards.forEach(function (el, i) {
+          a6.to(el, {
+            x: at(i, 'x', 1.9),
+            y: at(i, 'y', 1.9),
+            scale: function () { return field[i].s * 0.55; },
+            opacity: 0.12
+          }, i * 0.05);
+        });
+        a6.to(ring, { scale: o.ringFrame * 0.94, opacity: 0.3, rotation: 32 }, 0)
+          .to(mark, { scale: o.markCombined * 1.05, opacity: 0.9, rotationY: 4 }, 0);
+      }
+
+      var a7 = act('contact');
+      if (a7) {
+        // The payoff: the mark is the focal centre, framed by the ring.
+        a7.to(mark, {
+          x: 0, y: 0, z: 0,
+          scale: o.markFinal,
+          rotationX: 0, rotationY: 0, rotation: 0,
+          opacity: 1
+        }, 0)
+          .to(ring, { scale: o.ringFinal, opacity: 0.5, rotation: 38 }, 0)
+          .to(shards, { opacity: 0.06, scale: 0.4, stagger: 0.04 }, 0);
+      }
     }
+
+    buildObjectFilm();
 
     /* ---- HERO — Transition A --------------------------------------------
        Composition scales toward the camera and leaves through the top while
@@ -603,7 +819,16 @@
         approach: { split: 90 },
         contact: { from: 0.82 },
         enter: { head: 12, card: 18, cardScale: 0.86 },
-        exit: { drift: 14 }
+        exit: { drift: 14 },
+        obj: {
+          scrub: 0.8,
+          float: -16,          // idle hover distance, px
+          push: 180,           // camera approach in Z, px
+          markIn: 0.92, markHero: 1.32, markExit: 34,
+          markAside: 26, markSmall: 0.5,
+          markCombined: 0.72, markFinal: 1.15,
+          ringFull: 1.35, ringFrame: 1.05, ringFinal: 1.25
+        }
       });
     });
 
@@ -619,7 +844,16 @@
         approach: { split: 32 },
         contact: { from: 0.93 },
         enter: { head: 7, card: 9, cardScale: 0.95 },
-        exit: { drift: 5 }
+        exit: { drift: 5 },
+        obj: {
+          scrub: 0.7,
+          float: -8,
+          push: 70,
+          markIn: 0.9, markHero: 1.1, markExit: 22,
+          markAside: 16, markSmall: 0.56,
+          markCombined: 0.66, markFinal: 0.95,
+          ringFull: 1.1, ringFrame: 0.92, ringFinal: 1.02
+        }
       });
     });
 

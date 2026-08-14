@@ -70,22 +70,58 @@
       background: radial-gradient(115% 85% at 50% 48%, transparent 30%, rgba(5, 5, 5, 0.92) 92%);
     }
 
-    /* The brand mark survives every section instead of being recreated.
-       Kept moderate in size: scaling a glyph re-rasterises it, and the cost
-       grows with the glyph's raster area. */
-    .brand-mark {
+    /* ── OBJECT LAYER ───────────────────────────────────────────────────
+       The three brand objects live here and survive the whole scroll film
+       instead of being introduced and discarded per section.
+       Every object is positioned from the centre of the viewport so its
+       choreography can be written in viewport units and stay responsive.
+       ─────────────────────────────────────────────────────────────────── */
+    .objects {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      contain: paint;
+      /* Gives the objects real Z rotation and camera approach. */
+      perspective: 1400px;
+    }
+
+    .obj {
       position: absolute;
       top: 50%;
       left: 50%;
-      font-family: 'Bebas Neue', serif;
-      font-size: clamp(14rem, 34vw, 30rem);
-      line-height: 0.8;
-      color: #FFD400;
-      opacity: 0.06;
-      will-change: transform;
       transform: translate3d(-50%, -50%, 0);
-      user-select: none;
+      will-change: transform, opacity;
     }
+
+    /* No CSS filters anywhere on this layer. drop-shadow and blur re-run on
+       every frame an element is scaled or rotated, which is exactly what
+       these objects do — glow and shading are painted inside the SVGs
+       instead, where they rasterise once. */
+    .obj > img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
+    /* Hero object — the question mark is the main character. */
+    .obj--mark { width: clamp(170px, 24vw, 380px); }
+
+    /* System object — the orbital ring frames the composition.
+       Two counter-rotating copies read as a living orbital system. */
+    .obj--ring { width: clamp(300px, 48vw, 700px); opacity: 0; }
+
+    /* Shards travel at their own depths, so each is its own element. */
+    .obj--shard { opacity: 0; }
+    .obj--spike { width: clamp(120px, 19vw, 320px); }
+    .obj--bar   { width: clamp(180px, 30vw, 500px); }
+    .obj--tri   { width: clamp(90px,  13vw, 230px); }
+    .obj--rod   { width: clamp(80px,  12vw, 220px); }
+    .obj--disc  { width: clamp(52px,   8vw, 135px); }
+
+    /* Depth separation comes from size, opacity and parallax speed rather
+       than from a blur filter, which would repaint on every scaled frame. */
+    .obj[data-depth="bg"] > img  { opacity: 0.62; }
+    .obj[data-depth="mid"] > img { opacity: 0.85; }
 
     #scroll-container { position: relative; z-index: 10; }
 
@@ -667,11 +703,35 @@
 </head>
 
 <body>
-  <!-- Depth planes + the brand mark that travels through the whole film -->
+  <!-- Depth planes + the three brand objects that travel the whole film.
+       To use the original 3D renders instead of these vector stand-ins,
+       drop PNGs into /assets/objects/ and point these src attributes at
+       them — nothing in the animation code refers to the file type. -->
   <div class="stage" aria-hidden="true">
     <div class="stage__plane stage__bg" data-plane="bg"></div>
     <div class="stage__plane stage__mid" data-plane="mid"></div>
-    <div class="brand-mark" data-plane="mark">?</div>
+
+    <div class="objects">
+      <!-- Outer wrapper carries the scroll choreography, the inner image
+           carries its own idle life, so the two never fight for transform. -->
+      <div class="obj obj--ring" data-obj="ring">
+        <img src="/assets/objects/ring.png" alt="" decoding="async"></div>
+
+      <div class="obj obj--shard obj--bar" data-obj="shard" data-shard="0" data-depth="mid">
+        <img src="/assets/objects/bar.png" alt="" decoding="async"></div>
+      <div class="obj obj--shard obj--spike" data-obj="shard" data-shard="1" data-depth="fg">
+        <img src="/assets/objects/spike.png" alt="" decoding="async"></div>
+      <div class="obj obj--shard obj--tri" data-obj="shard" data-shard="2" data-depth="mid">
+        <img src="/assets/objects/tri.png" alt="" decoding="async"></div>
+      <div class="obj obj--shard obj--rod" data-obj="shard" data-shard="3" data-depth="bg">
+        <img src="/assets/objects/rod.png" alt="" decoding="async"></div>
+      <div class="obj obj--shard obj--disc" data-obj="shard" data-shard="4" data-depth="fg">
+        <img src="/assets/objects/disc.png" alt="" decoding="async"></div>
+
+      <div class="obj obj--mark" data-obj="mark">
+        <img src="/assets/objects/mark.png" alt="" decoding="async" fetchpriority="high"></div>
+    </div>
+
     <div class="stage__plane stage__fg" data-plane="fg"></div>
   </div>
 

@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 220" fill="none">
+  <defs>
+    <linearGradient id="bTop" x1="40" y1="40" x2="600" y2="120" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#FFF07A"/><stop offset="0.45" stop-color="#FFD400"/><stop offset="1" stop-color="#FFE24A"/>
+    </linearGradient>
+    <linearGradient id="bSide" x1="60" y1="120" x2="600" y2="200" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#E0A800"/><stop offset="0.5" stop-color="#B98100"/><stop offset="1" stop-color="#D89A00"/>
+    </linearGradient>
+    <linearGradient id="bCap" x1="560" y1="30" x2="630" y2="130" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#FFE85C"/><stop offset="1" stop-color="#C98F00"/>
+    </linearGradient>
+  </defs>
+  <path d="M24 118 L560 12 L620 44 L84 152 Z" fill="url(#bTop)"/>
+  <path d="M24 118 L84 152 L84 204 L24 170 Z" fill="url(#bSide)"/>
+  <path d="M84 152 L620 44 L620 96 L84 204 Z" fill="url(#bSide)"/>
+  <path d="M560 12 L620 44 L620 96 L560 64 Z" fill="url(#bCap)"/>
+  <path d="M24 118 L560 12 L620 44 L84 152 Z" stroke="#FFFFFF" stroke-opacity="0.16" stroke-width="1.5"/>
+</svg>

@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-90 -90 600 780" fill="none">
+  <defs>
+    <linearGradient id="mBody" x1="70" y1="40" x2="360" y2="520" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#FFE85C"/>
+      <stop offset="0.42" stop-color="#FFD400"/>
+      <stop offset="1" stop-color="#E8A600"/>
+    </linearGradient>
+    <linearGradient id="mGloss" x1="120" y1="60" x2="230" y2="330" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#FFFFFF" stop-opacity="0.85"/>
+      <stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="mDot" x1="150" y1="480" x2="250" y2="580" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#FFE85C"/>
+      <stop offset="1" stop-color="#E8A600"/>
+    </linearGradient>
+    <radialGradient id="mDotGloss" cx="0.36" cy="0.3" r="0.5">
+      <stop offset="0" stop-color="#FFFFFF" stop-opacity="0.9"/>
+      <stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="mGlow" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0.42" stop-color="#FFD400" stop-opacity="0.26"/>
+      <stop offset="0.68" stop-color="#FFD400" stop-opacity="0.09"/>
+      <stop offset="1" stop-color="#FFD400" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="mCast" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#000000" stop-opacity="0.5"/>
+      <stop offset="1" stop-color="#000000" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <!-- glow + contact shadow, painted with the artwork -->
+  <ellipse cx="210" cy="300" rx="300" ry="380" fill="url(#mGlow)"/>
+  <ellipse cx="215" cy="600" rx="190" ry="52" fill="url(#mCast)"/>
+
+  <!-- hook + stem -->
+  <path d="M92 158a118 118 0 1 1 118 118v66"
+        stroke="url(#mBody)" stroke-width="84" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <!-- specular run along the upper-left of the hook -->
+  <path d="M112 150a98 98 0 0 1 96-92"
+        stroke="url(#mGloss)" stroke-width="26" stroke-linecap="round" opacity="0.9"/>
+
+  <!-- inner shadow where the hook turns -->
+  <path d="M210 276v58" stroke="#C98F00" stroke-width="80" stroke-linecap="round" opacity="0.28"/>
+  <path d="M92 158a118 118 0 1 1 118 118v66"
+        stroke="url(#mBody)" stroke-width="76" stroke-linecap="round" stroke-linejoin="round" opacity="0.96"/>
+
+  <!-- dot -->
+  <circle cx="210" cy="512" r="56" fill="url(#mDot)"/>
+  <circle cx="210" cy="512" r="56" fill="url(#mDotGloss)"/>
+</svg>
