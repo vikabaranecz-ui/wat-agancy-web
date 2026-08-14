@@ -219,9 +219,8 @@
      ───────────────────────────────────────────────────────────────────── */
 
   function buildVisuals(cfg) {
+    // The question mark is the only visual object in this animation.
     var mark = q('[data-obj="mark"]');
-    var ring = q('[data-obj="ring"]');
-    var shards = qa('[data-obj="shard"]');
     var planes = { bg: q('[data-plane="bg"]'), mid: q('[data-plane="mid"]') };
 
     /* ---- background planes: the shallowest parallax on the page -------- */
@@ -238,13 +237,14 @@
       });
     }
 
-    if (!mark || !ring) return;
+    if (!mark) return;
 
-    gsap.set([mark, ring].concat(shards), { xPercent: -50, yPercent: -50 });
+    gsap.set(mark, { xPercent: -50, yPercent: -50 });
 
     /* ---- idle life ----------------------------------------------------
        On the inner image only, so it can never contend with the scrubbed
-       transform on the wrapper. */
+       transform on the wrapper. A slow, continuous hover and a few degrees
+       of rotation — never a full turn, this is the only object on stage. */
     var idle = function (el, vars) {
       return gsap.to(el.querySelector('img'), Object.assign({
         repeat: -1, yoyo: true, ease: 'sine.inOut'
@@ -252,78 +252,30 @@
     };
 
     idle(mark, { y: cfg.idle.float, duration: 5.2 });
-    idle(ring, { scale: 1.02, duration: 8 });
-
-    // The ring is the only object whose geometry supports a full turn, and it
-    // turns very slowly. Everything else oscillates within a few degrees.
-    var ringSpin = gsap.to(ring.querySelector('img'), {
-      rotation: 360, duration: cfg.idle.ringTurn, ease: 'none', repeat: -1, paused: true
+    var markTilt = gsap.to(mark.querySelector('img'), {
+      rotation: cfg.idle.markTilt, duration: 9, ease: 'sine.inOut', repeat: -1, yoyo: true, paused: true
     });
 
-    var spins = [ringSpin];
-    shards.forEach(function (el, i) {
-      var dir = i % 2 ? 1 : -1;
-      spins.push(gsap.to(el.querySelector('img'), {
-        rotation: dir * cfg.idle.shardTilt,
-        duration: 9 + i * 2.5,
-        ease: 'sine.inOut',
-        repeat: -1,
-        yoyo: true,
-        paused: true
-      }));
-      idle(el, { y: (5 + i * 1.5) * dir, duration: 5 + i * 0.8 });
-    });
-
-    // Continuous motion only runs where the objects are actually on screen.
+    // Continuous motion only runs where the mark is actually on screen.
     var from = q('[data-scene="hero"]'), to = q('[data-scene="contact"]');
     if (from && to) {
       ScrollTrigger.create({
         trigger: from, start: 'top bottom', endTrigger: to, end: 'bottom bottom',
-        onToggle: function (self) {
-          spins.forEach(function (t) { self.isActive ? t.play() : t.pause(); });
-        }
+        onToggle: function (self) { self.isActive ? markTilt.play() : markTilt.pause(); }
       });
     } else {
-      spins.forEach(function (t) { t.play(); });
+      markTilt.play();
     }
 
     /* ---- the animation zone -------------------------------------------
-       Every home position is expressed as a fraction of the viewport and
-       biased away from the reading column, so an object can drift without
-       ever landing on top of copy. */
+       Home position is a fraction of the viewport, biased away from the
+       reading column, so the mark can drift without landing on copy. */
     var zone = cfg.zone;
-    var home = {
-      mark:  { x: zone.markX,  y: -0.04 },
-      ring:  { x: zone.ringX,  y:  0.03 },
-      shard: [
-        { x: zone.near,  y: -0.26 },
-        { x: zone.far,   y: -0.06 },
-        { x: zone.near,  y:  0.22 },
-        { x: zone.far,   y:  0.30 },
-        { x: zone.mid,   y: -0.34 }
-      ]
-    };
+    var home = { x: zone.markX, y: -0.04 };
 
     var X = function (f) { return function () { return vw(100) * f; }; };
     var Y = function (f) { return function () { return vh(100) * f; }; };
 
-    // Depth bands, in the ranges a premium site actually uses.
-    var drift = function (el) {
-      var d = el.dataset.depth;
-      return d === 'fg' ? cfg.drift.fg : d === 'mid' ? cfg.drift.mid : cfg.drift.bg;
-    };
-
-    /* Absolute vertical position for a shard in a given act. Accumulated
-       drift is computed from the act index rather than from the element's
-       current transform, so scrolling up reproduces the way down exactly. */
-    var shardY = function (el, i, act) {
-      return function () {
-        return vh(100) * home.shard[i].y - drift(el) * act;
-      };
-    };
-    var markY = function (act, extra) {
-      return function () { return vh(100) * (extra == null ? home.mark.y : extra) - cfg.drift.fg * act; };
-    };
 
     /* Act windows tile edge to edge rather than overlapping. Two timelines
        animating one object at the same time resolve in whichever order they
@@ -349,7 +301,7 @@
     /* ── SAFE ZONE ──────────────────────────────────────────────────────
        The reading area is measured from the copy itself rather than assumed,
        because the headline's width changes with viewport, language and font
-       loading. Objects are then placed in whatever space is genuinely left:
+       loading. The mark is then placed in whatever space is genuinely left:
        beside the copy when there is room, below it when there is not. */
     function placeClear(el, prefer) {
       var copy = qa('.hero-title, .hero-subtitle, .hero-buttons, .hero-eyebrow', hero);
@@ -377,7 +329,7 @@
       }
 
       // No horizontal room — drop the object below the copy and dim it, so a
-      // narrow screen never has an object competing with the headline.
+      // narrow screen never has it competing with the headline.
       return {
         x: X(prefer.x * 0.5)(),
         y: Math.max(bottom + gutter + h / 2, window.innerHeight * 0.62) - window.innerHeight / 2,
@@ -387,20 +339,8 @@
 
     /* ── HERO — the only strong sequence on the page ───────────────────── */
     if (hero) {
-      var markSpot = placeClear(mark, home.mark);
-      var ringSpot = placeClear(ring, home.ring);
-
+      var markSpot = placeClear(mark, home);
       gsap.set(mark, { x: markSpot.x, y: markSpot.y, scale: cfg.mark.hero * (markSpot.opacity < 1 ? 0.8 : 1), opacity: markSpot.opacity });
-      gsap.set(ring, { x: ringSpot.x, y: ringSpot.y, scale: 0.82, opacity: cfg.ring.hero });
-      shards.forEach(function (el, i) {
-        var spot = placeClear(el, home.shard[i]);
-        gsap.set(el, {
-          x: spot.x, y: spot.y,
-          scale: cfg.shard.scale,
-          // Only fragments that found clear space are shown at all.
-          opacity: (i < cfg.shard.visible && spot.opacity === 1) ? cfg.shard.opacity : 0
-        });
-      });
 
       var t = gsap.timeline({
         defaults: { ease: 'none' },
@@ -415,13 +355,8 @@
         }
       });
 
-      // The composition breathes and settles; nothing lunges at the camera.
-      t.to(mark, { scale: cfg.mark.hero * 1.08, rotation: cfg.rot.mark, y: markSpot.y - cfg.drift.fg }, 0)
-        .to(ring, { scale: 0.92, rotation: cfg.rot.ring, opacity: cfg.ring.mid, y: ringSpot.y + cfg.drift.bg }, 0);
-
-      shards.forEach(function (el, i) {
-        t.to(el, { y: shardY(el, i, 1), rotation: (i % 2 ? 1 : -1) * cfg.rot.shard }, 0);
-      });
+      // It breathes and settles; nothing lunges at the camera.
+      t.to(mark, { scale: cfg.mark.hero * 1.08, rotation: cfg.rot.mark, y: markSpot.y - cfg.drift.fg }, 0);
 
       // Hero copy leaves on opacity alone — no transform, so it stays sharp
       // right up to the moment it goes.
@@ -430,27 +365,15 @@
       }, 0.72);
     }
 
-    /* ── SITUATION — quiet: objects drift, nothing else ────────────────── */
+    /* ── SITUATION — quiet drift ─────────────────────────────────────────── */
     var s2 = scene('situation');
-    if (s2) {
-      s2.to(mark, { x: X(zone.markX + 0.06), scale: cfg.mark.small, rotation: -cfg.rot.mark }, 0)
-        .to(ring, { opacity: cfg.ring.low, scale: 0.86, rotation: -cfg.rot.ring }, 0);
-      shards.forEach(function (el, i) {
-        s2.to(el, { y: shardY(el, i, 2.2), x: X(home.shard[i].x + 0.03) }, i * 0.03);
-      });
-    }
+    if (s2) s2.to(mark, { x: X(zone.markX + 0.06), scale: cfg.mark.small, rotation: -cfg.rot.mark }, 0);
 
-    /* ── WHO — the ring starts becoming the subject ────────────────────── */
+    /* ── WHO — recedes to the edge, dimmed ─────────────────────────────── */
     var s3 = scene('who');
-    if (s3) {
-      s3.to(ring, { opacity: cfg.ring.mid, scale: 1, x: X(zone.ringX - 0.04), rotation: cfg.rot.ring }, 0)
-        .to(mark, { x: X(zone.edge), scale: cfg.mark.small * 0.96, opacity: cfg.mark.quiet, y: Y(-0.14) }, 0);
-      shards.forEach(function (el, i) {
-        s3.to(el, { y: shardY(el, i, 3.2), rotation: (i % 2 ? -1 : 1) * cfg.rot.shard }, i * 0.03);
-      });
-    }
+    if (s3) s3.to(mark, { x: X(zone.edge), scale: cfg.mark.small * 0.96, opacity: cfg.mark.quiet, y: Y(-0.14) }, 0);
 
-    /* ── SYSTEM — the one medium sequence: the ring as the metaphor ────── */
+    /* ── SYSTEM — the one medium sequence: it becomes the metaphor ──────── */
     var system = q('[data-scene="system"]');
     if (system) {
       var t2 = gsap.timeline({
@@ -465,44 +388,20 @@
           invalidateOnRefresh: true
         }
       });
-
-      // It moves toward centre but stays dim, and a scrim sits between it and
-      // the copy, so the orbital lines never fight the text.
-      t2.to(ring, { x: X(zone.ringCentre), scale: cfg.ring.systemScale, opacity: cfg.ring.system, rotation: cfg.rot.ring * 1.5 }, 0)
-        .to(mark, { scale: cfg.mark.small * 0.92, opacity: cfg.mark.quiet, x: X(zone.edge) }, 0);
-      shards.forEach(function (el, i) {
-        t2.to(el, { opacity: cfg.shard.opacity * 0.5, y: shardY(el, i, 4) }, i * 0.03);
-      });
+      t2.to(mark, { scale: cfg.mark.small * 0.92, opacity: cfg.mark.quiet, x: X(zone.edge), rotation: cfg.rot.mark * 1.3 }, 0);
     }
 
-    /* ── WORK — cases stay calm; only depth drift ──────────────────────── */
+    /* ── WORK — calm, only depth drift ───────────────────────────────────── */
     var s5 = scene('work');
-    if (s5) {
-      s5.to(ring, { x: X(zone.ringX), opacity: cfg.ring.low, scale: 0.9, rotation: -cfg.rot.ring }, 0)
-        .to(mark, { x: X(zone.edge), scale: cfg.mark.small, opacity: cfg.mark.quiet, y: Y(0.1) }, 0);
-      shards.forEach(function (el, i) {
-        s5.to(el, { y: shardY(el, i, 4.9) }, i * 0.03);
-      });
-    }
+    if (s5) s5.to(mark, { x: X(zone.edge), scale: cfg.mark.small, opacity: cfg.mark.quiet, y: Y(0.1) }, 0);
 
-    /* ── APPROACH — almost nothing ─────────────────────────────────────── */
+    /* ── APPROACH — almost nothing ───────────────────────────────────────── */
     var s6 = scene('approach');
-    if (s6) {
-      s6.to(ring, { x: X(-zone.edge), opacity: cfg.ring.low * 0.7, rotation: cfg.rot.ring * 0.6 }, 0)
-        .to(mark, { x: X(zone.edge), scale: cfg.mark.hero * 0.95, opacity: cfg.mark.quiet, y: Y(-0.06) }, 0);
-      shards.forEach(function (el, i) {
-        s6.to(el, { opacity: cfg.shard.opacity * 0.35, y: shardY(el, i, 5.5) }, i * 0.03);
-      });
-    }
+    if (s6) s6.to(mark, { x: X(zone.edge), scale: cfg.mark.hero * 0.95, opacity: cfg.mark.quiet, y: Y(-0.06) }, 0);
 
     /* ── CONTACT — the conversion point: the calmest frame on the page ─── */
     var s7 = scene('contact');
-    if (s7) {
-      // Objects retreat to the edges and dim; nothing sits behind the CTA.
-      s7.to(mark, { x: X(zone.edge), y: Y(-0.02), scale: cfg.mark.hero * 0.9, opacity: cfg.mark.quiet }, 0)
-        .to(ring, { x: X(-zone.edge), opacity: cfg.ring.low * 0.6, scale: 0.85 }, 0)
-        .to(shards, { opacity: 0, stagger: 0.03 }, 0);
-    }
+    if (s7) s7.to(mark, { x: X(zone.edge), y: Y(-0.02), scale: cfg.mark.hero * 0.9, opacity: cfg.mark.quiet }, 0);
   }
 
   /* ─────────────────────────────────────────────────────────────────────
@@ -519,35 +418,30 @@
         text: { rise: 20, duration: 0.85, stagger: 0.07 },
         depth: { bg: 40, mid: 70 },
         drift: { bg: 30, mid: 60, fg: 105 },
-        rot: { mark: 6, ring: 10, shard: 5 },
-        idle: { float: -12, ringTurn: 240, shardTilt: 4 },
+        rot: { mark: 6 },
+        idle: { float: -12, markTilt: 4 },
         hero: { pin: 90 },
         system: { pin: 80 },
         mark: { hero: 1, small: 0.9, quiet: 0.55 },
-        ring: { hero: 0.16, low: 0.2, mid: 0.3, system: 0.34, systemScale: 1.12 },
-        shard: { scale: 0.9, opacity: 0.55, visible: 5 },
-        // Objects live right of the reading column.
-        zone: { markX: 0.30, ringX: 0.26, ringCentre: 0.16, near: 0.22, mid: 0.30, far: 0.38, edge: 0.40 }
+        // The mark lives right of the reading column.
+        zone: { markX: 0.30, edge: 0.40 }
       };
       revealHero(cfg); revealText(cfg); buildVisuals(cfg);
     });
 
-    // Mobile — roughly half the movement, no wide travel, fewer shards.
+    // Mobile — roughly half the movement, no wide travel.
     mm.add('(max-width: 900px) and (prefers-reduced-motion: no-preference)', function () {
       var cfg = {
         scrub: 1.2,
         text: { rise: 14, duration: 0.8, stagger: 0.06 },
         depth: { bg: 18, mid: 30 },
         drift: { bg: 14, mid: 26, fg: 44 },
-        rot: { mark: 4, ring: 8, shard: 3 },
-        idle: { float: -6, ringTurn: 300, shardTilt: 3 },
+        rot: { mark: 4 },
+        idle: { float: -6, markTilt: 3 },
         hero: { pin: 45 },
         system: { pin: 40 },
         mark: { hero: 0.85, small: 0.78, quiet: 0.26 },
-        ring: { hero: 0.12, low: 0.16, mid: 0.22, system: 0.24, systemScale: 1 },
-        // Only three fragments on a phone; the rest never fade in.
-        shard: { scale: 0.72, opacity: 0.28, visible: 3 },
-        zone: { markX: 0.26, ringX: 0.22, ringCentre: 0.12, near: 0.24, mid: 0.30, far: 0.34, edge: 0.34 }
+        zone: { markX: 0.26, edge: 0.34 }
       };
       revealHero(cfg); revealText(cfg); buildVisuals(cfg);
     });

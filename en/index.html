@@ -111,25 +111,8 @@
       height: auto;
     }
 
-    /* Hero object — the question mark is the main character. */
+    /* The question mark is the only object driving this animation. */
     .obj--mark { width: clamp(170px, 24vw, 380px); }
-
-    /* System object — the orbital ring frames the composition.
-       Two counter-rotating copies read as a living orbital system. */
-    .obj--ring { width: clamp(260px, 40vw, 620px); opacity: 0; }
-
-    /* Shards travel at their own depths, so each is its own element. */
-    .obj--shard { opacity: 0; }
-    .obj--spike { width: clamp(120px, 19vw, 320px); }
-    .obj--bar   { width: clamp(180px, 30vw, 500px); }
-    .obj--tri   { width: clamp(90px,  13vw, 230px); }
-    .obj--rod   { width: clamp(80px,  12vw, 220px); }
-    .obj--disc  { width: clamp(52px,   8vw, 135px); }
-
-    /* Depth separation comes from size, opacity and parallax speed rather
-       than from a blur filter, which would repaint on every scaled frame. */
-    .obj[data-depth="bg"] > img  { opacity: 0.62; }
-    .obj[data-depth="mid"] > img { opacity: 0.85; }
 
     #scroll-container { position: relative; z-index: 10; }
 
@@ -739,21 +722,8 @@
 
     <div class="objects">
       <!-- Outer wrapper carries the scroll choreography, the inner image
-           carries its own idle life, so the two never fight for transform. -->
-      <div class="obj obj--ring" data-obj="ring">
-        <img src="/assets/objects/ring.webp" alt="" width="1200" height="1200" decoding="async" loading="lazy"></div>
-
-      <div class="obj obj--shard obj--bar" data-obj="shard" data-shard="0" data-depth="mid">
-        <img src="/assets/objects/bar.webp" alt="" width="1280" height="440" decoding="async" loading="lazy"></div>
-      <div class="obj obj--shard obj--spike" data-obj="shard" data-shard="1" data-depth="fg">
-        <img src="/assets/objects/spike.webp" alt="" width="840" height="680" decoding="async" loading="lazy"></div>
-      <div class="obj obj--shard obj--tri" data-obj="shard" data-shard="2" data-depth="mid">
-        <img src="/assets/objects/tri.webp" alt="" width="640" height="640" decoding="async" loading="lazy"></div>
-      <div class="obj obj--shard obj--rod" data-obj="shard" data-shard="3" data-depth="bg">
-        <img src="/assets/objects/rod.webp" alt="" width="720" height="320" decoding="async" loading="lazy"></div>
-      <div class="obj obj--shard obj--disc" data-obj="shard" data-shard="4" data-depth="fg">
-        <img src="/assets/objects/disc.webp" alt="" width="440" height="400" decoding="async" loading="lazy"></div>
-
+           carries its own idle life, so the two never fight for transform.
+           The question mark is the only object driving this animation. -->
       <div class="obj obj--mark" data-obj="mark">
         <img src="/assets/objects/mark.webp" alt="" width="720" height="936" decoding="async" fetchpriority="high"></div>
     </div>
