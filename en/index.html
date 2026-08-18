@@ -735,21 +735,8 @@
 
     [data-lang="nl"] .en { display: none; }
     [data-lang="en"] .nl { display: none; }
-    [data-lang="en"] .hero-video,
-    [data-lang="en"] .hero-video-shade { display: none; }
-    [data-lang="en"] #hero { justify-content: center; }
-
-    @media(max-width: 900px) {
-      [data-lang="en"] #hero {
-        padding: max(82px, calc(env(safe-area-inset-top) + 68px)) 18px max(20px, env(safe-area-inset-bottom));
-      }
-      [data-lang="en"] .hero-copy {
-        width: 100%;
-        margin: 0;
-        border-top: 0;
-        border-left: 4px solid #FFD400;
-      }
-    }
+    [data-lang="nl"] .hero-video[data-lang-video="en"],
+    [data-lang="en"] .hero-video[data-lang-video="nl"] { display: none; }
   </style>
 </head>
 
@@ -792,6 +779,9 @@
     <section id="hero" class="scene" data-scene="hero">
       <video class="hero-video" data-hero-video data-lang-video="nl" muted playsinline preload="auto" disablepictureinpicture controlslist="nodownload noplaybackrate" aria-hidden="true">
         <source src="../assets/hero-animation.mp4" type="video/mp4">
+      </video>
+      <video class="hero-video" data-hero-video data-lang-video="en" muted playsinline preload="auto" disablepictureinpicture controlslist="nodownload noplaybackrate" aria-hidden="true">
+        <source src="../assets/hero-animation-en.mp4" type="video/mp4">
       </video>
       <div class="hero-video-shade" aria-hidden="true"></div>
 

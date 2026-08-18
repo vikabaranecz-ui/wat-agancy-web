@@ -205,7 +205,7 @@
 
   function buildVisuals(cfg) {
     var hero = q('[data-scene="hero"]');
-    var video = q('[data-hero-video]');
+    var videos = qa('[data-hero-video]');
     var planes = { bg: q('[data-plane="bg"]'), mid: q('[data-plane="mid"]') };
 
     /* ---- background planes: the shallowest parallax on the page -------- */
@@ -222,48 +222,58 @@
       });
     }
 
-    if (hero && video) {
-      var createVideoScrub = function () {
-        if (!isFinite(video.duration) || video.duration <= 0) return;
-
-        video.pause();
-        video.currentTime = 0.01;
-
-        var videoTrigger = ScrollTrigger.create({
-          trigger: hero,
-          start: 'top top',
-          end: '+=' + cfg.hero.pin + '%',
-          pin: true,
-          pinSpacing: true,
-          scrub: cfg.scrub,
-          invalidateOnRefresh: true,
-          onUpdate: function (self) {
-            var targetTime = Math.min(video.duration - 0.01, self.progress * video.duration);
-            if (Math.abs(video.currentTime - targetTime) > 0.04) video.currentTime = targetTime;
-          }
-        });
-
-        var syncVideoLanguage = function (event) {
-          var lang = event && event.detail ? event.detail.lang : document.documentElement.getAttribute('data-lang');
-          var active = lang === (video.dataset.langVideo || 'nl');
-          if (active) videoTrigger.enable();
-          else {
-            videoTrigger.disable();
-            video.currentTime = 0.01;
-          }
-          ScrollTrigger.refresh();
-        };
-
-        if (window.__watVideoLanguageHandler) {
-          document.removeEventListener('wat:language', window.__watVideoLanguageHandler);
-        }
-        window.__watVideoLanguageHandler = syncVideoLanguage;
-        document.addEventListener('wat:language', window.__watVideoLanguageHandler);
-        syncVideoLanguage();
+    if (hero && videos.length) {
+      var activeVideo = function (lang) {
+        var currentLang = lang || document.documentElement.getAttribute('data-lang') || 'nl';
+        return videos.find(function (item) { return item.dataset.langVideo === currentLang; }) || videos[0];
       };
 
-      if (video.readyState >= 1) createVideoScrub();
-      else video.addEventListener('loadedmetadata', createVideoScrub, { once: true });
+      var seekVideo = function (progress, lang) {
+        var video = activeVideo(lang);
+        if (!video || !isFinite(video.duration) || video.duration <= 0) return;
+        var targetTime = Math.min(video.duration - 0.01, progress * video.duration);
+        if (Math.abs(video.currentTime - targetTime) > 0.04) video.currentTime = targetTime;
+      };
+
+      videos.forEach(function (video) {
+        video.pause();
+        if (video.readyState >= 1) video.currentTime = 0.01;
+      });
+
+      var videoTrigger = ScrollTrigger.create({
+        trigger: hero,
+        start: 'top top',
+        end: '+=' + cfg.hero.pin + '%',
+        pin: true,
+        pinSpacing: true,
+        scrub: cfg.scrub,
+        invalidateOnRefresh: true,
+        onUpdate: function (self) { seekVideo(self.progress); }
+      });
+
+      videos.forEach(function (video) {
+        video.addEventListener('loadedmetadata', function () {
+          if (video === activeVideo()) seekVideo(videoTrigger.progress);
+        }, { once: true });
+      });
+
+      var syncVideoLanguage = function (event) {
+        var lang = event && event.detail ? event.detail.lang : document.documentElement.getAttribute('data-lang');
+        var current = activeVideo(lang);
+        videos.forEach(function (video) {
+          video.pause();
+          if (video !== current && video.readyState >= 1) video.currentTime = 0.01;
+        });
+        seekVideo(videoTrigger.progress, lang);
+        ScrollTrigger.refresh();
+      };
+
+      if (window.__watVideoLanguageHandler) {
+        document.removeEventListener('wat:language', window.__watVideoLanguageHandler);
+      }
+      window.__watVideoLanguageHandler = syncVideoLanguage;
+      document.addEventListener('wat:language', window.__watVideoLanguageHandler);
+      syncVideoLanguage();
     }
 
   }
@@ -299,8 +309,10 @@
 
     // Reduced motion — no parallax, no pins, no continuous movement.
     mm.add('(prefers-reduced-motion: reduce)', function () {
-      var video = q('[data-hero-video]');
-      if (video) { video.pause(); video.currentTime = 0; }
+      qa('[data-hero-video]').forEach(function (video) {
+        video.pause();
+        video.currentTime = 0;
+      });
       return function () {};
     });
   }
