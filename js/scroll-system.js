@@ -231,6 +231,7 @@
       var seekVideo = function (progress, lang) {
         var video = activeVideo(lang);
         if (!video || !isFinite(video.duration) || video.duration <= 0) return;
+        if (!video.paused) video.pause();
         var targetTime = Math.min(video.duration - 0.01, progress * video.duration);
         if (Math.abs(video.currentTime - targetTime) > 0.04) video.currentTime = targetTime;
       };
@@ -256,16 +257,24 @@
       var primeVideo = function (video, lang) {
         if (!video) return;
         video.muted = true;
-        var playback = video.play();
         var finish = function () {
           video.pause();
           seekVideo(videoTrigger.progress, lang || video.dataset.langVideo);
         };
-        if (playback && typeof playback.then === 'function') playback.then(finish).catch(function () {});
+        var playback = null;
+        try { playback = video.play(); } catch (e) { finish(); }
+        if (playback && typeof playback.then === 'function') playback.then(finish).catch(finish);
         else finish();
+        window.setTimeout(finish, 80);
       };
 
       videos.forEach(function (video) {
+        video.addEventListener('play', function () {
+          window.setTimeout(function () {
+            video.pause();
+            if (video === activeVideo()) seekVideo(videoTrigger.progress);
+          }, 0);
+        });
         video.addEventListener('loadedmetadata', function () {
           if (video === activeVideo()) seekVideo(videoTrigger.progress);
         }, { once: true });
@@ -284,7 +293,7 @@
           video.pause();
           if (video !== current && video.readyState >= 1) video.currentTime = 0.01;
         });
-        primeVideo(current, lang);
+        if (event) primeVideo(current, lang);
         seekVideo(videoTrigger.progress, lang);
         ScrollTrigger.refresh();
       };
