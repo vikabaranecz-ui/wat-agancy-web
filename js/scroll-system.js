@@ -47,14 +47,15 @@
       btn.classList.toggle('active', btn.dataset.lang === lang);
     });
 
-    try { localStorage.setItem('preferred-lang', lang); } catch (e) {}
+    try { localStorage.setItem('preferred-lang-v2', lang); } catch (e) {}
 
+    document.dispatchEvent(new CustomEvent('wat:language', { detail: { lang: lang } }));
     ScrollTrigger.refresh();
   };
 
   var stored = null;
-  try { stored = localStorage.getItem('preferred-lang'); } catch (e) {}
-  window.setLanguage(stored || 'en');
+  try { stored = localStorage.getItem('preferred-lang-v2'); } catch (e) {}
+  window.setLanguage(stored || 'nl');
 
   function initMenu() {
     var burger = document.getElementById('nav-burger');
@@ -228,7 +229,7 @@
         video.pause();
         video.currentTime = 0.01;
 
-        ScrollTrigger.create({
+        var videoTrigger = ScrollTrigger.create({
           trigger: hero,
           start: 'top top',
           end: '+=' + cfg.hero.pin + '%',
@@ -241,6 +242,24 @@
             if (Math.abs(video.currentTime - targetTime) > 0.04) video.currentTime = targetTime;
           }
         });
+
+        var syncVideoLanguage = function (event) {
+          var lang = event && event.detail ? event.detail.lang : document.documentElement.getAttribute('data-lang');
+          var active = lang === (video.dataset.langVideo || 'nl');
+          if (active) videoTrigger.enable();
+          else {
+            videoTrigger.disable();
+            video.currentTime = 0.01;
+          }
+          ScrollTrigger.refresh();
+        };
+
+        if (window.__watVideoLanguageHandler) {
+          document.removeEventListener('wat:language', window.__watVideoLanguageHandler);
+        }
+        window.__watVideoLanguageHandler = syncVideoLanguage;
+        document.addEventListener('wat:language', window.__watVideoLanguageHandler);
+        syncVideoLanguage();
       };
 
       if (video.readyState >= 1) createVideoScrub();
@@ -259,10 +278,10 @@
     // Desktop — parallax within the 20–120px band, rotation within 5–12deg.
     mm.add('(min-width: 901px) and (prefers-reduced-motion: no-preference)', function () {
       var cfg = {
-        scrub: 1.1,
+        scrub: 0.5,
         text: { rise: 20, duration: 0.85, stagger: 0.07 },
         depth: { bg: 40, mid: 70 },
-        hero: { pin: 180 },
+        hero: { pin: 160 },
       };
       revealText(cfg); buildVisuals(cfg);
     });
@@ -270,10 +289,10 @@
     // Mobile — roughly half the movement, no wide travel.
     mm.add('(max-width: 900px) and (prefers-reduced-motion: no-preference)', function () {
       var cfg = {
-        scrub: 1.2,
+        scrub: 0.35,
         text: { rise: 14, duration: 0.8, stagger: 0.06 },
         depth: { bg: 18, mid: 30 },
-        hero: { pin: 120 },
+        hero: { pin: 110 },
       };
       revealText(cfg); buildVisuals(cfg);
     });
