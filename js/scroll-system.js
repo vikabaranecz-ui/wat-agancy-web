@@ -236,6 +236,8 @@
       };
 
       videos.forEach(function (video) {
+        video.muted = true;
+        video.load();
         video.pause();
         if (video.readyState >= 1) video.currentTime = 0.01;
       });
@@ -251,9 +253,27 @@
         onUpdate: function (self) { seekVideo(self.progress); }
       });
 
+      var primeVideo = function (video, lang) {
+        if (!video) return;
+        video.muted = true;
+        var playback = video.play();
+        var finish = function () {
+          video.pause();
+          seekVideo(videoTrigger.progress, lang || video.dataset.langVideo);
+        };
+        if (playback && typeof playback.then === 'function') playback.then(finish).catch(function () {});
+        else finish();
+      };
+
       videos.forEach(function (video) {
         video.addEventListener('loadedmetadata', function () {
           if (video === activeVideo()) seekVideo(videoTrigger.progress);
+        }, { once: true });
+        video.addEventListener('loadeddata', function () {
+          if (video === activeVideo()) {
+            video.pause();
+            seekVideo(videoTrigger.progress);
+          }
         }, { once: true });
       });
 
@@ -264,6 +284,7 @@
           video.pause();
           if (video !== current && video.readyState >= 1) video.currentTime = 0.01;
         });
+        primeVideo(current, lang);
         seekVideo(videoTrigger.progress, lang);
         ScrollTrigger.refresh();
       };
@@ -274,6 +295,12 @@
       window.__watVideoLanguageHandler = syncVideoLanguage;
       document.addEventListener('wat:language', window.__watVideoLanguageHandler);
       syncVideoLanguage();
+
+      var unlockVideo = function () {
+        primeVideo(activeVideo());
+      };
+      document.addEventListener('touchstart', unlockVideo, { once: true, passive: true });
+      document.addEventListener('pointerdown', unlockVideo, { once: true, passive: true });
     }
 
   }
