@@ -290,6 +290,39 @@
         linear-gradient(90deg, rgba(5,5,5,.68) 0%, rgba(5,5,5,.08) 68%);
     }
 
+    /* Desktop corner vignette hides the baked-in sparkle in the video. */
+    .hero-video-shade::before {
+      content: '';
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      width: min(36vw, 560px);
+      height: min(44vh, 430px);
+      background: radial-gradient(
+        ellipse at 100% 100%,
+        rgba(5,5,5,1) 0%,
+        rgba(5,5,5,.96) 22%,
+        rgba(5,5,5,.68) 44%,
+        rgba(5,5,5,.2) 64%,
+        transparent 78%
+      );
+    }
+
+    /* A masked backdrop blur dissolves the video into the copy below. */
+    .hero-video-shade::after {
+      content: '';
+      position: absolute;
+      left: -3%;
+      right: -3%;
+      bottom: -2px;
+      height: min(27vh, 250px);
+      -webkit-backdrop-filter: blur(22px);
+      backdrop-filter: blur(22px);
+      -webkit-mask-image: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,.28) 22%, #000 58%);
+      mask-image: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,.28) 22%, #000 58%);
+      background: linear-gradient(to bottom, transparent 0%, rgba(5,5,5,.42) 52%, rgba(5,5,5,.96) 100%);
+    }
+
     .hero-copy {
       width: min(760px, 100%);
       padding: 28px 32px 30px;
@@ -692,15 +725,24 @@
         inset: 65px 0 auto;
         z-index: 1;
         height: calc(100vw * 9 / 16);
-        background: linear-gradient(180deg, transparent 58%, rgba(5,5,5,.7) 100%);
+        background: linear-gradient(180deg, transparent 48%, rgba(5,5,5,.68) 100%);
+      }
+      .hero-video-shade::before { display: none; }
+      .hero-video-shade::after {
+        bottom: -28px;
+        height: 52%;
+        -webkit-backdrop-filter: blur(16px);
+        backdrop-filter: blur(16px);
+        background: linear-gradient(to bottom, transparent, rgba(5,5,5,.95));
       }
       .hero-copy {
         z-index: 2;
         width: calc(100% - 36px);
-        margin: 0 18px 18px;
+        margin: -28px 18px 18px;
         padding: 20px 20px 22px;
         border-left: 0;
-        border-top: 4px solid #FFD400;
+        border-top: 0;
+        background: linear-gradient(180deg, rgba(5,5,5,.76), rgba(5,5,5,.96) 30%);
       }
       .hero-title { font-size: clamp(1.4rem, 7.4vw, 2rem); margin-bottom: 14px; }
       .hero-subtitle { font-size: .94rem; line-height: 1.52; margin-bottom: 20px; }
@@ -726,7 +768,7 @@
 
     @media(max-width: 380px), (max-height: 700px) and (max-width: 900px) {
       #hero { padding-bottom: 10px; }
-      .hero-copy { width: calc(100% - 28px); margin: 0 14px 10px; padding: 16px 16px 18px; }
+      .hero-copy { width: calc(100% - 28px); margin: -24px 14px 10px; padding: 16px 16px 18px; }
       .hero-title { font-size: clamp(1.3rem, 7vw, 1.75rem); margin-bottom: 10px; }
       .hero-subtitle { font-size: .86rem; line-height: 1.45; margin-bottom: 14px; }
       .hero-buttons { gap: 8px; }
