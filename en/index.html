@@ -5,8 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>WAT? Agency — Online System for Local Service Businesses in Belgium</title>
   <meta name="description" content="Marketing agency in Antwerp. We build the online system for local service businesses: website, Google Business, social, branding, content, email, WhatsApp, analytics.">
+  <link rel="icon" href="data:,">
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preload" as="image" href="/assets/objects/mark.webp" type="image/webp">
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700;900&family=Bebas+Neue&display=swap" rel="stylesheet">
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -30,10 +30,8 @@
     /* Layering contract:
          0   page background
          1   background planes
-         2   visual assets (the three objects)
          10  all content and copy
-         100 navigation
-       Text is never below the visual layer. */
+         100 navigation */
     .stage {
       position: fixed;
       inset: 0;
@@ -78,41 +76,6 @@
     .stage__fg {
       background: radial-gradient(115% 85% at 50% 48%, transparent 30%, rgba(5, 5, 5, 0.92) 92%);
     }
-
-    /* ── OBJECT LAYER ───────────────────────────────────────────────────
-       The three brand objects live here and survive the whole scroll film
-       instead of being introduced and discarded per section.
-       Every object is positioned from the centre of the viewport so its
-       choreography can be written in viewport units and stay responsive.
-       ─────────────────────────────────────────────────────────────────── */
-    .objects {
-      position: absolute;
-      inset: 0;
-      z-index: 2;
-      overflow: hidden;
-      contain: paint;
-    }
-
-    .obj {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate3d(-50%, -50%, 0);
-      will-change: transform, opacity;
-    }
-
-    /* No CSS filters anywhere on this layer. drop-shadow and blur re-run on
-       every frame an element is scaled or rotated, which is exactly what
-       these objects do — glow and shading are painted inside the SVGs
-       instead, where they rasterise once. */
-    .obj > img {
-      display: block;
-      width: 100%;
-      height: auto;
-    }
-
-    /* The question mark is the only object driving this animation. */
-    .obj--mark { width: clamp(170px, 24vw, 380px); }
 
     #scroll-container { position: relative; z-index: 10; }
 
@@ -296,61 +259,70 @@
     /* Animated groups get their own compositing layer while a scene is live. */
     .is-animating { will-change: transform, opacity; }
 
-    /* HERO */
-    #hero { padding-top: 190px; }
+    /* HERO — the video is scrubbed by GSAP while the copy stays static. */
+    #hero {
+      max-width: none;
+      width: 100%;
+      padding: 120px 56px 64px;
+      justify-content: flex-end;
+      isolation: isolate;
+      overflow: hidden;
+    }
 
-    .hero-eyebrow {
-      font-size: 12px;
-      letter-spacing: 2.5px;
-      text-transform: uppercase;
-      color: #FFD400;
-      margin-bottom: 28px;
-      font-weight: 700;
+    .hero-video {
+      position: absolute;
+      inset: 0;
+      z-index: -3;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      background: #050505;
+    }
+
+    .hero-video-shade {
+      position: absolute;
+      inset: 0;
+      z-index: -2;
+      pointer-events: none;
+      background:
+        linear-gradient(180deg, rgba(5,5,5,.12) 38%, rgba(5,5,5,.9) 100%),
+        linear-gradient(90deg, rgba(5,5,5,.68) 0%, rgba(5,5,5,.08) 68%);
+    }
+
+    .hero-copy {
+      width: min(760px, 100%);
+      padding: 28px 32px 30px;
+      background: rgba(5, 5, 5, 0.78);
+      border-left: 4px solid #FFD400;
+      position: relative;
+      z-index: 1;
     }
 
     .hero-title {
-      font-family: 'Bebas Neue', serif;
-      font-size: clamp(3rem, 9vw, 6rem);
-      line-height: 0.92;
-      letter-spacing: -2px;
-      margin-bottom: 32px;
-    }
-
-    /* Lines and words are explicit in the markup rather than split at runtime,
-       so the language toggle keeps working and frame 0 is always valid. */
-    .hero-title .line {
-      display: block;
-      overflow: hidden;
-      padding-bottom: 0.06em;
-    }
-
-    .hero-title .word {
-      display: inline-block;
-      will-change: transform;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(1.65rem, 3.2vw, 3.15rem);
+      font-weight: 700;
+      line-height: 1.08;
+      letter-spacing: -0.04em;
+      color: #FFD400;
+      margin-bottom: 16px;
     }
 
     .hero-subtitle {
-      font-size: clamp(1rem, 2vw, 1.15rem);
-      color: rgba(244, 242, 236, 0.7);
-      margin-bottom: 44px;
-      max-width: 660px;
-      line-height: 1.8;
+      font-size: clamp(1rem, 1.45vw, 1.2rem);
+      color: #F4F2EC;
+      margin-bottom: 24px;
+      max-width: 680px;
+      line-height: 1.6;
     }
+
+    .hero-subtitle strong { color: #FFD400; font-weight: 700; }
 
     .hero-buttons {
       display: flex;
-      gap: 20px;
+      gap: 14px;
       flex-wrap: wrap;
-    }
-
-    .hero-scroll-hint {
-      position: absolute;
-      left: 56px;
-      bottom: 40px;
-      font-size: 11px;
-      letter-spacing: 2.5px;
-      text-transform: uppercase;
-      color: rgba(244, 242, 236, 0.35);
     }
 
     .btn {
@@ -700,10 +672,46 @@
         color: rgba(244, 242, 236, 0.45);
       }
 
+      #hero {
+        min-height: 100svh;
+        padding: max(82px, calc(env(safe-area-inset-top) + 68px)) 18px max(20px, env(safe-area-inset-bottom));
+      }
+      .hero-video { object-position: 52% center; }
+      .hero-video-shade {
+        background:
+          linear-gradient(180deg, rgba(5,5,5,.04) 26%, rgba(5,5,5,.92) 100%),
+          linear-gradient(90deg, rgba(5,5,5,.25), rgba(5,5,5,.04));
+      }
+      .hero-copy { width: 100%; padding: 20px 20px 22px; }
+      .hero-title { font-size: clamp(1.4rem, 7.4vw, 2rem); margin-bottom: 14px; }
+      .hero-subtitle { font-size: .94rem; line-height: 1.52; margin-bottom: 20px; }
+      .hero-buttons { flex-direction: column; gap: 10px; }
+      .hero-buttons .btn {
+        width: 100%;
+        min-height: 52px;
+        padding: 14px 12px;
+        font-size: 11px;
+        letter-spacing: 1.15px;
+        line-height: 1.35;
+        text-align: center;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
       section { padding: 90px 22px; }
       footer { padding: 56px 22px 28px; }
       .footer-content { flex-direction: column; gap: 36px; }
       .footer-links { gap: 32px; }
+    }
+
+    @media(max-width: 380px), (max-height: 700px) and (max-width: 900px) {
+      #hero { padding-left: 14px; padding-right: 14px; padding-bottom: 14px; }
+      .hero-copy { padding: 16px 16px 18px; }
+      .hero-title { font-size: clamp(1.3rem, 7vw, 1.75rem); margin-bottom: 10px; }
+      .hero-subtitle { font-size: .86rem; line-height: 1.45; margin-bottom: 14px; }
+      .hero-buttons { gap: 8px; }
+      .hero-buttons .btn { min-height: 46px; padding: 11px 10px; font-size: 10px; }
     }
 
     [data-lang="nl"] .en { display: none; }
@@ -712,22 +720,10 @@
 </head>
 
 <body>
-  <!-- Depth planes + the three brand objects that travel the whole film.
-       To use the original 3D renders instead of these vector stand-ins,
-       drop PNGs into /assets/objects/ and point these src attributes at
-       them — nothing in the animation code refers to the file type. -->
+  <!-- Lightweight depth planes continue behind the sections after the hero. -->
   <div class="stage" aria-hidden="true">
     <div class="stage__plane stage__bg" data-plane="bg"></div>
     <div class="stage__plane stage__mid" data-plane="mid"></div>
-
-    <div class="objects">
-      <!-- Outer wrapper carries the scroll choreography, the inner image
-           carries its own idle life, so the two never fight for transform.
-           The question mark is the only object driving this animation. -->
-      <div class="obj obj--mark" data-obj="mark">
-        <img src="/assets/objects/mark.webp" alt="" width="720" height="936" decoding="async" fetchpriority="high"></div>
-    </div>
-
     <div class="stage__plane stage__fg" data-plane="fg"></div>
   </div>
 
@@ -760,38 +756,21 @@
 
     <!-- HERO -->
     <section id="hero" class="scene" data-scene="hero">
-      <div class="hero-eyebrow" data-hero="eyebrow">
-        <span class="en">Marketing agency in Antwerp — for local service businesses in Belgium</span>
-        <span class="nl">Marketingbureau in Antwerpen — voor lokale dienstenbedrijven in België</span>
-      </div>
+      <video class="hero-video" data-hero-video muted playsinline preload="auto" disablepictureinpicture controlslist="nodownload noplaybackrate" aria-hidden="true">
+        <source src="/assets/hero-animation.mp4" type="video/mp4">
+      </video>
+      <div class="hero-video-shade" aria-hidden="true"></div>
 
-      <h1 class="hero-title" data-hero="title">
-        <span class="en">
-          <span class="line"><span class="word">You</span> <span class="word">deliver</span></span>
-          <span class="line"><span class="word">the</span> <span class="word">service.</span></span>
-          <span class="line"><span class="word">We</span> <span class="word">build</span> <span class="word">the</span></span>
-          <span class="line accent"><span class="word">system</span> <span class="word">around</span> <span class="word">it.</span></span>
-        </span>
-        <span class="nl">
-          <span class="line"><span class="word">Jij</span> <span class="word">levert</span></span>
-          <span class="line"><span class="word">de</span> <span class="word">dienst.</span></span>
-          <span class="line"><span class="word">Wij</span> <span class="word">bouwen</span> <span class="word">het</span></span>
-          <span class="line accent"><span class="word">systeem</span> <span class="word">eromheen.</span></span>
-        </span>
-      </h1>
-
-      <p class="hero-subtitle" data-hero="subtitle">
-        <span class="en">Website, Google Business, social, branding, content, email, WhatsApp, analytics — connected into one online system that helps people find you, trust you and contact you.</span>
-        <span class="nl">Website, Google Business, social, branding, content, e-mail, WhatsApp, analytics — verbonden tot één online systeem dat mensen helpt je te vinden, je te vertrouwen en contact op te nemen.</span>
-      </p>
-
-      <div class="hero-buttons" data-hero="buttons">
-        <a href="#contact" class="btn btn-primary"><span class="en">Talk to us on WhatsApp →</span><span class="nl">Praat met ons op WhatsApp →</span></a>
-        <a href="#situation" class="btn btn-secondary"><span class="en">See your situation ↓</span><span class="nl">Bekijk jouw situatie ↓</span></a>
-      </div>
-
-      <div class="hero-scroll-hint" data-hero="hint">
-        <span class="en">Scroll</span><span class="nl">Scroll</span>
+      <div class="hero-copy">
+        <h1 class="hero-title">Website · Google · Socials · Ads</h1>
+        <p class="hero-subtitle">
+          <span class="en">Everything your customer sees works together to <strong>build trust and win enquiries.</strong></span>
+          <span class="nl">Alles wat je klant ziet, werkt samen om <strong>vertrouwen op te bouwen en aanvragen te winnen.</strong></span>
+        </p>
+        <div class="hero-buttons">
+          <a href="#situation" class="btn btn-primary"><span class="en">Discover where you lose customers →</span><span class="nl">Ontdek waar je klanten verliest →</span></a>
+          <a href="#system" class="btn btn-secondary"><span class="en">See how WAT? works →</span><span class="nl">Bekijk hoe WAT? werkt →</span></a>
+        </div>
       </div>
     </section>
 
