@@ -179,22 +179,31 @@
 
       groups.forEach(function (els, gi) {
         if (!els.length) return;
-        gsap.from(els, {
-          y: cfg.text.rise,
-          opacity: 0,
-          duration: cfg.text.duration,
-          stagger: els.length > 3 ? cfg.text.stagger : cfg.text.stagger * 1.4,
-          ease: 'power3.out',
-          delay: gi * 0.06,
-          // The whole point: once revealed, the element carries no transform,
-          // so text rasterises normally instead of through the compositor.
-          clearProps: 'transform',
-          scrollTrigger: {
-            trigger: section,
-            start: 'top 72%',
-            once: true
+        // fromTo, not from: the hero pin below this loop inserts its spacer
+        // right after these are created, and a plain .from() captures its
+        // "to" opacity lazily on the next tick — by then the pin's reflow
+        // has already run, and it reads back the tween's own from-state
+        // (opacity 0) as the target, so the reveal plays but never arrives.
+        // Spelling out both ends removes any DOM read from the equation.
+        gsap.fromTo(els,
+          { y: cfg.text.rise, opacity: 0 },
+          {
+            y: 0,
+            opacity: 1,
+            duration: cfg.text.duration,
+            stagger: els.length > 3 ? cfg.text.stagger : cfg.text.stagger * 1.4,
+            ease: 'power3.out',
+            delay: gi * 0.06,
+            // The whole point: once revealed, the element carries no transform,
+            // so text rasterises normally instead of through the compositor.
+            clearProps: 'transform',
+            scrollTrigger: {
+              trigger: section,
+              start: 'top 72%',
+              once: true
+            }
           }
-        });
+        );
       });
     });
   }
@@ -251,6 +260,11 @@
         pinSpacing: true,
         scrub: cfg.scrub,
         invalidateOnRefresh: true,
+        // This pin is created after the section reveals below it (revealText
+        // runs first), so without priority it refreshes last: every later
+        // trigger gets measured against the un-pinned layout and is frozen
+        // short by the pin's reserved scroll distance, permanently.
+        refreshPriority: 1,
         onUpdate: function (self) { seekVideo(self.progress); }
       });
 

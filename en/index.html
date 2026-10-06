@@ -483,7 +483,6 @@
       background: linear-gradient(rgba(255, 212, 0, 0.05), rgba(255, 212, 0, 0.05)), #080808;
       border: 1px solid rgba(255, 212, 0, 0.15);
       border-radius: 8px;
-      text-decoration: none;
       color: inherit;
       transition: all 0.3s ease;
     }
@@ -525,7 +524,23 @@
       color: rgba(244, 242, 236, 0.6);
     }
 
-    .work-link { font-size: 13px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: #FFD400; }
+    .work-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 24px; }
+
+    .work-link { font-size: 13px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: #FFD400; text-decoration: none; }
+    .work-link:hover { text-decoration: underline; }
+
+    .work-visit {
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: rgba(244, 242, 236, 0.6);
+      text-decoration: none;
+      border-bottom: 1px solid rgba(244, 242, 236, 0.25);
+      padding-bottom: 2px;
+      transition: color 0.2s ease, border-color 0.2s ease;
+    }
+    .work-visit:hover { color: #FFD400; border-color: rgba(255, 212, 0, 0.5); }
 
     /* APPROACH */
     .approach-list { margin-top: 48px; display: grid; gap: 28px; max-width: 900px; }
@@ -1048,7 +1063,7 @@
       </p>
 
       <div class="work-grid">
-        <a href="/work/isoprotech.html" class="work-card">
+        <div class="work-card">
           <div class="work-title">ISOPROTECH</div>
           <div class="work-industry"><span class="en">Insulation &amp; energy services · Antwerp</span><span class="nl">Isolatie &amp; energiediensten · Antwerpen</span></div>
           <p>
@@ -1062,10 +1077,13 @@
             <span class="work-tag">Reviews</span>
             <span class="work-tag">WhatsApp</span>
           </div>
-          <div class="work-link"><span class="en">Read the case →</span><span class="nl">Lees de case →</span></div>
-        </a>
+          <div class="work-actions">
+            <a href="/work/isoprotech.html" class="work-link"><span class="en">Read the case →</span><span class="nl">Lees de case →</span></a>
+            <a href="https://isoprotech.be" target="_blank" rel="noopener" class="work-visit"><span class="en">Visit website ↗</span><span class="nl">Bezoek website ↗</span></a>
+          </div>
+        </div>
 
-        <a href="/work/reno-rangers.html" class="work-card">
+        <div class="work-card">
           <div class="work-title">RENO RANGERS</div>
           <div class="work-industry"><span class="en">Renovation &amp; construction · Antwerp</span><span class="nl">Renovatie &amp; bouw · Antwerpen</span></div>
           <p>
@@ -1079,8 +1097,11 @@
             <span class="work-tag"><span class="en">Positioning</span><span class="nl">Positionering</span></span>
             <span class="work-tag">WhatsApp</span>
           </div>
-          <div class="work-link"><span class="en">Read the case →</span><span class="nl">Lees de case →</span></div>
-        </a>
+          <div class="work-actions">
+            <a href="/work/reno-rangers.html" class="work-link"><span class="en">Read the case →</span><span class="nl">Lees de case →</span></a>
+            <a href="https://renorangers.be" target="_blank" rel="noopener" class="work-visit"><span class="en">Visit website ↗</span><span class="nl">Bezoek website ↗</span></a>
+          </div>
+        </div>
       </div>
     </section>
 
