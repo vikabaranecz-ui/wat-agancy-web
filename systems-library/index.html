@@ -131,12 +131,16 @@ nav.scrolled{height:56px;box-shadow:0 4px 24px rgba(0,0,0,.3)}
 .proj-mock{height:170px;position:relative;background:linear-gradient(135deg,var(--bg-alt) 0%,#141414 100%);display:flex;align-items:center;justify-content:center;overflow:hidden}
 .proj-mock-bar{position:absolute;top:0;left:0;right:0;height:26px;background:rgba(245,245,245,.04);display:flex;align-items:center;gap:6px;padding:0 12px}
 .proj-mock-dot{width:7px;height:7px;border-radius:50%;background:rgba(245,245,245,.16)}
-.proj-mock-label{font-family:'Bebas Neue',sans-serif;font-size:30px;letter-spacing:3px;color:rgba(245,245,245,.14);text-align:center;padding:0 16px;line-height:1.1}
-.proj-mock-frame{position:absolute;top:0;left:0;width:400%;height:400%;border:0;transform:scale(.25);transform-origin:0 0;pointer-events:none;background:#fff}
-.proj-mock-preview{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;cursor:pointer;background:none;border:0;width:100%;color:inherit;font:inherit}
-.proj-mock-play{width:38px;height:38px;border-radius:50%;border:1px solid rgba(245,245,245,.2);display:flex;align-items:center;justify-content:center;font-size:13px;color:var(--ink-60);transition:.2s}
-.proj-mock-preview:hover .proj-mock-play{border-color:var(--red);color:var(--red)}
-.proj-mock-hint{font-family:'Inter',sans-serif;font-size:11px;letter-spacing:.3px;color:var(--ink-60)}
+.proj-mock-label{font-family:'Bebas Neue',sans-serif;font-size:28px;letter-spacing:3px;color:rgba(245,245,245,.32);text-align:center;padding:0 16px;line-height:1.15}
+/* Live sites are embedded via iframe only at the mercy of a header (X-Frame-Options /
+   frame-ancestors) that the target server controls and can change without notice —
+   isoprotech.be already sends X-Frame-Options: DENY, and a browser gives JS no reliable
+   way to detect that block, so the box was rendering fully blank with no fallback.
+   This card always shows the project name and a direct link instead of attempting
+   to embed. */
+.proj-mock-visit{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;text-decoration:none;color:inherit;width:100%}
+.proj-mock-hint{font-family:'Inter',sans-serif;font-size:11px;letter-spacing:.3px;color:var(--ink-60);display:flex;align-items:center;gap:6px;transition:color .2s}
+.proj-mock-visit:hover .proj-mock-hint{color:var(--red)}
 .proj-body{padding:26px;display:flex;flex-direction:column;gap:12px;flex:1}
 .proj-badges{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
 .proj-badge{font-family:'Space Grotesk',sans-serif;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:5px 11px;border-radius:20px}
@@ -252,7 +256,7 @@ footer{padding:64px 64px 32px;background:var(--bg)}
     <div class="proj-card rv" data-type="client" data-tags="websites,google-business,lead-flow">
       <div class="proj-mock">
         <div class="proj-mock-bar"><span class="proj-mock-dot"></span><span class="proj-mock-dot"></span><span class="proj-mock-dot"></span></div>
-        <button class="proj-mock-preview" data-src="https://www.renorangers.be" data-title="Reno Rangers live preview" onclick="loadPreview(this)"><span class="proj-mock-play">▶</span><span class="proj-mock-hint">Load live preview</span></button>
+        <a class="proj-mock-visit" href="https://www.renorangers.be" target="_blank" rel="noopener"><span class="proj-mock-label">RENO<br>RANGERS</span><span class="proj-mock-hint">View live site ↗</span></a>
       </div>
       <div class="proj-body">
         <div class="proj-badges"><span class="proj-badge type-client">Client System</span></div>
@@ -281,7 +285,7 @@ footer{padding:64px 64px 32px;background:var(--bg)}
     <div class="proj-card rv d1" data-type="client" data-tags="websites,google-business,lead-flow">
       <div class="proj-mock">
         <div class="proj-mock-bar"><span class="proj-mock-dot"></span><span class="proj-mock-dot"></span><span class="proj-mock-dot"></span></div>
-        <button class="proj-mock-preview" data-src="https://www.isoprotech.be" data-title="ISOPROTECH live preview" onclick="loadPreview(this)"><span class="proj-mock-play">▶</span><span class="proj-mock-hint">Load live preview</span></button>
+        <a class="proj-mock-visit" href="https://www.isoprotech.be" target="_blank" rel="noopener"><span class="proj-mock-label">ISOPROTECH</span><span class="proj-mock-hint">View live site ↗</span></a>
       </div>
       <div class="proj-body">
         <div class="proj-badges"><span class="proj-badge type-client">Client System</span></div>
@@ -311,7 +315,7 @@ footer{padding:64px 64px 32px;background:var(--bg)}
     <div class="proj-card rv" data-type="concept" data-tags="websites,branding,google-business,lead-flow">
       <div class="proj-mock">
         <div class="proj-mock-bar"><span class="proj-mock-dot"></span><span class="proj-mock-dot"></span><span class="proj-mock-dot"></span></div>
-        <button class="proj-mock-preview" data-src="https://bar-beard.vercel.app" data-title="Barbershop &amp; Bar concept live preview" onclick="loadPreview(this)"><span class="proj-mock-play">▶</span><span class="proj-mock-hint">Load live preview</span></button>
+        <a class="proj-mock-visit" href="https://bar-beard.vercel.app" target="_blank" rel="noopener"><span class="proj-mock-label">BAR &amp;<br>BEARD</span><span class="proj-mock-hint">View live site ↗</span></a>
       </div>
       <div class="proj-body">
         <div class="proj-badges"><span class="proj-badge type-concept">Concept System</span></div>
@@ -341,7 +345,7 @@ footer{padding:64px 64px 32px;background:var(--bg)}
     <div class="proj-card rv d1" data-type="concept" data-tags="websites,google-business,lead-flow">
       <div class="proj-mock">
         <div class="proj-mock-bar"><span class="proj-mock-dot"></span><span class="proj-mock-dot"></span><span class="proj-mock-dot"></span></div>
-        <button class="proj-mock-preview" data-src="https://rio-lfix.vercel.app" data-title="Drain Cleaning concept live preview" onclick="loadPreview(this)"><span class="proj-mock-play">▶</span><span class="proj-mock-hint">Load live preview</span></button>
+        <a class="proj-mock-visit" href="https://rio-lfix.vercel.app" target="_blank" rel="noopener"><span class="proj-mock-label">RIOLFIX</span><span class="proj-mock-hint">View live site ↗</span></a>
       </div>
       <div class="proj-body">
         <div class="proj-badges"><span class="proj-badge type-concept">Concept System</span></div>
@@ -496,21 +500,6 @@ const obs = new IntersectionObserver((entries) => {
   entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('vi'); obs.unobserve(e.target); } });
 }, { threshold: 0.12 });
 revEls.forEach(el => obs.observe(el));
-
-// Live preview — auto-load on page load
-function loadPreview(btn) {
-  const iframe = document.createElement('iframe');
-  iframe.className = 'proj-mock-frame';
-  iframe.src = btn.dataset.src;
-  iframe.loading = 'lazy';
-  iframe.title = btn.dataset.title || 'Live preview';
-  btn.replaceWith(iframe);
-}
-
-// Auto-load all previews
-document.querySelectorAll('.proj-mock-preview').forEach(btn => {
-  loadPreview(btn);
-});
 
 // Breakdown toggle
 function toggleBreakdown(btn) {
