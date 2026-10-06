@@ -124,7 +124,7 @@ nav.scrolled{height:56px;box-shadow:0 4px 24px rgba(0,0,0,.3)}
 .tab-btn.active{background:var(--red);color:#0D0D0D;border-color:var(--red)}
 
 /* ── PROJECT GRID ── */
-.proj-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(330px,1fr));gap:26px}
+.proj-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(330px,100%),1fr));gap:26px}
 .proj-card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--r24);overflow:hidden;display:flex;flex-direction:column;transition:transform .25s,border-color .25s,box-shadow .25s}
 .proj-card:hover{transform:translateY(-5px);border-color:var(--border-red);box-shadow:0 20px 48px rgba(0,0,0,.45)}
 .proj-card.hide{display:none}
