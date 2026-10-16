@@ -174,7 +174,7 @@
         qa('.section-label, h2', section),
         qa('.lead, .pain-verdict p', section),
         qa('.pain-item, .who-card, .system-node, .approach-item, .work-card', section),
-        qa('.hero-buttons, .cta-content .btn, .trust-copy', section)
+        qa('.hero-buttons, .cta-content .btn, .trust-copy, .work-more', section)
       ];
 
       groups.forEach(function (els, gi) {
