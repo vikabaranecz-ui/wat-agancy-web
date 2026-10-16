@@ -141,6 +141,16 @@ nav.scrolled{height:56px;box-shadow:0 4px 24px rgba(0,0,0,.3)}
 .proj-mock-visit{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;text-decoration:none;color:inherit;width:100%}
 .proj-mock-hint{font-family:'Inter',sans-serif;font-size:11px;letter-spacing:.3px;color:var(--ink-60);display:flex;align-items:center;gap:6px;transition:color .2s}
 .proj-mock-visit:hover .proj-mock-hint{color:var(--red)}
+/* First-screen preview: a real image pulled from the live site itself (its
+   og:image or hero photo), loaded directly from that site's own origin — so
+   it's the visitor's browser fetching it, not ours, and the earlier iframe
+   block above doesn't apply at all. */
+.proj-mock-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .35s ease}
+.proj-card:hover .proj-mock-img{transform:scale(1.045)}
+.proj-mock-scrim{position:absolute;inset:0;z-index:1;background:linear-gradient(180deg,rgba(13,13,13,.1) 0%,rgba(13,13,13,.82) 100%);pointer-events:none}
+.proj-mock-visit.has-img{justify-content:flex-end;padding-bottom:14px}
+.proj-mock-visit.has-img .proj-mock-hint{position:relative;z-index:2;color:#fff}
+.proj-mock-visit.has-img:hover .proj-mock-hint{color:var(--red)}
 .proj-body{padding:26px;display:flex;flex-direction:column;gap:12px;flex:1}
 .proj-badges{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
 .proj-badge{font-family:'Space Grotesk',sans-serif;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:5px 11px;border-radius:20px}
@@ -256,7 +266,7 @@ footer{padding:64px 64px 32px;background:var(--bg)}
     <div class="proj-card rv" data-type="client" data-tags="websites,google-business,lead-flow">
       <div class="proj-mock">
         <div class="proj-mock-bar"><span class="proj-mock-dot"></span><span class="proj-mock-dot"></span><span class="proj-mock-dot"></span></div>
-        <a class="proj-mock-visit" href="https://www.renorangers.be" target="_blank" rel="noopener"><span class="proj-mock-label">RENO<br>RANGERS</span><span class="proj-mock-hint">View live site ↗</span></a>
+        <a class="proj-mock-visit has-img" href="https://www.renorangers.be" target="_blank" rel="noopener"><img class="proj-mock-img" src="https://www.renorangers.be/badkamer-hero-desktop.webp" alt="" loading="lazy"><span class="proj-mock-scrim"></span><span class="proj-mock-hint">View live site ↗</span></a>
       </div>
       <div class="proj-body">
         <div class="proj-badges"><span class="proj-badge type-client">Client System</span></div>
@@ -285,7 +295,7 @@ footer{padding:64px 64px 32px;background:var(--bg)}
     <div class="proj-card rv d1" data-type="client" data-tags="websites,google-business,lead-flow">
       <div class="proj-mock">
         <div class="proj-mock-bar"><span class="proj-mock-dot"></span><span class="proj-mock-dot"></span><span class="proj-mock-dot"></span></div>
-        <a class="proj-mock-visit" href="https://www.isoprotech.be" target="_blank" rel="noopener"><span class="proj-mock-label">ISOPROTECH</span><span class="proj-mock-hint">View live site ↗</span></a>
+        <a class="proj-mock-visit has-img" href="https://www.isoprotech.be" target="_blank" rel="noopener"><img class="proj-mock-img" src="https://www.isoprotech.be/images/og-isoprotech.png" alt="" loading="lazy"><span class="proj-mock-scrim"></span><span class="proj-mock-hint">View live site ↗</span></a>
       </div>
       <div class="proj-body">
         <div class="proj-badges"><span class="proj-badge type-client">Client System</span></div>
@@ -332,7 +342,7 @@ footer{padding:64px 64px 32px;background:var(--bg)}
     <div class="proj-card rv" data-type="concept" data-tags="websites,branding,google-business,lead-flow">
       <div class="proj-mock">
         <div class="proj-mock-bar"><span class="proj-mock-dot"></span><span class="proj-mock-dot"></span><span class="proj-mock-dot"></span></div>
-        <a class="proj-mock-visit" href="https://bar-beard.vercel.app" target="_blank" rel="noopener"><span class="proj-mock-label">BAR &amp;<br>BEARD</span><span class="proj-mock-hint">View live site ↗</span></a>
+        <a class="proj-mock-visit has-img" href="https://bar-beard.vercel.app" target="_blank" rel="noopener"><img class="proj-mock-img" src="https://bar-beard.vercel.app/assets/fade-cut.jpg" alt="" loading="lazy"><span class="proj-mock-scrim"></span><span class="proj-mock-hint">View live site ↗</span></a>
       </div>
       <div class="proj-body">
         <div class="proj-badges"><span class="proj-badge type-concept">Concept System</span></div>
@@ -362,7 +372,7 @@ footer{padding:64px 64px 32px;background:var(--bg)}
     <div class="proj-card rv d1" data-type="concept" data-tags="websites,google-business,lead-flow">
       <div class="proj-mock">
         <div class="proj-mock-bar"><span class="proj-mock-dot"></span><span class="proj-mock-dot"></span><span class="proj-mock-dot"></span></div>
-        <a class="proj-mock-visit" href="https://rio-lfix.vercel.app" target="_blank" rel="noopener"><span class="proj-mock-label">RIOLFIX</span><span class="proj-mock-hint">View live site ↗</span></a>
+        <a class="proj-mock-visit has-img" href="https://rio-lfix.vercel.app" target="_blank" rel="noopener"><img class="proj-mock-img" src="https://rio-lfix.vercel.app/assets/team-yard.png" alt="" loading="lazy"><span class="proj-mock-scrim"></span><span class="proj-mock-hint">View live site ↗</span></a>
       </div>
       <div class="proj-body">
         <div class="proj-badges"><span class="proj-badge type-concept">Concept System</span></div>
@@ -420,7 +430,7 @@ footer{padding:64px 64px 32px;background:var(--bg)}
     <div class="proj-card rv" data-type="concept" data-tags="websites,lead-flow">
       <div class="proj-mock">
         <div class="proj-mock-bar"><span class="proj-mock-dot"></span><span class="proj-mock-dot"></span><span class="proj-mock-dot"></span></div>
-        <a class="proj-mock-visit" href="https://shine-and-shift-antwerpen.vercel.app" target="_blank" rel="noopener"><span class="proj-mock-label">SHINE &amp;<br>SHIFT</span><span class="proj-mock-hint">View live site ↗</span></a>
+        <a class="proj-mock-visit has-img" href="https://shine-and-shift-antwerpen.vercel.app" target="_blank" rel="noopener"><img class="proj-mock-img" src="https://shine-and-shift-antwerpen.vercel.app/og.png" alt="" loading="lazy"><span class="proj-mock-scrim"></span><span class="proj-mock-hint">View live site ↗</span></a>
       </div>
       <div class="proj-body">
         <div class="proj-badges"><span class="proj-badge type-concept">Concept System</span></div>
