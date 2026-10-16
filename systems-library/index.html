@@ -10,11 +10,11 @@
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Grotesk:wght@400;500;600;700;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
 :root{
-  --red:#FFE500;--red-mid:#D4BE00;--red-dark:#8B7A00;
-  --red-10:rgba(255,229,0,.1);--red-15:rgba(255,229,0,.15);--red-06:rgba(255,229,0,.06);
+  --red:#FFD400;--red-mid:#E6C200;--red-dark:#8A6500;
+  --red-10:rgba(255,212,0,.1);--red-15:rgba(255,212,0,.15);--red-06:rgba(255,212,0,.06);
   --ink:#F5F5F5;--ink-60:rgba(245,245,245,.6);--ink-40:rgba(245,245,245,.4);--ink-12:rgba(245,245,245,.12);
   --bg:#0D0D0D;--bg-card:#1A1A1A;--bg-alt:#222222;--bg-dark:#0D0D0D;
-  --border:rgba(245,245,245,.08);--border-red:rgba(255,229,0,.2);
+  --border:rgba(245,245,245,.08);--border-red:rgba(255,212,0,.2);
   --r24:24px;--r16:16px;--r12:12px;
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
@@ -30,7 +30,7 @@ nav.scrolled{height:56px;box-shadow:0 4px 24px rgba(0,0,0,.3)}
 .nav-logo{font-family:'Bebas Neue',sans-serif;font-size:24px;letter-spacing:5px;color:var(--ink);display:flex;align-items:center;gap:1px}
 .nav-logo .q{color:var(--red);font-size:30px;line-height:.85}
 .nav-links{display:flex;gap:32px;align-items:center}
-.nav-links a{font-family:'Inter',sans-serif;font-size:13px;font-weight:500;color:var(--ink-60);transition:color .2s;letter-spacing:.2px}
+.nav-links a{font-family:'Inter',sans-serif;font-size:12px;font-weight:600;text-transform:uppercase;color:var(--ink-60);transition:color .2s;letter-spacing:1.5px}
 .nav-links a:hover,.nav-links a.active{color:var(--red)}
 .nav-cta{font-family:'Space Grotesk',sans-serif;font-size:12px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#0D0D0D;background:var(--red);padding:10px 24px;border-radius:var(--r12);transition:background .2s,transform .15s,box-shadow .2s}
 .nav-cta:hover{background:var(--red-mid);transform:translateY(-1px);box-shadow:0 8px 24px var(--red-15)}
@@ -92,7 +92,7 @@ nav.scrolled{height:56px;box-shadow:0 4px 24px rgba(0,0,0,.3)}
 
 /* ── HERO ── */
 .wl-hero{background:var(--bg);padding:150px 64px 90px;position:relative;overflow:hidden}
-.wl-hero::before{content:'';position:absolute;top:-260px;right:-260px;width:760px;height:760px;border-radius:50%;background:radial-gradient(circle at 38% 38%,rgba(255,229,0,.18) 0%,rgba(255,229,0,.06) 38%,transparent 68%);filter:blur(60px);pointer-events:none}
+.wl-hero::before{content:'';position:absolute;top:-260px;right:-260px;width:760px;height:760px;border-radius:50%;background:radial-gradient(circle at 38% 38%,rgba(255,212,0,.18) 0%,rgba(255,212,0,.06) 38%,transparent 68%);filter:blur(60px);pointer-events:none}
 .wl-hero-inner{position:relative;z-index:1;max-width:880px}
 .wl-eyebrow{display:inline-flex;align-items:center;gap:8px;font-family:'Space Grotesk',sans-serif;font-size:11px;font-weight:700;letter-spacing:5px;text-transform:uppercase;color:var(--red);margin-bottom:26px}
 .wl-eyebrow::before{content:'';width:28px;height:2px;background:var(--red);border-radius:2px;display:block}
@@ -161,7 +161,7 @@ nav.scrolled{height:56px;box-shadow:0 4px 24px rgba(0,0,0,.3)}
 .proj-desc{font-size:13.5px;line-height:1.65;color:var(--ink-60)}
 .proj-incl{font-size:12px;color:var(--ink-40);line-height:1.7;padding-top:10px;border-top:1px solid var(--border)}
 .proj-incl strong{color:var(--ink-60);display:block;margin-bottom:4px;font-family:'Space Grotesk',sans-serif;font-size:10px;letter-spacing:1px;text-transform:uppercase}
-.proj-note{font-size:11.5px;font-style:italic;color:var(--ink-40);background:rgba(255,229,0,.05);padding:10px 12px;border-radius:10px;border:1px solid var(--border)}
+.proj-note{font-size:11.5px;font-style:italic;color:var(--ink-40);background:rgba(255,212,0,.05);padding:10px 12px;border-radius:10px;border:1px solid var(--border)}
 .proj-actions{display:flex;gap:10px;margin-top:auto;flex-wrap:wrap}
 .proj-btn{flex:1;text-align:center;font-family:'Space Grotesk',sans-serif;font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:13px 10px;border-radius:12px;cursor:pointer;transition:.2s;border:none;min-width:120px}
 .proj-btn.primary{background:var(--red);color:#0D0D0D}
@@ -216,7 +216,7 @@ footer{padding:64px 64px 32px;background:var(--bg)}
 
 <!-- NAV -->
 <nav id="nav">
-  <a class="nav-logo" href="/en/">WAT<span class="q">?</span>&nbsp;AGENCY</a>
+  <a class="nav-logo" href="/en/"><span class="q">?</span> WAT</a>
   <div class="nav-links">
     <a href="/en/">Home</a>
     <a href="#library">Work</a>
@@ -492,7 +492,7 @@ footer{padding:64px 64px 32px;background:var(--bg)}
 <footer>
   <div class="foot-inner">
     <div>
-      <div class="foot-logo">WAT<span class="q">?</span>&nbsp;AGENCY</div>
+      <div class="foot-logo"><span class="q">?</span> WAT</div>
       <p class="foot-desc">Full online presence for businesses in Belgium. Website, Google Business, social media and content — one system that brings clients while you work.</p>
     </div>
     <div>
