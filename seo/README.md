@@ -52,3 +52,22 @@ The earlier ISOPROTECH/Reno setup used Monday 08:00 scheduling, GSC + Keyword Pl
 - Skills present only in the owner's Claude web account are **not automatically accessible** to this API-key-authenticated runner. A separate approved synchronization/install mechanism is required before claiming they can run every Monday. No arbitrary web installation.
 
 **Verification status:** these additions are committed in the draft PR only. Runner results, actual discovered skills, GSC and Keyword Planner API access, and weekly execution have not yet been demonstrated.
+
+## Verify account connections before enabling weekly SEO
+
+A **manual, read-only** Actions workflow has been added at `.github/workflows/wat-verify-connections.yml`. Its Python script `scripts/wat_verify_connections.py` checks:
+1. Anthropic API key via authenticated Models endpoint (no model inference costs; this is not proof of the Claude Code action running or of any account skill sync).
+2. WAT Search Console property using a genuine Search Analytics request; distinguish success with zero rows from authentication failure.
+3. WAT Google Ads customer access and developer token via one minimal real Keyword Planner call. This does not edit ads.
+
+Status is written to `wat-connection-check.json` as a GitHub Actions artifact (14-day retention). No key/token payloads are written to the report or displayed in logs. If one service is unavailable, report NOT_CONFIGURED or FAILED rather than claiming all connected. The workflow **does not enable Monday runs, edit the website, create PRs or publish anything**. It has read-only repository permissions.
+
+**Activation note:** GitHub Actions manual dispatch generally requires the workflow file to exist on the repository's default branch; while PR #8 remains draft, the workflow has not been run from Actions and the accounts are not yet verified. After approval/merge of this standalone verification workflow or PR, use Actions → `WAT — Verify Claude and Google Connections` → Run workflow. Check each status in the artifact; then run the full SEO collector/Claude workflow separately to verify real end-to-end execution. A successful API key check alone must not be treated as proof that a Claude Code skill executed.
+
+Current required WAT settings:
+- `ANTHROPIC_API_KEY` secret; optional `WAT_ANTHROPIC_WORKSPACE_ID` variable for scoped/multi-workspace keys
+- `WAT_GSC_SERVICE_ACCOUNT_JSON` secret and read-only permission on the exact WAT GSC property
+- `WAT_GOOGLE_ADS_CUSTOMER_ID` variable and `WAT_GOOGLE_ADS_DEVELOPER_TOKEN` secret; optional manager login `WAT_GOOGLE_ADS_LOGIN_CUSTOMER_ID` variable
+- No secrets in repository files, GitHub issues, comments or chat.
+
+If WAT's Google service-account doesn't already have GSC and Ads access, authorize it in **both** services instead of assuming an API token from another company's repo grants WAT permissions. Do not change ISOPROTECH or Reno Rangers to run these checks.
