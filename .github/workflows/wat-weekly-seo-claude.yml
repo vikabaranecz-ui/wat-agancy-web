@@ -27,6 +27,10 @@ jobs:
       GSC_SITE_URL: ${{ vars.WAT_GSC_SITE_URL || 'sc-domain:watagencybelgium.be' }}
       WAT_SITE_URL: https://www.watagencybelgium.be
       GOOGLE_ADC_JSON: ${{ secrets.WAT_GSC_SERVICE_ACCOUNT_JSON }}
+      WAT_GOOGLE_ADS_CUSTOMER_ID: ${{ vars.WAT_GOOGLE_ADS_CUSTOMER_ID }}
+      GOOGLE_ADS_DEVELOPER_TOKEN: ${{ secrets.WAT_GOOGLE_ADS_DEVELOPER_TOKEN }}
+      GOOGLE_ADS_LOGIN_CUSTOMER_ID: ${{ vars.WAT_GOOGLE_ADS_LOGIN_CUSTOMER_ID }}
+      GOOGLE_ADS_API_VERSION: v25
     steps:
       - name: Checkout WAT repository
         uses: actions/checkout@v4
@@ -59,11 +63,12 @@ jobs:
           python - <<'PY'
           import json, os
           data=json.load(open("seo-weekly-context.json"))
-          ready=data["gsc"]["status"]=="OK" and bool(os.getenv("ANTHROPIC_API_KEY"))
+          ready=(data["gsc"]["status"]=="OK" and data["keyword_planner"]["status"]=="OK" and bool(os.getenv("ANTHROPIC_API_KEY")))
+          print("GSC:", data["gsc"]["status"], "Ads:", data["keyword_planner"]["status"])
           with open(os.environ["GITHUB_OUTPUT"],"a") as f:
               f.write("ready=" + str(ready).lower() + "\n")
           print("WAT weekly SEO Claude ready:", ready)
-          if not ready: print("GSC or Claude credentials unavailable; create a blocked issue, do not invent metrics.")
+          if not ready: print("GSC, WAT Google Ads Keyword Planner, or Claude credentials unavailable; create a blocked issue, do not invent metrics.")
           PY
 
       - name: Create honest BLOCKED report without paid Claude run
@@ -75,7 +80,7 @@ jobs:
           FOUND="$(gh issue list --repo "$GITHUB_REPOSITORY" --search "${TITLE} in:title" --json number --jq 'length' --limit 10)"
           if [ "$FOUND" = "0" ]; then
             gh issue create --repo "$GITHUB_REPOSITORY" --title "$TITLE" \
-              --body "WAT Agency only. Weekly site audit completed; GSC evidence or Claude API access not verified. Read the evidence artifact in this GitHub Actions run. Configure WAT_GSC_SERVICE_ACCOUNT_JSON, WAT_GSC_SITE_URL (if needed), WAT GSC service-account access, and ANTHROPIC_API_KEY, then manually dispatch again. No rankings, search volumes, leads or skills have been invented. No website changes were published."
+              --body "WAT Agency only. Weekly site audit completed; GSC, Ads Keyword Planner evidence or Claude API access not verified. Read the evidence artifact in this GitHub Actions run. Configure WAT_GSC_SERVICE_ACCOUNT_JSON, WAT_GSC_SITE_URL (if needed), WAT_GOOGLE_ADS_CUSTOMER_ID, WAT_GOOGLE_ADS_DEVELOPER_TOKEN, WAT Ads access, and ANTHROPIC_API_KEY, then manually dispatch again. No rankings, search volumes, leads or skills have been invented. No website changes were published."
           fi
 
       - name: Run WAT-only weekly SEO and missing-gap analysis
@@ -93,9 +98,9 @@ jobs:
             `seo/business_profile.json`, `seo/keyword_targets.json`,
             `seo/growth_strategy.json`, `seo-weekly-context.json`.
             Determine today's date in Europe/Brussels.
-            First audit technical, commercial keywords, intent-to-page mapping, missing
+            REQUIRE real GSC query-to-page 28d and previous 28d evidence AND genuine WAT Google Ads Keyword Planner local Antwerp + Belgium datasets. If incomplete, do not invent rankings or search volumes; audit health and create BLOCKED report instead.\n            First audit technical, commercial keywords, intent-to-page mapping, missing
             sector/problem/question coverage, source-supported competitor gaps,
-            CTA/conversion and AI answerability. Use evidence rather than guesses.
+            CTA/conversion and AI answerability. Use evidence rather than guesses.\n            Require a concrete evidence ledger for each proposed change: source, observed gap, affected URL/query, local search demand where available, diagnosis, smallest reasonable fix, regression risk, acceptance checks, measured follow-up.\n            Do NOT edit a page to satisfy keyword quota; choose real problems and verify site health before proposing edits.
             Dynamically inspect only the ACTUAL Claude skills available in this runner;
             use them if clearly relevant; do not assume account-only skills exist here.
             Check existing WAT PRs and avoid conflicts with pending consent/contact work.
