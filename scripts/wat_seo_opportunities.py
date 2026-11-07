@@ -9,7 +9,7 @@ from urllib.parse import urlparse
 
 ROOT = Path("seo-weekly-context.json")
 OUT = Path("seo-weekly-opportunities.json")
-BRAND = re.compile(r"\\b(wat\\?? agency|watagency|wat agency|viktoriiamarketing)\\b", re.I)
+BRAND = re.compile(r"\b(wat\?? agency|watagency|wat agency|viktoriiamarketing)\b", re.I)
 COMMERCIAL = re.compile(r"marketing|website|webdesign|google|seo|advert|reclame|klanten|offerte|aanvragen|agency|bureau|social|bedrijf|aannemer|kmo", re.I)
 
 def read_rows(block):
