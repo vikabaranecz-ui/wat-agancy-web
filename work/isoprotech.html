@@ -178,25 +178,26 @@
 
     .build-list p { font-size: 14px; color: rgba(244, 242, 236, 0.65); margin-bottom: 0; }
 
+    /* Light proof panel — the one deliberate break from black-on-black,
+       reserved for verifiable results. */
     .metrics {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(min(160px, 100%), 1fr));
-      gap: 24px;
+      gap: 8px;
       margin-top: 36px;
+      background: #FAF7F0;
+      border-radius: 12px;
+      padding: 32px;
     }
 
-    .metric {
-      padding: 24px;
-      background: rgba(255, 212, 0, 0.06);
-      border: 1px solid rgba(255, 212, 0, 0.18);
-      border-radius: 6px;
-    }
+    .metric { padding: 0 24px; }
+    .metric + .metric { border-left: 1px solid rgba(23, 21, 17, 0.12); }
 
     .metric-value {
       font-family: 'Bebas Neue', serif;
       font-size: 40px;
       line-height: 1;
-      color: #FFD400;
+      color: #8A6500;
       margin-bottom: 8px;
     }
 
@@ -204,8 +205,31 @@
       font-size: 11px;
       letter-spacing: 1.5px;
       text-transform: uppercase;
-      color: rgba(244, 242, 236, 0.5);
+      color: rgba(23, 21, 17, 0.6);
     }
+
+    @media(max-width: 600px) {
+      .metric + .metric { border-left: none; border-top: 1px solid rgba(23, 21, 17, 0.12); padding-top: 16px; margin-top: 8px; }
+    }
+
+    /* Mid-page bridge CTA, before the reader reaches the final pitch. */
+    .mid-cta {
+      margin: 0 0 72px;
+      padding: 28px 32px;
+      background: linear-gradient(rgba(255, 212, 0, 0.08), rgba(255, 212, 0, 0.08)), #0a0a0a;
+      border: 1px solid rgba(255, 212, 0, 0.2);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .mid-cta p { font-size: 15px; color: #F4F2EC; margin: 0; max-width: 480px; }
+    .mid-cta .btn { flex-shrink: 0; }
+
+    @media(max-width: 600px) { .mid-cta { padding: 24px; } .mid-cta .btn { width: 100%; text-align: center; } }
 
     .note {
       margin-top: 28px;
@@ -411,6 +435,16 @@
         </li>
       </ul>
     </section>
+
+    <div class="mid-cta">
+      <p>
+        <span class="en">This is the kind of system we'd build for your business too.</span>
+        <span class="nl">Dit is het soort systeem dat we ook voor jouw bedrijf zouden bouwen.</span>
+      </p>
+      <a href="https://wa.me/32471623105?text=Hi%20WAT%3F%20I%20read%20the%20Isoprotech%20case%20and%20want%20something%20similar" target="_blank" rel="noopener" class="btn">
+        <span class="en">Talk to us on WhatsApp →</span><span class="nl">Stuur ons een WhatsApp →</span>
+      </a>
+    </div>
 
     <section class="chapter">
       <div class="chapter-label"><span class="en">What the client ended up with</span><span class="nl">Waar de klant mee eindigde</span></div>
