@@ -1,0 +1,134 @@
+name: WAT Agency — Dedicated Weekly SEO Claude
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 8 * * 1"
+      timezone: "Europe/Brussels"
+
+concurrency:
+  group: wat-weekly-seo-claude
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+  issues: write
+  pull-requests: write
+
+jobs:
+  weekly-seo:
+    # Schedule is deliberately OFF until WAT-only GSC and Claude credentials
+    # have been configured and a manual run tested end-to-end.
+    if: github.event_name == 'workflow_dispatch' || vars.WAT_SEO_AUTOMATION_ENABLED == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    env:
+      GH_TOKEN: ${{ github.token }}
+      GSC_SITE_URL: ${{ vars.WAT_GSC_SITE_URL || 'sc-domain:watagencybelgium.be' }}
+      WAT_SITE_URL: https://www.watagencybelgium.be
+      GOOGLE_ADC_JSON: ${{ secrets.WAT_GSC_SERVICE_ACCOUNT_JSON }}
+    steps:
+      - name: Checkout WAT repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install public-site and GSC collector dependencies
+        run: python -m pip install --disable-pip-version-check requests beautifulsoup4 google-auth
+
+      - name: Collect WAT-only weekly SEO evidence
+        run: python scripts/wat_seo_weekly_collect.py
+
+      - name: Upload WAT-only evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: wat-seo-weekly-${{ github.run_id }}
+          path: seo-weekly-context.json
+          if-no-files-found: warn
+          retention-days: 30
+
+      - name: Check WAT GSC evidence and Claude authentication
+        id: gate
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: |
+          python - <<'PY'
+          import json, os
+          data=json.load(open("seo-weekly-context.json"))
+          ready=data["gsc"]["status"]=="OK" and bool(os.getenv("ANTHROPIC_API_KEY"))
+          with open(os.environ["GITHUB_OUTPUT"],"a") as f:
+              f.write("ready=" + str(ready).lower() + "\n")
+          print("WAT weekly SEO Claude ready:", ready)
+          if not ready: print("GSC or Claude credentials unavailable; create a blocked issue, do not invent metrics.")
+          PY
+
+      - name: Create honest BLOCKED report without paid Claude run
+        if: steps.gate.outputs.ready != 'true'
+        shell: bash
+        run: |
+          TODAY="$(TZ=Europe/Brussels date +%F)"
+          TITLE="SEO Weekly — ${TODAY} — BLOCKED"
+          FOUND="$(gh issue list --repo "$GITHUB_REPOSITORY" --search "${TITLE} in:title" --json number --jq 'length' --limit 10)"
+          if [ "$FOUND" = "0" ]; then
+            gh issue create --repo "$GITHUB_REPOSITORY" --title "$TITLE" \
+              --body "WAT Agency only. Weekly site audit completed; GSC evidence or Claude API access not verified. Read the evidence artifact in this GitHub Actions run. Configure WAT_GSC_SERVICE_ACCOUNT_JSON, WAT_GSC_SITE_URL (if needed), WAT GSC service-account access, and ANTHROPIC_API_KEY, then manually dispatch again. No rankings, search volumes, leads or skills have been invented. No website changes were published."
+          fi
+
+      - name: Run WAT-only weekly SEO and missing-gap analysis
+        if: steps.gate.outputs.ready == 'true'
+        id: claude
+        uses: anthropics/claude-code-action@v1
+        with:
+          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          github_token: ${{ github.token }}
+          show_full_output: true
+          allowed_bots: "github-actions[bot]"
+          prompt: |
+            This is the scheduled WAT Agency Belgium SEO run. Work ONLY in this WAT repository.
+            Read `.claude/agents/weekly-seo.md` in full, then read:
+            `seo/business_profile.json`, `seo/keyword_targets.json`,
+            `seo/growth_strategy.json`, `seo-weekly-context.json`.
+            Determine today's date in Europe/Brussels.
+            First audit technical, commercial keywords, intent-to-page mapping, missing
+            sector/problem/question coverage, source-supported competitor gaps,
+            CTA/conversion and AI answerability. Use evidence rather than guesses.
+            Dynamically inspect only the ACTUAL Claude skills available in this runner;
+            use them if clearly relevant; do not assume account-only skills exist here.
+            Check existing WAT PRs and avoid conflicts with pending consent/contact work.
+            For small changes, prepare reviewed PR, NEVER merge or publish automatically.
+            Approval is required for all new URLs, marketing claims and structural work.
+            Always create one `SEO Weekly — YYYY-MM-DD — <MODE>` issue with specific
+            evidence, gaps, chosen skill evidence, completed work, PR and Ukrainian owner summary.
+            If information is insufficient, report explicitly rather than fabricating rankings.
+          claude_args: |
+            --effort high
+            --allowedTools "Read,Write,Edit,Glob,Grep,WebSearch,WebFetch,Bash(git:*),Bash(gh:*),Bash(python:*),Bash(python3:*),Bash(npm:*),Bash(npx:*),Bash(ls:*),Bash(cat:*)"
+
+      - name: Send optional WAT-only Telegram status
+        if: always()
+        continue-on-error: true
+        env:
+          WAT_TELEGRAM_BOT_TOKEN: ${{ secrets.WAT_TELEGRAM_BOT_TOKEN }}
+          WAT_TELEGRAM_CHAT_ID: ${{ secrets.WAT_TELEGRAM_CHAT_ID }}
+        shell: bash
+        run: |
+          if [ -z "$WAT_TELEGRAM_BOT_TOKEN" ] || [ -z "$WAT_TELEGRAM_CHAT_ID" ]; then
+            echo "WAT Telegram not configured; no cross-project notification sent."
+            exit 0
+          fi
+          TODAY="$(TZ=Europe/Brussels date +%F)"
+          ISSUE_URL="$(gh issue list --repo "$GITHUB_REPOSITORY" --search "SEO Weekly — ${TODAY} in:title" --json url --jq '.[0].url // empty' --limit 20)"
+          export ISSUE_URL
+          python - <<'PY'
+          import os,requests
+          text="WAT Agency — weekly SEO report\n"+(os.getenv("ISSUE_URL") or "Issue not available; check Actions log")
+          r=requests.post(
+              "https://api.telegram.org/bot"+os.environ["WAT_TELEGRAM_BOT_TOKEN"]+"/sendMessage",
+              data={"chat_id":os.environ["WAT_TELEGRAM_CHAT_ID"],"text":text},
+              timeout=15)
+          r.raise_for_status()
+          PY
