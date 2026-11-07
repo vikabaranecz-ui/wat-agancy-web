@@ -6,6 +6,7 @@ import re
 from google.auth.transport.requests import Request
 from google.oauth2 import service_account
 import requests
+from wat_brand import is_brand_query
 
 def collect_keyword_planner(gsc_queries=None):
     customer_id = re.sub(r"\D", "", os.getenv("WAT_GOOGLE_ADS_CUSTOMER_ID", ""))
@@ -20,7 +21,7 @@ def collect_keyword_planner(gsc_queries=None):
     for row in sorted(gsc_queries or [], key=lambda x: x.get('impressions', 0), reverse=True):
         keys = row.get('keys', [])
         query = keys[0].strip() if keys and isinstance(keys[0], str) else ''
-        if query and not re.search(r'(?i)wat\\??\\s*agency|watagency|viktoriiamarketing', query) and query not in seeds:
+        if query and not is_brand_query(query) and query not in seeds:
             seeds.append(query)
         if len(seeds) >= 12: break
     observed_seed_count = len(seeds)

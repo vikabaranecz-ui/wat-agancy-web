@@ -10,18 +10,29 @@ concurrency:
   group: wat-weekly-seo-claude
   cancel-in-progress: false
 
+# Default for every job: read-only. Only the deterministic publish job below gets write scopes.
 permissions:
-  contents: write
-  issues: write
-  pull-requests: write
+  contents: read
 
 jobs:
-  weekly-seo:
+  # ---------------------------------------------------------------------------
+  # Job 1: evidence + Claude analysis. READ-ONLY GitHub token.
+  # Claude can edit files in this throwaway checkout, but the token cannot push,
+  # merge, open PRs or create issues. Protection is enforced by GitHub, not the prompt.
+  # ---------------------------------------------------------------------------
+  analyse:
     # Schedule is deliberately OFF until WAT-only GSC and Claude credentials
     # have been configured and a manual run tested end-to-end.
     if: github.event_name == 'workflow_dispatch' || vars.WAT_SEO_AUTOMATION_ENABLED == 'true'
     runs-on: ubuntu-latest
     timeout-minutes: 60
+    permissions:
+      contents: read
+      issues: read
+      pull-requests: read
+    outputs:
+      skip: ${{ steps.duplicate.outputs.skip }}
+      ready: ${{ steps.gate.outputs.ready }}
     env:
       GH_TOKEN: ${{ github.token }}
       GSC_SITE_URL: ${{ vars.WAT_GSC_SITE_URL || 'sc-domain:watagencybelgium.be' }}
@@ -53,6 +64,8 @@ jobs:
       - name: Checkout WAT repository
         if: steps.duplicate.outputs.skip != 'true'
         uses: actions/checkout@v4
+        with:
+          persist-credentials: false
 
       - name: Set up Python
         if: steps.duplicate.outputs.skip != 'true'
@@ -67,7 +80,8 @@ jobs:
       - name: Validate WAT SEO collectors and configuration
         if: steps.duplicate.outputs.skip != 'true'
         run: |
-          python -m compileall -q scripts/wat_ads_collect.py scripts/wat_seo_weekly_collect.py scripts/wat_seo_opportunities.py scripts/wat_claude_skill_inventory.py
+          python -m compileall -q scripts/wat_brand.py scripts/wat_ads_collect.py scripts/wat_seo_weekly_collect.py scripts/wat_seo_opportunities.py scripts/wat_claude_skill_inventory.py scripts/wat_verify_connections.py
+          python -m unittest discover -s tests
           python -m json.tool seo/keyword_targets.json > /dev/null
           python -m json.tool seo/business_profile.json > /dev/null
           python -m json.tool seo/growth_strategy.json > /dev/null
@@ -84,49 +98,28 @@ jobs:
         if: steps.duplicate.outputs.skip != 'true'
         run: python scripts/wat_seo_opportunities.py
 
-      - name: Upload WAT-only evidence
-        if: always() && steps.duplicate.outputs.skip != 'true'
-        uses: actions/upload-artifact@v4
-        with:
-          name: wat-seo-weekly-${{ github.run_id }}
-          path: |
-            seo-weekly-context.json
-            seo-weekly-opportunities.json
-            seo-weekly-skills.json
-          if-no-files-found: warn
-          retention-days: 30
-
-      - name: Check WAT GSC evidence and Claude authentication
+      - name: Gate on real GSC data and a working (not merely present) Claude key
         if: steps.duplicate.outputs.skip != 'true'
         id: gate
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
         run: |
           python - <<'PY'
-          import json, os
-          data=json.load(open("seo-weekly-context.json"))
-          ready=(data["gsc"]["status"]=="OK" and bool(os.getenv("ANTHROPIC_API_KEY")))
-          ads_available=(data["keyword_planner"]["status"]=="OK")
-          print("GSC:", data["gsc"]["status"], "Ads:", data["keyword_planner"]["status"], "(Ads unavailable means no volume-based assertions)")
-          with open(os.environ["GITHUB_OUTPUT"],"a") as f:
+          import json, os, sys
+          sys.path.insert(0, "scripts")
+          from wat_verify_connections import test_claude
+          data = json.load(open("seo-weekly-context.json"))
+          claude = test_claude()
+          ready = data["gsc"]["status"] == "OK" and claude["status"] == "CONNECTED"
+          print("GSC:", data["gsc"]["status"], "| Ads:", data["keyword_planner"]["status"],
+                "| Claude:", claude["status"], "-", claude["detail"])
+          with open(os.environ["GITHUB_OUTPUT"], "a") as f:
               f.write("ready=" + str(ready).lower() + "\n")
-          print("WAT weekly SEO Claude ready:", ready)
-          if not ready: print("GSC or Claude credentials unavailable; create a blocked issue, do not invent metrics.")
+          if not ready:
+              print("GSC or Claude not verified; a BLOCKED issue will be created, no metrics invented.")
           PY
 
-      - name: Create honest BLOCKED report without paid Claude run
-        if: steps.duplicate.outputs.skip != 'true' && steps.gate.outputs.ready != 'true'
-        shell: bash
-        run: |
-          TODAY="$(TZ=Europe/Brussels date +%F)"
-          TITLE="SEO Weekly — ${TODAY} — BLOCKED"
-          FOUND="$(gh issue list --repo "$GITHUB_REPOSITORY" --search "${TITLE} in:title" --json number --jq 'length' --limit 10)"
-          if [ "$FOUND" = "0" ]; then
-            gh issue create --repo "$GITHUB_REPOSITORY" --title "$TITLE" \
-              --body "WAT Agency only. Weekly site audit completed; GSC evidence or Claude API access not verified. Read the evidence artifact in this GitHub Actions run. Configure WAT_GSC_SERVICE_ACCOUNT_JSON, WAT_GSC_SITE_URL (if needed), WAT_GOOGLE_ADS_CUSTOMER_ID, WAT_GOOGLE_ADS_DEVELOPER_TOKEN, WAT Ads access, and ANTHROPIC_API_KEY, then manually dispatch again. No rankings, search volumes, leads or skills have been invented. No website changes were published."
-          fi
-
-      - name: Run WAT-only weekly SEO and missing-gap analysis
+      - name: Run WAT-only weekly SEO and missing-gap analysis (read-only token)
         if: steps.duplicate.outputs.skip != 'true' && steps.gate.outputs.ready == 'true'
         id: claude
         uses: anthropics/claude-code-action@v1
@@ -134,7 +127,6 @@ jobs:
           anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
           github_token: ${{ github.token }}
           show_full_output: true
-          allowed_bots: "github-actions[bot]"
           prompt: |
             This is the scheduled WAT Agency Belgium SEO run. Work ONLY in this WAT repository.
             Read `.claude/agents/weekly-seo.md` in full, then read:
@@ -148,23 +140,114 @@ jobs:
             CTA/conversion and AI answerability. Use evidence rather than guesses.
             Require a concrete evidence ledger for each proposed change: source, observed gap, affected URL/query, local search demand where available, diagnosis, smallest reasonable fix, regression risk, acceptance checks, measured follow-up.
             Do NOT edit a page to satisfy keyword quota; choose real problems and verify site health before proposing edits.
-            Inspect the ACTUAL readable SKILL.md manifests listed in seo-weekly-skills.json,
-            read full selected manifests if safe and relevant. If empty, state NO SKILLS AVAILABLE and continue standard SEO analysis.
-            Dynamically inspect only the ACTUAL Claude skills available in this runner;
-            use them if clearly relevant; do not assume account-only skills exist here.
-            Never treat a seed keyword as a validated target. The opportunities report is a shortlist for human intent/health review, not permission to edit without supporting evidence.
-            Check existing WAT PRs and avoid conflicts with pending consent/contact work.
-            For small changes, prepare reviewed PR, NEVER merge or publish automatically.
-            Approval is required for all new URLs, marketing claims and structural work.
-            Always create one `SEO Weekly — YYYY-MM-DD — <MODE>` issue with specific
-            evidence, gaps, chosen skill evidence, completed work, PR and Ukrainian owner summary.
+            Inspect the ACTUAL readable SKILL.md manifests listed in seo-weekly-skills.json; if empty, state NO SKILLS AVAILABLE and continue.
+            Never treat a seed keyword as a validated target.
+            Check existing WAT PRs (read-only `gh pr list` / `gh pr view`) and avoid conflicts with pending consent/contact work.
+
+            HOW TO DELIVER (enforced by the workflow, your GitHub token is read-only):
+            - Make any proposed site edits directly in the working tree. Do NOT run git commit, git push or gh write commands.
+            - Do not modify `.github/`, `.claude/`, `scripts/`, `tests/` or `seo-weekly-*.json`; such edits are discarded.
+            - Write the full weekly report (evidence, gaps, skill evidence, proposed changes, Ukrainian owner summary) to `seo-weekly-report.md`.
+            - Write exactly one word to `seo-weekly-mode.txt`: BLOCKED, MONITOR, AUDIT, PROPOSED or NEEDS APPROVAL.
+            A separate workflow job opens a DRAFT pull request and the weekly issue for human review. Nothing is merged or published automatically.
             If information is insufficient, report explicitly rather than fabricating rankings.
           claude_args: |
             --effort high
-            --allowedTools "Read,Write,Edit,Glob,Grep,WebSearch,WebFetch,Bash(git:*),Bash(gh:*),Bash(python:*),Bash(python3:*),Bash(npm:*),Bash(npx:*),Bash(ls:*),Bash(cat:*)"
+            --allowedTools "Read,Write,Edit,Glob,Grep,WebSearch,WebFetch,Bash(git status:*),Bash(git diff:*),Bash(git log:*),Bash(gh pr list:*),Bash(gh pr view:*),Bash(gh pr diff:*),Bash(gh issue list:*),Bash(gh issue view:*),Bash(python:*),Bash(python3:*),Bash(ls:*),Bash(cat:*)"
+            --disallowedTools "Bash(git push:*),Bash(git commit:*),Bash(git remote:*),Bash(gh pr merge:*),Bash(gh pr create:*),Bash(gh pr review:*),Bash(gh issue create:*),Bash(gh api:*),Bash(gh workflow:*),Bash(gh release:*),Bash(npm:*),Bash(npx:*),Bash(curl:*),Bash(wget:*)"
+
+      - name: Package proposal (site files only) and report
+        if: always() && steps.duplicate.outputs.skip != 'true'
+        shell: bash
+        run: |
+          mkdir -p proposal
+          # Only website content may be proposed; workflow, agent, scripts and tests are excluded.
+          git diff --binary -- . ':(exclude).github' ':(exclude).claude' ':(exclude)scripts' ':(exclude)tests' \
+            ':(exclude)seo-weekly-*.json' ':(exclude)seo-weekly-report.md' ':(exclude)seo-weekly-mode.txt' > proposal/site.patch || true
+          git ls-files --others --exclude-standard -- . ':(exclude).github' ':(exclude).claude' ':(exclude)scripts' \
+            ':(exclude)tests' ':(exclude)seo-weekly-*' ':(exclude)proposal' > proposal/new-files.txt || true
+          tar -czf proposal/new-files.tgz -T proposal/new-files.txt 2>/dev/null || true
+          cp seo-weekly-report.md proposal/ 2>/dev/null || echo "No Claude report produced." > proposal/seo-weekly-report.md
+          cp seo-weekly-mode.txt proposal/ 2>/dev/null || echo "BLOCKED" > proposal/seo-weekly-mode.txt
+          echo "Patch lines: $(wc -l < proposal/site.patch); new files: $(wc -l < proposal/new-files.txt)"
+
+      - name: Upload WAT-only evidence and proposal
+        if: always() && steps.duplicate.outputs.skip != 'true'
+        uses: actions/upload-artifact@v4
+        with:
+          name: wat-seo-weekly-${{ github.run_id }}
+          path: |
+            seo-weekly-context.json
+            seo-weekly-opportunities.json
+            seo-weekly-skills.json
+            proposal/
+          if-no-files-found: warn
+          retention-days: 30
+
+  # ---------------------------------------------------------------------------
+  # Job 2: deterministic publishing FOR REVIEW. No AI runs here.
+  # Pushes only to a new seo-weekly/* branch, opens a DRAFT PR, creates the issue.
+  # There is no merge command anywhere in this workflow.
+  # ---------------------------------------------------------------------------
+  publish-for-review:
+    needs: analyse
+    if: always() && needs.analyse.result != 'skipped' && needs.analyse.outputs.skip != 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: write
+      issues: write
+      pull-requests: write
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          name: wat-seo-weekly-${{ github.run_id }}
+          path: evidence
+      - name: Open draft PR (never merged automatically) and weekly issue
+        shell: bash
+        env:
+          READY: ${{ needs.analyse.outputs.ready }}
+        run: |
+          set -euo pipefail
+          TODAY="$(TZ=Europe/Brussels date +%F)"
+          MODE="$(tr -dc 'A-Z ' < evidence/proposal/seo-weekly-mode.txt | head -c 20)"
+          [ "$READY" = "true" ] || MODE="BLOCKED"
+          [ -n "$MODE" ] || MODE="BLOCKED"
+          PR_URL=""
+          if [ "$READY" = "true" ] && { [ -s evidence/proposal/site.patch ] || [ -s evidence/proposal/new-files.txt ]; }; then
+            BRANCH="seo-weekly/${TODAY}-${GITHUB_RUN_ID}"
+            case "$BRANCH" in seo-weekly/*) ;; *) echo "Refusing unexpected branch"; exit 1;; esac
+            git config user.name "github-actions[bot]"
+            git config user.email "41898099+github-actions[bot]@users.noreply.github.com"
+            git switch -c "$BRANCH"
+            [ -s evidence/proposal/site.patch ] && git apply --index evidence/proposal/site.patch
+            [ -s evidence/proposal/new-files.tgz ] && tar -xzf evidence/proposal/new-files.tgz && git add -- $(cat evidence/proposal/new-files.txt)
+            if git diff --cached --name-only | grep -E '^(\.github|\.claude|scripts|tests)/'; then
+              echo "Proposal touches protected paths; refusing."; exit 1
+            fi
+            git commit -m "SEO weekly proposal ${TODAY} (draft, needs review)"
+            # Explicit refspec: can only ever create/update the seo-weekly branch, never main.
+            git push origin "HEAD:refs/heads/${BRANCH}"
+            PR_URL="$(gh pr create --draft --base main --head "$BRANCH" \
+              --title "SEO Weekly ${TODAY} — proposal for review" \
+              --body-file evidence/proposal/seo-weekly-report.md)"
+          fi
+          TITLE="SEO Weekly — ${TODAY} — ${MODE}"
+          FOUND="$(gh issue list --repo "$GITHUB_REPOSITORY" --search "${TITLE} in:title" --json number --jq 'length' --limit 10)"
+          if [ "$FOUND" = "0" ]; then
+            {
+              cat evidence/proposal/seo-weekly-report.md
+              echo; echo "---"
+              echo "Draft PR (needs owner approval, not merged): ${PR_URL:-none}"
+              echo "Evidence: ${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}"
+            } > issue.md
+            gh issue create --repo "$GITHUB_REPOSITORY" --title "$TITLE" --body-file issue.md
+          fi
 
       - name: Send optional WAT-only Telegram status
-        if: always() && steps.duplicate.outputs.skip != 'true'
         continue-on-error: true
         env:
           WAT_TELEGRAM_BOT_TOKEN: ${{ secrets.WAT_TELEGRAM_BOT_TOKEN }}
@@ -178,12 +261,9 @@ jobs:
           TODAY="$(TZ=Europe/Brussels date +%F)"
           ISSUE_URL="$(gh issue list --repo "$GITHUB_REPOSITORY" --search "SEO Weekly — ${TODAY} in:title" --json url --jq '.[0].url // empty' --limit 20)"
           export ISSUE_URL
-          python - <<'PY'
-          import os,requests
-          text="WAT Agency — weekly SEO report\n"+(os.getenv("ISSUE_URL") or "Issue not available; check Actions log")
-          r=requests.post(
-              "https://api.telegram.org/bot"+os.environ["WAT_TELEGRAM_BOT_TOKEN"]+"/sendMessage",
-              data={"chat_id":os.environ["WAT_TELEGRAM_CHAT_ID"],"text":text},
-              timeout=15)
-          r.raise_for_status()
+          python3 - <<'PY'
+          import os, urllib.parse, urllib.request
+          text = "WAT Agency — weekly SEO report\n" + (os.getenv("ISSUE_URL") or "Issue not available; check Actions log")
+          data = urllib.parse.urlencode({"chat_id": os.environ["WAT_TELEGRAM_CHAT_ID"], "text": text}).encode()
+          urllib.request.urlopen("https://api.telegram.org/bot" + os.environ["WAT_TELEGRAM_BOT_TOKEN"] + "/sendMessage", data=data, timeout=15)
           PY

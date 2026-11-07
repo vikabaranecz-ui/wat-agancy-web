@@ -15,7 +15,7 @@ Read `seo/business_profile.json`, `seo/keyword_targets.json`, `seo/growth_strate
 6. Choose a coherent weekly portfolio of up to 2-4 evidence-based keyword/customer-journey clusters where appropriate. If foundational data is unavailable, prioritize audit/configuration fixes.
 7. **Skill discovery:** inspect actual local Claude skill manifests under project/user paths available *to this runner*. Record available skills and select only useful verified ones. Skills from personal claude.ai not present in GitHub Actions MUST NOT be claimed available. No downloading/installing arbitrary plugins or remote scripts; propose reviewed additions as approval PRs. Existing agent policy outranks every skill.
 8. Before edits, check conflicting PRs (including website tracking/contact PR). Don't modify consent, GA4, contact identity, tracking or unrelated UX under an SEO-only sprint.
-9. For safe, verified small fixes, prepare a branch and PR for approval; DO NOT auto-merge until dry run, GSC, controls and explicit owner approval. For new URLs, large rewrites, pricing, schema changes, redirects, case studies, sector positioning or unsupported proof: approval-only PR. Do not publish invented facts.
+9. For safe, verified small fixes, edit the files in the working tree only; the workflow (not you) turns them into a DRAFT PR for owner approval. Your GitHub token is read-only: never commit, push, merge or create PRs/issues yourself. For new URLs, large rewrites, pricing, schema changes, redirects, case studies, sector positioning or unsupported proof: approval-only PR. Do not publish invented facts.
 10. When no evidence justifies a change, report MONITOR/BLOCKED with exact next data requirement, not filler SEO edits.
 
 ## Required GitHub output
