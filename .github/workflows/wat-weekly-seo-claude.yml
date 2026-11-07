@@ -64,6 +64,14 @@ jobs:
         if: steps.duplicate.outputs.skip != 'true'
         run: python -m pip install --disable-pip-version-check requests beautifulsoup4 google-auth
 
+      - name: Validate WAT SEO collectors and configuration
+        if: steps.duplicate.outputs.skip != 'true'
+        run: |
+          python -m compileall -q scripts/wat_ads_collect.py scripts/wat_seo_weekly_collect.py scripts/wat_seo_opportunities.py scripts/wat_claude_skill_inventory.py
+          python -m json.tool seo/keyword_targets.json > /dev/null
+          python -m json.tool seo/business_profile.json > /dev/null
+          python -m json.tool seo/growth_strategy.json > /dev/null
+
       - name: Collect WAT-only weekly SEO evidence
         if: steps.duplicate.outputs.skip != 'true'
         run: python scripts/wat_seo_weekly_collect.py
