@@ -7,7 +7,7 @@ from google.auth.transport.requests import Request
 from google.oauth2 import service_account
 import requests
 
-def collect_keyword_planner():
+def collect_keyword_planner(gsc_queries=None):
     customer_id = re.sub(r"\D", "", os.getenv("WAT_GOOGLE_ADS_CUSTOMER_ID", ""))
     dev_token = os.getenv("GOOGLE_ADS_DEVELOPER_TOKEN", "").strip()
     raw = os.getenv("GOOGLE_ADC_JSON", "").strip()
@@ -16,6 +16,13 @@ def collect_keyword_planner():
     with open("seo/keyword_targets.json", encoding="utf-8") as file:
         keyword_data = json.load(file)
     seeds = []
+    # Real WAT GSC search queries lead discovery whenever available.
+    for row in sorted(gsc_queries or [], key=lambda x: x.get('impressions', 0), reverse=True):
+        keys = row.get('keys', [])
+        query = keys[0].strip() if keys and isinstance(keys[0], str) else ''
+        if query and not re.search(r'(?i)wat\\??\\s*agency|watagency|viktoriiamarketing', query) and query not in seeds:
+            seeds.append(query)
+        if len(seeds) >= 12: break
     for cluster in keyword_data.get("clusters", []):
         for query in cluster.get("queries", []):
             if query not in seeds:
@@ -33,7 +40,8 @@ def collect_keyword_planner():
         if login_id:
             headers["login-customer-id"] = login_id
         base = f"https://googleads.googleapis.com/{version}/customers/{customer_id}:generateKeywordIdeas"
-        result = {"status": "OK", "customer_id": customer_id, "seed_type": "unvalidated_discovery_queries",
+        result = {"status": "OK", "customer_id": customer_id, "seed_type": "observed_gsc_queries_then_unvalidated_discovery_queries",
+                  "observed_gsc_seed_count": min(12, len(gsc_queries or [])),
                   "geo_scope": "Belgium and Antwerp province", "datasets": {}}
         for name, geo_id in [("belgium", "2056"), ("antwerp_province", "20053")]:
             body = {"language": "languageConstants/1010",
