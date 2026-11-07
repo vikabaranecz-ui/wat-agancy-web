@@ -1,0 +1,87 @@
+{
+  "status": "DISCOVERY_SEEDS_ONLY_REAL_GSC_PLUS_ADS_EVIDENCE_REQUIRED",
+  "market": "Belgium",
+  "language": "nl-BE",
+  "region_priority": "Antwerp then Flanders where demand exists",
+  "clusters": [
+    {
+      "id": "local_agency",
+      "intent": "High-intent agency research",
+      "queries": [
+        "marketingbureau Antwerpen",
+        "online marketing bureau Antwerpen",
+        "marketingbureau voor kmo",
+        "digitale marketing Antwerpen"
+      ],
+      "landing_page": "UNMAPPED_REQUIRE_AUDIT",
+      "validation": "local SERP intent and GSC/Keyword Planner required"
+    },
+    {
+      "id": "contractor_marketing",
+      "intent": "Sector-specific commercial",
+      "queries": [
+        "marketing voor aannemers",
+        "website voor bouwbedrijf",
+        "online marketing bouwbedrijf",
+        "meer klanten als aannemer"
+      ],
+      "landing_page": "UNMAPPED_REQUIRE_AUDIT",
+      "validation": "verify demand and non-overlapping service intent"
+    },
+    {
+      "id": "local_seo",
+      "intent": "Service procurement",
+      "queries": [
+        "lokale SEO Antwerpen",
+        "Google Bedrijfsprofiel optimaliseren",
+        "Google Maps optimalisatie bedrijf",
+        "lokaal gevonden worden op Google"
+      ],
+      "landing_page": "UNMAPPED_REQUIRE_AUDIT",
+      "validation": "verify qualified demand, competition and correct GBP claims"
+    },
+    {
+      "id": "website_conversions",
+      "intent": "Problem and decision",
+      "queries": [
+        "website voor zelfstandige",
+        "website die klanten oplevert",
+        "meer aanvragen via website",
+        "website laten maken Antwerpen"
+      ],
+      "landing_page": "UNMAPPED_REQUIRE_AUDIT",
+      "validation": "separate intent of web design vs conversion optimization"
+    },
+    {
+      "id": "sector_expansion",
+      "intent": "Other service businesses",
+      "queries": [
+        "marketing voor schoonmaakbedrijf",
+        "marketing voor tuinbedrijf",
+        "marketing voor kapsalon",
+        "website voor garage"
+      ],
+      "landing_page": "UNMAPPED_REQUIRE_AUDIT",
+      "validation": "avoid thin niche pages until demand, proof and differentiation are established"
+    },
+    {
+      "id": "ai_search_questions",
+      "intent": "Questions and AI answer readability",
+      "queries": [
+        "hoe kom ik hoger in Google Maps",
+        "hoe krijg ik meer offerteaanvragen",
+        "wat kost lokale SEO voor een klein bedrijf",
+        "hoe kies ik een marketingbureau"
+      ],
+      "landing_page": "UNMAPPED_REQUIRE_AUDIT",
+      "validation": "question demand, authoritative factual sources and current claims required"
+    }
+  ],
+  "measurement_rules": [
+    "Do not treat these queries as confirmed ranking targets until validated",
+    "Never claim numeric volume or position without dated source evidence",
+    "Retain per-query target URL and baseline once evidence exists",
+    "No mass city/sector page generation",
+    "No site edits from keyword seed lists alone: require verified query/page or keyword-idea opportunities and an observed gap"
+  ]
+}
