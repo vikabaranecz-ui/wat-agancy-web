@@ -1,0 +1,40 @@
+name: WAT — Verify Claude and Google Connections
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify-connections:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      GSC_SITE_URL: ${{ vars.WAT_GSC_SITE_URL || 'sc-domain:watagencybelgium.be' }}
+      GOOGLE_ADC_JSON: ${{ secrets.WAT_GSC_SERVICE_ACCOUNT_JSON }}
+      WAT_GOOGLE_ADS_CUSTOMER_ID: ${{ vars.WAT_GOOGLE_ADS_CUSTOMER_ID }}
+      GOOGLE_ADS_DEVELOPER_TOKEN: ${{ secrets.WAT_GOOGLE_ADS_DEVELOPER_TOKEN }}
+      GOOGLE_ADS_LOGIN_CUSTOMER_ID: ${{ vars.WAT_GOOGLE_ADS_LOGIN_CUSTOMER_ID }}
+      GOOGLE_ADS_API_VERSION: v25
+      ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+      ANTHROPIC_WORKSPACE_ID: ${{ vars.WAT_ANTHROPIC_WORKSPACE_ID }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install only verifier dependencies
+        run: python -m pip install --disable-pip-version-check requests google-auth
+      - name: Validate diagnostic Python syntax
+        run: python -m py_compile scripts/wat_verify_connections.py
+      - name: Check real Claude, WAT Search Console and WAT Google Ads access
+        run: python scripts/wat_verify_connections.py
+      - name: Upload non-secret verification report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: wat-connections-${{ github.run_id }}
+          path: wat-connection-check.json
+          if-no-files-found: warn
+          retention-days: 14
