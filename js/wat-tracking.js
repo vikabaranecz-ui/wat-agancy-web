@@ -74,7 +74,13 @@
     var href = el.getAttribute('href') || '';
     var source = el.closest('nav') ? 'navigation' : el.closest('footer') ? 'footer' :
       el.closest('header') ? 'header' : 'content';
-    if (/^https?:\\/\\/(?:wa\\.me|api\\.whatsapp\\.com|web\\.whatsapp\\.com)\\//i.test(href)) {
+    var whatsappLink = false;
+    try {
+      var linkUrl = new URL(href, window.location.href);
+      whatsappLink = (linkUrl.protocol === 'https:' || linkUrl.protocol === 'http:') &&
+        ['wa.me', 'api.whatsapp.com', 'web.whatsapp.com'].indexOf(linkUrl.hostname.toLowerCase()) !== -1;
+    } catch (_) {}
+    if (whatsappLink) {
       track('click_whatsapp', source);
     } else if (/^mailto:/i.test(href)) {
       track('click_email', source);
