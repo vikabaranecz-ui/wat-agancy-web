@@ -2,14 +2,8 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <!-- Google Tag Manager -->
-  <script async src="https://www.googletagmanager.com/gtm.js?id=GTM-K2BP584R"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-  </script>
-  <!-- End Google Tag Manager -->
+  <!-- WAT consent-first tracking: GTM-K2BP584R and GA4 G-4SVZ02R7E2 -->
+<script defer src="/js/wat-tracking.js"></script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Reno Rangers — Case Study | WAT? Agency</title>
   <meta name="description" content="How we rebuilt the online system for Reno Rangers, a renovation and construction business in Antwerp.">
@@ -301,14 +295,18 @@
 
     [data-lang="nl"] .en { display: none; }
     [data-lang="en"] .nl { display: none; }
-  </style>
+  
+/* WAT quick-contact bar: visible above the fold, usable on mobile */
+.wat-quick-contact{position:fixed;right:18px;bottom:18px;z-index:9000;display:flex;gap:9px;font-family:Arial,sans-serif}
+.wat-quick-contact a{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:10px 18px;border-radius:7px;text-decoration:none;font-weight:700;font-size:13px;box-shadow:0 4px 22px #0007}
+.wat-quick-contact .wat-quick-call{background:#FFD400;color:#111}
+.wat-quick-contact .wat-quick-message{background:#101010;color:#FFD400;border:1px solid #FFD400}
+@media(max-width:700px){.wat-quick-contact{left:0;right:0;bottom:0;padding:10px 12px calc(10px + env(safe-area-inset-bottom));background:#090909;display:grid;grid-template-columns:1fr 1fr}.wat-quick-contact a{font-size:12px}}
+</style>
 </head>
 
 <body>
-  <!-- Google Tag Manager (noscript) -->
-  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-K2BP584R"
-  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-  <!-- End Google Tag Manager (noscript) -->
+  <!-- GTM/GA4 intentionally disabled without analytics consent; no noscript fallback. -->
   <nav>
     <a href="/en/index.html" class="nav-logo"><span class="q">?</span> WAT</a>
     <div class="nav-right">
@@ -469,5 +467,6 @@
     }
     setLanguage(localStorage.getItem('preferred-lang') || 'en');
   </script>
+<aside class="wat-quick-contact" aria-label="Contact WAT Agency"><a class="wat-quick-call" href="tel:+32471623105">☎ <span class="en">Call WAT</span><span class="nl">Bel WAT</span></a><a class="wat-quick-message" href="https://wa.me/32471623105" target="_blank" rel="noopener">WhatsApp →</a></aside>
 </body>
 </html>

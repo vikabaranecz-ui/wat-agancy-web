@@ -2,14 +2,8 @@
 <html lang="nl" data-lang="nl">
 <head>
   <meta charset="UTF-8">
-  <!-- Google Tag Manager -->
-  <script async src="https://www.googletagmanager.com/gtm.js?id=GTM-K2BP584R"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-  </script>
-  <!-- End Google Tag Manager -->
+  <!-- WAT consent-first tracking: GTM-K2BP584R and GA4 G-4SVZ02R7E2 -->
+<script defer src="/js/wat-tracking.js"></script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>WAT? Agency — Online System for Local Service Businesses in Belgium</title>
   <meta name="description" content="Marketing agency in Antwerp. We build the online system for local service businesses: website, Google Business, social, branding, content, email, WhatsApp, analytics.">
@@ -805,14 +799,29 @@
     [data-lang="en"] .nl { display: none; }
     [data-lang="nl"] .hero-video[data-lang-video="en"],
     [data-lang="en"] .hero-video[data-lang-video="nl"] { display: none; }
+  
+    /* Contact-first conversion improvements — visible desktop call CTA + mobile action bar */
+    .nav-call { display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:11px 17px;border:1px solid #FFD400;border-radius:5px;color:#FFD400;font:700 12px/1.2 'Space Grotesk',sans-serif;letter-spacing:.3px;text-decoration:none;white-space:nowrap;transition:background .2s,color .2s; }
+    .nav-call:hover,.nav-call:focus-visible { background:#FFD400;color:#050505; }
+    .contact-choice { display:flex;gap:12px;flex-wrap:wrap;justify-content:center;margin:4px 0 20px; }
+    .contact-choice .btn { min-width:180px;text-align:center; }
+    .mobile-contact-bar { display:none; }
+    @media(max-width:900px) {
+      .nav-call { padding:9px 11px;font-size:12px;min-height:40px; }
+      .nav-call .nav-call-label { display:none; }
+      .mobile-contact-bar { position:fixed;z-index:180;bottom:0;left:0;right:0;display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:10px 12px calc(10px + env(safe-area-inset-bottom));background:rgba(5,5,5,.97);border-top:1px solid rgba(255,212,0,.3);box-shadow:0 -8px 22px #0006; }
+      .mobile-contact-bar a { display:flex;align-items:center;justify-content:center;min-height:46px;border-radius:5px;font:700 13px/1.2 'Space Grotesk',sans-serif;text-decoration:none; }
+      .mobile-contact-bar .call { background:#FFD400;color:#050505; }
+      .mobile-contact-bar .message { color:#FFD400;border:1px solid #FFD400; }
+      footer { padding-bottom:90px; }
+      .contact-choice { flex-direction:column; }
+      .contact-choice .btn { width:100%; }
+    }
   </style>
 </head>
 
 <body>
-  <!-- Google Tag Manager (noscript) -->
-  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-K2BP584R"
-  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-  <!-- End Google Tag Manager (noscript) -->
+  <!-- GTM/GA4 intentionally disabled without analytics consent; no noscript fallback. -->
   <!-- Lightweight depth planes continue behind the sections after the hero. -->
   <div class="stage" aria-hidden="true">
     <div class="stage__plane stage__bg" data-plane="bg"></div>
@@ -824,7 +833,8 @@
     <nav id="nav">
       <a href="#hero" class="nav-logo"><span class="q">?</span> WAT</a>
       <div class="nav-right">
-        <div class="nav-links" id="nav-links">
+        <a class="nav-call" href="tel:+32471623105" aria-label="Call WAT Agency on +32 471 62 31 05"><span aria-hidden="true">☎</span><span class="nav-call-label"><span class="en">Call us</span><span class="nl">Bel ons</span></span></a>
+                <div class="nav-links" id="nav-links">
           <a href="#situation"><span class="en">Your situation</span><span class="nl">Jouw situatie</span></a>
           <a href="#who"><span class="en">Who we help</span><span class="nl">Wie we helpen</span></a>
           <a href="#system"><span class="en">What we build</span><span class="nl">Wat we bouwen</span></a>
@@ -864,8 +874,8 @@
           <span class="nl">Alles wat je klant ziet, werkt samen om <strong>vertrouwen op te bouwen en aanvragen te winnen.</strong></span>
         </p>
         <div class="hero-buttons">
-          <a href="#situation" class="btn btn-primary"><span class="en">Discover where you lose customers →</span><span class="nl">Ontdek waar je klanten verliest →</span></a>
-          <a href="#system" class="btn btn-secondary"><span class="en">See how WAT? works →</span><span class="nl">Bekijk hoe WAT? werkt →</span></a>
+          <a href="tel:+32471623105" class="btn btn-primary"><span class="en">Call us →</span><span class="nl">Bel ons →</span></a>
+          <a href="https://wa.me/32471623105?text=Hi%20WAT%3F%20I%27d%20like%20to%20talk%20about%20my%20business" target="_blank" rel="noopener" class="btn btn-secondary"><span class="en">WhatsApp us →</span><span class="nl">Stuur een WhatsApp →</span></a>
         </div>
       </div>
     </section>
@@ -1180,9 +1190,11 @@
           <span class="nl">Stuur ons een bericht op WhatsApp. Vertel wat je bedrijf doet en waar het vastloopt. Wij zeggen wat we als eerste zouden aanpakken — of je nu met ons werkt of niet.</span>
         </p>
 
-        <a href="https://wa.me/32471623105?text=Hi%20WAT%3F%20I%27d%20like%20to%20talk%20about%20my%20business" target="_blank" rel="noopener" class="btn btn-primary">
-          <span class="en">Message us on WhatsApp →</span><span class="nl">Stuur ons een WhatsApp →</span>
-        </a>
+        <div class="contact-choice" aria-label="Ways to contact WAT Agency">
+          <a href="tel:+32471623105" class="btn btn-primary"><span class="en">Call +32 471 62 31 05 →</span><span class="nl">Bel +32 471 62 31 05 →</span></a>
+          <a href="https://wa.me/32471623105?text=Hi%20WAT%3F%20I%27d%20like%20to%20talk%20about%20my%20business" target="_blank" rel="noopener" class="btn btn-secondary"><span class="en">WhatsApp us →</span><span class="nl">Stuur een WhatsApp →</span></a>
+          <a href="mailto:hello@watagencybelgium.be" class="btn btn-secondary"><span class="en">Email us →</span><span class="nl">Mail ons →</span></a>
+        </div>
 
         <p class="trust-copy">
           <span class="en">Antwerp-based · NL / FR / EN · No sales script, just a conversation</span>
@@ -1213,6 +1225,7 @@
           <div class="footer-col">
             <div class="footer-col-title">Contact</div>
             <a href="https://wa.me/32471623105" target="_blank" rel="noopener">WhatsApp +32 471 62 31 05 →</a>
+            <a href="tel:+32471623105">Call +32 471 62 31 05 →</a>
             <a href="mailto:hello@watagencybelgium.be">Email →</a>
           </div>
         </div>
@@ -1228,5 +1241,6 @@
   <script src="../lib/ScrollTrigger.min.js"></script>
   <script src="../lib/lenis.min.js"></script>
   <script src="../js/scroll-system.js"></script>
-</body>
+<aside class="mobile-contact-bar" aria-label="Quick contact"><a class="call" href="tel:+32471623105"><span class="en">☎ Call now</span><span class="nl">☎ Bel direct</span></a><a class="message" href="https://wa.me/32471623105" target="_blank" rel="noopener"><span class="en">WhatsApp →</span><span class="nl">WhatsApp →</span></a></aside>
+  </body>
 </html>
