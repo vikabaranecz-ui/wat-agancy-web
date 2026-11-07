@@ -68,12 +68,23 @@ jobs:
         if: steps.duplicate.outputs.skip != 'true'
         run: python scripts/wat_seo_weekly_collect.py
 
+      - name: Discover actual Claude skills in runner
+        if: steps.duplicate.outputs.skip != 'true'
+        run: python scripts/wat_claude_skill_inventory.py
+
+      - name: Build measured WAT keyword opportunity register
+        if: steps.duplicate.outputs.skip != 'true'
+        run: python scripts/wat_seo_opportunities.py
+
       - name: Upload WAT-only evidence
         if: always() && steps.duplicate.outputs.skip != 'true'
         uses: actions/upload-artifact@v4
         with:
           name: wat-seo-weekly-${{ github.run_id }}
-          path: seo-weekly-context.json
+          path: |
+            seo-weekly-context.json
+            seo-weekly-opportunities.json
+            seo-weekly-skills.json
           if-no-files-found: warn
           retention-days: 30
 
@@ -120,7 +131,8 @@ jobs:
             This is the scheduled WAT Agency Belgium SEO run. Work ONLY in this WAT repository.
             Read `.claude/agents/weekly-seo.md` in full, then read:
             `seo/business_profile.json`, `seo/keyword_targets.json`,
-            `seo/growth_strategy.json`, `seo-weekly-context.json`.
+            `seo/growth_strategy.json`, `seo-weekly-context.json`,
+            `seo-weekly-opportunities.json`, `seo-weekly-skills.json`.
             Determine today's date in Europe/Brussels.
             REQUIRE real WAT GSC query-to-page 28d and previous 28d evidence. Use WAT Keyword Planner Belgium + Antwerp datasets when available. If Ads is unavailable, continue strictly with authenticated GSC plus public health audit; mark missing volumes, do not invent them.
             First audit technical, commercial keywords, intent-to-page mapping, missing
@@ -128,8 +140,11 @@ jobs:
             CTA/conversion and AI answerability. Use evidence rather than guesses.
             Require a concrete evidence ledger for each proposed change: source, observed gap, affected URL/query, local search demand where available, diagnosis, smallest reasonable fix, regression risk, acceptance checks, measured follow-up.
             Do NOT edit a page to satisfy keyword quota; choose real problems and verify site health before proposing edits.
+            Inspect the ACTUAL readable SKILL.md manifests listed in seo-weekly-skills.json,
+            read full selected manifests if safe and relevant. If empty, state NO SKILLS AVAILABLE and continue standard SEO analysis.
             Dynamically inspect only the ACTUAL Claude skills available in this runner;
             use them if clearly relevant; do not assume account-only skills exist here.
+            Never treat a seed keyword as a validated target. The opportunities report is a shortlist for human intent/health review, not permission to edit without supporting evidence.
             Check existing WAT PRs and avoid conflicts with pending consent/contact work.
             For small changes, prepare reviewed PR, NEVER merge or publish automatically.
             Approval is required for all new URLs, marketing claims and structural work.
