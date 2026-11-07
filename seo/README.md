@@ -71,3 +71,11 @@ Current required WAT settings:
 - No secrets in repository files, GitHub issues, comments or chat.
 
 If WAT's Google service-account doesn't already have GSC and Ads access, authorize it in **both** services instead of assuming an API token from another company's repo grants WAT permissions. Do not change ISOPROTECH or Reno Rangers to run these checks.
+
+## Checked against existing live SEO project reports (2026-11-07)
+- ISOPROTECH issue #55 (2026-11-02): real GSC query/page positions and Keyword Planner Antwerp numbers reported, with merged PR #53 and pending PR #54.
+- Reno Rangers issue #35 (2026-11-02): real GSC 28-day query data and Antwerp/Belgium Keyword Planner numbers reported, with safe-fix changes. These are evidence that both reported successful collection on Nov 2, not live verification of API credentials on Nov 7.
+- WAT Actions now **prefer its own WAT-scoped Google service-account and developer-token secrets**, but fall back to the familiar standard secret names (`GOOGLE_ADC_JSON`, `GOOGLE_ADS_DEVELOPER_TOKEN`, `GOOGLE_ADS_LOGIN_CUSTOMER_ID`) **only if those secrets are actually available to the WAT repository or its organization**.
+- GitHub secrets are not automatically shared between separate private repositories. Neither shared secret presence nor WAT GSC/Ads authorization has been verified.
+- Google Ads customer ID remains WAT-specific and cannot be inherited from ISOPROTECH or Reno Rangers. Confirm WAT Ads customer/account access before use.
+- If one secret name works, the WAT-only connection diagnostic still must test exact WAT property/account permissions and report each independently.
