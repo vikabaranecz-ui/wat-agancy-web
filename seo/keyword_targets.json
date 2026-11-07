@@ -1,5 +1,5 @@
 {
-  "status": "HYPOTHESES_NOT_VALIDATED_WITH_GSC_OR_KEYWORD_PLANNER",
+  "status": "DISCOVERY_SEEDS_ONLY_REAL_GSC_PLUS_ADS_EVIDENCE_REQUIRED",
   "market": "Belgium",
   "language": "nl-BE",
   "region_priority": "Antwerp then Flanders where demand exists",
@@ -81,6 +81,7 @@
     "Do not treat these queries as confirmed ranking targets until validated",
     "Never claim numeric volume or position without dated source evidence",
     "Retain per-query target URL and baseline once evidence exists",
-    "No mass city/sector page generation"
+    "No mass city/sector page generation",
+    "No site edits from keyword seed lists alone: require verified query/page or keyword-idea opportunities and an observed gap"
   ]
 }
