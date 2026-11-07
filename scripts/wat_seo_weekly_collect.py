@@ -101,12 +101,15 @@ def get_gsc():
 
 
 def main():
+    gsc_data = get_gsc()
+    gsc_rows = (gsc_data.get("current_queries") or {}).get("rows", []) if gsc_data.get("status") == "OK" else []
+    ads_data = collect_keyword_planner(gsc_rows)
     result = {
         "site": SITE, "generated_at": datetime.now(timezone.utc).isoformat(),
         "project": "WAT Agency only",
         "site_audit": [fetch_page(path) for path in PAGES + ["/robots.txt", "/sitemap.xml"]],
-        "gsc": get_gsc(),
-        "keyword_planner": collect_keyword_planner(),
+        "gsc": gsc_data,
+        "keyword_planner": ads_data,
         "ga4": {"status": "NOT_VERIFIED", "explanation": "GTM/GA4 site changes are in separate PR; only treat proven live events as data."},
         "competitor_gaps": {"status": "REQUIRES_RESEARCH", "explanation": "Do not claim competitor rankings without dated evidence."},
     }
