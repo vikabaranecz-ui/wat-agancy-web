@@ -47,6 +47,10 @@ nav.scrolled{height:56px;box-shadow:0 4px 24px rgba(0,0,0,.3)}
 .nav-links a:hover,.nav-links a.active{color:var(--red)}
 .nav-cta{font-family:'Space Grotesk',sans-serif;font-size:12px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#0D0D0D;background:var(--red);padding:10px 24px;border-radius:var(--r12);transition:background .2s,transform .15s,box-shadow .2s}
 .nav-cta:hover{background:var(--red-mid);transform:translateY(-1px);box-shadow:0 8px 24px var(--red-15)}
+.nav-contact{display:flex;align-items:center;gap:8px}
+.nav-contact a{display:flex;align-items:center;justify-content:center;width:36px;height:36px;border:1px solid var(--border-red);border-radius:var(--r12);color:var(--red);transition:background .2s,border-color .2s}
+.nav-contact a:hover{background:var(--red-06);border-color:var(--red)}
+.nav-contact svg{width:16px;height:16px;display:block}
 .ham{display:none;flex-direction:column;gap:5px;padding:8px;cursor:pointer;background:none;border:none;-webkit-tap-highlight-color:transparent}
 .ham span{display:block;width:22px;height:2px;background:var(--ink);border-radius:2px;transition:transform .3s,opacity .3s}
 .ham.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
@@ -61,18 +65,20 @@ nav.scrolled{height:56px;box-shadow:0 4px 24px rgba(0,0,0,.3)}
 .mob-drawer a.mc:hover{background:var(--red-mid)}
 @media(max-width:768px){
   nav{padding:0 24px;height:60px}
-  .nav-links,.nav-cta{display:none}
+  .nav-links,.nav-cta,.nav-contact{display:none}
   .ham{display:flex}
   .nav-logo{font-size:20px;letter-spacing:4px}
   .nav-logo .q{font-size:26px}
 }
 
-/* STICKY MOBILE */
-.sticky-m{position:fixed;bottom:0;left:0;right:0;z-index:450;background:var(--bg-card);border-top:1px solid var(--border);padding:12px 20px;display:none;align-items:center;justify-content:space-between;gap:12px;box-shadow:0 -4px 20px rgba(0,0,0,.3)}
-@media(max-width:768px){.sticky-m{display:flex}}
-.sticky-m p{font-size:12px;font-weight:500;color:var(--ink-60);line-height:1.3}
-.sticky-m p strong{color:var(--ink);display:block;font-size:13px}
-.sticky-m a{font-family:'Space Grotesk',sans-serif;font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#0D0D0D;background:var(--red);padding:12px 18px;border-radius:var(--r12);white-space:nowrap}
+/* STICKY MOBILE — direct call/WhatsApp, not a link that navigates away and
+   makes the visitor scroll again. Same pattern as every other page. */
+.sticky-contact{display:none;position:fixed;bottom:0;left:0;right:0;z-index:450;background:var(--bg);border-top:1px solid var(--border-red);padding:10px 14px;gap:10px}
+@media(max-width:768px){.sticky-contact{display:flex}}
+.sticky-contact a{flex:1;display:flex;align-items:center;justify-content:center;gap:8px;padding:13px 10px;border-radius:var(--r12);font-family:'Space Grotesk',sans-serif;font-size:12px;font-weight:700;letter-spacing:1px;text-transform:uppercase;text-decoration:none}
+.sticky-contact a svg{width:15px;height:15px;flex-shrink:0}
+.sticky-contact .call-btn{background:transparent;border:1px solid var(--border-red);color:var(--red)}
+.sticky-contact .whatsapp-btn{background:var(--red);color:#050505;border:1px solid var(--red)}
 
 /* BACK TOP */
 #back-top{position:fixed;bottom:28px;right:28px;z-index:400;width:44px;height:44px;border-radius:50%;background:var(--bg-card);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:16px;color:var(--red);cursor:pointer;opacity:0;transform:translateY(8px);transition:opacity .3s,transform .3s,box-shadow .2s;pointer-events:none;box-shadow:0 4px 16px rgba(0,0,0,.3)}
@@ -247,6 +253,14 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <a href="#journey">Client Journey</a>
     <a href="/en/#contact">Contact</a>
   </div>
+  <div class="nav-contact">
+    <a href="tel:+32471623105" aria-label="Call +32 471 62 31 05" title="Call +32 471 62 31 05">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+    </a>
+    <a href="https://wa.me/32471623105?text=Hi%20WAT%3F%20I%20looked%20through%20the%20Systems%20Library" target="_blank" rel="noopener" aria-label="Message on WhatsApp" title="Message on WhatsApp">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+    </a>
+  </div>
   <a class="nav-cta" href="/en/#contact">Request an audit →</a>
   <button class="ham" id="ham" aria-label="Menu"><span></span><span></span><span></span></button>
 </nav>
@@ -259,9 +273,15 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <a class="mc" href="/en/#contact" onclick="closeMob()">Request an audit →</a>
 </div>
 
-<div class="sticky-m">
-  <p><strong>Systems Library</strong>Real & concept work, explained</p>
-  <a href="/en/#contact">Get an audit →</a>
+<div class="sticky-contact">
+  <a href="tel:+32471623105" class="call-btn">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+    Call
+  </a>
+  <a href="https://wa.me/32471623105?text=Hi%20WAT%3F%20I%20looked%20through%20the%20Systems%20Library" target="_blank" rel="noopener" class="whatsapp-btn">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+    WhatsApp
+  </a>
 </div>
 
 <!-- HERO -->

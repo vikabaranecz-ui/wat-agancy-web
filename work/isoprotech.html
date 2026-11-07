@@ -65,6 +65,23 @@
 
     .nav-back:hover { color: #FFD400; }
 
+    /* Direct contact — this page had none at all before. */
+    .nav-contact { display: flex; align-items: center; gap: 8px; }
+    .nav-contact a {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 36px;
+      height: 36px;
+      border: 1px solid rgba(255, 212, 0, 0.25);
+      border-radius: 4px;
+      color: #FFD400;
+      transition: background 0.2s ease, border-color 0.2s ease;
+    }
+    .nav-contact a:hover { background: rgba(255, 212, 0, 0.1); border-color: rgba(255, 212, 0, 0.5); }
+    .nav-contact svg { width: 16px; height: 16px; display: block; }
+    @media(max-width: 768px) { .nav-contact { display: none; } }
+
     .lang-toggle {
       display: flex;
       gap: 8px;
@@ -287,7 +304,40 @@
 
     .case-nav a:hover { color: #FFF000; }
 
+    /* Sticky mobile contact bar — replaces the nav icons on mobile so
+       contact is always one tap away on a page this long. */
+    .sticky-contact {
+      display: none;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 450;
+      background: #050505;
+      border-top: 1px solid rgba(255, 212, 0, 0.2);
+      padding: 10px 14px;
+      gap: 10px;
+    }
+    .sticky-contact a {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 13px 10px;
+      border-radius: 4px;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      text-decoration: none;
+    }
+    .sticky-contact a svg { width: 15px; height: 15px; flex-shrink: 0; }
+    .sticky-contact .call-btn { background: transparent; border: 1px solid rgba(255, 212, 0, 0.4); color: #FFD400; }
+    .sticky-contact .whatsapp-btn { background: #FFD400; color: #050505; border: 1px solid #FFD400; }
+
     @media(max-width: 768px) {
+      .sticky-contact { display: flex; }
       /* One compact row; no wrapping, real tap targets */
       nav { padding: 8px 16px; gap: 12px; }
       .nav-logo { font-size: 23px; letter-spacing: 3px; }
@@ -332,12 +382,31 @@
     <a href="/en/index.html" class="nav-logo"><span class="q">?</span> WAT</a>
     <div class="nav-right">
       <a href="/en/index.html#work" class="nav-back"><span class="en">← All work</span><span class="nl">← Al het werk</span></a>
+      <div class="nav-contact">
+        <a href="tel:+32471623105" aria-label="Call +32 471 62 31 05" title="Call +32 471 62 31 05">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        </a>
+        <a href="https://wa.me/32471623105?text=Hi%20WAT%3F%20I%20read%20the%20Isoprotech%20case" target="_blank" rel="noopener" aria-label="Message on WhatsApp" title="Message on WhatsApp">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+        </a>
+      </div>
       <div class="lang-toggle">
         <button class="lang-btn" data-lang="en" onclick="setLanguage('en')">EN</button>
         <button class="lang-btn" data-lang="nl" onclick="setLanguage('nl')">NL</button>
       </div>
     </div>
   </nav>
+
+  <div class="sticky-contact">
+    <a href="tel:+32471623105" class="call-btn">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+      <span class="en">Call</span><span class="nl">Bel</span>
+    </a>
+    <a href="https://wa.me/32471623105?text=Hi%20WAT%3F%20I%20read%20the%20Isoprotech%20case" target="_blank" rel="noopener" class="whatsapp-btn">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+      WhatsApp
+    </a>
+  </div>
 
   <div class="wrap">
     <header class="case-hero">
