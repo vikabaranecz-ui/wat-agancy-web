@@ -153,7 +153,7 @@ jobs:
             If information is insufficient, report explicitly rather than fabricating rankings.
           claude_args: |
             --effort high
-            --allowedTools "Read,Write,Edit,Glob,Grep,WebSearch,WebFetch,Bash(git status:*),Bash(git diff:*),Bash(git log:*),Bash(gh pr list:*),Bash(gh pr view:*),Bash(gh pr diff:*),Bash(gh issue list:*),Bash(gh issue view:*),Bash(python:*),Bash(python3:*),Bash(ls:*),Bash(cat:*)"
+            --allowedTools "Read,Write,Edit,Glob,Grep,WebSearch,WebFetch,Bash(git status:*),Bash(git diff:*),Bash(git log:*),Bash(gh pr list:*),Bash(gh pr view:*),Bash(gh pr diff:*),Bash(gh issue list:*),Bash(gh issue view:*),Bash(python:*),Bash(python3:*),Bash(ls:*),Bash(cat:*),Skill"
             --disallowedTools "Bash(git push:*),Bash(git commit:*),Bash(git remote:*),Bash(gh pr merge:*),Bash(gh pr create:*),Bash(gh pr review:*),Bash(gh issue create:*),Bash(gh api:*),Bash(gh workflow:*),Bash(gh release:*),Bash(npm:*),Bash(npx:*),Bash(curl:*),Bash(wget:*)"
 
       - name: Package proposal (site files only) and report
