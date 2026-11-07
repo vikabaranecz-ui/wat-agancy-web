@@ -20,7 +20,7 @@ This is a **dedicated WAT Agency** SEO system. It does not depend on or change I
 7. Set Actions variable `WAT_SEO_AUTOMATION_ENABLED=true` **only after** manual end-to-end verification.
 
 ## Pending integrations
-- Google Ads Keyword Planner: intentionally **not connected**; must verify the WAT Google Ads customer ID, developer token, account permissions, valid scope and local Belgium (nl-BE) targeting before claiming volumes. Add collector and tests in a separate reviewed PR.
+- Google Ads Keyword Planner: **collector now implemented** for WAT Belgium and Antwerp province using its own Ads account; **NOT authenticated or run successfully yet**. Verify the WAT Ads customer ID, developer token, OAuth/service-account access, local targeting and API version before claiming volumes.
 - GA4: tracking is being revised in separate PR #7. Until DebugView is verified in production, contact clicks are proxies and no qualified-lead conversion number is available.
 - Competitor research: require dated search evidence; never present inferred competitors, ranking positions or AI mentions as verified.
 - Never merge SEO PRs automatically; review first, especially alongside ongoing contact/tracking work.
