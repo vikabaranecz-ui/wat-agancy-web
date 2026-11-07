@@ -426,6 +426,62 @@
 
     .pain-verdict p { font-size: clamp(1.05rem, 2.2vw, 1.35rem); color: #F4F2EC; line-height: 1.6; }
 
+    /* Mid-funnel CTA, reused at the end of situation/who/system — the moment
+       a reader recognises themselves should turn directly into an action,
+       not wait for the final contact section. */
+    .section-cta {
+      margin-top: 32px;
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      flex-wrap: wrap;
+    }
+
+    .section-cta-note { font-size: 13px; color: rgba(244, 242, 236, 0.5); }
+
+    /* PROOF STRIP — the one deliberate break from black-on-black: a light
+       panel reserved for verifiable results, never for problem-framing copy.
+       Lives in a plain div (not `section`), so it doesn't inherit the
+       100vh-minimum rule every scene section gets. */
+    .proof-band { max-width: 1400px; margin: 0 auto; padding: 44px 56px 0; }
+    @media(max-width: 900px) { .proof-band { padding: 28px 22px 0; } }
+
+    .proof-strip {
+      margin-top: 40px;
+      background: #FAF7F0;
+      border-radius: 10px;
+      padding: 28px 36px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 24px 48px;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .proof-stat { display: flex; flex-direction: column; gap: 2px; }
+    .proof-stat .num { font-family: 'Bebas Neue', serif; font-size: 32px; line-height: 1; color: #8A6500; }
+    .proof-stat .lbl { font-size: 11px; letter-spacing: 1px; text-transform: uppercase; color: rgba(23, 21, 17, 0.62); font-weight: 600; margin-top: 4px; }
+
+    @media(max-width: 600px) {
+      .proof-strip { padding: 22px 24px; gap: 18px 32px; justify-content: flex-start; }
+      .proof-stat .num { font-size: 26px; }
+    }
+
+    /* Light proof panel nested inside an otherwise dark work-card — the
+       verified numbers from that case, not prose. */
+    .work-proof {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px 22px;
+      background: #FAF7F0;
+      border-radius: 6px;
+      padding: 14px 18px;
+      margin: 18px 0;
+    }
+
+    .work-proof span { font-size: 12.5px; color: #171511; }
+    .work-proof strong { font-family: 'Bebas Neue', serif; font-size: 16px; letter-spacing: 0.5px; color: #8A6500; margin-right: 5px; }
+
     /* WHO */
     .who-grid {
       display: grid;
@@ -870,6 +926,27 @@
       </div>
     </section>
 
+    <div class="proof-band">
+      <div class="proof-strip">
+        <div class="proof-stat">
+          <div class="num">5.0★</div>
+          <div class="lbl"><span class="en">Google rating, every client</span><span class="nl">Google-rating, elke klant</span></div>
+        </div>
+        <div class="proof-stat">
+          <div class="num">47+</div>
+          <div class="lbl"><span class="en">Verified reviews generated</span><span class="nl">Geverifieerde reviews gegenereerd</span></div>
+        </div>
+        <div class="proof-stat">
+          <div class="num">18</div>
+          <div class="lbl"><span class="en">Cities ranked in, one client alone</span><span class="nl">Steden gerankt, bij één klant alleen al</span></div>
+        </div>
+        <div class="proof-stat">
+          <div class="num"><span class="en">Real</span><span class="nl">Echte</span></div>
+          <div class="lbl"><span class="en">Client systems, not templates</span><span class="nl">Klantsystemen, geen templates</span></div>
+        </div>
+      </div>
+    </div>
+
     <!-- SITUATION -->
     <section id="situation" class="scene" data-scene="situation">
       <div class="section-label"><span class="en">Your situation</span><span class="nl">Jouw situatie</span></div>
@@ -938,6 +1015,13 @@
           <span class="en">None of this is a marketing problem in isolation. It's the same problem six times: there is no system. Attention arrives, and then it leaks.</span>
           <span class="nl">Dit is geen los marketingprobleem. Het is zes keer hetzelfde probleem: er is geen systeem. Aandacht komt binnen, en lekt daarna weg.</span>
         </p>
+      </div>
+
+      <div class="section-cta">
+        <a href="https://wa.me/32471623105?text=Hi%20WAT%3F%20this%20is%20exactly%20my%20situation" target="_blank" rel="noopener" class="btn btn-primary">
+          <span class="en">Yes, this is exactly my situation →</span><span class="nl">Ja, dit is precies mijn situatie →</span>
+        </a>
+        <span class="section-cta-note"><span class="en">30 seconds on WhatsApp, no form to fill in</span><span class="nl">30 seconden op WhatsApp, geen formulier</span></span>
       </div>
     </section>
 
@@ -1009,6 +1093,12 @@
           </p>
         </div>
       </div>
+
+      <div class="section-cta">
+        <a href="https://wa.me/32471623105?text=Hi%20WAT%3F%20I%20recognise%20my%20business%20above" target="_blank" rel="noopener" class="btn btn-primary">
+          <span class="en">I recognise my business above →</span><span class="nl">Ik herken mijn bedrijf hierboven →</span>
+        </a>
+      </div>
     </section>
 
     <!-- SYSTEM -->
@@ -1062,6 +1152,10 @@
           <p><span class="en">Tracking that tells you where enquiries come from, so decisions stop being guesses.</span><span class="nl">Tracking die je toont waar aanvragen vandaan komen, zodat beslissingen geen gok meer zijn.</span></p>
         </div>
       </div>
+
+      <div class="section-cta">
+        <a href="#work" class="btn btn-secondary"><span class="en">See it applied to a real business ↓</span><span class="nl">Bekijk het toegepast op een echt bedrijf ↓</span></a>
+      </div>
     </section>
 
     <!-- WORK -->
@@ -1092,6 +1186,11 @@
             <span class="work-tag">Reviews</span>
             <span class="work-tag">WhatsApp</span>
           </div>
+          <div class="work-proof">
+            <span><strong>5.0★</strong><span class="en">Google rating</span><span class="nl">Google-rating</span></span>
+            <span><strong>47+</strong><span class="en">verified reviews</span><span class="nl">geverifieerde reviews</span></span>
+            <span><strong>10</strong><span class="en">cities ranking</span><span class="nl">steden in ranking</span></span>
+          </div>
           <div class="work-actions">
             <a href="/work/isoprotech.html" class="work-link"><span class="en">Read the case →</span><span class="nl">Lees de case →</span></a>
             <a href="https://isoprotech.be" target="_blank" rel="noopener" class="work-visit"><span class="en">Visit website ↗</span><span class="nl">Bezoek website ↗</span></a>
@@ -1111,6 +1210,11 @@
             <span class="work-tag">Google Business</span>
             <span class="work-tag"><span class="en">Positioning</span><span class="nl">Positionering</span></span>
             <span class="work-tag">WhatsApp</span>
+          </div>
+          <div class="work-proof">
+            <span><strong>+200%</strong><span class="en">enquiry growth</span><span class="nl">meer aanvragen</span></span>
+            <span><strong>18</strong><span class="en">cities covered</span><span class="nl">steden bediend</span></span>
+            <span><strong>5.0★</strong><span class="en">Google rating</span><span class="nl">Google-rating</span></span>
           </div>
           <div class="work-actions">
             <a href="/work/reno-rangers.html" class="work-link"><span class="en">Read the case →</span><span class="nl">Lees de case →</span></a>
