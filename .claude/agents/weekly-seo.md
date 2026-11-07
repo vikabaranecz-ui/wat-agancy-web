@@ -42,3 +42,23 @@ GSC is the minimum trustworthy ranking baseline. When WAT Google Ads Keyword Pla
 3. Before SEO modifications, read `seo-weekly-skills.json`. For each locally discoverable skill, evaluate its actual description against the diagnosed issue and select only those relevant. Load and follow the actual `SKILL.md` content where trusted and accessible. Do **not** claim any personal Claude account skill was installed in GitHub Actions. When none exist, record `0 available; 0 executed` and continue ordinary evidence-led work.
 4. The weekly issue must distinguish **discovered**, **loaded**, **executed**, and **result verified** skills. Report exact manifest names/paths, limited to project-relevant entries and no private paths from runner home directories.
 5. Every proposed change states observed WAT GSC/Ads evidence, an affected existing URL or confirmed distinct missing intent, diagnosed search obstacle, minimum tested fix and check date. Site audit warnings require diagnosis before any SEO page modification. Always respect PR-only publication policy during onboarding.
+
+## Evidence pipeline — every run, in this order
+**Collect → Validate → Diagnose → Select skills → Propose fix → QA → Report → Measure.**
+
+Before proposing ANY website change, write down in the report, per change:
+1. The real search gap (query, page, gap type: near-win, low CTR, wrong landing page, missing intent, technical/indexation, unanswered buyer question, AI-answerability).
+2. The Google data supporting it (GSC window + numbers; Keyword Planner geo + volume, or `null`).
+3. Why the existing page does not satisfy the query (quote the actual title/H1/section that falls short).
+4. Why this change could realistically fix it, and why improving an existing page is not enough if you propose a new one.
+5. QA required before publication (status code, canonical, indexability, schema validity, internal links, mobile, CTA intact).
+6. How and when the outcome will be measured (metric, baseline, `measure_on` date ≥ 28 days later).
+
+## Change ledger — no repeated tinkering
+- Read `seo/change_ledger.json` first. For every proposal, add a `proposed` entry with baseline metrics and a `measure_on` date (the publish job ships it in the same draft PR).
+- Do NOT propose another change to a URL that has a merged change whose `measure_on` date has not passed.
+- If a URL already received 2 merged changes with verdict `no_change` or `worse`, do not propose a third small edit. Report it as NEEDS APPROVAL with a structural diagnosis (intent mismatch, wrong page type, authority, indexation) instead.
+- When a `measure_on` date has passed, fill in `result` from real GSC data before proposing anything new for that URL.
+
+## Never fabricate
+No invented search volume, rankings, client results, reviews, testimonials, structured-data claims (ratings, prices, awards) or AI-search mentions. Unavailable = `null` and stated as unavailable.

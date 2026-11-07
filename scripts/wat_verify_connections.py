@@ -131,14 +131,15 @@ def test_gsc(info, parsed):
         wat_visible = [s for s in visible if "watagencybelgium" in (s or "")]
         end = date.today() - timedelta(days=3)
         body = {"startDate": str(end - timedelta(days=27)), "endDate": str(end),
-                "dimensions": ["query"], "rowLimit": 5, "type": "web"}
+                "dimensions": ["query", "page"], "rowLimit": 25, "type": "web"}
         r = session.post("https://www.googleapis.com/webmasters/v3/sites/" + quote(site, safe="") + "/searchAnalytics/query",
                          json=body, timeout=25)
         if r.status_code != 200:
             return result(FAILED, "Search Analytics query refused", property=site, error=google_error(r),
                           properties_visible_to_service_account=len(visible), wat_properties_visible=wat_visible)
         rows = r.json().get("rows", [])
-        return result(CONNECTED, "Search Analytics query for WAT succeeded", property=site,
+        return result(CONNECTED, "Search Analytics query+page request for WAT succeeded", property=site,
+                      distinct_pages=len({x.get("keys", [None, None])[1] for x in rows}),
                       window=[body["startDate"], body["endDate"]], returned_rows=len(rows),
                       clicks_in_sample=sum(x.get("clicks", 0) for x in rows),
                       impressions_in_sample=sum(x.get("impressions", 0) for x in rows),
@@ -176,20 +177,38 @@ def test_ads(info, parsed):
         else:
             return result(FAILED, "Service account is not usable for Google Ads", error=google_error(acc),
                           login_customer_id_set=bool(login), api_version=api)
-        payload = {"language": "languageConstants/1010", "geoTargetConstants": ["geoTargetConstants/2056"],
-                   "keywordPlanNetwork": "GOOGLE_SEARCH",
-                   "keywordSeed": {"keywords": ["marketingbureau Antwerpen"]}, "pageSize": 5}
-        r = requests.post(f"https://googleads.googleapis.com/{api}/customers/{customer}:generateKeywordIdeas",
-                          headers=headers, json=payload, timeout=45)
-        if r.status_code != 200:
-            return result(FAILED, "Keyword Planner request refused", error=google_error(r),
+        geos = {"belgium": "geoTargetConstants/2056"}
+        sug = requests.post(f"https://googleads.googleapis.com/{api}/geoTargetConstants:suggest", headers=headers,
+                            json={"locale": "nl", "countryCode": "BE", "locationNames": {"names": ["Antwerpen"]}},
+                            timeout=30)
+        if sug.status_code == 200:
+            for item in sug.json().get("geoTargetConstantSuggestions", []):
+                g = item.get("geoTargetConstant") or {}
+                if g.get("targetType") in ("Province", "City") and g.get("countryCode") == "BE":
+                    geos["antwerp_" + g["targetType"].lower()] = g.get("resourceName")
+        datasets, failures = {}, {}
+        for name, geo in geos.items():
+            payload = {"language": "languageConstants/1010", "geoTargetConstants": [geo],
+                       "keywordPlanNetwork": "GOOGLE_SEARCH",
+                       "keywordSeed": {"keywords": ["marketingbureau Antwerpen", "google ads bureau"]}, "pageSize": 10}
+            r = requests.post(f"https://googleads.googleapis.com/{api}/customers/{customer}:generateKeywordIdeas",
+                              headers=headers, json=payload, timeout=45)
+            if r.status_code != 200:
+                failures[name] = google_error(r)
+                continue
+            ideas = r.json().get("results", [])
+            datasets[name] = {"geo": geo, "returned_ideas": len(ideas), "ideas_with_volume": sum(
+                1 for i in ideas if (i.get("keywordIdeaMetrics") or {}).get("avgMonthlySearches"))}
+        if not datasets:
+            return result(FAILED, "Keyword Planner request refused", error=next(iter(failures.values())),
                           accessible_customers=accessible, login_customer_id_set=bool(login),
                           customer_id_last4=customer[-4:], api_version=api)
-        ideas = r.json().get("results", [])
-        return result(CONNECTED, "Keyword Planner returned ideas for WAT customer", customer_id_last4=customer[-4:],
-                      returned_ideas=len(ideas), ideas_with_volume=sum(
-                          1 for i in ideas if (i.get("keywordIdeaMetrics") or {}).get("avgMonthlySearches")),
-                      accessible_customers=accessible, api_version=api, geo="Belgium", language="Dutch")
+        status = CONNECTED if "belgium" in datasets and len(datasets) > 1 else FAILED
+        detail = ("Keyword Planner returned Belgium and Antwerp ideas for WAT" if status == CONNECTED
+                  else "Keyword Planner only partly worked (Antwerp geo unresolved or refused)")
+        return result(status, detail, customer_id_last4=customer[-4:], datasets=datasets, failures=failures or None,
+                      antwerp_geo_lookup_http=sug.status_code, accessible_customers=accessible,
+                      api_version=api, language="Dutch")
     except Exception as exc:  # noqa: BLE001
         return result(FAILED, f"{type(exc).__name__} while calling Google Ads")
 
