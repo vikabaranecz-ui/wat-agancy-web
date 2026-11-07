@@ -1,12 +1,10 @@
-/* WAT Agency: consent-first analytics, 2026-11.
- * GA4 is configured IN CODE (G-4SVZ02R7E2), not in GTM.
- * Do NOT add another GA4 Google tag to GTM-K2BP584R.
+/* WAT Agency: GTM-first consent-aware measurement, 2026-11.
+ * GA4 tags and events must be imported into GTM-K2BP584R.
  * Contact-click events are intent proxies, NOT verified enquiries.
  */
 (function () {
   'use strict';
   var GTM_ID = 'GTM-K2BP584R';
-  var GA4_ID = 'G-4SVZ02R7E2';
   var CONSENT_KEY = 'wat_analytics_consent_v1';
   var initialized = false;
   var accepted = false;
@@ -41,10 +39,7 @@
   function startAnalytics() {
     if (initialized) return;
     initialized = true;
-    window.gtag('js', new Date());
-    window.gtag('config', GA4_ID, { send_page_view: true });
-    loadScript('https://www.googletagmanager.com/gtag/js?id=' + encodeURIComponent(GA4_ID));
-    // The GTM container is available for future tags, but has no GA4 tag.
+    // GA4 configuration and GA4 events are owned by Google Tag Manager only.
     window.dataLayer.push({ 'gtm.start': Date.now(), event: 'gtm.js' });
     loadScript('https://www.googletagmanager.com/gtm.js?id=' + encodeURIComponent(GTM_ID));
   }
@@ -61,7 +56,8 @@
   }
   function track(name, location) {
     if (!accepted || !initialized) return;
-    window.gtag('event', name, {
+    window.dataLayer.push({
+      event: name,
       link_location: location || 'other',
       page_path: locationPath(),
       site_language: language()
@@ -142,7 +138,11 @@
       manage.hidden = !banner.hidden;
     }
     window.watConsentRender = render;
-    reject.addEventListener('click', function () { store('rejected'); applyConsent('rejected'); });
+    reject.addEventListener('click', function () {
+      var hadAnalytics = initialized;
+      store('rejected'); applyConsent('rejected');
+      if (hadAnalytics) window.location.reload();
+    });
     accept.addEventListener('click', function () { store('accepted'); applyConsent('accepted'); });
     render();
   }
