@@ -7,6 +7,7 @@ from datetime import date, timedelta, datetime, timezone
 from pathlib import Path
 from urllib.parse import urljoin
 import requests
+from wat_ads_collect import collect_keyword_planner
 from bs4 import BeautifulSoup
 
 SITE = os.getenv("WAT_SITE_URL", "https://www.watagencybelgium.be").rstrip("/")
@@ -85,9 +86,10 @@ def get_gsc():
                 "previous": [str(previous_start), str(previous_end)],
                 "last90": [str(past90_start), str(end)],
             },
-            "current_queries": gsc_period(credentials, current_start, end, ["query"]),
-            "previous_queries": gsc_period(credentials, previous_start, previous_end, ["query"]),
-            "current_pages": gsc_period(credentials, current_start, end, ["page"]),
+            "current_queries": gsc_period(credentials, current_start, end, ["query"], 5000),
+            "current_query_pages": gsc_period(credentials, current_start, end, ["query", "page"], 8000),
+            "previous_queries": gsc_period(credentials, previous_start, previous_end, ["query"], 5000),
+            "current_pages": gsc_period(credentials, current_start, end, ["page"], 2000),
             "last90_queries": gsc_period(credentials, past90_start, end, ["query"]),
         }
     except (Exception,) as exc:
@@ -104,7 +106,7 @@ def main():
         "project": "WAT Agency only",
         "site_audit": [fetch_page(path) for path in PAGES + ["/robots.txt", "/sitemap.xml"]],
         "gsc": get_gsc(),
-        "keyword_planner": {"status": "NOT_CONNECTED", "explanation": "Do not invent volumes. Google Ads credentials and explicit WAT customer account need verification."},
+        "keyword_planner": collect_keyword_planner(),
         "ga4": {"status": "NOT_VERIFIED", "explanation": "GTM/GA4 site changes are in separate PR; only treat proven live events as data."},
         "competitor_gaps": {"status": "REQUIRES_RESEARCH", "explanation": "Do not claim competitor rankings without dated evidence."},
     }
