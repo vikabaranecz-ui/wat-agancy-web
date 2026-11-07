@@ -29,3 +29,6 @@ Create one issue titled `SEO Weekly — YYYY-MM-DD — <MODE>`, where MODE is BL
 - Next exact action, short owner summary (Ukrainian)
 
 Never end the run with uncommitted site edits, fabricated scores, or silently changed production configuration.
+
+## Evidence-to-change gate — mandatory
+Every proposed site change MUST be tied to a dated observed opportunity in WAT's own GSC query+page performance and/or verified WAT Ads Keyword Planner evidence. Do not use seed phrases as ranking targets simply because they appear in JSON. For each fix specify: data source/period, observed query and matching existing URL (or genuine unmapped intent), current impression/position/CTR and Antwerp/Belgium volume when supplied, diagnosed bottleneck, business value, minimum viable change, site-health/regression checks, and a future measurement checkpoint. Google Ads paid competition is never organic ranking difficulty. Page health must pass or be identified separately. If both GSC and Ads are unavailable, no speculative SEO content PR. A site's actual live fetch is not proof of Google indexation. Prefer genuine uncovered commercial opportunities, not a target keyword count. Distinguish contact click proxies from qualified leads. Do not auto-merge.
