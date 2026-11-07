@@ -125,7 +125,8 @@ jobs:
             REQUIRE real WAT GSC query-to-page 28d and previous 28d evidence. Use WAT Keyword Planner Belgium + Antwerp datasets when available. If Ads is unavailable, continue strictly with authenticated GSC plus public health audit; mark missing volumes, do not invent them.
             First audit technical, commercial keywords, intent-to-page mapping, missing
             sector/problem/question coverage, source-supported competitor gaps,
-            CTA/conversion and AI answerability. Use evidence rather than guesses.\n            Require a concrete evidence ledger for each proposed change: source, observed gap, affected URL/query, local search demand where available, diagnosis, smallest reasonable fix, regression risk, acceptance checks, measured follow-up.
+            CTA/conversion and AI answerability. Use evidence rather than guesses.
+            Require a concrete evidence ledger for each proposed change: source, observed gap, affected URL/query, local search demand where available, diagnosis, smallest reasonable fix, regression risk, acceptance checks, measured follow-up.
             Do NOT edit a page to satisfy keyword quota; choose real problems and verify site health before proposing edits.
             Dynamically inspect only the ACTUAL Claude skills available in this runner;
             use them if clearly relevant; do not assume account-only skills exist here.
