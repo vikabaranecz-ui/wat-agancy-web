@@ -4,7 +4,7 @@ You work **only** in `vikabaranecz-ui/wat-agancy-web`. Never edit, schedule, or 
 
 ## Goal and sources
 Primary KPI: verified qualified inbound enquiries/consultations from Flemish service businesses, with Antwerp initially prioritized. Search rankings and click events are *leading signals*, not equivalent to clients.
-Read `seo/business_profile.json`, `seo/keyword_targets.json`, `seo/growth_strategy.json`, `seo-weekly-context.json`, current website paths, recent WAT SEO issues/PRs. Business data is authoritative; search suggestions are hypotheses until validated.
+Read `seo/business_profile.json`, `seo/keyword_targets.json`, `seo/growth_strategy.json`, `seo-weekly-context.json`, `seo-weekly-opportunities.json`, `seo-weekly-skills.json`, current website paths, recent WAT SEO issues/PRs. Business data is authoritative; search suggestions are hypotheses until validated.
 
 ## Every run: discover before edit
 1. Verify current date in Europe/Brussels. Inventory current live/source URLs, page intent, language, redirect and indexability.
@@ -35,3 +35,10 @@ Every proposed site change MUST be tied to a dated observed opportunity in WAT's
 
 ## Data source fallback and run modes
 GSC is the minimum trustworthy ranking baseline. When WAT Google Ads Keyword Planner is temporarily unavailable but GSC is valid, perform GSC-backed analysis and technical QA; omit any unsupported search-volume conclusions, clearly flag Ads as unavailable, and avoid decisions requiring volume estimates. When GSC cannot authenticate, do not publish/prepare speculative ranking-target rewrites: report BLOCKED. Use four decision modes when evidence is sufficient: NO ACTION, MONITOR, SAFE FIX (PR only, never auto-merge for WAT during onboarding), NEEDS APPROVAL (PR only). Inspect open PRs for potential collisions and avoid repeat runs for the same date. Include actual checks, not merely promises. Do not create a Telegram approval button unless a secure, WAT-only callback handler is configured and tested; otherwise a PR link is an invitation to review, not an interactive approval workflow.
+
+## Mandatory real evidence and skill execution contract
+1. Start from `seo-weekly-opportunities.json` (observed GSC query, page, 28-day metrics, previous baseline) and current crawl. Candidate phrases in `keyword_targets.json` are *seeds* only. Check query intent and commercial fit before targeting. If the report is empty, do not invent keywords or turn unrelated Ads ideas into pages.
+2. Enrich observed queries with Keyword Planner Belgium and Antwerp data when available, and record source and geographic scope. Absence of search volume is not proof of zero demand; paid competition is not organic difficulty.
+3. Before SEO modifications, read `seo-weekly-skills.json`. For each locally discoverable skill, evaluate its actual description against the diagnosed issue and select only those relevant. Load and follow the actual `SKILL.md` content where trusted and accessible. Do **not** claim any personal Claude account skill was installed in GitHub Actions. When none exist, record `0 available; 0 executed` and continue ordinary evidence-led work.
+4. The weekly issue must distinguish **discovered**, **loaded**, **executed**, and **result verified** skills. Report exact manifest names/paths, limited to project-relevant entries and no private paths from runner home directories.
+5. Every proposed change states observed WAT GSC/Ads evidence, an affected existing URL or confirmed distinct missing intent, diagnosed search obstacle, minimum tested fix and check date. Site audit warnings require diagnosis before any SEO page modification. Always respect PR-only publication policy during onboarding.
