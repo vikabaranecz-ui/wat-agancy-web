@@ -34,3 +34,6 @@ See `seo/keyword_targets.json`. These are hypotheses. First run must confirm act
 - Technical health, indexability, internal authority and contact pathways
 
 The north-star KPI is **qualified WAT enquiries**, not arbitrary post counts or unverified Top-5 targets.
+
+## Verified keyword research and evidence gate
+WAT keyword-target JSON contains *discovery seeds only*. They are NOT validated local search volume or existing Google ranking targets. An SEO change requires authentic WAT GSC queries+pages for 28d vs previous 28d, plus Keyword Planner ideas for Belgium and Antwerp province from the WAT Ads account. The weekly run is BLOCKED without both authenticated sources; website health audit still runs. Configure `WAT_GOOGLE_ADS_CUSTOMER_ID` as an Actions variable and `WAT_GOOGLE_ADS_DEVELOPER_TOKEN` as a secret. If accessing via manager account, configure `WAT_GOOGLE_ADS_LOGIN_CUSTOMER_ID` as a variable. API access and valid account authorization are required; credentials for ISOPROTECH and Reno Rangers must not be assumed to authorize WAT. `GOOGLE_ADS_API_VERSION` is pinned in the workflow and should be reviewed on API deprecation. No Ads values or search positions have yet been independently verified.
