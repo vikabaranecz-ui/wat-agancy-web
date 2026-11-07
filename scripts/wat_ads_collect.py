@@ -23,6 +23,7 @@ def collect_keyword_planner(gsc_queries=None):
         if query and not re.search(r'(?i)wat\\??\\s*agency|watagency|viktoriiamarketing', query) and query not in seeds:
             seeds.append(query)
         if len(seeds) >= 12: break
+    observed_seed_count = len(seeds)
     for cluster in keyword_data.get("clusters", []):
         for query in cluster.get("queries", []):
             if query not in seeds:
@@ -41,7 +42,7 @@ def collect_keyword_planner(gsc_queries=None):
             headers["login-customer-id"] = login_id
         base = f"https://googleads.googleapis.com/{version}/customers/{customer_id}:generateKeywordIdeas"
         result = {"status": "OK", "customer_id": customer_id, "seed_type": "observed_gsc_queries_then_unvalidated_discovery_queries",
-                  "observed_gsc_seed_count": min(12, len(gsc_queries or [])),
+                  "observed_gsc_seed_count": observed_seed_count,
                   "geo_scope": "Belgium and Antwerp province", "datasets": {}}
         for name, geo_id in [("belgium", "2056"), ("antwerp_province", "20053")]:
             body = {"language": "languageConstants/1010",
