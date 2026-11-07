@@ -32,22 +32,44 @@ jobs:
       GOOGLE_ADS_LOGIN_CUSTOMER_ID: ${{ vars.WAT_GOOGLE_ADS_LOGIN_CUSTOMER_ID }}
       GOOGLE_ADS_API_VERSION: v25
     steps:
+      - name: Avoid duplicate scheduled paid analysis
+        id: duplicate
+        env:
+          FORCE_RUN: ${{ github.event_name == 'workflow_dispatch' }}
+        shell: bash
+        run: |
+          if [ "$FORCE_RUN" = "true" ]; then
+            echo "skip=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          TODAY="$(TZ=Europe/Brussels date +%F)"
+          EXISTING="$(gh issue list --repo "$GITHUB_REPOSITORY" --search "SEO Weekly — ${TODAY} in:title" --json title --jq 'length' --limit 20)"
+          if [ "$EXISTING" != "0" ]; then
+            echo "skip=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "skip=false" >> "$GITHUB_OUTPUT"
+          fi
+
       - name: Checkout WAT repository
+        if: steps.duplicate.outputs.skip != 'true'
         uses: actions/checkout@v4
 
       - name: Set up Python
+        if: steps.duplicate.outputs.skip != 'true'
         uses: actions/setup-python@v5
         with:
           python-version: '3.12'
 
       - name: Install public-site and GSC collector dependencies
+        if: steps.duplicate.outputs.skip != 'true'
         run: python -m pip install --disable-pip-version-check requests beautifulsoup4 google-auth
 
       - name: Collect WAT-only weekly SEO evidence
+        if: steps.duplicate.outputs.skip != 'true'
         run: python scripts/wat_seo_weekly_collect.py
 
       - name: Upload WAT-only evidence
-        if: always()
+        if: always() && steps.duplicate.outputs.skip != 'true'
         uses: actions/upload-artifact@v4
         with:
           name: wat-seo-weekly-${{ github.run_id }}
@@ -56,6 +78,7 @@ jobs:
           retention-days: 30
 
       - name: Check WAT GSC evidence and Claude authentication
+        if: steps.duplicate.outputs.skip != 'true'
         id: gate
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
@@ -63,16 +86,17 @@ jobs:
           python - <<'PY'
           import json, os
           data=json.load(open("seo-weekly-context.json"))
-          ready=(data["gsc"]["status"]=="OK" and data["keyword_planner"]["status"]=="OK" and bool(os.getenv("ANTHROPIC_API_KEY")))
-          print("GSC:", data["gsc"]["status"], "Ads:", data["keyword_planner"]["status"])
+          ready=(data["gsc"]["status"]=="OK" and bool(os.getenv("ANTHROPIC_API_KEY")))
+          ads_available=(data["keyword_planner"]["status"]=="OK")
+          print("GSC:", data["gsc"]["status"], "Ads:", data["keyword_planner"]["status"], "(Ads unavailable means no volume-based assertions)")
           with open(os.environ["GITHUB_OUTPUT"],"a") as f:
               f.write("ready=" + str(ready).lower() + "\n")
           print("WAT weekly SEO Claude ready:", ready)
-          if not ready: print("GSC, WAT Google Ads Keyword Planner, or Claude credentials unavailable; create a blocked issue, do not invent metrics.")
+          if not ready: print("GSC or Claude credentials unavailable; create a blocked issue, do not invent metrics.")
           PY
 
       - name: Create honest BLOCKED report without paid Claude run
-        if: steps.gate.outputs.ready != 'true'
+        if: steps.duplicate.outputs.skip != 'true' && steps.gate.outputs.ready != 'true'
         shell: bash
         run: |
           TODAY="$(TZ=Europe/Brussels date +%F)"
@@ -80,11 +104,11 @@ jobs:
           FOUND="$(gh issue list --repo "$GITHUB_REPOSITORY" --search "${TITLE} in:title" --json number --jq 'length' --limit 10)"
           if [ "$FOUND" = "0" ]; then
             gh issue create --repo "$GITHUB_REPOSITORY" --title "$TITLE" \
-              --body "WAT Agency only. Weekly site audit completed; GSC, Ads Keyword Planner evidence or Claude API access not verified. Read the evidence artifact in this GitHub Actions run. Configure WAT_GSC_SERVICE_ACCOUNT_JSON, WAT_GSC_SITE_URL (if needed), WAT_GOOGLE_ADS_CUSTOMER_ID, WAT_GOOGLE_ADS_DEVELOPER_TOKEN, WAT Ads access, and ANTHROPIC_API_KEY, then manually dispatch again. No rankings, search volumes, leads or skills have been invented. No website changes were published."
+              --body "WAT Agency only. Weekly site audit completed; GSC evidence or Claude API access not verified. Read the evidence artifact in this GitHub Actions run. Configure WAT_GSC_SERVICE_ACCOUNT_JSON, WAT_GSC_SITE_URL (if needed), WAT_GOOGLE_ADS_CUSTOMER_ID, WAT_GOOGLE_ADS_DEVELOPER_TOKEN, WAT Ads access, and ANTHROPIC_API_KEY, then manually dispatch again. No rankings, search volumes, leads or skills have been invented. No website changes were published."
           fi
 
       - name: Run WAT-only weekly SEO and missing-gap analysis
-        if: steps.gate.outputs.ready == 'true'
+        if: steps.duplicate.outputs.skip != 'true' && steps.gate.outputs.ready == 'true'
         id: claude
         uses: anthropics/claude-code-action@v1
         with:
@@ -98,9 +122,11 @@ jobs:
             `seo/business_profile.json`, `seo/keyword_targets.json`,
             `seo/growth_strategy.json`, `seo-weekly-context.json`.
             Determine today's date in Europe/Brussels.
-            REQUIRE real GSC query-to-page 28d and previous 28d evidence AND genuine WAT Google Ads Keyword Planner local Antwerp + Belgium datasets. If incomplete, do not invent rankings or search volumes; audit health and create BLOCKED report instead.\n            First audit technical, commercial keywords, intent-to-page mapping, missing
+            REQUIRE real WAT GSC query-to-page 28d and previous 28d evidence. Use WAT Keyword Planner Belgium + Antwerp datasets when available. If Ads is unavailable, continue strictly with authenticated GSC plus public health audit; mark missing volumes, do not invent them.
+            First audit technical, commercial keywords, intent-to-page mapping, missing
             sector/problem/question coverage, source-supported competitor gaps,
-            CTA/conversion and AI answerability. Use evidence rather than guesses.\n            Require a concrete evidence ledger for each proposed change: source, observed gap, affected URL/query, local search demand where available, diagnosis, smallest reasonable fix, regression risk, acceptance checks, measured follow-up.\n            Do NOT edit a page to satisfy keyword quota; choose real problems and verify site health before proposing edits.
+            CTA/conversion and AI answerability. Use evidence rather than guesses.\n            Require a concrete evidence ledger for each proposed change: source, observed gap, affected URL/query, local search demand where available, diagnosis, smallest reasonable fix, regression risk, acceptance checks, measured follow-up.
+            Do NOT edit a page to satisfy keyword quota; choose real problems and verify site health before proposing edits.
             Dynamically inspect only the ACTUAL Claude skills available in this runner;
             use them if clearly relevant; do not assume account-only skills exist here.
             Check existing WAT PRs and avoid conflicts with pending consent/contact work.
@@ -114,7 +140,7 @@ jobs:
             --allowedTools "Read,Write,Edit,Glob,Grep,WebSearch,WebFetch,Bash(git:*),Bash(gh:*),Bash(python:*),Bash(python3:*),Bash(npm:*),Bash(npx:*),Bash(ls:*),Bash(cat:*)"
 
       - name: Send optional WAT-only Telegram status
-        if: always()
+        if: always() && steps.duplicate.outputs.skip != 'true'
         continue-on-error: true
         env:
           WAT_TELEGRAM_BOT_TOKEN: ${{ secrets.WAT_TELEGRAM_BOT_TOKEN }}
