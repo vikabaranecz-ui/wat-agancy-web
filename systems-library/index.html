@@ -169,10 +169,10 @@ nav.scrolled{padding:14px 56px;background:rgba(5,5,5,.97);backdrop-filter:none;-
 .proj-mock-visit{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;text-decoration:none;color:inherit;width:100%}
 .proj-mock-hint{font-family:'Space Grotesk',sans-serif;font-size:11px;letter-spacing:.3px;color:var(--ink-60);display:flex;align-items:center;gap:6px;transition:color .2s}
 .proj-mock-visit:hover .proj-mock-hint{color:var(--red)}
-/* First-screen preview: a real image pulled from the live site itself (its
-   og:image or hero photo), loaded directly from that site's own origin — so
-   it's the visitor's browser fetching it, not ours, and the earlier iframe
-   block above doesn't apply at all. */
+/* First-screen preview: a branded laptop mockup of the real site, shipped
+   as a local asset instead of hotlinked from the live site's own origin —
+   consistent framing/lighting across every card, and immune to the target
+   site changing or removing the image this card depends on. */
 .proj-mock-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .35s ease}
 .proj-card:hover .proj-mock-img{transform:scale(1.045)}
 .proj-mock-scrim{position:absolute;inset:0;z-index:1;background:linear-gradient(180deg,rgba(5,5,5,.1) 0%,rgba(5,5,5,.82) 100%);pointer-events:none}
@@ -319,7 +319,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <div class="proj-card rv" data-type="client" data-tags="websites,google-business,lead-flow">
       <div class="proj-mock">
         <div class="proj-mock-bar"><span class="proj-mock-dot"></span><span class="proj-mock-dot"></span><span class="proj-mock-dot"></span></div>
-        <a class="proj-mock-visit has-img" href="https://www.renorangers.be" target="_blank" rel="noopener"><img class="proj-mock-img" src="https://www.renorangers.be/badkamer-hero-desktop.webp" alt="" loading="lazy"><span class="proj-mock-scrim"></span><span class="proj-mock-hint">View live site ↗</span></a>
+        <a class="proj-mock-visit has-img" href="https://www.renorangers.be" target="_blank" rel="noopener"><img class="proj-mock-img" src="../assets/mockups/reno-rangers.webp" alt="" loading="lazy"><span class="proj-mock-scrim"></span><span class="proj-mock-hint">View live site ↗</span></a>
       </div>
       <div class="proj-body">
         <div class="proj-badges"><span class="proj-badge type-client">Client System</span></div>
@@ -348,7 +348,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <div class="proj-card rv d1" data-type="client" data-tags="websites,google-business,lead-flow">
       <div class="proj-mock">
         <div class="proj-mock-bar"><span class="proj-mock-dot"></span><span class="proj-mock-dot"></span><span class="proj-mock-dot"></span></div>
-        <a class="proj-mock-visit has-img" href="https://www.isoprotech.be" target="_blank" rel="noopener"><img class="proj-mock-img" src="https://www.isoprotech.be/images/og-isoprotech.png" alt="" loading="lazy"><span class="proj-mock-scrim"></span><span class="proj-mock-hint">View live site ↗</span></a>
+        <a class="proj-mock-visit has-img" href="https://www.isoprotech.be" target="_blank" rel="noopener"><img class="proj-mock-img" src="../assets/mockups/isoprotech.webp" alt="" loading="lazy"><span class="proj-mock-scrim"></span><span class="proj-mock-hint">View live site ↗</span></a>
       </div>
       <div class="proj-body">
         <div class="proj-badges"><span class="proj-badge type-client">Client System</span></div>
@@ -395,7 +395,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <div class="proj-card rv" data-type="concept" data-tags="websites,branding,google-business,lead-flow">
       <div class="proj-mock">
         <div class="proj-mock-bar"><span class="proj-mock-dot"></span><span class="proj-mock-dot"></span><span class="proj-mock-dot"></span></div>
-        <a class="proj-mock-visit has-img" href="https://bar-beard.vercel.app" target="_blank" rel="noopener"><img class="proj-mock-img" src="https://bar-beard.vercel.app/assets/fade-cut.jpg" alt="" loading="lazy"><span class="proj-mock-scrim"></span><span class="proj-mock-hint">View live site ↗</span></a>
+        <a class="proj-mock-visit has-img" href="https://bar-beard.vercel.app" target="_blank" rel="noopener"><img class="proj-mock-img" src="../assets/mockups/bar-beard.webp" alt="" loading="lazy"><span class="proj-mock-scrim"></span><span class="proj-mock-hint">View live site ↗</span></a>
       </div>
       <div class="proj-body">
         <div class="proj-badges"><span class="proj-badge type-concept">Concept System</span></div>
@@ -425,7 +425,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <div class="proj-card rv d1" data-type="concept" data-tags="websites,google-business,lead-flow">
       <div class="proj-mock">
         <div class="proj-mock-bar"><span class="proj-mock-dot"></span><span class="proj-mock-dot"></span><span class="proj-mock-dot"></span></div>
-        <a class="proj-mock-visit has-img" href="https://rio-lfix.vercel.app" target="_blank" rel="noopener"><img class="proj-mock-img" src="https://rio-lfix.vercel.app/assets/team-yard.png" alt="" loading="lazy"><span class="proj-mock-scrim"></span><span class="proj-mock-hint">View live site ↗</span></a>
+        <a class="proj-mock-visit has-img" href="https://rio-lfix.vercel.app" target="_blank" rel="noopener"><img class="proj-mock-img" src="../assets/mockups/rio-lfix.webp" alt="" loading="lazy"><span class="proj-mock-scrim"></span><span class="proj-mock-hint">View live site ↗</span></a>
       </div>
       <div class="proj-body">
         <div class="proj-badges"><span class="proj-badge type-concept">Concept System</span></div>
@@ -483,7 +483,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <div class="proj-card rv" data-type="concept" data-tags="websites,lead-flow">
       <div class="proj-mock">
         <div class="proj-mock-bar"><span class="proj-mock-dot"></span><span class="proj-mock-dot"></span><span class="proj-mock-dot"></span></div>
-        <a class="proj-mock-visit has-img" href="https://shine-and-shift-antwerpen.vercel.app" target="_blank" rel="noopener"><img class="proj-mock-img" src="https://shine-and-shift-antwerpen.vercel.app/og.png" alt="" loading="lazy"><span class="proj-mock-scrim"></span><span class="proj-mock-hint">View live site ↗</span></a>
+        <a class="proj-mock-visit has-img" href="https://shine-and-shift-antwerpen.vercel.app" target="_blank" rel="noopener"><img class="proj-mock-img" src="../assets/mockups/shine-and-shift.webp" alt="" loading="lazy"><span class="proj-mock-scrim"></span><span class="proj-mock-hint">View live site ↗</span></a>
       </div>
       <div class="proj-body">
         <div class="proj-badges"><span class="proj-badge type-concept">Concept System</span></div>
