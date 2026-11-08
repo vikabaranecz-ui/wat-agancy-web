@@ -55,7 +55,7 @@
 
   var stored = null;
   try { stored = localStorage.getItem('preferred-lang-v2'); } catch (e) {}
-  window.setLanguage(stored || 'nl');
+  window.setLanguage(stored || 'en');
 
   function initMenu() {
     var burger = document.getElementById('nav-burger');
@@ -233,7 +233,7 @@
 
     if (hero && videos.length) {
       var activeVideo = function (lang) {
-        var currentLang = lang || document.documentElement.getAttribute('data-lang') || 'nl';
+        var currentLang = lang || document.documentElement.getAttribute('data-lang') || 'en';
         return videos.find(function (item) { return item.dataset.langVideo === currentLang; }) || videos[0];
       };
 
