@@ -53,25 +53,17 @@ def google_error(response):
     return out
 
 
-def masked_identity(info):
-    email = info.get("client_email", "")
-    if "@" not in email:
-        return None
-    local, domain = email.split("@", 1)
-    return local[:3] + "***@" + domain
-
-
 def load_service_account():
-    raw = os.getenv("GOOGLE_ADC_JSON", "").strip()
-    if not raw:
-        return None, result(NOT_CONFIGURED, "No WAT_GSC_SERVICE_ACCOUNT_JSON or GOOGLE_ADC_JSON secret available to this job")
+    """Use short-lived GitHub OIDC Application Default Credentials."""
     try:
-        info = json.loads(raw)
-    except ValueError:
-        return None, result(FAILED, "Google credential secret is not valid JSON")
-    if info.get("type") != "service_account":
-        return None, result(FAILED, f"Google credential type is '{info.get('type')}', expected 'service_account'")
-    return info, result(CONNECTED, "Service-account JSON parsed (not an API test)", identity=masked_identity(info))
+        import google.auth
+        credentials, _ = google.auth.default(scopes=[
+            "https://www.googleapis.com/auth/webmasters.readonly",
+            "https://www.googleapis.com/auth/adwords"
+        ])
+        return credentials, result(CONNECTED, "Google ADC resolved; real API calls follow")
+    except Exception as exc:
+        return None, result(FAILED, f"Google ADC unavailable: {type(exc).__name__}")
 
 
 def test_claude():
@@ -118,11 +110,8 @@ def test_gsc(info, parsed):
         return credential_problem(parsed)
     site = os.getenv("GSC_SITE_URL", "sc-domain:watagencybelgium.be")
     try:
-        from google.oauth2 import service_account
         from google.auth.transport.requests import AuthorizedSession
-        creds = service_account.Credentials.from_service_account_info(
-            info, scopes=["https://www.googleapis.com/auth/webmasters.readonly"])
-        session = AuthorizedSession(creds)
+        session = AuthorizedSession(info)
         listed = session.get("https://www.googleapis.com/webmasters/v3/sites", timeout=25)
         if listed.status_code != 200:
             return result(FAILED, "Could not list Search Console properties", property=site, error=google_error(listed))
@@ -151,19 +140,16 @@ def test_gsc(info, parsed):
 def test_ads(info, parsed):
     customer = re.sub(r"\D", "", os.getenv("WAT_GOOGLE_ADS_CUSTOMER_ID", ""))
     missing = [n for n, v in [("WAT_GOOGLE_ADS_CUSTOMER_ID", customer),
-                              ("Google service account", info)] if not v]
+                              ("Google OIDC credentials", info)] if not v]
     if not info and parsed["status"] == FAILED:
         return credential_problem(parsed)
     if missing:
         return result(NOT_CONFIGURED, "Missing: " + ", ".join(missing))
     api = os.getenv("GOOGLE_ADS_API_VERSION", "v26")
     try:
-        from google.oauth2 import service_account
         from google.auth.transport.requests import Request
-        creds = service_account.Credentials.from_service_account_info(
-            info, scopes=["https://www.googleapis.com/auth/adwords"])
-        creds.refresh(Request())
-        headers = {"Authorization": "Bearer " + creds.token}
+        info.refresh(Request())
+        headers = {"Authorization": "Bearer " + info.token}
         login = re.sub(r"\D", "", os.getenv("GOOGLE_ADS_LOGIN_CUSTOMER_ID", ""))
         if login:
             headers["login-customer-id"] = login
