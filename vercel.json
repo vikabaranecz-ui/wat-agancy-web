@@ -1,7 +1,13 @@
 {
   "redirects": [
-    { "source": "/", "destination": "/en/", "permanent": false },
-    { "source": "/work", "destination": "/systems-library/", "permanent": false },
-    { "source": "/work/", "destination": "/systems-library/", "permanent": false }
+    { "source": "/", "destination": "/en/", "permanent": true },
+    { "source": "/index.html", "destination": "/en/", "permanent": true },
+    { "source": "/en/index.html", "destination": "/en/", "permanent": true },
+    { "source": "/work", "destination": "/systems-library/", "permanent": true },
+    { "source": "/work/", "destination": "/systems-library/", "permanent": true },
+    { "source": "/systems-library/index.html", "destination": "/systems-library/", "permanent": true },
+    { "source": "/web", "destination": "/en/", "permanent": true },
+    { "source": "/web/", "destination": "/en/", "permanent": true },
+    { "source": "/web/index.html", "destination": "/en/", "permanent": true }
   ]
 }
