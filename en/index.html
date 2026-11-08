@@ -679,9 +679,36 @@
     .work-visit:hover { color: #FFD400; border-color: rgba(255, 212, 0, 0.5); }
 
     /* APPROACH */
-    .approach-list { margin-top: 48px; display: grid; gap: 28px; max-width: 900px; }
+    .approach-list {
+      margin-top: 48px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(360px, 100%), 1fr));
+      gap: 24px;
+    }
 
-    .approach-item { border-left: 3px solid #FFD400; padding-left: 24px; }
+    .approach-item {
+      padding: 30px;
+      background: linear-gradient(rgba(255, 212, 0, 0.06), rgba(255, 212, 0, 0.06)), #080808;
+      border: 1px solid rgba(255, 212, 0, 0.18);
+      border-radius: 6px;
+    }
+
+    /* Monochrome gold, on-brand: a filled check for what we commit to, a
+       hollow/dim one for what we explicitly rule out — same accent colour,
+       different weight, so it reads as a contrast without a second hue. */
+    .approach-icon {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 16px;
+    }
+    .approach-icon svg { width: 18px; height: 18px; }
+    .approach-item.is-promise .approach-icon { background: rgba(255, 212, 0, 0.15); color: #FFD400; }
+    .approach-item.is-not .approach-icon { background: transparent; border: 1px solid rgba(244, 242, 236, 0.25); color: rgba(244, 242, 236, 0.45); }
+
     .approach-item h3 { font-size: 17px; font-weight: 700; color: #FFD400; margin-bottom: 8px; }
     .approach-item p { font-size: 14px; color: rgba(244, 242, 236, 0.65); line-height: 1.75; }
 
@@ -1324,7 +1351,8 @@
       </h2>
 
       <div class="approach-list">
-        <div class="approach-item">
+        <div class="approach-item is-not">
+          <span class="approach-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 6l12 12M18 6L6 18"/></svg></span>
           <h3><span class="en">We don't promise you a number of leads</span><span class="nl">We beloven je geen aantal leads</span></h3>
           <p>
             <span class="en">Anyone who guarantees you "20 enquiries a month" before seeing your market is selling you a number, not a business. What we build is a system of visibility, trust, communication and control — so that the interest your work already generates stops disappearing into chaos.</span>
@@ -1332,7 +1360,8 @@
           </p>
         </div>
 
-        <div class="approach-item">
+        <div class="approach-item is-promise">
+          <span class="approach-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L19 7"/></svg></span>
           <h3><span class="en">We're your external online partner, not a supplier</span><span class="nl">We zijn je externe online partner, geen leverancier</span></h3>
           <p>
             <span class="en">You keep doing the thing you're good at. We take the online side off your desk entirely — strategy, build, content, channels and measurement — and stay responsible for how the parts work together.</span>
@@ -1340,7 +1369,8 @@
           </p>
         </div>
 
-        <div class="approach-item">
+        <div class="approach-item is-promise">
+          <span class="approach-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L19 7"/></svg></span>
           <h3><span class="en">We build in the language of your market</span><span class="nl">We bouwen in de taal van je markt</span></h3>
           <p>
             <span class="en">We're based in Antwerp. NL, FR and EN, Belgian search behaviour, local seasonality, and the competitors actually ranking in your city — not tactics imported from somewhere else.</span>
@@ -1348,7 +1378,8 @@
           </p>
         </div>
 
-        <div class="approach-item">
+        <div class="approach-item is-promise">
+          <span class="approach-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L19 7"/></svg></span>
           <h3><span class="en">Everything we do is measurable</span><span class="nl">Alles wat we doen is meetbaar</span></h3>
           <p>
             <span class="en">Tracking goes in before campaigns do. You see where enquiries come from, what each channel contributes, and what to cut. If something isn't working, you'll hear it from us first.</span>
