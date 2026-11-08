@@ -1,12 +1,12 @@
 name: WAT — Verify Claude and Google Connections
 
 # Diagnostic only. Read-only token, no deploy, no repository writes.
-# push: runs from the PR #8 branch itself (workflow_dispatch only works once the file is on main).
+# Runs on main push and manual dispatch; OIDC trust is restricted to main.
 on:
   workflow_dispatch:
   push:
     branches:
-      - feat/wat-dedicated-weekly-seo-20261107
+      - main
     paths:
       - '.github/workflows/wat-verify-connections.yml'
       - 'scripts/wat_verify_connections.py'
@@ -16,6 +16,7 @@ on:
 
 permissions:
   contents: read
+  id-token: write
 
 concurrency:
   group: wat-verify-connections
@@ -27,7 +28,6 @@ jobs:
     timeout-minutes: 10
     env:
       GSC_SITE_URL: ${{ vars.WAT_GSC_SITE_URL || 'sc-domain:watagencybelgium.be' }}
-      GOOGLE_ADC_JSON: ${{ secrets.WAT_GSC_SERVICE_ACCOUNT_JSON || secrets.GOOGLE_ADC_JSON }}
       WAT_GOOGLE_ADS_CUSTOMER_ID: ${{ vars.WAT_GOOGLE_ADS_CUSTOMER_ID }}
       GOOGLE_ADS_LOGIN_CUSTOMER_ID: ${{ vars.WAT_GOOGLE_ADS_LOGIN_CUSTOMER_ID || secrets.GOOGLE_ADS_LOGIN_CUSTOMER_ID }}
       GOOGLE_ADS_API_VERSION: v26
@@ -35,14 +35,20 @@ jobs:
       # Presence flags only (true/false). Secret values are never echoed.
       WAT_SECRET_PRESENCE: >-
         {"ANTHROPIC_API_KEY": ${{ secrets.ANTHROPIC_API_KEY != '' }},
-        "WAT_GSC_SERVICE_ACCOUNT_JSON": ${{ secrets.WAT_GSC_SERVICE_ACCOUNT_JSON != '' }},
-        "GOOGLE_ADC_JSON": ${{ secrets.GOOGLE_ADC_JSON != '' }},
         "GOOGLE_ADS_LOGIN_CUSTOMER_ID_secret": ${{ secrets.GOOGLE_ADS_LOGIN_CUSTOMER_ID != '' }},
         "WAT_GOOGLE_ADS_LOGIN_CUSTOMER_ID_var": ${{ vars.WAT_GOOGLE_ADS_LOGIN_CUSTOMER_ID != '' }},
         "WAT_GOOGLE_ADS_CUSTOMER_ID_var": ${{ vars.WAT_GOOGLE_ADS_CUSTOMER_ID != '' }},
         "WAT_GSC_SITE_URL_var": ${{ vars.WAT_GSC_SITE_URL != '' }}}
     steps:
       - uses: actions/checkout@v4
+      - name: Authenticate to Google Cloud with GitHub OIDC
+        uses: google-github-actions/auth@v3
+        with:
+          project_id: steadfast-sign-506214-r8
+          workload_identity_provider: projects/119496279676/locations/global/workloadIdentityPools/wat-github/providers/wat-actions
+          service_account: wat-seo-automation@steadfast-sign-506214-r8.iam.gserviceaccount.com
+          create_credentials_file: true
+          export_environment_variables: true
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'

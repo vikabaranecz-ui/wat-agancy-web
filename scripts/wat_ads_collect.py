@@ -4,15 +4,14 @@ import json
 import os
 import re
 from google.auth.transport.requests import Request
-from google.oauth2 import service_account
+import google.auth
 import requests
 from wat_brand import is_brand_query
 
 def collect_keyword_planner(gsc_queries=None):
     customer_id = re.sub(r"\D", "", os.getenv("WAT_GOOGLE_ADS_CUSTOMER_ID", ""))
-    raw = os.getenv("GOOGLE_ADC_JSON", "").strip()
-    if not customer_id or not raw:
-        return {"status": "BLOCKED", "error": "WAT-specific Ads customer ID or Google service-account JSON missing. No keyword volumes verified."}
+    if not customer_id:
+        return {"status": "BLOCKED", "error": "WAT-specific Google Ads customer ID missing. No keyword volumes verified."}
     with open("seo/keyword_targets.json", encoding="utf-8") as file:
         keyword_data = json.load(file)
     seeds = []
@@ -33,8 +32,7 @@ def collect_keyword_planner(gsc_queries=None):
         return {"status": "BLOCKED", "error": "No discovery seeds available"}
     version = os.getenv("GOOGLE_ADS_API_VERSION", "v26").strip()
     try:
-        creds = service_account.Credentials.from_service_account_info(
-            json.loads(raw), scopes=["https://www.googleapis.com/auth/adwords"])
+        creds, _ = google.auth.default(scopes=["https://www.googleapis.com/auth/adwords"])
         creds.refresh(Request())
         headers = {"Authorization": f"Bearer {creds.token}"}
         login_id = re.sub(r"\D", "", os.getenv("GOOGLE_ADS_LOGIN_CUSTOMER_ID", ""))

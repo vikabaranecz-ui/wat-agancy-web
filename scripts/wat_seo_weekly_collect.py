@@ -65,14 +65,10 @@ def gsc_period(credentials, start, end, dimensions, row_limit=250):
 
 
 def get_gsc():
-    raw = os.getenv("GOOGLE_ADC_JSON", "").strip()
-    if not raw:
-        return {"status": "BLOCKED", "error": "Missing GOOGLE_ADC_JSON GitHub Actions secret; no Search Console baseline available."}
     try:
-        from google.oauth2 import service_account
-        data = json.loads(raw)
-        credentials = service_account.Credentials.from_service_account_info(
-            data, scopes=["https://www.googleapis.com/auth/webmasters.readonly"])
+        import google.auth
+        credentials, _ = google.auth.default(
+            scopes=["https://www.googleapis.com/auth/webmasters.readonly"])
         # GSC normally has 2-3 day reporting lag. Use ending three days ago.
         end = date.today() - timedelta(days=3)
         current_start = end - timedelta(days=27)
@@ -97,7 +93,7 @@ def get_gsc():
         # Prevent accidental key material in issue/artifact. Keep only diagnostic class and codes.
         code = re.search(r"\b(401|403|404|429)\b", message)
         return {"status": "BLOCKED", "error": type(exc).__name__, "http_code": code.group(1) if code else None,
-                "hint": "Check service-account permission for WAT GSC property, secret format, quota and API enablement."}
+                "hint": "Check GitHub OIDC impersonation, WAT Search Console property access, quota and API enablement."}
 
 
 def main():

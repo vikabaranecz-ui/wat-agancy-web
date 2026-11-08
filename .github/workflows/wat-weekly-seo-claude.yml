@@ -29,6 +29,7 @@ jobs:
       contents: read
       issues: read
       pull-requests: read
+      id-token: write
     outputs:
       skip: ${{ steps.duplicate.outputs.skip }}
       ready: ${{ steps.gate.outputs.ready }}
@@ -36,9 +37,7 @@ jobs:
       GH_TOKEN: ${{ github.token }}
       GSC_SITE_URL: ${{ vars.WAT_GSC_SITE_URL || 'sc-domain:watagencybelgium.be' }}
       WAT_SITE_URL: https://www.watagencybelgium.be
-      GOOGLE_ADC_JSON: ${{ secrets.WAT_GSC_SERVICE_ACCOUNT_JSON || secrets.GOOGLE_ADC_JSON }}
       WAT_GOOGLE_ADS_CUSTOMER_ID: ${{ vars.WAT_GOOGLE_ADS_CUSTOMER_ID }}
-      GOOGLE_ADS_DEVELOPER_TOKEN: ${{ secrets.WAT_GOOGLE_ADS_DEVELOPER_TOKEN || secrets.GOOGLE_ADS_DEVELOPER_TOKEN }}
       GOOGLE_ADS_LOGIN_CUSTOMER_ID: ${{ vars.WAT_GOOGLE_ADS_LOGIN_CUSTOMER_ID || secrets.GOOGLE_ADS_LOGIN_CUSTOMER_ID }}
       GOOGLE_ADS_API_VERSION: v26
     steps:
@@ -65,6 +64,16 @@ jobs:
         uses: actions/checkout@v4
         with:
           persist-credentials: false
+
+      - name: Authenticate to Google Cloud with GitHub OIDC
+        if: steps.duplicate.outputs.skip != 'true'
+        uses: google-github-actions/auth@v3
+        with:
+          project_id: steadfast-sign-506214-r8
+          workload_identity_provider: projects/119496279676/locations/global/workloadIdentityPools/wat-github/providers/wat-actions
+          service_account: wat-seo-automation@steadfast-sign-506214-r8.iam.gserviceaccount.com
+          create_credentials_file: true
+          export_environment_variables: true
 
       - name: Set up Python
         if: steps.duplicate.outputs.skip != 'true'
