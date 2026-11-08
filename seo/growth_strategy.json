@@ -1,0 +1,69 @@
+{
+  "status": "PROPOSED_PENDING_FIRST_EVIDENCE_RUN",
+  "sprint_length": "weekly",
+  "horizon_days": 90,
+  "primary_outcome": "Qualified inbound enquiries from local Flemish service businesses",
+  "phases": [
+    {
+      "days": "1-14",
+      "priority": "Measurement and discoverability",
+      "work": [
+        "verify WAT-only GSC and GA4 access, baseline 28d/90d",
+        "crawl canonical, redirects, sitemap, robots, page titles and indexability evidence",
+        "map actual existing URLs to search intent; establish relevant competitor set",
+        "audit mobile contact buttons, consent and measurement, label proxy clicks correctly"
+      ]
+    },
+    {
+      "days": "15-30",
+      "priority": "Commercial intent coverage",
+      "work": [
+        "Prioritize proven deep problem-to-solution search intents across Dutch-speaking Belgium, not Antwerp-first agency queries",
+        "optimize existing pages with genuine service outcomes and proof",
+        "prepare distinct high-intent landing page PRs where real gaps demand them",
+        "fix navigation to call/WhatsApp/email with accurate tracking"
+      ]
+    },
+    {
+      "days": "31-60",
+      "priority": "Trust and authority",
+      "work": [
+        "publish approved, differentiated sector experience and project case studies",
+        "answer verified buyer questions with sourced specifics and useful internal links",
+        "assess local citation/GBP eligibility and authority gaps",
+        "track organic enquiry quality, not just visits"
+      ]
+    },
+    {
+      "days": "61-90",
+      "priority": "Iteration",
+      "work": [
+        "check new query/URL CTR and intent alignment",
+        "reduce cannibalization and poor-performing funnel steps",
+        "reassess validated keyword targets and service-area expansion",
+        "prioritize fixes based on actual leads and rank changes"
+      ]
+    }
+  ],
+  "weekly_gap_categories": [
+    "deep economic business pains: unpredictable pipeline, quote losses, wrong-fit leads, poor return on spend",
+    "technical and indexing eligibility",
+    "direct commercial intent and uncovered landing pages",
+    "sector-specific problems with distinct proof",
+    "competitor topical/authority differences supported by current sources",
+    "information gain and AI-search answerability without AI citation guarantees",
+    "internal links, cannibalization and conversion friction"
+  ],
+  "decision_formula": "Rank candidate improvements by business intent × opportunity evidence × feasibility × expected lead value, subtract trust/technical risk. Do not manufacture scores where evidence is missing.",
+  "publish_policy": "Weekly run may audit and open PRs/issues only until explicitly tested and approved. No automatic merging, new URLs, prices, claims or redirects.",
+  "minimum_report": [
+    "WAT data access and evidence availability",
+    "28d vs preceding 28d with 90d context",
+    "Top opportunities and gaps with evidence",
+    "Keyword-to-URL mapping and missing coverage",
+    "Conversion tracking evidence and limitations",
+    "Actual actions, PR links and next checkpoint",
+    "Selected authentic Claude skills accessible to runner or 'none verified'",
+    "Evidence that research problems are real, searched for, and realistically addressable by WAT"
+  ]
+}

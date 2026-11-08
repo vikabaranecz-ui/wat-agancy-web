@@ -1,0 +1,47 @@
+{
+  "brand": "WAT? Agency Belgium",
+  "domain": "https://www.watagencybelgium.be",
+  "primary_market": "Flanders, Belgium",
+  "initial_priority": "Dutch-speaking small service businesses throughout Belgium; local geographic targeting secondary",
+  "languages": [
+    "nl-BE",
+    "en"
+  ],
+  "primary_language": "nl-BE",
+  "audiences": [
+    "Construction and renovation",
+    "Cleaning",
+    "Landscaping and gardening",
+    "Automotive repair and garages",
+    "Beauty salons and barbers",
+    "Transport and logistics"
+  ],
+  "services_to_verify_before_publication": [
+    "Websites and conversion paths",
+    "Local SEO and Google Business Profile",
+    "Social media and content",
+    "Google Ads and Meta Ads"
+  ],
+  "positioning": "Solve high-cost customer acquisition and conversion bottlenecks for service SMEs through measurable connected systems; not a generic website or ad campaign",
+  "primary_kpi": "Qualified enquiries from Flemish local service businesses",
+  "secondary_kpis": [
+    "Google organic nonbrand clicks to commercial pages",
+    "Verified keyword position and CTR",
+    "Contact click intent by source; not a verified lead",
+    "Confirmed consultations or enquiries when such tracking exists"
+  ],
+  "non_negotiables": [
+    "Never fabricate pricing, credentials, outcomes, reviews, client examples or rankings",
+    "Do not publish sector/local landing pages without distinct user value and approval",
+    "Consent and conversion measurement must be QA verified",
+    "Keep WAT leads and credentials separate from ISOPROTECH and Reno Rangers"
+  ],
+  "problem_priorities": [
+    "Unpredictable flow of qualified project enquiries",
+    "Low quotation-to-customer conversion",
+    "Wrong-fit/price-shopping leads",
+    "Poor attribution and wasted advertising spend",
+    "Dependence on referrals and missed enquiries",
+    "Weak differentiation and trust"
+  ]
+}

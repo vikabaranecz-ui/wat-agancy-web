@@ -1,0 +1,103 @@
+{
+  "status": "DISCOVERY_SEEDS_ONLY_REAL_GSC_PLUS_ADS_EVIDENCE_REQUIRED",
+  "market": "Dutch-speaking small service businesses across Belgium",
+  "language": "nl-BE",
+  "region_priority": "Belgium-wide intent first; locality secondary when evidence warrants",
+  "clusters": [
+    {
+      "id": "unpredictable_pipeline",
+      "intent": "Problem-aware / unpredictable revenue",
+      "queries": [
+        "te weinig opdrachten",
+        "meer opdrachten als zelfstandige",
+        "hoe krijg ik meer werk als aannemer",
+        "hoe krijg ik een constante stroom klanten"
+      ],
+      "landing_page": "UNMAPPED_REQUIRE_AUDIT",
+      "validation": "Validate actual Belgian search demand and business relevance; distinguish jobs from staffing searches"
+    },
+    {
+      "id": "quote_to_sale",
+      "intent": "Problem-aware / quotation conversion",
+      "queries": [
+        "geen reactie op offerte",
+        "offerte wordt niet aanvaard",
+        "hoe meer offertes omzetten in klanten",
+        "veel offerteaanvragen weinig klanten"
+      ],
+      "landing_page": "UNMAPPED_REQUIRE_AUDIT",
+      "validation": "Separate communication/process causes from marketing; only propose content for WAT-deliverable outcomes"
+    },
+    {
+      "id": "poor_lead_quality",
+      "intent": "Problem-aware / wrong-fit enquiries",
+      "queries": [
+        "veel aanvragen maar geen klanten",
+        "hoe krijg ik betere klanten",
+        "klanten willen alleen goedkoop",
+        "hoe trek ik klanten aan die kwaliteit zoeken"
+      ],
+      "landing_page": "UNMAPPED_REQUIRE_AUDIT",
+      "validation": "Validate demand; distinguish broad pricing issues from positioning and acquisition"
+    },
+    {
+      "id": "wasted_marketing_spend",
+      "intent": "Problem-aware / poor attributable return",
+      "queries": [
+        "google ads werkt niet",
+        "veel klikken geen klanten",
+        "reclame levert geen klanten op",
+        "hoe weet ik of mijn marketing werkt"
+      ],
+      "landing_page": "UNMAPPED_REQUIRE_AUDIT",
+      "validation": "Research attribution, conversion tracking and ads effectiveness; do not promise guaranteed ROAS"
+    },
+    {
+      "id": "visibility_and_trust",
+      "intent": "Problem-aware / invisible or interchangeable online",
+      "queries": [
+        "bedrijf niet zichtbaar op google",
+        "waarom sta ik niet op google maps",
+        "hoe onderscheiden van concurrenten",
+        "waarom krijg ik geen aanvragen via website"
+      ],
+      "landing_page": "UNMAPPED_REQUIRE_AUDIT",
+      "validation": "Check live page and SERP before assigning page"
+    },
+    {
+      "id": "referrals_and_follow_up",
+      "intent": "Problem-aware / channel dependence and missed enquiries",
+      "queries": [
+        "klanten krijgen zonder mond tot mond reclame",
+        "klantenopvolging automatiseren",
+        "aanvragen via website opvolgen",
+        "meer klanten voor schoonmaakbedrijf"
+      ],
+      "landing_page": "UNMAPPED_REQUIRE_AUDIT",
+      "validation": "Only recommend workflows WAT really provides; protect privacy/consent"
+    },
+    {
+      "id": "service_ready",
+      "intent": "Service procurement / bottom funnel",
+      "queries": [
+        "website laten maken prijs",
+        "google ads specialist",
+        "seo voor kleine bedrijven",
+        "marketing uitbesteden kmo",
+        "social media beheer"
+      ],
+      "landing_page": "UNMAPPED_REQUIRE_AUDIT",
+      "validation": "Use verified Google Ads volume, organic SERP intent and client-fit checks"
+    }
+  ],
+  "measurement_rules": [
+    "These phrases are discovery seeds, not verified keyword targets",
+    "Do not invent GSC impressions, rankings, Ads volumes, customer quotes or lead conversions",
+    "Google Ads paid competition is not organic SEO difficulty",
+    "Prefer evidence-based deep problem diagnostics over generic how-to listicles",
+    "Evaluate business severity AND observed search behavior AND WAT's actual ability to solve",
+    "Prioritize Dutch-speaking Belgian SMEs; no mass local/city pages",
+    "Suggest a separate crawlable Dutch-language content architecture for review, never silently publish",
+    "No change proposals without dated evidence and a QA plan"
+  ]
+}

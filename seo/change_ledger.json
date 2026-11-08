@@ -1,0 +1,5 @@
+{
+  "schema": "WAT SEO change ledger v1. One entry per proposed or merged SEO change. Append only; never rewrite history.",
+  "fields": ["id", "proposed_on", "pr_url", "status (proposed|merged|rejected|reverted)", "merged_on", "url", "queries", "gap_type", "evidence_source_and_window", "baseline {impressions, clicks, ctr, position}", "expected_effect", "measure_on", "result {impressions, clicks, ctr, position, verdict: improved|no_change|worse|too_early}"],
+  "entries": []
+}
