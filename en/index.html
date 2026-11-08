@@ -523,6 +523,18 @@
     .section-cta-note { font-size: 13px; color: rgba(244, 242, 236, 0.5); }
 
     /* WHO */
+    /* Photo banner behind the heading/lead only — the gradient layer fades
+       to solid #050505 well before the card grid starts, so the who-cards
+       below (already opaque) are unaffected either way. */
+    #who {
+      background-image: linear-gradient(180deg, rgba(5, 5, 5, 0.68) 0%, rgba(5, 5, 5, 0.9) 340px, #050505 520px, #050505 100%), url(../assets/photos/who-we-help.webp);
+      background-repeat: no-repeat;
+      background-size: 100% auto, 100% auto;
+      background-position: top center, top center;
+    }
+
+    #who .section-label, #who h2, #who .lead { text-shadow: 0 2px 16px rgba(0, 0, 0, 0.6); }
+
     .who-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr));
