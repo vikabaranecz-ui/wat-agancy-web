@@ -34,7 +34,10 @@ def collect_keyword_planner(gsc_queries=None):
     try:
         creds, _ = google.auth.default(scopes=["https://www.googleapis.com/auth/adwords"])
         creds.refresh(Request())
-        headers = {"Authorization": f"Bearer {creds.token}"}
+        developer_token = os.getenv("WAT_GOOGLE_ADS_DEVELOPER_TOKEN", "").strip()
+        if not developer_token:
+            return {"status": "BLOCKED", "error": "Missing Google Ads developer token in WAT Actions secrets"}
+        headers = {"Authorization": f"Bearer {creds.token}", "developer-token": developer_token}
         login_id = re.sub(r"\D", "", os.getenv("GOOGLE_ADS_LOGIN_CUSTOMER_ID", ""))
         if login_id:
             headers["login-customer-id"] = login_id
@@ -56,7 +59,7 @@ def collect_keyword_planner(gsc_queries=None):
             for item in response.json().get("results", []):
                 metrics = item.get("keywordIdeaMetrics") or {}
                 ideas.append({"keyword": item.get("text"),
-                              "avg_monthly_searches": metrics.get("avgMonthlySearches"),
+                              "avg_monthly_searches": int(metrics["avgMonthlySearches"]) if metrics.get("avgMonthlySearches") not in (None, "") else None,
                               "competition_paid": metrics.get("competition"),
                               "competition_index_paid": metrics.get("competitionIndex"),
                               "monthly_search_volumes": metrics.get("monthlySearchVolumes", [])[-12:]})
