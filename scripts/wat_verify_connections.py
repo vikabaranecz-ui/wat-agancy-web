@@ -149,7 +149,10 @@ def test_ads(info, parsed):
     try:
         from google.auth.transport.requests import Request
         info.refresh(Request())
-        headers = {"Authorization": "Bearer " + info.token}
+        developer_token = os.getenv("WAT_GOOGLE_ADS_DEVELOPER_TOKEN", "").strip()
+        if not developer_token:
+            return result(NOT_CONFIGURED, "WAT_GOOGLE_ADS_DEVELOPER_TOKEN missing from Actions secrets")
+        headers = {"Authorization": "Bearer " + info.token, "developer-token": developer_token}
         login = re.sub(r"\D", "", os.getenv("GOOGLE_ADS_LOGIN_CUSTOMER_ID", ""))
         if login:
             headers["login-customer-id"] = login
