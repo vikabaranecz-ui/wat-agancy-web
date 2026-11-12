@@ -138,12 +138,12 @@ jobs:
           show_full_output: true
           prompt: |
             This is the scheduled WAT Agency Belgium SEO run. Work ONLY in this WAT repository. The goal is deep business problem-to-solution SEO for Dutch-speaking Belgian service companies: weak quotation-to-sale rate, unpredictable project pipeline, poor lead quality, price-only competition, wasted advertising spend, low trust, missed enquiries, dependence on referrals. Distinguish actual business pain from generic marketing symptoms, and prioritize what WAT can genuinely solve. Current GSC may have near-zero rows; perform evidence-led technical monitoring and Keyword Planner discovery without fabricating ranking baselines.
-            Read `.claude/agents/weekly-seo.md` in full, then read:
+            Read `.claude/agents/weekly-seo.md` in full AND `.claude/agents/wat-fast-growth.md` as the WAT-specific growth overlay. The base policy and owner review safeguards take priority. Follow the complete indexing-first, 25-query evidence watchlist, 3-5 intent-cluster portfolio, and explicit QA/report contract. Then read:
             `seo/business_profile.json`, `seo/keyword_targets.json`,
             `seo/growth_strategy.json`, `seo-weekly-context.json`,
             `seo-weekly-opportunities.json`, `seo-weekly-skills.json`.
             Determine today's date in Europe/Brussels. Flag existing English-only homepage versus Dutch-speaking target and propose a crawlable /nl/ architecture for approval only; do not publish a translation without owner review.
-            REQUIRE real WAT GSC query-to-page 28d and previous 28d evidence. Use WAT Keyword Planner Belgium Dutch-language datasets when available. If Ads is unavailable, continue strictly with authenticated GSC plus public health audit; mark missing volumes, do not invent them.
+            REQUIRE real WAT GSC query-to-page 28d and previous 28d evidence. Every week inspect all tracked keyword clusters, not only one or two phrases; include every available official URL Inspection verdict and identify eligible/indexed/blocked/canonical-mismatch URLs. For GSC and Ads unavailable metrics write UNKNOWN or null; no zero ranking claims. Choose 3-5 WAT-specific commercial/problem/AI-answerable clusters only if there is real evidence and distinct intent. Use WAT Keyword Planner Belgium Dutch-language datasets when available. If Ads is unavailable, continue strictly with authenticated GSC plus public health audit; mark missing volumes, do not invent them.
             First audit GSC URL Inspection API status for every sampled canonical URL from seo-weekly-context.json > gsc_indexing: explain Google verdict, coverageState, indexingState, pageFetchState, googleCanonical vs userCanonical, lastCrawlTime. Distinguish never crawled, excluded, intentional redirects, and current live accessibility. Prioritize actual indexing errors ahead of speculative new content. Sampling is not the complete Page Indexing report.
             Then audit technical, commercial keywords, intent-to-page mapping, missing
             sector/problem/question coverage, source-supported competitor gaps,
@@ -157,7 +157,7 @@ jobs:
             HOW TO DELIVER (enforced by the workflow, your GitHub token is read-only):
             - Make any proposed site edits directly in the working tree. Do NOT run git commit, git push or gh write commands.
             - Do not modify `.github/`, `.claude/`, `scripts/`, `tests/` or `seo-weekly-*.json`; such edits are discarded.
-            - Write the full weekly report (evidence, gaps, skill evidence, proposed changes, Ukrainian owner summary) to `seo-weekly-report.md`.
+            - Write the full weekly report to `seo-weekly-report.md` using the WAT overlay's sections (data access, indexing & sitemap status, 25-query evidence watchlist, 3-5 portfolio, AI-search gaps, exact QA, actual PR/merge/deploy state, Ukrainian owner summary). Never mark an unmerged PR as live.
             - Write exactly one word to `seo-weekly-mode.txt`: BLOCKED, MONITOR, AUDIT, PROPOSED or NEEDS APPROVAL.
             A separate workflow job opens a DRAFT pull request and the weekly issue for human review. Nothing is merged or published automatically.
             If information is insufficient, report explicitly rather than fabricating rankings.
