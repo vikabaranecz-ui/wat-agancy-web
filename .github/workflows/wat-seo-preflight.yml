@@ -1,0 +1,113 @@
+name: WAT SEO Preflight — no Claude SEO run
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  actions: read
+  id-token: write
+
+jobs:
+  preflight:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    env:
+      GH_TOKEN: ${{ github.token }}
+      GSC_SITE_URL: ${{ vars.WAT_GSC_SITE_URL || 'sc-domain:watagencybelgium.be' }}
+      WAT_GOOGLE_ADS_CUSTOMER_ID: ${{ vars.WAT_GOOGLE_ADS_CUSTOMER_ID }}
+      GOOGLE_ADS_LOGIN_CUSTOMER_ID: ${{ vars.WAT_GOOGLE_ADS_LOGIN_CUSTOMER_ID || secrets.GOOGLE_ADS_LOGIN_CUSTOMER_ID }}
+      GOOGLE_ADS_API_VERSION: v26
+      WAT_GOOGLE_ADS_DEVELOPER_TOKEN: ${{ secrets.WAT_GOOGLE_ADS_DEVELOPER_TOKEN || secrets.GOOGLE_ADS_DEVELOPER_TOKEN }}
+      ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+      WAT_TELEGRAM_BOT_TOKEN: ${{ secrets.WAT_TELEGRAM_BOT_TOKEN }}
+      WAT_TELEGRAM_CHAT_ID: ${{ secrets.WAT_TELEGRAM_CHAT_ID }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: google-github-actions/auth@v3
+        with:
+          project_id: steadfast-sign-506214-r8
+          workload_identity_provider: projects/119496279676/locations/global/workloadIdentityPools/wat-github/providers/wat-actions
+          service_account: wat-seo-automation@steadfast-sign-506214-r8.iam.gserviceaccount.com
+          create_credentials_file: true
+          export_environment_variables: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Check Python sources, SEO tests and config
+        run: |
+          python -m pip install --disable-pip-version-check requests beautifulsoup4 google-auth
+          python -m compileall -q scripts
+          python -m unittest discover -s tests
+          python -m json.tool seo/keyword_targets.json >/dev/null
+          python -m json.tool seo/business_profile.json >/dev/null
+          python -m json.tool seo/growth_strategy.json >/dev/null
+      - name: Verify live Claude, Search Console and Google Ads access (no SEO analysis)
+        id: connections
+        continue-on-error: true
+        run: python scripts/wat_verify_connections.py
+      - name: Verify GitHub Actions PR permission and WAT Telegram delivery
+        id: delivery
+        continue-on-error: true
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import json, os, urllib.request, urllib.parse
+          from urllib.error import HTTPError
+          repo = os.environ['GITHUB_REPOSITORY']
+          token = os.environ['GH_TOKEN']
+          url = 'https://api.github.com/repos/' + repo + '/actions/permissions/workflow'
+          req = urllib.request.Request(url, headers={
+              'Authorization': 'Bearer ' + token,
+              'Accept': 'application/vnd.github+json',
+              'X-GitHub-Api-Version': '2022-11-28'
+          })
+          try:
+              with urllib.request.urlopen(req, timeout=15) as resp:
+                  permissions = json.load(resp)
+          except HTTPError as exc:
+              raise SystemExit(f'Cannot inspect Actions PR permission (HTTP {exc.code}); verify manually in repository Settings → Actions → General.')
+          permitted = permissions.get('can_approve_pull_request_reviews')
+          if permitted is not True:
+              raise SystemExit('GitHub Actions-created pull requests are disabled. Enable them in Settings → Actions → General.')
+          print('GitHub Actions-created PR setting: enabled')
+          bot = os.environ.get('WAT_TELEGRAM_BOT_TOKEN', '').strip()
+          chat = os.environ.get('WAT_TELEGRAM_CHAT_ID', '').strip()
+          if not bot or not chat:
+              raise SystemExit('WAT Telegram bot token or chat ID missing in Actions secrets.')
+          endpoint = 'https://api.telegram.org/bot' + bot + '/sendMessage'
+          data = urllib.parse.urlencode({
+              'chat_id': chat,
+              'text': 'WAT SEO preflight: Telegram delivery test succeeded. This is NOT an SEO report or a site publication.'
+          }).encode()
+          with urllib.request.urlopen(urllib.request.Request(endpoint, data=data), timeout=20) as resp:
+              response = json.load(resp)
+          if not response.get('ok'):
+              raise SystemExit('Telegram API did not confirm delivery.')
+          print('WAT Telegram: message accepted by Telegram')
+          PY
+      - name: Preflight verdict
+        if: always()
+        env:
+          CONNECTIONS: ${{ steps.connections.outcome }}
+          DELIVERY: ${{ steps.delivery.outcome }}
+        shell: bash
+        run: |
+          {
+            echo '## WAT SEO safety preflight'
+            echo
+            echo "| Check | Result |"
+            echo "|---|---|"
+            echo "| Google/Claude API test | ${CONNECTIONS} |"
+            echo "| GitHub PR permission and Telegram test | ${DELIVERY} |"
+            echo
+            echo 'No SEO site files were edited, no draft PR or GitHub issue was created, and no Claude SEO analysis was run.'
+          } >> "${GITHUB_STEP_SUMMARY}"
+          if [ "${CONNECTIONS}" != "success" ] || [ "${DELIVERY}" != "success" ]; then
+            echo "::error::Preflight failed. Do NOT start the paid WAT Claude SEO workflow yet."
+            exit 1
+          fi
+          echo "Preflight passed. This proves basic API and notification access, not live GA4/consent, production indexing, or future SEO rankings."
