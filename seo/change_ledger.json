@@ -1,5 +1,66 @@
 {
   "schema": "WAT SEO change ledger v1. One entry per proposed or merged SEO change. Append only; never rewrite history.",
   "fields": ["id", "proposed_on", "pr_url", "status (proposed|merged|rejected|reverted)", "merged_on", "url", "queries", "gap_type", "evidence_source_and_window", "baseline {impressions, clicks, ctr, position}", "expected_effect", "measure_on", "result {impressions, clicks, ctr, position, verdict: improved|no_change|worse|too_early}"],
-  "entries": []
+  "entries": [
+    {
+      "id": "2026-11-08-pr10-technical-canonical-redirects",
+      "proposed_on": "2026-11-08",
+      "pr_url": "https://github.com/vikabaranecz-ui/wat-agancy-web/pull/10",
+      "status": "merged",
+      "merged_on": "2026-11-08",
+      "url": [
+        "https://www.watagencybelgium.be/",
+        "https://www.watagencybelgium.be/en/",
+        "https://www.watagencybelgium.be/systems-library/",
+        "https://www.watagencybelgium.be/work/isoprotech.html",
+        "https://www.watagencybelgium.be/work/reno-rangers.html"
+      ],
+      "queries": [],
+      "gap_type": "technical/indexation (duplicate without user-selected canonical; 307 root redirect; missing canonicals; lang=nl on English content)",
+      "evidence_source_and_window": "PR #10 description (GSC UI flag + live fetch before merge). Ledger entry back-filled by weekly SEO run 2026-11-08 because the merged change was not recorded. GSC baseline from WAT collector, sc-domain:watagencybelgium.be, 2026-10-09..2026-11-05 (pre-merge).",
+      "baseline": {
+        "window": "2026-10-09..2026-11-05",
+        "query_rows": 0,
+        "previous_window_query_rows": 0,
+        "last90_query_rows": 0,
+        "page_rows": {
+          "https://www.watagencybelgium.be/": {"impressions": 1, "clicks": 0, "ctr": 0, "position": 1},
+          "https://www.watagencybelgium.be/en/": null
+        },
+        "note": "null = no GSC row returned, not proven zero. Deploy date to production not verified by this run (live fetch not permitted in runner)."
+      },
+      "expected_effect": "Google consolidates / and duplicates into /en/; /en/ becomes the indexed canonical; no duplicate-canonical flag in URL Inspection.",
+      "measure_on": "2026-12-06",
+      "result": null
+    },
+    {
+      "id": "2026-11-08-nl-crawlable-architecture-proposal",
+      "proposed_on": "2026-11-08",
+      "pr_url": null,
+      "status": "proposed",
+      "merged_on": null,
+      "url": [
+        "https://www.watagencybelgium.be/nl/ (new, not created)",
+        "https://www.watagencybelgium.be/en/ (hreflang + real language links only)",
+        "https://www.watagencybelgium.be/sitemap.xml"
+      ],
+      "queries": [],
+      "gap_type": "technical/language: primary market nl-BE has no crawlable Dutch URL; Dutch copy exists only as display:none spans on lang=en pages",
+      "evidence_source_and_window": "Source inspection 2026-11-08 (en/index.html <html lang=en data-lang=en>, CSS [data-lang=en] .nl {display:none}, English-only title/meta, no hreflang); collector live audit 2026-11-08T15:08Z (4 URLs, all English titles); GSC 2026-10-09..2026-11-05 and 90d 2026-08-08..2026-11-05: 0 query rows. Keyword Planner BLOCKED (no Belgium Dutch volumes).",
+      "baseline": {
+        "window": "2026-10-09..2026-11-05",
+        "nl_url_exists": false,
+        "dutch_query_rows": 0,
+        "impressions": null,
+        "clicks": null,
+        "ctr": null,
+        "position": null,
+        "belgium_nl_search_volume": null
+      },
+      "expected_effect": "Dutch-language pages become eligible to be indexed and served for nl-BE searches. No ranking, traffic or lead outcome is promised; demand is unvalidated until Keyword Planner works.",
+      "measure_on": null,
+      "measure_on_rule": "Owner approval required. Deploy not before 2026-12-07 (after PR #10 measure_on) and after PR #7 is merged or closed; measure_on = production deploy date + 28 days.",
+      "result": null
+    }
+  ]
 }
