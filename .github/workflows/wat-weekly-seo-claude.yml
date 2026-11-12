@@ -144,7 +144,8 @@ jobs:
             `seo-weekly-opportunities.json`, `seo-weekly-skills.json`.
             Determine today's date in Europe/Brussels. Flag existing English-only homepage versus Dutch-speaking target and propose a crawlable /nl/ architecture for approval only; do not publish a translation without owner review.
             REQUIRE real WAT GSC query-to-page 28d and previous 28d evidence. Use WAT Keyword Planner Belgium Dutch-language datasets when available. If Ads is unavailable, continue strictly with authenticated GSC plus public health audit; mark missing volumes, do not invent them.
-            First audit technical, commercial keywords, intent-to-page mapping, missing
+            First audit GSC URL Inspection API status for every sampled canonical URL from seo-weekly-context.json > gsc_indexing: explain Google verdict, coverageState, indexingState, pageFetchState, googleCanonical vs userCanonical, lastCrawlTime. Distinguish never crawled, excluded, intentional redirects, and current live accessibility. Prioritize actual indexing errors ahead of speculative new content. Sampling is not the complete Page Indexing report.
+            Then audit technical, commercial keywords, intent-to-page mapping, missing
             sector/problem/question coverage, source-supported competitor gaps,
             CTA/conversion and AI answerability. Use evidence rather than guesses.
             Require a concrete evidence ledger for each proposed change: source, observed gap, affected URL/query, local search demand where available, diagnosis, smallest reasonable fix, regression risk, acceptance checks, measured follow-up.
