@@ -127,7 +127,22 @@ def test_gsc(info, parsed):
             return result(FAILED, "Search Analytics query refused", property=site, error=google_error(r),
                           properties_visible_to_service_account=len(visible), wat_properties_visible=wat_visible)
         rows = r.json().get("rows", [])
+        # The Search Analytics API does not contain page-indexing coverage.
+        # Check at least one known canonical URL via URL Inspection API separately.
+        inspection = session.post(
+            "https://searchconsole.googleapis.com/v1/urlInspection/index:inspect",
+            json={"inspectionUrl": "https://www.watagencybelgium.be/en/", "siteUrl": site},
+            timeout=30,
+        )
+        if inspection.status_code == 200:
+            ix = inspection.json().get("inspectionResult", {}).get("indexStatusResult", {})
+            indexing = {"status": CONNECTED, "url": "https://www.watagencybelgium.be/en/",
+                        "verdict": ix.get("verdict"), "coverage_state": ix.get("coverageState"),
+                        "indexing_state": ix.get("indexingState"), "google_canonical": ix.get("googleCanonical")}
+        else:
+            indexing = {"status": FAILED, "error": google_error(inspection)}
         return result(CONNECTED, "Search Analytics query+page request for WAT succeeded", property=site,
+                      url_inspection=indexing,
                       distinct_pages=len({x.get("keys", [None, None])[1] for x in rows}),
                       window=[body["startDate"], body["endDate"]], returned_rows=len(rows),
                       clicks_in_sample=sum(x.get("clicks", 0) for x in rows),
@@ -150,9 +165,10 @@ def test_ads(info, parsed):
         from google.auth.transport.requests import Request
         info.refresh(Request())
         developer_token = os.getenv("WAT_GOOGLE_ADS_DEVELOPER_TOKEN", "").strip()
-        if not developer_token:
-            return result(NOT_CONFIGURED, "WAT_GOOGLE_ADS_DEVELOPER_TOKEN missing from Actions secrets")
-        headers = {"Authorization": "Bearer " + info.token, "developer-token": developer_token}
+        # Since September 2026 developer token is optional; access is Cloud-project based.
+        headers = {"Authorization": "Bearer " + info.token}
+        if developer_token:
+            headers["developer-token"] = developer_token
         login = re.sub(r"\D", "", os.getenv("GOOGLE_ADS_LOGIN_CUSTOMER_ID", ""))
         if login:
             headers["login-customer-id"] = login
@@ -212,7 +228,9 @@ def main():
               "limitations": ["No credential values printed",
                               "Claude API access does not by itself prove the Claude Code weekly run works",
                               "No repository, Ads account or website changes are made"]}
-    report["all_connected"] = all(report[n]["status"] == CONNECTED for n in REQUIRED)
+    report["all_connected"] = all(report[n]["status"] == CONNECTED for n in REQUIRED) and (
+        report["search_console"].get("url_inspection", {}).get("status") == CONNECTED
+    )
     Path("wat-connection-check.json").write_text(json.dumps(report, indent=2), encoding="utf-8")
 
     summary = ["| Service | Result | Detail |", "|---|---|---|"]
