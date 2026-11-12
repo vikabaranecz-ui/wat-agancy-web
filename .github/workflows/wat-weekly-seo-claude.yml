@@ -226,6 +226,7 @@ jobs:
           [ "$READY" = "true" ] || MODE="BLOCKED"
           [ -n "$MODE" ] || MODE="BLOCKED"
           PR_URL=""
+          BRANCH_URL=""
           if [ "$READY" = "true" ] && { [ -s evidence/proposal/site.patch ] || [ -s evidence/proposal/new-files.txt ]; }; then
             BRANCH="seo-weekly/${TODAY}-${GITHUB_RUN_ID}"
             case "$BRANCH" in seo-weekly/*) ;; *) echo "Refusing unexpected branch"; exit 1;; esac
@@ -240,9 +241,15 @@ jobs:
             git commit -m "SEO weekly proposal ${TODAY} (draft, needs review)"
             # Explicit refspec: can only ever create/update the seo-weekly branch, never main.
             git push origin "HEAD:refs/heads/${BRANCH}"
-            PR_URL="$(gh pr create --draft --base main --head "$BRANCH" \
+            BRANCH_URL="${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/tree/${BRANCH}"
+            # GitHub can disallow Actions-created PRs at repository/org level.
+            # Preserve the issue + Telegram delivery even if PR creation is blocked.
+            if ! PR_URL="$(gh pr create --draft --base main --head "$BRANCH" \
               --title "SEO Weekly ${TODAY} — proposal for review" \
-              --body-file evidence/proposal/seo-weekly-report.md)"
+              --body-file evidence/proposal/seo-weekly-report.md)"; then
+              echo "::warning title=WAT SEO PR permission::Actions could not open a PR; owner must enable Actions-created pull requests in repository Actions settings. Proposal branch: ${BRANCH_URL}"
+              PR_URL=""
+            fi
           fi
           TITLE="SEO Weekly — ${TODAY} — ${MODE}"
           FOUND="$(gh issue list --repo "$GITHUB_REPOSITORY" --search "${TITLE} in:title" --json number --jq 'length' --limit 10)"
@@ -250,7 +257,10 @@ jobs:
             {
               cat evidence/proposal/seo-weekly-report.md
               echo; echo "---"
-              echo "Draft PR (needs owner approval, not merged): ${PR_URL:-none}"
+              echo "Draft PR (needs owner approval, not merged): ${PR_URL:-not created}"
+              if [ -n "$BRANCH_URL" ] && [ -z "$PR_URL" ]; then
+                echo "ACTION REQUIRED: Enable Actions-created pull requests under Settings > Actions > General > Workflow permissions. Branch ready for manual PR: ${BRANCH_URL}"
+              fi
               echo "Evidence: ${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}"
             } > issue.md
             gh issue create --repo "$GITHUB_REPOSITORY" --title "$TITLE" --body-file issue.md
