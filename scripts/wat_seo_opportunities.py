@@ -60,6 +60,36 @@ def main():
                 result["technical_issues"].append({"url": page["url"], "reason": "Missing title or H1"})
             if not page.get("canonical"):
                 result["verification_needed"].append({"url": page["url"], "reason": "No explicit canonical observed; diagnose before proposing change"})
+    indexing = data.get("gsc_indexing", {})
+    for sample in indexing.get("results", []):
+        if sample.get("status") != "OK":
+            result["verification_needed"].append({
+                "url": sample.get("url"), "reason": "URL Inspection API unavailable for this URL",
+                "http_code": sample.get("http_code")
+            })
+            continue
+        if sample.get("verdict") != "PASS":
+            result["technical_issues"].append({
+                "url": sample["url"],
+                "reason": "Google reports this canonical URL as not indexed/invalid or excluded; diagnose, do not auto-fix",
+                "source": "Google Search Console URL Inspection API",
+                "verdict": sample.get("verdict"),
+                "coverage_state": sample.get("coverage_state"),
+                "indexing_state": sample.get("indexing_state"),
+                "page_fetch_state": sample.get("page_fetch_state"),
+                "robots_txt_state": sample.get("robots_txt_state"),
+                "google_canonical": sample.get("google_canonical"),
+                "user_canonical": sample.get("user_canonical"),
+                "last_crawl_time": sample.get("last_crawl_time"),
+                "next_check": "Verify intended canonical, indexing controls, sitemap and current live URL before proposing a PR"
+            })
+        elif sample.get("google_canonical") and sample.get("user_canonical") and sample["google_canonical"].rstrip("/") != sample["user_canonical"].rstrip("/"):
+            result["verification_needed"].append({
+                "url": sample["url"], "reason": "Google-selected canonical differs from declared canonical; investigate",
+                "google_canonical": sample["google_canonical"], "user_canonical": sample["user_canonical"]
+            })
+    if indexing.get("status") != "OK":
+        result["verification_needed"].append({"reason": "GSC URL Inspection unavailable; indexing status is unknown, not healthy or broken"})
     if gsc.get("status") != "OK":
         result["verification_needed"].append({"reason": "GSC unavailable; no ranking-based target decisions"})
     else:

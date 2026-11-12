@@ -35,9 +35,11 @@ def collect_keyword_planner(gsc_queries=None):
         creds, _ = google.auth.default(scopes=["https://www.googleapis.com/auth/adwords"])
         creds.refresh(Request())
         developer_token = os.getenv("WAT_GOOGLE_ADS_DEVELOPER_TOKEN", "").strip()
-        if not developer_token:
-            return {"status": "BLOCKED", "error": "Missing Google Ads developer token in WAT Actions secrets"}
-        headers = {"Authorization": f"Bearer {creds.token}", "developer-token": developer_token}
+        # Developer tokens became optional in the Google Ads API in September 2026.
+        # Production API eligibility now depends on the OAuth Google Cloud project.
+        headers = {"Authorization": f"Bearer {creds.token}"}
+        if developer_token:
+            headers["developer-token"] = developer_token
         login_id = re.sub(r"\D", "", os.getenv("GOOGLE_ADS_LOGIN_CUSTOMER_ID", ""))
         if login_id:
             headers["login-customer-id"] = login_id
@@ -53,7 +55,31 @@ def collect_keyword_planner(gsc_queries=None):
             response = requests.post(base, headers=headers, json=body, timeout=65)
             if response.status_code >= 400:
                 result["status"] = "PARTIAL"
-                result["datasets"][name] = {"error": f"Google Ads HTTP {response.status_code}; check access, API version and geo ID"}
+                details = {}
+                try:
+                    error = response.json().get("error", {})
+                    details = {
+                        "code": error.get("code"),
+                        "status": error.get("status"),
+                        "reason_codes": [
+                            str(k) + ":" + str(v)
+                            for d in error.get("details", [])
+                            for e in d.get("errors", [])
+                            for k, v in (e.get("errorCode") or {}).items()
+                        ][:6],
+                    }
+                except (ValueError, TypeError, AttributeError):
+                    pass
+                result["datasets"][name] = {
+                    "error": f"Google Ads HTTP {response.status_code}",
+                    "diagnostics": details,
+                    "request_id": response.headers.get("request-id"),
+                    "next_action": (
+                        "Open Google Cloud Console > Google Ads API Overview; request Explorer or Basic production access"
+                        if "CLOUD_PROJECT_NOT_APPROVED_FOR_PRODUCTION" in str(details)
+                        else "Check WAT Google Ads account/service-account user access, API version and Cloud project permissions"
+                    ),
+                }
                 continue
             ideas = []
             for item in response.json().get("results", []):
@@ -70,7 +96,7 @@ def collect_keyword_planner(gsc_queries=None):
         return result
     except Exception as exc:
         return {"status": "BLOCKED", "error": type(exc).__name__,
-                "hint": "Check Google Ads developer token, login customer, WAT customer ID, delegated OAuth permissions and service-account support."}
+                "hint": "Check OIDC service account, Ads customer access, Google Cloud project production access and API version. Never infer volume."}
 
 if __name__ == "__main__":
     print(json.dumps(collect_keyword_planner(), ensure_ascii=False, indent=2))

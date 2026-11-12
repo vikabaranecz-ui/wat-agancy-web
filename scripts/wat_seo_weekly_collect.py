@@ -96,6 +96,53 @@ def get_gsc():
                 "hint": "Check GitHub OIDC impersonation, WAT Search Console property access, quota and API enablement."}
 
 
+def get_indexing_status():
+    """Read Google's *indexed-version* verdict for canonical URLs, not a live test.
+
+    URL Inspection is per-URL and cannot retrieve aggregate Page indexing report
+    totals. The sampled list is deliberately small to control API quota.
+    """
+    urls = [SITE + p for p in PAGES]
+    results = []
+    try:
+        import google.auth
+        from google.auth.transport.requests import AuthorizedSession
+        creds, _ = google.auth.default(scopes=["https://www.googleapis.com/auth/webmasters.readonly"])
+        api = AuthorizedSession(creds)
+        endpoint = "https://searchconsole.googleapis.com/v1/urlInspection/index:inspect"
+        for url in urls[:10]:
+            try:
+                response = api.post(endpoint, json={"inspectionUrl": url, "siteUrl": GSC_SITE}, timeout=30)
+                if response.status_code != 200:
+                    results.append({"url": url, "status": "BLOCKED", "http_code": response.status_code,
+                                    "hint": "Check URL Inspection API enablement and property permission"})
+                    continue
+                info = response.json().get("inspectionResult", {}).get("indexStatusResult", {})
+                verdict = info.get("verdict", "VERDICT_UNSPECIFIED")
+                results.append({
+                    "url": url,
+                    "status": "OK",
+                    "verdict": verdict,
+                    "coverage_state": info.get("coverageState"),
+                    "robots_txt_state": info.get("robotsTxtState"),
+                    "indexing_state": info.get("indexingState"),
+                    "page_fetch_state": info.get("pageFetchState"),
+                    "last_crawl_time": info.get("lastCrawlTime"),
+                    "google_canonical": info.get("googleCanonical"),
+                    "user_canonical": info.get("userCanonical"),
+                    "sitemaps": info.get("sitemap", []),
+                    "issue": verdict != "PASS",
+                })
+            except requests.RequestException as exc:
+                results.append({"url": url, "status": "BLOCKED", "error": type(exc).__name__})
+        return {"status": "OK" if any(r["status"] == "OK" for r in results) else "BLOCKED",
+                "scope": "Sampled canonical URLs; indexed Google version, not live test or full coverage report",
+                "results": results}
+    except Exception as exc:
+        return {"status": "BLOCKED", "error": type(exc).__name__,
+                "hint": "Check WAT GSC property and URL Inspection API access"}
+
+
 def main():
     gsc_data = get_gsc()
     gsc_rows = (gsc_data.get("current_queries") or {}).get("rows", []) if gsc_data.get("status") == "OK" else []
@@ -105,6 +152,7 @@ def main():
         "project": "WAT Agency only",
         "site_audit": [fetch_page(path) for path in PAGES + ["/robots.txt", "/sitemap.xml"]],
         "gsc": gsc_data,
+        "gsc_indexing": get_indexing_status(),
         "keyword_planner": ads_data,
         "ga4": {"status": "NOT_VERIFIED", "explanation": "GTM/GA4 site changes are in separate PR; only treat proven live events as data."},
         "competitor_gaps": {"status": "REQUIRES_RESEARCH", "explanation": "Do not claim competitor rankings without dated evidence."},
@@ -113,6 +161,8 @@ def main():
     path.write_text(json.dumps(result, indent=2, ensure_ascii=False), encoding="utf-8")
     print("WAT SEO evidence saved:", path)
     print("GSC status:", result["gsc"]["status"])
+    print("GSC URL Inspection:", result["gsc_indexing"]["status"],
+          "| URLs sampled:", len(result["gsc_indexing"].get("results", [])))
     print("Public paths audited:", len(result["site_audit"]))
 
 
