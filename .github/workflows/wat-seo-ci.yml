@@ -1,0 +1,50 @@
+name: WAT SEO code and indexing safety CI
+
+on:
+  pull_request:
+    paths:
+      - "scripts/wat_*.py"
+      - "tests/**"
+      - ".github/workflows/wat-*.yml"
+      - ".claude/agents/**"
+      - "seo/**"
+      - "sitemap.xml"
+      - "robots.txt"
+      - "vercel.json"
+      - "en/**"
+      - "work/**"
+      - "systems-library/**"
+  push:
+    branches: [main]
+    paths:
+      - "scripts/wat_*.py"
+      - "tests/**"
+      - "seo/**"
+
+permissions:
+  contents: read
+
+jobs:
+  lint-and-test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install SEO collector dependencies
+        run: python -m pip install --disable-pip-version-check requests beautifulsoup4 google-auth
+      - name: Compile every collector
+        run: python -m compileall -q scripts
+      - name: Test Keyword Planner and indexing inventory without Google credentials
+        run: python -m unittest discover -s tests
+      - name: Test website SEO invariants
+        run: node --test tests/seo.test.mjs
+      - name: Validate WAT JSON data files
+        run: |
+          python -m json.tool seo/business_profile.json >/dev/null
+          python -m json.tool seo/keyword_targets.json >/dev/null
+          python -m json.tool seo/growth_strategy.json >/dev/null
