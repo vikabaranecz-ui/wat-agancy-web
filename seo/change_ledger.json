@@ -1,5 +1,94 @@
 {
   "schema": "WAT SEO change ledger v1. One entry per proposed or merged SEO change. Append only; never rewrite history.",
   "fields": ["id", "proposed_on", "pr_url", "status (proposed|merged|rejected|reverted)", "merged_on", "url", "queries", "gap_type", "evidence_source_and_window", "baseline {impressions, clicks, ctr, position}", "expected_effect", "measure_on", "result {impressions, clicks, ctr, position, verdict: improved|no_change|worse|too_early}"],
-  "entries": []
+  "entries": [
+    {
+      "id": "2026-11-08-pr10-technical-canonical-redirects",
+      "proposed_on": "2026-11-08",
+      "pr_url": "https://github.com/vikabaranecz-ui/wat-agancy-web/pull/10",
+      "status": "merged",
+      "merged_on": "2026-11-08",
+      "url": [
+        "https://www.watagencybelgium.be/",
+        "https://www.watagencybelgium.be/en/",
+        "https://www.watagencybelgium.be/systems-library/",
+        "https://www.watagencybelgium.be/work/isoprotech.html",
+        "https://www.watagencybelgium.be/work/reno-rangers.html"
+      ],
+      "queries": [],
+      "gap_type": "technical/indexation (duplicate without user-selected canonical; temporary root redirect; missing canonicals)",
+      "evidence_source_and_window": "Back-filled 2026-11-13 (same id as the unmerged draft PR #13 entry; keep only one copy if both are merged). Deploy evidence: collector live audit 2026-11-13T12:55Z shows / -> 308 -> /en/ (PR #10 description recorded / as HTTP 200 before merge).",
+      "baseline": {
+        "window": "2026-10-14..2026-11-10 (first window observed by collector after merge)",
+        "page_rows": {
+          "https://www.watagencybelgium.be/": {"impressions": 7, "clicks": 0, "ctr": 0, "position": 16},
+          "https://www.watagencybelgium.be/en/": null
+        },
+        "url_inspection_2026-11-13": {
+          "/": "PASS, Submitted and indexed, googleCanonical=/, lastCrawl 2026-11-07T08:02:29Z (before redirect deploy)",
+          "/en/": "NEUTRAL, Duplicate, Google chose different canonical than user, googleCanonical=/, lastCrawl 2026-11-12T19:27:13Z"
+        },
+        "note": "null = no GSC row returned, not proven zero."
+      },
+      "expected_effect": "Google recrawls / , sees the 308 and consolidates to /en/ (or keeps / as the indexed homepage URL; both keep the homepage indexed). No ranking outcome promised.",
+      "measure_on": "2026-12-06",
+      "result": null
+    },
+    {
+      "id": "2026-11-13-internal-links-to-unindexed-canonicals",
+      "proposed_on": "2026-11-13",
+      "pr_url": null,
+      "status": "proposed",
+      "merged_on": null,
+      "url": [
+        "https://www.watagencybelgium.be/en/ (source of link; file en/index.html)",
+        "https://www.watagencybelgium.be/systems-library/ (target and source; file systems-library/index.html)",
+        "https://www.watagencybelgium.be/work/isoprotech.html (target)",
+        "https://www.watagencybelgium.be/work/reno-rangers.html (target)"
+      ],
+      "queries": [],
+      "gap_type": "technical/indexation (discovery): sitemap canonical URLs unknown or discovered-not-indexed; only internal link to /systems-library/ went through a 308 redirect (/work); Systems Library did not link to the internal case studies",
+      "evidence_source_and_window": "GSC URL Inspection API via collector 2026-11-13T12:55Z; source link graph check of 4 live pages + vercel.json redirects on 2026-11-13. Indexing-repair exception to the PR #10 measurement window (no copy/ranking change).",
+      "baseline": {
+        "url_inspection_2026-11-13": {
+          "/systems-library/": "NEUTRAL, URL is unknown to Google, lastCrawl null",
+          "/work/isoprotech.html": "NEUTRAL, URL is unknown to Google, lastCrawl null",
+          "/work/reno-rangers.html": "NEUTRAL, Discovered - currently not indexed, lastCrawl null, sitemap referenced"
+        },
+        "direct_internal_inlinks_before": {"/systems-library/": 0, "/work/isoprotech.html": 2, "/work/reno-rangers.html": 2},
+        "direct_internal_inlinks_after": {"/systems-library/": 1, "/work/isoprotech.html": 3, "/work/reno-rangers.html": 3},
+        "impressions": null, "clicks": null, "ctr": null, "position": null
+      },
+      "expected_effect": "Removes the redirect hop from the only homepage link to the Systems Library and adds direct crawl paths to both case studies. Google may still choose not to crawl/index low-authority pages; indexing is not guaranteed.",
+      "measure_on": null,
+      "measure_on_rule": "Re-run URL Inspection 14 days after production deploy; GSC page-level measure_on = production deploy date + 28 days (earliest 2026-12-11).",
+      "result": null
+    },
+    {
+      "id": "2026-11-13-nl-be-language-architecture-approval",
+      "proposed_on": "2026-11-13",
+      "pr_url": null,
+      "status": "proposed",
+      "merged_on": null,
+      "url": [
+        "https://www.watagencybelgium.be/nl/ (NOT created; owner approval + reviewed Dutch copy required)",
+        "https://www.watagencybelgium.be/en/",
+        "https://www.watagencybelgium.be/sitemap.xml",
+        "vercel.json root redirect"
+      ],
+      "queries": ["website laten maken prijs", "google ads specialist", "social media beheer", "bedrijf niet zichtbaar op google maps", "geen reactie op offerte"],
+      "gap_type": "technical/language: primary market nl-BE but every live page is lang=en; Dutch copy only exists as display:none spans toggled by JavaScript; no hreflang; every validated Planner demand term is Dutch",
+      "evidence_source_and_window": "Source inspection 2026-11-13; GSC 2026-10-14..2026-11-10: 2 query rows, 0 Dutch commercial queries; WAT Keyword Planner Belgium/Dutch collected 2026-11-13T12:55Z (6 of 7 clusters). Relates to unmerged draft PR #13 entry 2026-11-08-nl-crawlable-architecture-proposal.",
+      "baseline": {
+        "nl_url_exists": false,
+        "dutch_commercial_query_rows": 0,
+        "impressions": null, "clicks": null, "ctr": null, "position": null,
+        "belgium_nl_search_volume_examples": {"website laten maken prijs": 140, "google ads specialist": 90, "social media beheer": 70}
+      },
+      "expected_effect": "Dutch pages become eligible to be indexed for nl-BE searches. No ranking, traffic or lead outcome promised.",
+      "measure_on": null,
+      "measure_on_rule": "Owner approval required; deploy only after PR #7 is merged/closed and after 2026-12-06. measure_on = production deploy date + 28 days.",
+      "result": null
+    }
+  ]
 }
