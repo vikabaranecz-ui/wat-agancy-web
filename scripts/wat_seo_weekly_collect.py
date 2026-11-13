@@ -107,8 +107,11 @@ def discover_url_inventory(gsc_data):
     def add(url, source, expected_index=True):
         try:
             p = urlparse(url)
-            if p.scheme != "https" or p.hostname not in ("www.watagencybelgium.be","watagencybelgium.be"):
+            if p.scheme not in ("https","http") or p.hostname not in ("www.watagencybelgium.be","watagencybelgium.be"):
                 return
+            if p.scheme == "http":
+                expected_index = False  # obsolete HTTP alias, not a new canonical
+                source += "_http_alias"
             key = url.split("#")[0].split("?")[0]
             if key not in urls:
                 urls[key] = {"url":key,"sources":[],"expected_index":expected_index}
