@@ -68,6 +68,13 @@ def main():
                 "http_code": sample.get("http_code")
             })
             continue
+        if sample.get("expected_index") is False:
+            result["verification_needed"].append({
+                "url":sample["url"], "reason":"Historical or intentional redirect URL: confirm canonical destination, do not request indexing automatically",
+                "coverage_state":sample.get("coverage_state"),
+                "google_canonical":sample.get("google_canonical")
+            })
+            continue
         if sample.get("verdict") != "PASS":
             result["technical_issues"].append({
                 "url": sample["url"],
@@ -129,6 +136,43 @@ def main():
             })
         result["opportunities"].sort(key=lambda x:x["priority_score_heuristic_not_rank"], reverse=True)
         result["opportunities"] = result["opportunities"][:45]
+    # WAT is a new brand with near-zero GSC rows. Real Keyword Planner demand
+    # must still become a *research candidate* rather than disappearing.
+    # Publication is separately gated by real intent, site architecture and approval.
+    result["demand_discovery"] = {
+        "source":"WAT Google Ads Keyword Planner (Dutch, Belgium)",
+        "status":ads.get("status","BLOCKED"),
+        "scope":ads.get("geo_scope"),
+        "method":ads.get("method"),
+        "clusters":[],
+        "trend_definition":"Last 3 complete months vs preceding 3; not actual week-on-week popularity",
+        "content_decisions_require":["Confirm Belgian SERP buyer intent","Match WAT services and real proof",
+                                   "Check live canonical/indexing","Identify distinct answer missing from existing site",
+                                   "Review draft PR before publishing"]
+    }
+    for cluster, info in (ads.get("clusters") or {}).items():
+        ideas = [i for i in (info.get("ideas") or [])
+                 if i.get("business_fit")=="SCREENED_REQUIRES_SERP_REVIEW" and
+                 isinstance(i.get("avg_monthly_searches"),int) and i["avg_monthly_searches"]>0]
+        rising = [i for i in ideas if isinstance((i.get("trend") or {}).get("three_month_growth_pct"),(int,float))
+                  and (i["trend"]["three_month_growth_pct"]>=20)]
+        # High demand and rising interest are distinct opportunities.
+        top_volume=sorted(ideas,key=lambda i:i["avg_monthly_searches"],reverse=True)[:8]
+        top_rising=sorted(rising,key=lambda i:i["trend"]["three_month_growth_pct"],reverse=True)[:8]
+        result["demand_discovery"]["clusters"].append({
+            "cluster":cluster,"status":info.get("status"),
+            "seeds":info.get("seeds"),
+            "screened_count":len(ideas),
+            "high_demand":[{"keyword":i["keyword"],"avg_monthly_searches":i["avg_monthly_searches"],
+                            "trend":i.get("trend"),"serp_validated":False} for i in top_volume],
+            "rising":[{"keyword":i["keyword"],"avg_monthly_searches":i["avg_monthly_searches"],
+                       "trend":i.get("trend"),"serp_validated":False} for i in top_rising]
+        })
+    if ads.get("status") not in ("OK","PARTIAL"):
+        result["verification_needed"].append({"reason":"Keyword Planner unavailable; no current demand claims"})
+    elif not any(c["high_demand"] for c in result["demand_discovery"]["clusters"]):
+        result["verification_needed"].append({"reason":"Keyword Planner connected but returned no qualified positive-volume market candidates. Investigate seed fit."})
+
     # Keyword Planner is enrichment, not a standalone justification for publishing.
     ideas = {}
     for scope, info in ads.get("datasets", {}).items():

@@ -33,6 +33,7 @@ jobs:
     outputs:
       skip: ${{ steps.duplicate.outputs.skip }}
       ready: ${{ steps.gate.outputs.ready }}
+      qa_passed: ${{ steps.qa.outputs.passed }}
     env:
       GH_TOKEN: ${{ github.token }}
       GSC_SITE_URL: ${{ vars.WAT_GSC_SITE_URL || 'sc-domain:watagencybelgium.be' }}
@@ -143,8 +144,8 @@ jobs:
             `seo/growth_strategy.json`, `seo-weekly-context.json`,
             `seo-weekly-opportunities.json`, `seo-weekly-skills.json`.
             Determine today's date in Europe/Brussels. Flag existing English-only homepage versus Dutch-speaking target and propose a crawlable /nl/ architecture for approval only; do not publish a translation without owner review.
-            REQUIRE real WAT GSC query-to-page 28d and previous 28d evidence. Every week inspect all tracked keyword clusters, not only one or two phrases; include every available official URL Inspection verdict and identify eligible/indexed/blocked/canonical-mismatch URLs. For GSC and Ads unavailable metrics write UNKNOWN or null; no zero ranking claims. Choose 3-5 WAT-specific commercial/problem/AI-answerable clusters only if there is real evidence and distinct intent. Use WAT Keyword Planner Belgium Dutch-language datasets when available. If Ads is unavailable, continue strictly with authenticated GSC plus public health audit; mark missing volumes, do not invent them.
-            First audit GSC URL Inspection API status for every sampled canonical URL from seo-weekly-context.json > gsc_indexing: explain Google verdict, coverageState, indexingState, pageFetchState, googleCanonical vs userCanonical, lastCrawlTime. Distinguish never crawled, excluded, intentional redirects, and current live accessibility. Prioritize actual indexing errors ahead of speculative new content. Sampling is not the complete Page Indexing report.
+            REQUIRE real WAT GSC query-to-page 28d and previous 28d evidence. Every week inspect ALL WAT Keyword Planner clusters in seo-weekly-context.json > keyword_planner > clusters and seo-weekly-opportunities.json > demand_discovery, not just the first 20 seed phrases. Assess recent 3-month changes vs prior 3 months only when six consecutive monthly values exist (NOT actual weekly hot search counts). Prioritize real BE/NL commercially relevant terms and emerging questions, then verify exact Dutch SERP and WAT service fit. A real positive-volume Planner idea may justify an owner-approval content PR even with no existing GSC ranking; it is not enough alone to publish. Also include every official URL Inspection verdict and identify eligible/indexed/blocked/canonical-mismatch URLs. For unavailable metrics write UNKNOWN or null; no zero ranking claims. Choose 3-5 WAT-specific commercial/problem/AI-answerable clusters only if there is real evidence and distinct intent. Use WAT Keyword Planner Belgium Dutch-language datasets when available. If Ads is unavailable, continue strictly with authenticated GSC plus public health audit; mark missing volumes, do not invent them.
+            First audit GSC URL Inspection API status for every discovered canonical/sitemap/historical GSC URL in seo-weekly-context.json > gsc_indexing: explain Google verdict, coverageState, indexingState, pageFetchState, googleCanonical vs userCanonical, lastCrawlTime. Distinguish never crawled, excluded, intentional redirects, and current live accessibility. Prioritize verified indexing blockers and draft specific file fixes, not just notes. Sampling is not the complete Page Indexing report; if excluded URLs are missing, request GSC Page indexing export rather than claiming to have inspected all of Google.
             Then audit technical, commercial keywords, intent-to-page mapping, missing
             sector/problem/question coverage, source-supported competitor gaps,
             CTA/conversion and AI answerability. Use evidence rather than guesses.
@@ -157,7 +158,7 @@ jobs:
             HOW TO DELIVER (enforced by the workflow, your GitHub token is read-only):
             - Make any proposed site edits directly in the working tree. Do NOT run git commit, git push or gh write commands.
             - Do not modify `.github/`, `.claude/`, `scripts/`, `tests/` or `seo-weekly-*.json`; such edits are discarded.
-            - Write the full weekly report to `seo-weekly-report.md` using the WAT overlay's sections (data access, indexing & sitemap status, 25-query evidence watchlist, 3-5 portfolio, AI-search gaps, exact QA, actual PR/merge/deploy state, Ukrainian owner summary). Never mark an unmerged PR as live.
+            - Write the full weekly report to `seo-weekly-report.md` using the WAT overlay's sections (data access; indexed vs non-indexed sampled URLs and exact affected files + repair PR; sitemap/discovered URL coverage and missing-GSC-export limitation; seven Keyword Planner intent clusters with actual BE/NL volume and supported 3-month trend; 25-query evidence watchlist; 3-5 portfolio; AI-search gaps; exact QA; actual PR/merge/deploy state; Ukrainian owner summary). Never mark an unmerged PR as live.
             - Write exactly one word to `seo-weekly-mode.txt`: BLOCKED, MONITOR, AUDIT, PROPOSED or NEEDS APPROVAL.
             A separate workflow job opens a DRAFT pull request and the weekly issue for human review. Nothing is merged or published automatically.
             If information is insufficient, report explicitly rather than fabricating rankings.
@@ -165,6 +166,17 @@ jobs:
             --effort high
             --allowedTools "Read,Write,Edit,Glob,Grep,WebSearch,WebFetch,Bash(git status:*),Bash(git diff:*),Bash(git log:*),Bash(gh pr list:*),Bash(gh pr view:*),Bash(gh pr diff:*),Bash(gh issue list:*),Bash(gh issue view:*),Bash(python:*),Bash(python3:*),Bash(ls:*),Bash(cat:*),Skill"
             --disallowedTools "Bash(git push:*),Bash(git commit:*),Bash(git remote:*),Bash(gh pr merge:*),Bash(gh pr create:*),Bash(gh pr review:*),Bash(gh issue create:*),Bash(gh api:*),Bash(gh workflow:*),Bash(gh release:*),Bash(npm:*),Bash(npx:*),Bash(curl:*),Bash(wget:*)"
+
+      - name: QA all proposed website changes after Claude
+        if: steps.duplicate.outputs.skip != 'true' && steps.gate.outputs.ready == 'true' && steps.claude.outcome == 'success'
+        id: qa
+        continue-on-error: true
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m unittest discover -s tests
+          node --test tests/seo.test.mjs
+          echo "passed=true" >> "$GITHUB_OUTPUT"
 
       - name: Package proposal (site files only) and report
         if: always() && steps.duplicate.outputs.skip != 'true'
@@ -220,15 +232,17 @@ jobs:
         shell: bash
         env:
           READY: ${{ needs.analyse.outputs.ready }}
+          QA_PASSED: ${{ needs.analyse.outputs.qa_passed }}
         run: |
           set -euo pipefail
           TODAY="$(TZ=Europe/Brussels date +%F)"
           MODE="$(tr -dc 'A-Z ' < evidence/proposal/seo-weekly-mode.txt | head -c 20)"
           [ "$READY" = "true" ] || MODE="BLOCKED"
+          [ "$QA_PASSED" = "true" ] || MODE="BLOCKED"
           [ -n "$MODE" ] || MODE="BLOCKED"
           PR_URL=""
           BRANCH_URL=""
-          if [ "$READY" = "true" ] && { [ -s evidence/proposal/site.patch ] || [ -s evidence/proposal/new-files.txt ]; }; then
+          if [ "$READY" = "true" ] && [ "$QA_PASSED" = "true" ] && { [ -s evidence/proposal/site.patch ] || [ -s evidence/proposal/new-files.txt ]; }; then
             BRANCH="seo-weekly/${TODAY}-${GITHUB_RUN_ID}"
             case "$BRANCH" in seo-weekly/*) ;; *) echo "Refusing unexpected branch"; exit 1;; esac
             git config user.name "github-actions[bot]"
@@ -258,6 +272,7 @@ jobs:
             {
               cat evidence/proposal/seo-weekly-report.md
               echo; echo "---"
+              echo "Post-analysis QA passed: ${QA_PASSED}. If false, proposed website changes are NOT offered for merge."
               echo "Draft PR (needs owner approval, not merged): ${PR_URL:-not created}"
               if [ -n "$BRANCH_URL" ] && [ -z "$PR_URL" ]; then
                 echo "ACTION REQUIRED: Enable Actions-created pull requests under Settings > Actions > General > Workflow permissions. Branch ready for manual PR: ${BRANCH_URL}"
