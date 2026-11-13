@@ -11,7 +11,7 @@ permissions:
 jobs:
   preflight:
     runs-on: ubuntu-latest
-    timeout-minutes: 12
+    timeout-minutes: 30
     env:
       GH_TOKEN: ${{ github.token }}
       GSC_SITE_URL: ${{ vars.WAT_GSC_SITE_URL || 'sc-domain:watagencybelgium.be' }}
@@ -100,12 +100,61 @@ jobs:
           else:
               print("WAT Telegram direct send verified")
           PY
+      - name: Collect complete WAT weekly Google keyword and URL Inspection evidence
+        id: evidence
+        continue-on-error: true
+        if: steps.connections.outcome == 'success'
+        run: |
+          python scripts/wat_seo_weekly_collect.py
+          python scripts/wat_seo_opportunities.py
+          python - <<'PY'
+          import json, os
+          data=json.load(open("seo-weekly-context.json",encoding="utf-8"))
+          ads=data.get("keyword_planner") or {}
+          indexing=data.get("gsc_indexing") or {}
+          discovered=data.get("gsc_url_inventory") or {}
+          problems=[x for x in indexing.get("results",[]) if x.get("issue") and x.get("status")=="OK"]
+          print("GOOGLE ADS:",ads.get("status"),"clusters:",ads.get("successful_clusters"),"/",ads.get("attempted_clusters"))
+          print("GSC URL INSPECTION:",indexing.get("status"),"inspected:",indexing.get("inspected_count"),"discovered:",discovered.get("discovered_count"))
+          print("GOOGLE INDEXING ISSUES:",len(problems))
+          for x in problems[:15]:
+              print("INDEXING:",x.get("url"),"|",x.get("coverage_state"),"|",x.get("verdict"),"| canonical:",x.get("google_canonical"))
+          lines=["## WAT full SEO evidence","",
+                 "| Source | Result |","|---|---|",
+                 f"| Keyword Planner | {ads.get('status')} ({ads.get('successful_clusters',0)}/{ads.get('attempted_clusters',0)} clusters) |",
+                 f"| GSC URL Inspection | {indexing.get('status')} ({indexing.get('inspected_count',0)} URLs) |",
+                 f"| Canonical/indexing findings | {len(problems)} need review |",
+                 f"| GSC excluded-page CSV supplied | {discovered.get('gsc_export_present',False)} |",
+                 "", "### Highest demand candidates (estimated monthly searches)"]
+          for name,group in (ads.get("clusters") or {}).items():
+              rows=[x for x in group.get("ideas",[]) if isinstance(x.get("avg_monthly_searches"),int) and x["avg_monthly_searches"]>0][:3]
+              info=", ".join(x["keyword"]+" ("+str(x["avg_monthly_searches"])+"/mo)" for x in rows)
+              print("KEYWORD:",name,info or group.get("status"))
+              lines.append("- "+name+": "+(info or group.get("status","no ideas")))
+          lines.extend(["","This does not enumerate all excluded URLs from GSC Page indexing UI.",
+                        "No Claude SEO analysis or live site changes were executed."])
+          with open(os.environ["GITHUB_STEP_SUMMARY"],"a",encoding="utf-8") as out:
+              out.write("\n".join(lines)+"\n")
+          if ads.get("status") not in ("OK","PARTIAL") or indexing.get("status")!="OK":
+              raise SystemExit("Google evidence incomplete; investigate API status.")
+          PY
+      - name: Upload WAT full Google research data (no Claude)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: wat-google-evidence-preflight
+          path: |
+            seo-weekly-context.json
+            seo-weekly-opportunities.json
+          if-no-files-found: warn
+          retention-days: 30
       - name: Preflight verdict
         if: always()
         env:
           CONNECTIONS: ${{ steps.connections.outcome }}
           PR_PERMISSION: ${{ steps.pr_permission.outputs.status }}
           TELEGRAM: ${{ steps.telegram.outputs.status }}
+          EVIDENCE: ${{ steps.evidence.outcome }}
         shell: bash
         run: |
           {
@@ -115,11 +164,12 @@ jobs:
             echo "| Claude, GSC, URL Inspection, Keyword Planner | $CONNECTIONS |"
             echo "| GitHub Actions PR setting | $PR_PERMISSION |"
             echo "| Direct WAT Telegram | $TELEGRAM |"
+            echo "| Full seven-cluster keyword + page inventory audit | $EVIDENCE |"
             echo
             echo 'A green result proves core Google/Claude API connectivity only. Telegram bridge and GitHub PR settings require separate verification.'
             echo 'No full Claude SEO run and no website deployment took place.'
           } >> "$GITHUB_STEP_SUMMARY"
-          if [ "$CONNECTIONS" != "success" ]; then
+          if [ "$CONNECTIONS" != "success" ] || [ "$EVIDENCE" != "success" ]; then
             echo "::error::Core Google/Claude connection test failed."
             exit 1
           fi
