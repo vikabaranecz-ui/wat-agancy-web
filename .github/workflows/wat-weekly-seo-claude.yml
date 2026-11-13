@@ -168,7 +168,7 @@ jobs:
             --disallowedTools "Bash(git push:*),Bash(git commit:*),Bash(git remote:*),Bash(gh pr merge:*),Bash(gh pr create:*),Bash(gh pr review:*),Bash(gh issue create:*),Bash(gh api:*),Bash(gh workflow:*),Bash(gh release:*),Bash(npm:*),Bash(npx:*),Bash(curl:*),Bash(wget:*)"
 
       - name: QA all proposed website changes after Claude
-        if: steps.duplicate.outputs.skip != 'true' && steps.gate.outputs.ready == 'true'
+        if: steps.duplicate.outputs.skip != 'true' && steps.gate.outputs.ready == 'true' && steps.claude.outcome == 'success'
         id: qa
         continue-on-error: true
         shell: bash
