@@ -48,66 +48,79 @@ jobs:
         id: connections
         continue-on-error: true
         run: python scripts/wat_verify_connections.py
-      - name: Verify GitHub Actions PR permission and WAT Telegram delivery
-        id: delivery
-        continue-on-error: true
+      - name: Inspect Actions PR setting (informational only)
+        id: pr_permission
         shell: bash
         run: |
-          set -euo pipefail
-          python - <<'PY'
-          import json, os, urllib.request, urllib.parse
-          from urllib.error import HTTPError
-          repo = os.environ['GITHUB_REPOSITORY']
-          token = os.environ['GH_TOKEN']
-          url = 'https://api.github.com/repos/' + repo + '/actions/permissions/workflow'
-          req = urllib.request.Request(url, headers={
-              'Authorization': 'Bearer ' + token,
-              'Accept': 'application/vnd.github+json',
-              'X-GitHub-Api-Version': '2022-11-28'
-          })
+          python3 - <<'PY'
+          import json, os, urllib.request
+          from urllib.error import HTTPError, URLError
+          req = urllib.request.Request(
+              "https://api.github.com/repos/" + os.environ["GITHUB_REPOSITORY"] + "/actions/permissions/workflow",
+              headers={"Authorization": "Bearer " + os.environ["GH_TOKEN"],
+                       "Accept": "application/vnd.github+json"})
           try:
-              with urllib.request.urlopen(req, timeout=15) as resp:
-                  permissions = json.load(resp)
+              with urllib.request.urlopen(req, timeout=15) as response:
+                  flag = json.load(response).get("can_approve_pull_request_reviews")
+              status = "ENABLED" if flag is True else "DISABLED" if flag is False else "UNKNOWN"
           except HTTPError as exc:
-              raise SystemExit(f'Cannot inspect Actions PR permission (HTTP {exc.code}); verify manually in repository Settings → Actions → General.')
-          permitted = permissions.get('can_approve_pull_request_reviews')
-          if permitted is not True:
-              raise SystemExit('GitHub Actions-created pull requests are disabled. Enable them in Settings → Actions → General.')
-          print('GitHub Actions-created PR setting: enabled')
-          bot = os.environ.get('WAT_TELEGRAM_BOT_TOKEN', '').strip()
-          chat = os.environ.get('WAT_TELEGRAM_CHAT_ID', '').strip()
-          if not bot or not chat:
-              raise SystemExit('WAT Telegram bot token or chat ID missing in Actions secrets.')
-          endpoint = 'https://api.telegram.org/bot' + bot + '/sendMessage'
-          data = urllib.parse.urlencode({
-              'chat_id': chat,
-              'text': 'WAT SEO preflight: Telegram delivery test succeeded. This is NOT an SEO report or a site publication.'
-          }).encode()
-          with urllib.request.urlopen(urllib.request.Request(endpoint, data=data), timeout=20) as resp:
-              response = json.load(resp)
-          if not response.get('ok'):
-              raise SystemExit('Telegram API did not confirm delivery.')
-          print('WAT Telegram: message accepted by Telegram')
+              status = "UNVERIFIED_HTTP_" + str(exc.code)
+          except URLError:
+              status = "UNVERIFIED_NETWORK"
+          with open(os.environ["GITHUB_OUTPUT"], "a") as result:
+              result.write("status=" + status + "\n")
+          if status != "ENABLED":
+              print("::warning title=GitHub PR setting::" + status + " — cannot infer PR permission from GitHub admin-read HTTP 403. Check repository Settings > Actions > General.")
+          else:
+              print("GitHub Actions-created PRs enabled")
+          PY
+      - name: Check direct WAT Telegram separately
+        id: telegram
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          import json, os, urllib.parse, urllib.request
+          token = os.environ.get("WAT_TELEGRAM_BOT_TOKEN", "").strip()
+          chat = os.environ.get("WAT_TELEGRAM_CHAT_ID", "").strip()
+          status = "NOT_CONFIGURED_EXTERNAL_BRIDGE"
+          if token and chat:
+              try:
+                  payload = urllib.parse.urlencode({
+                      "chat_id": chat, "text": "WAT SEO preflight: Telegram delivery test. No site changes."
+                  }).encode()
+                  req = urllib.request.Request("https://api.telegram.org/bot" + token + "/sendMessage", data=payload)
+                  with urllib.request.urlopen(req, timeout=20) as response:
+                      status = "SENT" if json.load(response).get("ok") else "FAILED"
+              except Exception as exc:
+                  status = "FAILED_" + type(exc).__name__
+          with open(os.environ["GITHUB_OUTPUT"], "a") as result:
+              result.write("status=" + status + "\n")
+          if status != "SENT":
+              print("::warning title=WAT Telegram::" + status + " — test ISOPROTECH WAT Telegram bridge separately.")
+          else:
+              print("WAT Telegram direct send verified")
           PY
       - name: Preflight verdict
         if: always()
         env:
           CONNECTIONS: ${{ steps.connections.outcome }}
-          DELIVERY: ${{ steps.delivery.outcome }}
+          PR_PERMISSION: ${{ steps.pr_permission.outputs.status }}
+          TELEGRAM: ${{ steps.telegram.outputs.status }}
         shell: bash
         run: |
           {
-            echo '## WAT SEO safety preflight'
+            echo '## WAT SEO preflight'
+            echo '| Check | Result |'
+            echo '|---|---|'
+            echo "| Claude, GSC, URL Inspection, Keyword Planner | $CONNECTIONS |"
+            echo "| GitHub Actions PR setting | $PR_PERMISSION |"
+            echo "| Direct WAT Telegram | $TELEGRAM |"
             echo
-            echo "| Check | Result |"
-            echo "|---|---|"
-            echo "| Google/Claude API test | ${CONNECTIONS} |"
-            echo "| GitHub PR permission and Telegram test | ${DELIVERY} |"
-            echo
-            echo 'No SEO site files were edited, no draft PR or GitHub issue was created, and no Claude SEO analysis was run.'
-          } >> "${GITHUB_STEP_SUMMARY}"
-          if [ "${CONNECTIONS}" != "success" ] || [ "${DELIVERY}" != "success" ]; then
-            echo "::error::Preflight failed. Do NOT start the paid WAT Claude SEO workflow yet."
+            echo 'A green result proves core Google/Claude API connectivity only. Telegram bridge and GitHub PR settings require separate verification.'
+            echo 'No full Claude SEO run and no website deployment took place.'
+          } >> "$GITHUB_STEP_SUMMARY"
+          if [ "$CONNECTIONS" != "success" ]; then
+            echo "::error::Core Google/Claude connection test failed."
             exit 1
           fi
-          echo "Preflight passed. This proves basic API and notification access, not live GA4/consent, production indexing, or future SEO rankings."
+          echo "::notice::Core connections passed; inspect delivery warnings separately."
