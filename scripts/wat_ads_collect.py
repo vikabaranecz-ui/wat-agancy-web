@@ -111,7 +111,7 @@ def collect_keyword_planner(gsc_queries=None):
     observed = []
     for row in sorted(gsc_queries or [], key=lambda x:x.get("impressions",0), reverse=True):
         keys = row.get("keys", [])
-        if keys and isinstance(keys[0],str) and not is_brand_query(keys[0]):
+        if keys and isinstance(keys[0],str) and relevant_keyword(keys[0], []):
             observed.append(keys[0].strip())
     observed = list(dict.fromkeys(observed))[:10]
     result = {
