@@ -199,9 +199,12 @@ def test_ads(info, parsed):
             return result(FAILED, "Keyword Planner request refused", error=next(iter(failures.values())),
                           accessible_customers=accessible, login_customer_id_set=bool(login),
                           customer_id_last4=customer[-4:], api_version=api)
-        status = CONNECTED if "belgium" in datasets else FAILED
-        detail = ("Keyword Planner returned Dutch-language Belgium ideas for WAT" if status == CONNECTED
-                  else "Keyword Planner Belgium request failed")
+        belgium = datasets.get("belgium") or {}
+        has_real_ideas = belgium.get("returned_ideas", 0) > 0
+        has_volume = belgium.get("ideas_with_volume", 0) > 0
+        status = CONNECTED if has_real_ideas and has_volume else FAILED
+        detail = ("Keyword Planner returned Belgium/Dutch ideas with numeric monthly demand" if status == CONNECTED
+                  else "API responded but returned no usable positive-volume keyword ideas; check account/API access, seeds and scope")
         return result(status, detail, customer_id_last4=customer[-4:], datasets=datasets, failures=failures or None,
                       accessible_customers=accessible,
                       api_version=api, language="Dutch")
