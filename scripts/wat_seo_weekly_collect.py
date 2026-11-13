@@ -7,6 +7,7 @@ from datetime import date, timedelta, datetime, timezone
 from pathlib import Path
 from urllib.parse import urljoin, urlparse
 import xml.etree.ElementTree as ET
+import csv
 import requests
 from wat_ads_collect import collect_keyword_planner
 from bs4 import BeautifulSoup
@@ -131,6 +132,22 @@ def discover_url_inventory(gsc_data):
         sitemap_status = "OK"
     except (requests.RequestException, ET.ParseError, ValueError):
         sitemap_status = "BLOCKED"
+    # Search Console does not provide excluded-page inventory through its public API.
+    # Owners may export affected URLs as CSV from Indexing > Pages.
+    export=Path("seo/gsc_page_indexing_export.csv")
+    imported=0
+    if export.exists():
+        try:
+            with export.open(encoding="utf-8-sig",newline="") as handle:
+                for row in list(csv.DictReader(handle))[:500]:
+                    raw=next((str(v).strip() for k,v in row.items()
+                              if k and k.strip().lower() in ("url","page","pagina","page url","examples") and v),None)
+                    if raw:
+                        previous=len(urls)
+                        add(raw,"gsc_page_indexing_export",False)
+                        imported += len(urls)>previous
+        except (OSError,UnicodeError,csv.Error):
+            sitemap_status="PARTIAL"
     if gsc_data.get("status")=="OK":
         for key in ("last90_pages","current_pages"):
             for row in (gsc_data.get(key) or {}).get("rows",[]):
@@ -138,7 +155,8 @@ def discover_url_inventory(gsc_data):
                 if vals:
                     add(vals[0],"gsc_"+key)
     return {"status":sitemap_status,"sitemap_url":SITE+"/sitemap.xml",
-            "discovered_count":len(urls),"urls":list(urls.values())[:100],
+            "discovered_count":len(urls),"gsc_export_present":export.exists(),
+            "gsc_export_new_urls":imported,"urls":list(urls.values())[:100],
             "limitations":"Sitemap and GSC Performance pages do not include every excluded/not-indexed URL in GSC Page indexing."}
 
 def get_indexing_status(inventory=None):
