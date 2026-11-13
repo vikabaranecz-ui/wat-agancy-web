@@ -33,6 +33,7 @@ jobs:
     outputs:
       skip: ${{ steps.duplicate.outputs.skip }}
       ready: ${{ steps.gate.outputs.ready }}
+      qa_passed: ${{ steps.qa.outputs.passed }}
     env:
       GH_TOKEN: ${{ github.token }}
       GSC_SITE_URL: ${{ vars.WAT_GSC_SITE_URL || 'sc-domain:watagencybelgium.be' }}
@@ -166,6 +167,17 @@ jobs:
             --allowedTools "Read,Write,Edit,Glob,Grep,WebSearch,WebFetch,Bash(git status:*),Bash(git diff:*),Bash(git log:*),Bash(gh pr list:*),Bash(gh pr view:*),Bash(gh pr diff:*),Bash(gh issue list:*),Bash(gh issue view:*),Bash(python:*),Bash(python3:*),Bash(ls:*),Bash(cat:*),Skill"
             --disallowedTools "Bash(git push:*),Bash(git commit:*),Bash(git remote:*),Bash(gh pr merge:*),Bash(gh pr create:*),Bash(gh pr review:*),Bash(gh issue create:*),Bash(gh api:*),Bash(gh workflow:*),Bash(gh release:*),Bash(npm:*),Bash(npx:*),Bash(curl:*),Bash(wget:*)"
 
+      - name: QA all proposed website changes after Claude
+        if: steps.duplicate.outputs.skip != 'true' && steps.gate.outputs.ready == 'true'
+        id: qa
+        continue-on-error: true
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m unittest discover -s tests
+          node --test tests/seo.test.mjs
+          echo "passed=true" >> "$GITHUB_OUTPUT"
+
       - name: Package proposal (site files only) and report
         if: always() && steps.duplicate.outputs.skip != 'true'
         shell: bash
@@ -220,15 +232,17 @@ jobs:
         shell: bash
         env:
           READY: ${{ needs.analyse.outputs.ready }}
+          QA_PASSED: ${{ needs.analyse.outputs.qa_passed }}
         run: |
           set -euo pipefail
           TODAY="$(TZ=Europe/Brussels date +%F)"
           MODE="$(tr -dc 'A-Z ' < evidence/proposal/seo-weekly-mode.txt | head -c 20)"
           [ "$READY" = "true" ] || MODE="BLOCKED"
+          [ "$QA_PASSED" = "true" ] || MODE="BLOCKED"
           [ -n "$MODE" ] || MODE="BLOCKED"
           PR_URL=""
           BRANCH_URL=""
-          if [ "$READY" = "true" ] && { [ -s evidence/proposal/site.patch ] || [ -s evidence/proposal/new-files.txt ]; }; then
+          if [ "$READY" = "true" ] && [ "$QA_PASSED" = "true" ] && { [ -s evidence/proposal/site.patch ] || [ -s evidence/proposal/new-files.txt ]; }; then
             BRANCH="seo-weekly/${TODAY}-${GITHUB_RUN_ID}"
             case "$BRANCH" in seo-weekly/*) ;; *) echo "Refusing unexpected branch"; exit 1;; esac
             git config user.name "github-actions[bot]"
@@ -258,6 +272,7 @@ jobs:
             {
               cat evidence/proposal/seo-weekly-report.md
               echo; echo "---"
+              echo "Post-analysis QA passed: ${QA_PASSED}. If false, proposed website changes are NOT offered for merge."
               echo "Draft PR (needs owner approval, not merged): ${PR_URL:-not created}"
               if [ -n "$BRANCH_URL" ] && [ -z "$PR_URL" ]; then
                 echo "ACTION REQUIRED: Enable Actions-created pull requests under Settings > Actions > General > Workflow permissions. Branch ready for manual PR: ${BRANCH_URL}"
