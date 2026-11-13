@@ -144,7 +144,7 @@ def discover_url_inventory(gsc_data):
                               if k and k.strip().lower() in ("url","page","pagina","page url","examples") and v),None)
                     if raw:
                         previous=len(urls)
-                        add(raw,"gsc_page_indexing_export",False)
+                        add(raw,"gsc_page_indexing_export",True)
                         imported += len(urls)>previous
         except (OSError,UnicodeError,csv.Error):
             sitemap_status="PARTIAL"
