@@ -120,6 +120,16 @@ def discover_url_inventory(gsc_data):
     add(SITE+"/","root_redirect_check",False)
     for path in PAGES:
         add(SITE+path,"configured_canonical")
+    # Known Vercel redirects are intentionally not indexable as independent pages.
+    # Do not waste SEO sprints trying to index duplicates or legacy paths.
+    try:
+        redirects=json.loads(Path("vercel.json").read_text(encoding="utf-8")).get("redirects",[])
+        for rule in redirects:
+            source=rule.get("source","")
+            if source.startswith("/") and not any(token in source for token in (":","*","(",")")):
+                add(SITE+source,"configured_redirect",False)
+    except (OSError,ValueError,TypeError):
+        pass
     sitemap_status = "BLOCKED"
     try:
         response = session.get(SITE + "/sitemap.xml",timeout=18)
