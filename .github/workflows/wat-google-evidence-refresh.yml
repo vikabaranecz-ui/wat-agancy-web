@@ -1,0 +1,98 @@
+name: WAT Google Canonical and Demand Evidence (read only)
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/wat_seo_weekly_collect.py'
+      - 'scripts/wat_ads_collect.py'
+      - '.github/workflows/wat-google-evidence-refresh.yml'
+
+permissions:
+  contents: read
+  id-token: write
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    env:
+      GSC_SITE_URL: ${{ vars.WAT_GSC_SITE_URL || 'sc-domain:watagencybelgium.be' }}
+      WAT_SITE_URL: https://www.watagencybelgium.be
+      WAT_GOOGLE_ADS_CUSTOMER_ID: ${{ vars.WAT_GOOGLE_ADS_CUSTOMER_ID }}
+      WAT_GOOGLE_ADS_DEVELOPER_TOKEN: ${{ secrets.WAT_GOOGLE_ADS_DEVELOPER_TOKEN || secrets.GOOGLE_ADS_DEVELOPER_TOKEN }}
+      GOOGLE_ADS_LOGIN_CUSTOMER_ID: ${{ vars.WAT_GOOGLE_ADS_LOGIN_CUSTOMER_ID || secrets.GOOGLE_ADS_LOGIN_CUSTOMER_ID }}
+      GOOGLE_ADS_API_VERSION: v26
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Authenticate to Google (existing WAT GitHub OIDC)
+        uses: google-github-actions/auth@v3
+        with:
+          project_id: steadfast-sign-506214-r8
+          workload_identity_provider: projects/119496279676/locations/global/workloadIdentityPools/wat-github/providers/wat-actions
+          service_account: wat-seo-automation@steadfast-sign-506214-r8.iam.gserviceaccount.com
+          create_credentials_file: true
+          export_environment_variables: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install read-only collector dependencies
+        run: python -m pip install --disable-pip-version-check requests beautifulsoup4 google-auth
+      - name: Test source and URL inventory
+        run: |
+          python -m compileall -q scripts
+          python -m unittest discover -s tests -v
+          node --test tests/seo.test.mjs
+      - name: Collect live apex and www, GSC URLs and 7 Keyword Planner clusters
+        run: python scripts/wat_seo_weekly_collect.py
+      - name: Create measured opportunity register
+        run: python scripts/wat_seo_opportunities.py
+      - name: Verify access and report exact source evidence
+        run: |
+          python - <<'PY'
+          import json,os
+          from pathlib import Path
+          d=json.loads(Path("seo-weekly-context.json").read_text())
+          g=d.get("gsc") or {}
+          index=d.get("gsc_indexing") or {}
+          planner=d.get("keyword_planner") or {}
+          desired=[
+              "https://watagencybelgium.be/",
+              "https://watagencybelgium.be/en/",
+              "https://www.watagencybelgium.be/",
+              "https://www.watagencybelgium.be/en/",
+          ]
+          rows={r.get("url"):r for r in index.get("results",[])}
+          live={r.get("url"):r for r in d.get("site_audit",[])}
+          lines=[
+             "## WAT Google evidence — actual API and live HTTP",
+             f"- Search Console Search Analytics: {g.get('status','UNKNOWN')}",
+             f"- GSC indexed-version URL Inspection: {index.get('status','UNKNOWN')}",
+             f"- Google Ads Keyword Planner: {planner.get('status','UNKNOWN')}",
+             f"- Ads clusters successful/attempted: {planner.get('successful_clusters','unknown')}/{planner.get('attempted_clusters','unknown')}",
+          ]
+          for url in desired:
+              r=rows.get(url) or {}
+              h=live.get(url) or {}
+              lines.append(f"- {url}: live first hop {h.get('first_hop_status','UNKNOWN')}, final {h.get('final_url','UNKNOWN')}, GSC {r.get('coverage_state','UNKNOWN')}, Google canonical {r.get('google_canonical','UNKNOWN')}")
+          with open(os.environ['GITHUB_STEP_SUMMARY'],'a',encoding='utf-8') as out:
+              out.write("\n".join(lines)+"\n")
+          print("\n".join(lines))
+          if g.get("status")!="OK" or index.get("status")!="OK":
+              raise SystemExit("GSC not verified; no SEO indexing conclusion allowed")
+          if planner.get("status") not in ("OK","PARTIAL"):
+              raise SystemExit("Keyword Planner not verified; no volume-driven page decisions allowed")
+          PY
+      - name: Upload private-to-repository evidence files (30-day retention)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: wat-google-seo-evidence-${{ github.run_id }}
+          path: |
+            seo-weekly-context.json
+            seo-weekly-opportunities.json
+          if-no-files-found: warn
+          retention-days: 30
