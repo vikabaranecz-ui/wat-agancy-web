@@ -41,21 +41,19 @@
   window.setLanguage = function setLanguage(lang) {
     var root = document.documentElement;
     root.setAttribute('data-lang', lang);
-    root.setAttribute('lang', lang);
+    root.setAttribute('lang', lang === 'nl' ? 'nl-BE' : 'en');
 
     Array.prototype.forEach.call(document.querySelectorAll('.lang-btn'), function (btn) {
       btn.classList.toggle('active', btn.dataset.lang === lang);
     });
 
-    try { localStorage.setItem('preferred-lang-v2', lang); } catch (e) {}
 
     document.dispatchEvent(new CustomEvent('wat:language', { detail: { lang: lang } }));
     ScrollTrigger.refresh();
   };
 
-  var stored = null;
-  try { stored = localStorage.getItem('preferred-lang-v2'); } catch (e) {}
-  window.setLanguage(stored || 'en');
+  // Distinct crawlable language routes; do not override document language via storage.
+  window.setLanguage(window.location.pathname.startsWith('/en/') ? 'en' : 'nl');
 
   function initMenu() {
     var burger = document.getElementById('nav-burger');

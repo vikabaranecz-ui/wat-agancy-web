@@ -12,6 +12,7 @@ const read = (p) => readFileSync(path.join(ROOT, p), 'utf8');
 const CANONICAL_HOST = 'https://www.watagencybelgium.be';
 
 const PAGES = [
+  { file: 'index.html', canonical: `${CANONICAL_HOST}/` },
   { file: 'en/index.html', canonical: `${CANONICAL_HOST}/en/` },
   { file: 'systems-library/index.html', canonical: `${CANONICAL_HOST}/systems-library/` },
   { file: 'work/isoprotech.html', canonical: `${CANONICAL_HOST}/work/isoprotech.html` },
@@ -34,17 +35,19 @@ test('vercel.json redirects are all permanent (301) and cover every known duplic
   const bySource = Object.fromEntries(redirects.map((r) => [r.source, r]));
 
   const expected = {
-    '/': '/en/',
-    '/index.html': '/en/',
+    '/nl': '/',
+    '/nl/': '/',
+    '/index.html': '/',
     '/en/index.html': '/en/',
     '/work': '/systems-library/',
     '/work/': '/systems-library/',
     '/systems-library/index.html': '/systems-library/',
-    '/web': '/en/',
-    '/web/': '/en/',
-    '/web/index.html': '/en/',
+    '/web': '/',
+    '/web/': '/',
+    '/web/index.html': '/',
   };
 
+  assert.equal(bySource['/'], undefined, 'Dutch canonical root must not redirect');
   for (const [source, destination] of Object.entries(expected)) {
     const rule = bySource[source];
     assert.ok(rule, `vercel.json: missing redirect rule for ${source}`);
@@ -53,13 +56,25 @@ test('vercel.json redirects are all permanent (301) and cover every known duplic
   }
 });
 
-test('en/index.html declares English as the default language, consistently', () => {
-  const html = read('en/index.html');
-  assert.match(html, /<html lang="en" data-lang="en">/, 'the <html> tag should default to lang="en" data-lang="en"');
-
-  const js = read('js/scroll-system.js');
-  assert.match(js, /window\.setLanguage\(stored \|\| 'en'\)/, 'the JS default fallback must also be "en", or it silently overrides the HTML attribute on load');
-  assert.doesNotMatch(js, /\|\|\s*'nl'/, 'no stray "nl" fallback should remain in the language logic');
+test('two crawlable language pages have distinct visible content, correct HTML lang and reciprocal hreflang', () => {
+  const dutch=read('index.html');
+  const english=read('en/index.html');
+  assert.match(dutch, /<html lang="nl-BE" data-lang="nl">/);
+  assert.match(english, /<html lang="en" data-lang="en">/);
+  const languages=[['nl-BE',CANONICAL_HOST+'/'],['en',CANONICAL_HOST+'/en/'],['x-default',CANONICAL_HOST+'/']];
+  for(const [lang, url] of languages){
+    const fragment=`<link rel="alternate" hreflang="${lang}" href="${url}">`;
+    assert.ok(dutch.includes(fragment), 'root missing '+lang);
+    assert.ok(english.includes(fragment), '/en/ missing '+lang);
+  }
+  for(const [p,s] of [['root',dutch],['/en/',english]]){
+    assert.doesNotMatch(s, /<span class="en">|<span class="nl">/, p+' contains hidden translated copy');
+    assert.ok(s.includes('href="/en/" hreflang="en"'),p+' lacks English link');
+    assert.ok(s.includes('href="/" hreflang="nl-BE"'),p+' lacks Dutch link');
+  }
+  const js=read('js/scroll-system.js');
+  assert.match(js, /window\.location\.pathname\.startsWith\('\/en\/'\)/);
+  assert.doesNotMatch(js,/localStorage\.getItem\('preferred-lang-v2'\)/);
 });
 
 test('sitemap.xml lists exactly the live pages, on the canonical www host, with no redirects', () => {
@@ -69,6 +84,7 @@ test('sitemap.xml lists exactly the live pages, on the canonical www host, with 
   const expectedLocs = PAGES.map((p) => p.canonical);
   assert.deepEqual(locs.sort(), expectedLocs.sort(), 'sitemap.xml should list exactly the 4 live canonical URLs, nothing else');
 
+  assert.match(xml, /xmlns:xhtml="http:\/\/www\.w3\.org\/1999\/xhtml"/);
   for (const loc of locs) {
     assert.ok(loc.startsWith(CANONICAL_HOST), `sitemap.xml: ${loc} is not on the canonical www host`);
   }
@@ -80,7 +96,7 @@ test('robots.txt points its Sitemap directive at the canonical www host', () => 
 });
 
 test('orphaned legacy pages are removed, not just unlinked', () => {
-  assert.equal(existsSync(path.join(ROOT, 'index.html')), false, 'root index.html (old NL homepage) should be deleted');
+  assert.equal(existsSync(path.join(ROOT, 'index.html')), true, 'Dutch canonical root index.html must exist');
   assert.equal(existsSync(path.join(ROOT, 'web', 'index.html')), false, 'web/index.html (old NL lead-gen page) should be deleted');
 });
 
@@ -92,4 +108,27 @@ test('no internal link points at a duplicate directory-index URL', () => {
     if (/href="\/systems-library\/index\.html/.test(html)) offenders.push(`${file} links to /systems-library/index.html instead of /systems-library/`);
   }
   assert.deepEqual(offenders, []);
+});
+
+
+test('homepage intent and crawlable internal links survive the language migration', () => {
+  const nl=read('index.html');
+  const en=read('en/index.html');
+  const library=read('systems-library/index.html');
+  assert.match(nl, /<h1 class="hero-title">Marketing voor dienstverleners<\/h1>/);
+  for(const [path,html] of [['/',nl],['/en/',en]]) {
+    assert.ok(html.includes('href="/systems-library/"'), path + ' must link directly to Systems Library');
+    assert.ok(!html.includes('href="/work"'), path + ' still points at a redirect');
+    for(const url of ['/work/isoprotech.html','/work/reno-rangers.html']) {
+      assert.ok(html.includes('href="'+url+'"'), path + ' missing case link '+url);
+    }
+  }
+  for(const url of ['/work/isoprotech.html','/work/reno-rangers.html']) {
+    assert.ok(library.includes('href="'+url+'"'), 'Systems Library missing internal case link '+url);
+  }
+  assert.ok(library.includes('mailto:hello@watagencybelgium.be'), 'Library contact should use current domain');
+  assert.ok(!library.includes('hello@viktoriiamarketing.be'), 'Library still references obsolete email identity');
+  const ledger=JSON.parse(read('seo/change_ledger.json'));
+  assert.ok(ledger.entries.find(e=>e.id==='2026-11-17-pr29-nl-be-root-architecture'));
+  assert.ok(ledger.entries.find(e=>e.id==='2026-11-17-pr29-internal-case-discovery'));
 });

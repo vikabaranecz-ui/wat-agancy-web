@@ -1,5 +1,95 @@
 {
   "schema": "WAT SEO change ledger v1. One entry per proposed or merged SEO change. Append only; never rewrite history.",
-  "fields": ["id", "proposed_on", "pr_url", "status (proposed|merged|rejected|reverted)", "merged_on", "url", "queries", "gap_type", "evidence_source_and_window", "baseline {impressions, clicks, ctr, position}", "expected_effect", "measure_on", "result {impressions, clicks, ctr, position, verdict: improved|no_change|worse|too_early}"],
-  "entries": []
+  "fields": [
+    "id",
+    "proposed_on",
+    "pr_url",
+    "status (proposed|merged|rejected|reverted)",
+    "merged_on",
+    "url",
+    "queries",
+    "gap_type",
+    "evidence_source_and_window",
+    "baseline {impressions, clicks, ctr, position}",
+    "expected_effect",
+    "measure_on",
+    "result {impressions, clicks, ctr, position, verdict: improved|no_change|worse|too_early}"
+  ],
+  "entries": [
+    {
+      "id": "2026-11-08-pr10-www-en-redirect",
+      "proposed_on": "2026-11-08",
+      "pr_url": "https://github.com/vikabaranecz-ui/wat-agancy-web/pull/10",
+      "status": "merged",
+      "merged_on": "2026-11-08",
+      "url": [
+        "https://www.watagencybelgium.be/",
+        "https://www.watagencybelgium.be/en/"
+      ],
+      "queries": [],
+      "gap_type": "canonical/redirect host and path consolidation (now superseded by Dutch-root proposal)",
+      "evidence_source_and_window": "GitHub merged PR #10; authenticated WAT GSC URL Inspection on 2026-11-16 and 2026-11-17",
+      "baseline": {
+        "2026-11-16_www_root": "Page with redirect; Google canonical https://watagencybelgium.be/",
+        "2026-11-16_www_en": "Duplicate, Google chose different canonical; Google canonical https://watagencybelgium.be/",
+        "2026-11-17_apex_root": "Submitted and indexed at Google indexed-version; live apex redirects HTTP 307"
+      },
+      "expected_effect": "Clarify www English canonical. Subsequent evidence showed Google preferred apex /; PR #29 changes root language architecture and issue #28 tracks apex redirect, so don't judge PR #10 independently as a successful repair.",
+      "measure_on": "2026-12-06",
+      "result": null
+    },
+    {
+      "id": "2026-11-17-pr29-nl-be-root-architecture",
+      "proposed_on": "2026-11-17",
+      "pr_url": "https://github.com/vikabaranecz-ui/wat-agancy-web/pull/29",
+      "status": "proposed",
+      "merged_on": null,
+      "url": [
+        "https://www.watagencybelgium.be/",
+        "https://www.watagencybelgium.be/en/"
+      ],
+      "queries": [
+        "google ads specialist",
+        "website laten maken prijs",
+        "social media beheer"
+      ],
+      "gap_type": "language and homepage intent: primary business market nl-BE had no separate crawlable Dutch canonical landing",
+      "evidence_source_and_window": "2026-11-16 WAT authenticated GSC 28d 2026-10-17..11-13 (13 impressions on www root, 0 clicks, zero observed nonbrand commercial queries), Keyword Planner BE/NL estimated monthly volumes; PR #29 reviewed site HTML and SEO CI.",
+      "baseline": {
+        "current_www_root_impressions": 13,
+        "current_www_root_clicks": 0,
+        "nonbrand_commercial_queries_seen": 0,
+        "google_www_root": "Page with redirect",
+        "google_www_en": "Duplicate, selected apex",
+        "site_primary_lang": "en",
+        "nl_crawlable_url_exists": false
+      },
+      "expected_effect": "A self-canonical Dutch / and distinct English /en/ offer crawlable local-language content with reciprocal hreflang; not a promise of rank or leads. Google may still select apex until issue #28 is fixed.",
+      "measure_on": "2026-12-15",
+      "result": null
+    },
+    {
+      "id": "2026-11-17-pr29-internal-case-discovery",
+      "proposed_on": "2026-11-17",
+      "pr_url": "https://github.com/vikabaranecz-ui/wat-agancy-web/pull/29",
+      "status": "proposed",
+      "merged_on": null,
+      "url": [
+        "https://www.watagencybelgium.be/systems-library/",
+        "https://www.watagencybelgium.be/work/isoprotech.html",
+        "https://www.watagencybelgium.be/work/reno-rangers.html"
+      ],
+      "queries": [],
+      "gap_type": "internal navigation/discovery: primary homepage link used old /work 308 and library omitted direct case links",
+      "evidence_source_and_window": "2026-11-16 GSC indexed-version URL Inspection; PR #24 link diff integrated into PR #29. Previous statuses: Systems Library unknown; ISOPROTECH case discovered not indexed; Reno case discovered not indexed.",
+      "baseline": {
+        "systems_library": "URL unknown to Google",
+        "isoprotech_case": "Discovered - currently not indexed",
+        "reno_rangers_case": "Discovered - currently not indexed"
+      },
+      "expected_effect": "Internal navigation points directly at canonical Systems Library and case-study URLs; Google indexing remains discretionary.",
+      "measure_on": "2026-12-15",
+      "result": null
+    }
+  ]
 }
