@@ -66,7 +66,31 @@ class IndexingInventoryTests(unittest.TestCase):
         self.assertIn("https://www.watagencybelgium.be/en/",urls)
         root=next(x for x in result["urls"] if x["url"]=="https://www.watagencybelgium.be/")
         self.assertFalse(root["expected_index"])
-        self.assertGreaterEqual(result["discovered_count"],6)
+        self.assertGreaterEqual(result["discovered_count"],8)
+        self.assertIn("https://watagencybelgium.be/",urls)
+        self.assertIn("https://watagencybelgium.be/en/",urls)
+        apex=next(x for x in result["urls"] if x["url"]=="https://watagencybelgium.be/")
+        self.assertFalse(apex["expected_index"])
+        self.assertIn("apex_host_canonical_investigation",apex["sources"])
+
+    @patch("wat_seo_weekly_collect.session.get")
+    def test_apex_http_first_hop_not_erased_by_followed_redirect(self,get):
+        response=MagicMock()
+        response.status_code=200
+        response.url="https://www.watagencybelgium.be/en/"
+        response.history=[MagicMock(status_code=308,url="https://watagencybelgium.be/")]
+        response.history[0].headers={"Location":"https://www.watagencybelgium.be/"}
+        response.headers={"Content-Type":"text/html"}
+        response.text="<html><head><title>WAT</title></head><body><h1>WAT</h1></body></html>"
+        get.return_value=response
+        data=weekly.fetch_page("https://watagencybelgium.be/")
+        self.assertEqual(data["url"],"https://watagencybelgium.be/")
+        self.assertEqual(data["first_hop_status"],308)
+        self.assertEqual(data["first_hop_location"],"https://www.watagencybelgium.be/")
+        self.assertTrue(data["cross_host_redirect"])
+        get.assert_called_once()
+        self.assertEqual(get.call_args.args[0],"https://watagencybelgium.be/")
+
 
 
 if __name__=="__main__":
