@@ -66,8 +66,8 @@ jobs:
           flags = json.loads(os.environ["WAT_SECRET_PRESENCE"])
           print("::notice title=Secret presence::" + ", ".join(f"{k}={'set' if v else 'missing'}" for k, v in flags.items()))
           PY
-      - name: Install only verifier dependencies
-        run: python -m pip install --disable-pip-version-check requests google-auth
+      - name: Install verifier and SEO unit-test dependencies
+        run: python -m pip install --disable-pip-version-check requests google-auth beautifulsoup4
       - name: Validate diagnostic Python syntax
         run: python -m py_compile scripts/wat_verify_connections.py scripts/wat_brand.py scripts/wat_ads_collect.py
       - name: Brand-filter regression tests
