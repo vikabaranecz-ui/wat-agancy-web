@@ -13,6 +13,7 @@ from wat_ads_collect import collect_keyword_planner
 from bs4 import BeautifulSoup
 
 SITE = os.getenv("WAT_SITE_URL", "https://www.watagencybelgium.be").rstrip("/")
+APEX = "https://watagencybelgium.be"
 GSC_SITE = os.getenv("GSC_SITE_URL", "sc-domain:watagencybelgium.be")
 PAGES = ["/en/", "/systems-library/", "/work/isoprotech.html", "/work/reno-rangers.html"]
 session = requests.Session()
@@ -20,13 +21,18 @@ session.headers["User-Agent"] = "WAT-SEO-Weekly-Audit/1.0 (+site owner automated
 
 
 def fetch_page(path):
-    url = urljoin(SITE + "/", path.lstrip("/"))
+    url = path if str(path).startswith(("https://", "http://")) else urljoin(SITE + "/", path.lstrip("/"))
     result = {"url": url, "status": None, "final_url": None}
     try:
         r = session.get(url, timeout=18, allow_redirects=True)
         result["status"] = r.status_code
         result["final_url"] = r.url
         result["redirects"] = [x.status_code for x in r.history]
+        result["first_hop_status"] = r.history[0].status_code if r.history else r.status_code
+        result["first_hop_location"] = r.history[0].headers.get("Location") if r.history else None
+        result["redirect_chain"] = [{"status": x.status_code, "url": x.url,
+                                     "location": x.headers.get("Location")} for x in r.history]
+        result["cross_host_redirect"] = (urlparse(url).hostname != urlparse(r.url).hostname)
         result["content_type"] = r.headers.get("Content-Type", "")[:90]
         if "text/html" not in result["content_type"]:
             return result
@@ -121,6 +127,10 @@ def discover_url_inventory(gsc_data):
         except (ValueError, TypeError):
             return
     add(SITE+"/","root_redirect_check",False)
+    # The 2026-11-16 Google-selected canonical was the apex host.
+    # Inspect both the Google indexed version and the live HTTP first hop.
+    add(APEX+"/","apex_host_canonical_investigation",False)
+    add(APEX+"/en/","apex_language_alias_investigation",False)
     for path in PAGES:
         add(SITE+path,"configured_canonical")
     # Known Vercel redirects are intentionally not indexable as independent pages.
@@ -231,7 +241,7 @@ def main():
     result = {
         "site": SITE, "generated_at": datetime.now(timezone.utc).isoformat(),
         "project": "WAT Agency only",
-        "site_audit": [fetch_page(urlparse(item["url"]).path) for item in inventory["urls"][:40]] + [fetch_page("/robots.txt"), fetch_page("/sitemap.xml")],
+        "site_audit": [fetch_page(item["url"]) for item in inventory["urls"][:40]] + [fetch_page("/robots.txt"), fetch_page("/sitemap.xml")],
         "gsc": gsc_data,
         "gsc_url_inventory": inventory,
         "gsc_indexing": get_indexing_status(inventory),
