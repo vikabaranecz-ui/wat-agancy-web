@@ -41,7 +41,7 @@
   window.setLanguage = function setLanguage(lang) {
     var root = document.documentElement;
     root.setAttribute('data-lang', lang);
-    root.setAttribute('lang', lang);
+    root.setAttribute('lang', lang === 'nl' ? 'nl-BE' : 'en');
 
     Array.prototype.forEach.call(document.querySelectorAll('.lang-btn'), function (btn) {
       btn.classList.toggle('active', btn.dataset.lang === lang);
