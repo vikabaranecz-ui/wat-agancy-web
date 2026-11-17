@@ -42,8 +42,8 @@
       "id": "2026-11-17-pr29-nl-be-root-architecture",
       "proposed_on": "2026-11-17",
       "pr_url": "https://github.com/vikabaranecz-ui/wat-agancy-web/pull/29",
-      "status": "proposed",
-      "merged_on": null,
+      "status": "merged",
+      "merged_on": "2026-11-17",
       "url": [
         "https://www.watagencybelgium.be/",
         "https://www.watagencybelgium.be/en/"
@@ -54,7 +54,7 @@
         "social media beheer"
       ],
       "gap_type": "language and homepage intent: primary business market nl-BE had no separate crawlable Dutch canonical landing",
-      "evidence_source_and_window": "2026-11-16 WAT authenticated GSC 28d 2026-10-17..11-13 (13 impressions on www root, 0 clicks, zero observed nonbrand commercial queries), Keyword Planner BE/NL estimated monthly volumes; PR #29 reviewed site HTML and SEO CI.",
+      "evidence_source_and_window": "2026-11-16 WAT authenticated GSC 28d 2026-10-17..11-13 (13 impressions on www root, 0 clicks, zero observed nonbrand commercial queries), Keyword Planner BE/NL estimated monthly volumes; PR #29 reviewed site HTML and SEO CI.; PR #29 squash merge 9da9dcd5c2f1f23303e95e15dc315413d861ad7c, code and deployment checks passed.",
       "baseline": {
         "current_www_root_impressions": 13,
         "current_www_root_clicks": 0,
@@ -72,8 +72,8 @@
       "id": "2026-11-17-pr29-internal-case-discovery",
       "proposed_on": "2026-11-17",
       "pr_url": "https://github.com/vikabaranecz-ui/wat-agancy-web/pull/29",
-      "status": "proposed",
-      "merged_on": null,
+      "status": "merged",
+      "merged_on": "2026-11-17",
       "url": [
         "https://www.watagencybelgium.be/systems-library/",
         "https://www.watagencybelgium.be/work/isoprotech.html",
@@ -81,7 +81,7 @@
       ],
       "queries": [],
       "gap_type": "internal navigation/discovery: primary homepage link used old /work 308 and library omitted direct case links",
-      "evidence_source_and_window": "2026-11-16 GSC indexed-version URL Inspection; PR #24 link diff integrated into PR #29. Previous statuses: Systems Library unknown; ISOPROTECH case discovered not indexed; Reno case discovered not indexed.",
+      "evidence_source_and_window": "2026-11-16 GSC indexed-version URL Inspection; PR #24 link diff integrated into PR #29. Previous statuses: Systems Library unknown; ISOPROTECH case discovered not indexed; Reno case discovered not indexed.; PR #29 squash merge 9da9dcd5c2f1f23303e95e15dc315413d861ad7c, code and deployment checks passed.",
       "baseline": {
         "systems_library": "URL unknown to Google",
         "isoprotech_case": "Discovered - currently not indexed",
