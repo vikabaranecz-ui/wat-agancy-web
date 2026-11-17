@@ -7,6 +7,12 @@ on:
     paths:
       - 'scripts/wat_seo_weekly_collect.py'
       - 'scripts/wat_ads_collect.py'
+      - 'index.html'
+      - 'en/**'
+      - 'systems-library/**'
+      - 'work/**'
+      - 'sitemap.xml'
+      - 'vercel.json'
       - '.github/workflows/wat-google-evidence-refresh.yml'
 
 permissions:
