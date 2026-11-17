@@ -15,7 +15,7 @@ from bs4 import BeautifulSoup
 SITE = os.getenv("WAT_SITE_URL", "https://www.watagencybelgium.be").rstrip("/")
 APEX = "https://watagencybelgium.be"
 GSC_SITE = os.getenv("GSC_SITE_URL", "sc-domain:watagencybelgium.be")
-PAGES = ["/en/", "/systems-library/", "/work/isoprotech.html", "/work/reno-rangers.html"]
+PAGES = ["/", "/en/", "/systems-library/", "/work/isoprotech.html", "/work/reno-rangers.html"]
 session = requests.Session()
 session.headers["User-Agent"] = "WAT-SEO-Weekly-Audit/1.0 (+site owner automated QA)"
 
@@ -126,7 +126,7 @@ def discover_url_inventory(gsc_data):
             urls[key]["expected_index"] = urls[key]["expected_index"] or expected_index
         except (ValueError, TypeError):
             return
-    add(SITE+"/","root_redirect_check",False)
+    add(SITE+"/","root_canonical_check",True)
     # The 2026-11-16 Google-selected canonical was the apex host.
     # Inspect both the Google indexed version and the live HTTP first hop.
     add(APEX+"/","apex_host_canonical_investigation",False)
