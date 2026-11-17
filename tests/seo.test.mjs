@@ -109,3 +109,26 @@ test('no internal link points at a duplicate directory-index URL', () => {
   }
   assert.deepEqual(offenders, []);
 });
+
+
+test('homepage intent and crawlable internal links survive the language migration', () => {
+  const nl=read('index.html');
+  const en=read('en/index.html');
+  const library=read('systems-library/index.html');
+  assert.match(nl, /<h1 class="hero-title">Marketing voor dienstverleners<\/h1>/);
+  for(const [path,html] of [['/',nl],['/en/',en]]) {
+    assert.ok(html.includes('href="/systems-library/"'), path + ' must link directly to Systems Library');
+    assert.ok(!html.includes('href="/work"'), path + ' still points at a redirect');
+    for(const url of ['/work/isoprotech.html','/work/reno-rangers.html']) {
+      assert.ok(html.includes('href="'+url+'"'), path + ' missing case link '+url);
+    }
+  }
+  for(const url of ['/work/isoprotech.html','/work/reno-rangers.html']) {
+    assert.ok(library.includes('href="'+url+'"'), 'Systems Library missing internal case link '+url);
+  }
+  assert.ok(library.includes('mailto:hello@watagencybelgium.be'), 'Library contact should use current domain');
+  assert.ok(!library.includes('hello@viktoriiamarketing.be'), 'Library still references obsolete email identity');
+  const ledger=JSON.parse(read('seo/change_ledger.json'));
+  assert.ok(ledger.entries.find(e=>e.id==='2026-11-17-pr29-nl-be-root-architecture'));
+  assert.ok(ledger.entries.find(e=>e.id==='2026-11-17-pr29-internal-case-discovery'));
+});
