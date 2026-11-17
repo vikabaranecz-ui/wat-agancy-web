@@ -177,6 +177,11 @@ def discover_url_inventory(gsc_data):
                 vals=row.get("keys") or []
                 if vals:
                     add(vals[0],"gsc_"+key)
+    # Search Analytics may still list the historical apex page while it now
+    # redirects to www. A redirected alias is not a target to index.
+    for item in urls.values():
+        if urlparse(item["url"]).hostname == "watagencybelgium.be":
+            item["expected_index"] = False
     return {"status":sitemap_status,"sitemap_url":SITE+"/sitemap.xml",
             "discovered_count":len(urls),"gsc_export_present":export.exists(),
             "gsc_export_new_urls":imported,"urls":list(urls.values())[:100],
@@ -233,10 +238,29 @@ def get_indexing_status(inventory=None):
                 "hint":"Verify GSC property, URL Inspection API and permission."}
 
 
+def collect_ads_for_mode(gsc_rows):
+    """Preserve Google Ads keyword-idea quota for the full weekly SEO agent.
+
+    Each deploy reruns GSC/indexing checks. Only an explicit workflow_dispatch
+    of the evidence job or the scheduled Claude job should perform all
+    seven Google Ads clusters. SKIPPED is not a claimed successful collection.
+    """
+    if os.getenv("WAT_SKIP_KEYWORD_PLANNER", "").strip() == "1":
+        return {
+            "status": "SKIPPED",
+            "reason": "Post-deploy site/indexing audit: quota reserved for weekly seven-cluster Keyword Planner research.",
+            "attempted_clusters": 0,
+            "successful_clusters": 0,
+            "datasets": {},
+            "clusters": {},
+        }
+    return collect_keyword_planner(gsc_rows)
+
+
 def main():
     gsc_data = get_gsc()
     gsc_rows = (gsc_data.get("current_queries") or {}).get("rows", []) if gsc_data.get("status") == "OK" else []
-    ads_data = collect_keyword_planner(gsc_rows)
+    ads_data = collect_ads_for_mode(gsc_rows)
     inventory = discover_url_inventory(gsc_data)
     result = {
         "site": SITE, "generated_at": datetime.now(timezone.utc).isoformat(),

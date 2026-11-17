@@ -49,6 +49,19 @@ class KeywordResearchTests(unittest.TestCase):
 
 
 class IndexingInventoryTests(unittest.TestCase):
+    @patch("wat_seo_weekly_collect.collect_keyword_planner")
+    def test_postdeploy_skips_ads_but_weekly_still_calls_planner(self,planner):
+        planner.return_value={"status":"OK","successful_clusters":7}
+        with patch.dict(os.environ,{"WAT_SKIP_KEYWORD_PLANNER":"1"}):
+            skipped=weekly.collect_ads_for_mode([])
+        self.assertEqual(skipped["status"],"SKIPPED")
+        self.assertEqual(skipped["attempted_clusters"],0)
+        planner.assert_not_called()
+        with patch.dict(os.environ,{"WAT_SKIP_KEYWORD_PLANNER":"0"}):
+            included=weekly.collect_ads_for_mode([])
+        self.assertEqual(included["status"],"OK")
+        planner.assert_called_once_with([])
+
     @patch("wat_seo_weekly_collect.session.get")
     def test_sitemap_and_historical_gsc_pages_discovered(self,get):
         response=MagicMock()
@@ -58,7 +71,8 @@ class IndexingInventoryTests(unittest.TestCase):
             </urlset>"""
         get.return_value=response
         gsc={"status":"OK","last90_pages":{"rows":[
-            {"keys":["https://www.watagencybelgium.be/old-service/"],"impressions":1}
+            {"keys":["https://www.watagencybelgium.be/old-service/"],"impressions":1},
+            {"keys":["https://watagencybelgium.be/"],"impressions":10}
         ]}}
         result=weekly.discover_url_inventory(gsc)
         urls=[x["url"] for x in result["urls"]]
