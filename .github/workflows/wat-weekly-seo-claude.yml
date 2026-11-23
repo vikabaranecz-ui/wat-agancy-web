@@ -1,6 +1,11 @@
 name: WAT Agency — Dedicated Weekly SEO Claude
 
 on:
+  # A change to this workflow also starts a recovery run immediately.
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/wat-weekly-seo-claude.yml"
   workflow_dispatch:
   schedule:
     - cron: "0 8 * * 1"
@@ -60,7 +65,9 @@ jobs:
             echo "skip=false" >> "$GITHUB_OUTPUT"
             exit 0
           fi
-          TODAY="$(TZ=Europe/Brussels date -d "monday this week" +%F)"
+          TODAY="$(TZ=Europe/Brussels date +%F)"
+          # Treat all Monday/Tuesday retries as the same reporting week.
+          TODAY="$(python3 -c 'from datetime import datetime,timedelta; from zoneinfo import ZoneInfo; d=datetime.now(ZoneInfo("Europe/Brussels")).date(); print(d-timedelta(days=d.weekday()))')"
           EXISTING="$(gh issue list --repo "$GITHUB_REPOSITORY" --search "SEO Weekly — ${TODAY} in:title" --json title --jq 'length' --limit 20)"
           if [ "$EXISTING" != "0" ]; then
             echo "skip=true" >> "$GITHUB_OUTPUT"
