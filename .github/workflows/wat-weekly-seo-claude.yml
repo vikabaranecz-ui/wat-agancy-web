@@ -5,6 +5,13 @@ on:
   schedule:
     - cron: "0 8 * * 1"
       timezone: "Europe/Brussels"
+    # GitHub scheduled events can be delayed or skipped. Redundant Monday
+    # and Tuesday triggers are idempotent: the existing weekly issue gate
+    # skips work already delivered on Monday.
+    - cron: "0 12 * * 1"
+      timezone: "Europe/Brussels"
+    - cron: "0 8 * * 2"
+      timezone: "Europe/Brussels"
 
 concurrency:
   group: wat-weekly-seo-claude
@@ -53,7 +60,7 @@ jobs:
             echo "skip=false" >> "$GITHUB_OUTPUT"
             exit 0
           fi
-          TODAY="$(TZ=Europe/Brussels date +%F)"
+          TODAY="$(TZ=Europe/Brussels date -d "monday this week" +%F)"
           EXISTING="$(gh issue list --repo "$GITHUB_REPOSITORY" --search "SEO Weekly — ${TODAY} in:title" --json title --jq 'length' --limit 20)"
           if [ "$EXISTING" != "0" ]; then
             echo "skip=true" >> "$GITHUB_OUTPUT"
@@ -282,16 +289,15 @@ jobs:
             gh issue create --repo "$GITHUB_REPOSITORY" --title "$TITLE" --body-file issue.md
           fi
 
-      - name: Send optional WAT-only Telegram status
-        continue-on-error: true
+      - name: Send WAT Telegram status (fail visibly if delivery unavailable)
         env:
-          WAT_TELEGRAM_BOT_TOKEN: ${{ secrets.WAT_TELEGRAM_BOT_TOKEN }}
-          WAT_TELEGRAM_CHAT_ID: ${{ secrets.WAT_TELEGRAM_CHAT_ID }}
+          WAT_TELEGRAM_BOT_TOKEN: ${{ secrets.WAT_TELEGRAM_BOT_TOKEN || secrets.TELEGRAM_BOT_TOKEN }}
+          WAT_TELEGRAM_CHAT_ID: ${{ secrets.WAT_TELEGRAM_CHAT_ID || secrets.TELEGRAM_CHAT_ID }}
         shell: bash
         run: |
           if [ -z "$WAT_TELEGRAM_BOT_TOKEN" ] || [ -z "$WAT_TELEGRAM_CHAT_ID" ]; then
-            echo "WAT Telegram not configured; no cross-project notification sent."
-            exit 0
+            echo "::error title=WAT Telegram delivery not configured::Set WAT_TELEGRAM_BOT_TOKEN and WAT_TELEGRAM_CHAT_ID (or shared TELEGRAM_BOT_TOKEN and TELEGRAM_CHAT_ID). The weekly report exists as a GitHub issue but Telegram was NOT sent."
+            exit 1
           fi
           TODAY="$(TZ=Europe/Brussels date +%F)"
           ISSUE_URL="$(gh issue list --repo "$GITHUB_REPOSITORY" --search "SEO Weekly — ${TODAY} in:title" --json url --jq '.[0].url // empty' --limit 20)"
@@ -300,5 +306,10 @@ jobs:
           import os, urllib.parse, urllib.request
           text = "WAT Agency — weekly SEO report\n" + (os.getenv("ISSUE_URL") or "Issue not available; check Actions log")
           data = urllib.parse.urlencode({"chat_id": os.environ["WAT_TELEGRAM_CHAT_ID"], "text": text}).encode()
-          urllib.request.urlopen("https://api.telegram.org/bot" + os.environ["WAT_TELEGRAM_BOT_TOKEN"] + "/sendMessage", data=data, timeout=15)
+          import json
+          with urllib.request.urlopen("https://api.telegram.org/bot" + os.environ["WAT_TELEGRAM_BOT_TOKEN"] + "/sendMessage", data=data, timeout=15) as response:
+              result = json.load(response)
+          if not result.get("ok") or not result.get("result", {}).get("message_id"):
+              raise RuntimeError("Telegram did not confirm message delivery")
+          print("Telegram accepted message:", result["result"]["message_id"])
           PY
