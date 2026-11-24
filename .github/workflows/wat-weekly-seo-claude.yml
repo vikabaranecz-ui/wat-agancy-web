@@ -1,11 +1,6 @@
 name: WAT Agency — Dedicated Weekly SEO Claude
 
 on:
-  # A change to this workflow also starts a recovery run immediately.
-  push:
-    branches: [main]
-    paths:
-      - ".github/workflows/wat-weekly-seo-claude.yml"
   workflow_dispatch:
   schedule:
     - cron: "0 8 * * 1"
@@ -68,7 +63,7 @@ jobs:
           TODAY="$(TZ=Europe/Brussels date +%F)"
           # Treat all Monday/Tuesday retries as the same reporting week.
           TODAY="$(python3 -c 'from datetime import datetime,timedelta; from zoneinfo import ZoneInfo; d=datetime.now(ZoneInfo("Europe/Brussels")).date(); print(d-timedelta(days=d.weekday()))')"
-          EXISTING="$(gh issue list --repo "$GITHUB_REPOSITORY" --search "SEO Weekly — ${TODAY} in:title" --json title --jq 'length' --limit 20)"
+          EXISTING="$(gh issue list --repo "$GITHUB_REPOSITORY" --search "SEO Weekly — ${TODAY} in:title" --json title --jq '[.[] | select(.title | contains("BLOCKED") | not)] | length' --limit 20)"
           if [ "$EXISTING" != "0" ]; then
             echo "skip=true" >> "$GITHUB_OUTPUT"
           else
@@ -296,27 +291,5 @@ jobs:
             gh issue create --repo "$GITHUB_REPOSITORY" --title "$TITLE" --body-file issue.md
           fi
 
-      - name: Send WAT Telegram status (fail visibly if delivery unavailable)
-        env:
-          WAT_TELEGRAM_BOT_TOKEN: ${{ secrets.WAT_TELEGRAM_BOT_TOKEN || secrets.TELEGRAM_BOT_TOKEN }}
-          WAT_TELEGRAM_CHAT_ID: ${{ secrets.WAT_TELEGRAM_CHAT_ID || secrets.TELEGRAM_CHAT_ID }}
-        shell: bash
-        run: |
-          if [ -z "$WAT_TELEGRAM_BOT_TOKEN" ] || [ -z "$WAT_TELEGRAM_CHAT_ID" ]; then
-            echo "::error title=WAT Telegram delivery not configured::Set WAT_TELEGRAM_BOT_TOKEN and WAT_TELEGRAM_CHAT_ID (or shared TELEGRAM_BOT_TOKEN and TELEGRAM_CHAT_ID). The weekly report exists as a GitHub issue but Telegram was NOT sent."
-            exit 1
-          fi
-          TODAY="$(TZ=Europe/Brussels date +%F)"
-          ISSUE_URL="$(gh issue list --repo "$GITHUB_REPOSITORY" --search "SEO Weekly — ${TODAY} in:title" --json url --jq '.[0].url // empty' --limit 20)"
-          export ISSUE_URL
-          python3 - <<'PY'
-          import os, urllib.parse, urllib.request
-          text = "WAT Agency — weekly SEO report\n" + (os.getenv("ISSUE_URL") or "Issue not available; check Actions log")
-          data = urllib.parse.urlencode({"chat_id": os.environ["WAT_TELEGRAM_CHAT_ID"], "text": text}).encode()
-          import json
-          with urllib.request.urlopen("https://api.telegram.org/bot" + os.environ["WAT_TELEGRAM_BOT_TOKEN"] + "/sendMessage", data=data, timeout=15) as response:
-              result = json.load(response)
-          if not result.get("ok") or not result.get("result", {}).get("message_id"):
-              raise RuntimeError("Telegram did not confirm message delivery")
-          print("Telegram accepted message:", result["result"]["message_id"])
-          PY
+      # WAT Telegram delivery is owned by the established ISOPROTECH bridge.
+      # Do not fail this report job because its own repo lacks duplicate bot secrets.
