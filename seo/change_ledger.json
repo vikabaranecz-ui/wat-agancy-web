@@ -90,6 +90,29 @@
       "expected_effect": "Internal navigation points directly at canonical Systems Library and case-study URLs; Google indexing remains discretionary.",
       "measure_on": "2026-12-15",
       "result": null
+    },
+    {
+      "id": "2026-11-24-sitemap-lastmod-systems-library",
+      "proposed_on": "2026-11-24",
+      "pr_url": null,
+      "status": "proposed",
+      "merged_on": null,
+      "url": [
+        "https://www.watagencybelgium.be/systems-library/"
+      ],
+      "queries": [],
+      "gap_type": "technical/indexation: inaccurate sitemap lastmod for a sitemap URL that Google reports as 'URL is unknown to Google'",
+      "evidence_source_and_window": "Authenticated WAT GSC URL Inspection collected 2026-11-24 (systems-library: URL is unknown to Google, no lastCrawlTime, no sitemap association); live workflow fetch 2026-11-24T18:31Z (HTTP 200 first hop, self-canonical, no robots meta); PR #29 diff (merge 9da9dcd) changed systems-library/index.html on 2026-11-17 while sitemap.xml kept lastmod 2026-11-08.",
+      "baseline": {
+        "systems_library_coverage": "URL is unknown to Google",
+        "last_crawl_time": null,
+        "gsc_impressions_28d": null,
+        "gsc_clicks_28d": null,
+        "note": "No GSC performance rows exist for this URL; impressions/position UNKNOWN, not zero."
+      },
+      "expected_effect": "Accurate lastmod so the sitemap signal matches the real 2026-11-17 content change. Does not guarantee crawling or indexing; owner should also resubmit the sitemap in GSC and request indexing for the live 200 canonical.",
+      "measure_on": "2026-12-22",
+      "result": null
     }
   ]
 }
