@@ -1,0 +1,10 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {readFileSync,existsSync} from 'node:fs';
+import {join} from 'node:path';
+const root=process.cwd();const read=p=>readFileSync(join(root,p),'utf8');
+test('WAT starter set contains exactly eight original concepts',()=>{const source=read('app/page.tsx');const ids=[...source.matchAll(/id:'w\d\d'/g)];assert.equal(ids.length,8);assert.match(source,/Klantproblemen/);assert.match(source,/Educatie/);assert.match(source,/WAT-aanpak/)});
+test('exports the approved 4:5 aspect ratio, not a distorted screenshot',()=>{const source=read('app/page.tsx');assert.match(source,/canvas\.width=1080/);assert.match(source,/canvas\.height=1350/)});
+test('no network publishing is exposed without server-side approval',()=>{assert.match(read('app/api/publish/route.ts'),/Publishing disabled/);assert.match(read('app/api/ideas/route.ts'),/authorize\(req\)/)});
+test('server secrets are not checked in',()=>{const env=read('.env.example');assert.doesNotMatch(env,/OPENAI_API_KEY=\S+/);assert.doesNotMatch(env,/BUFFER_API_KEY=\S+/)});
+test('core files required by Next.js exist',()=>{for(const path of ['app/page.tsx','app/layout.tsx','app/globals.css','package.json','tsconfig.json'])assert.ok(existsSync(join(root,path)),path)});
